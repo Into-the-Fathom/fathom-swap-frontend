@@ -1,0 +1,7 @@
+{
+  "name": "@fathomswap/tokens",
+  "license": "MIT",
+  "version": "0.0.1",
+  "description": "Tokens for fathomswap",
+  "main": "src/index.ts"
+}
