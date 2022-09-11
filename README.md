@@ -1,34 +1,69 @@
-# Fathom Swap Frontend
+# FathomSwap Interface
 
-This project currently is the fork of [PancakeSwap](https://github.com/pancakeswap/pancake-frontend).
+This project is currently clone of [Uniswap Interface v3.2.20](https://github.com/Uniswap/interface/tree/v3.2.20).
 
-This project contains the main features of the Fathom Swap application.
+[![Unit Tests](https://github.com/FathomSwap/fathomswap-interface/actions/workflows/unit-tests.yaml/badge.svg)](https://github.com/FathomSwap/fathomswap-interface/actions/workflows/unit-tests.yaml)
+[![Integration Tests](https://github.com/FathomSwap/fathomswap-interface/actions/workflows/integration-tests.yaml/badge.svg)](https://github.com/FathomSwap/fathomswap-interface/actions/workflows/integration-tests.yaml)
+[![Lint](https://github.com/FathomSwap/fathomswap-interface/actions/workflows/lint.yml/badge.svg)](https://github.com/FathomSwap/fathomswap-interface/actions/workflows/lint.yml)
+[![Release](https://github.com/FathomSwap/fathomswap-interface/actions/workflows/release.yaml/badge.svg)](https://github.com/FathomSwap/fathomswap-interface/actions/workflows/release.yaml)
 
-If you want to contribute, please refer to the [contributing guidelines](./CONTRIBUTING.md) of this project.
+An open source interface for FathomSwap -- a protocol for decentralized exchange of Ethereum tokens.
 
-## Documentation
+- Website: [fathomswap.org](https://fathomswap.org/)
+- Interface: [app.fathomswap.org](https://app.fathomswap.org)
+- Docs: [fathomswap.org/docs/](https://fathomswap.org/docs/)
+- Twitter: [@FathomSwapProtocol](https://twitter.com/FathomSwapProtocol)
+- Reddit: [/r/FathomSwap](https://www.reddit.com/r/FathomSwap/)
+- Email: [contact@fathomswap.org](mailto:contact@fathomswap.org)
+- Discord: [FathomSwap](https://discord.gg/FCfyBSbCU5)
+- Whitepaper: [Link](https://hackmd.io/C-DvwDSfSxuh-Gd4WKE_ig)
 
-- [Info](doc/Info.md)
-- [Cypress tests](doc/Cypress.md)
+## Accessing the FathomSwap Interface
 
+To access the FathomSwap Interface, use an IPFS gateway link from the
+[latest release](https://github.com/FathomSwap/fathomswap-interface/releases/latest), 
+or visit [app.fathomswap.org](https://app.fathomswap.org).
 
-## Quick Start
+## Listing a token
 
-install dependencies using **yarn**
+Please see the
+[@fathomswap/default-token-list](https://github.com/fathomswap/default-token-list) 
+repository.
 
-```sh
+## Development
+
+### Install Dependencies
+
+```bash
 yarn
 ```
 
-start the development server
-```sh
-yarn dev
-```
+### Run
 
-build with production mode
-```sh
-yarn build
-
-# start the application after build
+```bash
 yarn start
 ```
+
+### Configuring the environment (optional)
+
+To have the interface default to a different network when a wallet is not connected:
+
+1. Make a copy of `.env` named `.env.local`
+2. Change `REACT_APP_NETWORK_ID` to `"{YOUR_NETWORK_ID}"`
+3. Change `REACT_APP_NETWORK_URL` to e.g. `"https://{YOUR_NETWORK_ID}.infura.io/v3/{YOUR_INFURA_KEY}"` 
+
+Note that the interface only works on testnets where both 
+[FathomSwap V2](https://fathomswap.org/docs/v2/smart-contracts/factory/) and 
+[multicall](https://github.com/makerdao/multicall) are deployed.
+The interface will not work on other networks.
+
+## Contributions
+
+**Please open all pull requests against the `main` branch.** 
+CI checks will run against all PRs.
+
+## Accessing FathomSwap Interface V1
+
+The FathomSwap Interface supports swapping against, and migrating or removing liquidity from FathomSwap V1. However,
+if you would like to use FathomSwap V1, the FathomSwap V1 interface for mainnet and testnets is accessible via IPFS gateways 
+linked from the [v1.0.0 release](https://github.com/FathomSwap/fathomswap-interface/releases/tag/v1.0.0).

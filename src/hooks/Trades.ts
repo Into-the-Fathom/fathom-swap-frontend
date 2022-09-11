@@ -1,23 +1,22 @@
-/* eslint-disable no-param-reassign */
 import { isTradeBetter } from 'utils/trades'
-import { Currency, CurrencyAmount, Pair, Token, Trade, TradeType } from '@fathomswap/sdk'
-import flatMap from 'lodash/flatMap'
+import { Currency, CurrencyAmount, Pair, Token, Trade } from '@fathomswap/sdk'
+import flatMap from 'lodash.flatmap'
 import { useMemo } from 'react'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
 
-import { useUserSingleHopOnly } from 'state/user/hooks'
 import {
   BASES_TO_CHECK_TRADES_AGAINST,
   CUSTOM_BASES,
   BETTER_TRADE_LESS_HOPS_THRESHOLD,
-  ADDITIONAL_BASES,
-} from 'config/constants/exchange'
-import { PairState, usePairs } from './usePairs'
+  ADDITIONAL_BASES
+} from '../constants'
+import { PairState, usePairs } from '../data/Reserves'
 import { wrappedCurrency } from '../utils/wrappedCurrency'
 
-import { useUnsupportedTokens, useWarningTokens } from './Tokens'
+import { useActiveWeb3React } from './index'
+import { useUnsupportedTokens } from './Tokens'
+import { useUserSingleHopOnly } from 'state/user/hooks'
 
-export function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): Pair[] {
+function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): Pair[] {
   const { chainId } = useActiveWeb3React()
 
   const [tokenA, tokenB] = chainId
@@ -35,8 +34,8 @@ export function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): P
   }, [chainId, tokenA, tokenB])
 
   const basePairs: [Token, Token][] = useMemo(
-    () => flatMap(bases, (base): [Token, Token][] => bases.map((otherBase) => [base, otherBase])),
-    [bases],
+    () => flatMap(bases, (base): [Token, Token][] => bases.map(otherBase => [base, otherBase])),
+    [bases]
   )
 
   const allPairCombinations: [Token, Token][] = useMemo(
@@ -50,26 +49,26 @@ export function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): P
             // token B against all bases
             ...bases.map((base): [Token, Token] => [tokenB, base]),
             // each base against all bases
-            ...basePairs,
+            ...basePairs
           ]
             .filter((tokens): tokens is [Token, Token] => Boolean(tokens[0] && tokens[1]))
             .filter(([t0, t1]) => t0.address !== t1.address)
-            .filter(([tokenA_, tokenB_]) => {
+            .filter(([tokenA, tokenB]) => {
               if (!chainId) return true
               const customBases = CUSTOM_BASES[chainId]
 
-              const customBasesA: Token[] | undefined = customBases?.[tokenA_.address]
-              const customBasesB: Token[] | undefined = customBases?.[tokenB_.address]
+              const customBasesA: Token[] | undefined = customBases?.[tokenA.address]
+              const customBasesB: Token[] | undefined = customBases?.[tokenB.address]
 
               if (!customBasesA && !customBasesB) return true
 
-              if (customBasesA && !customBasesA.find((base) => tokenB_.equals(base))) return false
-              if (customBasesB && !customBasesB.find((base) => tokenA_.equals(base))) return false
+              if (customBasesA && !customBasesA.find(base => tokenB.equals(base))) return false
+              if (customBasesB && !customBasesB.find(base => tokenA.equals(base))) return false
 
               return true
             })
         : [],
-    [tokenA, tokenB, bases, basePairs, chainId],
+    [tokenA, tokenB, bases, basePairs, chainId]
   )
 
   const allPairs = usePairs(allPairCombinations)
@@ -85,9 +84,9 @@ export function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): P
           .reduce<{ [pairAddress: string]: Pair }>((memo, [, curr]) => {
             memo[curr.liquidityToken.address] = memo[curr.liquidityToken.address] ?? curr
             return memo
-          }, {}),
+          }, {})
       ),
-    [allPairs],
+    [allPairs]
   )
 }
 
@@ -96,10 +95,7 @@ const MAX_HOPS = 3
 /**
  * Returns the best trade for the exact amount of tokens in to the given token out
  */
-export function useTradeExactIn(
-  currencyAmountIn?: CurrencyAmount<Currency>,
-  currencyOut?: Currency,
-): Trade<Currency, Currency, TradeType> | null {
+export function useTradeExactIn(currencyAmountIn?: CurrencyAmount, currencyOut?: Currency): Trade | null {
   const allowedPairs = useAllCommonPairs(currencyAmountIn?.currency, currencyOut)
 
   const [singleHopOnly] = useUserSingleHopOnly()
@@ -113,9 +109,9 @@ export function useTradeExactIn(
         )
       }
       // search through trades with varying hops, find best trade out of them
-      let bestTradeSoFar: Trade<Currency, Currency, TradeType> | null = null
+      let bestTradeSoFar: Trade | null = null
       for (let i = 1; i <= MAX_HOPS; i++) {
-        const currentTrade: Trade<Currency, Currency, TradeType> | null =
+        const currentTrade: Trade | null =
           Trade.bestTradeExactIn(allowedPairs, currencyAmountIn, currencyOut, { maxHops: i, maxNumResults: 1 })[0] ??
           null
         // if current trade is best yet, save it
@@ -133,10 +129,7 @@ export function useTradeExactIn(
 /**
  * Returns the best trade for the token in to the exact amount of token out
  */
-export function useTradeExactOut(
-  currencyIn?: Currency,
-  currencyAmountOut?: CurrencyAmount<Currency>,
-): Trade<Currency, Currency, TradeType> | null {
+export function useTradeExactOut(currencyIn?: Currency, currencyAmountOut?: CurrencyAmount): Trade | null {
   const allowedPairs = useAllCommonPairs(currencyIn, currencyAmountOut?.currency)
 
   const [singleHopOnly] = useUserSingleHopOnly()
@@ -150,7 +143,7 @@ export function useTradeExactOut(
         )
       }
       // search through trades with varying hops, find best trade out of them
-      let bestTradeSoFar: Trade<Currency, Currency, TradeType> | null = null
+      let bestTradeSoFar: Trade | null = null
       for (let i = 1; i <= MAX_HOPS; i++) {
         const currentTrade =
           Trade.bestTradeExactOut(allowedPairs, currencyIn, currencyAmountOut, { maxHops: i, maxNumResults: 1 })[0] ??
@@ -167,26 +160,6 @@ export function useTradeExactOut(
 
 export function useIsTransactionUnsupported(currencyIn?: Currency, currencyOut?: Currency): boolean {
   const unsupportedTokens: { [address: string]: Token } = useUnsupportedTokens()
-  const { chainId } = useActiveWeb3React()
-
-  const tokenIn = wrappedCurrency(currencyIn, chainId)
-  const tokenOut = wrappedCurrency(currencyOut, chainId)
-
-  // if unsupported list loaded & either token on list, mark as unsupported
-  if (unsupportedTokens) {
-    if (tokenIn && Object.keys(unsupportedTokens).includes(tokenIn.address)) {
-      return true
-    }
-    if (tokenOut && Object.keys(unsupportedTokens).includes(tokenOut.address)) {
-      return true
-    }
-  }
-
-  return false
-}
-
-export function useIsTransactionWarning(currencyIn?: Currency, currencyOut?: Currency): boolean {
-  const unsupportedTokens: { [address: string]: Token } = useWarningTokens()
   const { chainId } = useActiveWeb3React()
 
   const tokenIn = wrappedCurrency(currencyIn, chainId)

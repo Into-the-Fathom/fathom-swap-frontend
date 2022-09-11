@@ -1,55 +1,25 @@
-import { useEffect, useRef, useState, useCallback } from 'react'
-import { useLastUpdated } from '@fathomswap/hooks'
-import isUndefinedOrNull from '@fathomswap/utils/isUndefinedOrNull'
+import { useEffect, useRef } from 'react'
 
-export default function useInterval(
-  callback: () => void,
-  delay: undefined | null | number,
-  leading = true,
-  initiateUpdate = true,
-) {
-  const [runImmediate, setRunImmediate] = useState(leading)
-  const [runAfter, setRunAfter] = useState(delay)
-  const savedCallback = useRef<() => void>(callback)
-  const [isReadyForUpdate, setIsReadyForUpdate] = useState(false)
-  const { lastUpdated, setLastUpdated: refresh } = useLastUpdated()
-
-  // Use props indirectly to not render set up timeout effect twice if both props changed.
-  useEffect(() => {
-    setRunImmediate(leading)
-    setRunAfter(delay)
-  }, [leading, delay])
-
-  const tick = useCallback(() => {
-    setIsReadyForUpdate(true)
-  }, [])
+export default function useInterval(callback: () => void, delay: null | number, leading = true) {
+  const savedCallback = useRef<() => void>()
 
   // Remember the latest callback.
   useEffect(() => {
     savedCallback.current = callback
   }, [callback])
 
+  // Set up the interval.
   useEffect(() => {
-    if (initiateUpdate && isReadyForUpdate) {
-      savedCallback.current?.()
-      setIsReadyForUpdate(false)
-      setRunImmediate(false)
-      refresh()
+    function tick() {
+      const current = savedCallback.current
+      current && current()
     }
-  }, [initiateUpdate, isReadyForUpdate, refresh])
 
-  // Set up the timeout.
-  useEffect(() => {
-    if (!isUndefinedOrNull(runAfter)) {
-      if (runImmediate) tick()
-      else {
-        const id = setTimeout(tick, runAfter)
-        return () => {
-          setIsReadyForUpdate(false)
-          clearTimeout(id)
-        }
-      }
+    if (delay !== null) {
+      if (leading) tick()
+      const id = setInterval(tick, delay)
+      return () => clearInterval(id)
     }
-    return () => setIsReadyForUpdate(false)
-  }, [runAfter, runImmediate, lastUpdated, tick])
+    return undefined
+  }, [delay, leading])
 }
