@@ -1,40 +1,39 @@
-import { CSSProperties } from 'react'
-import { Token } from '@fathomswap/sdk'
-import { Button, Text, CheckmarkCircleIcon, useMatchBreakpoints } from '@fathomswap/uikit'
-import { AutoRow, RowFixed } from 'components/Layout/Row'
-import { AutoColumn } from 'components/Layout/Column'
-import CurrencyLogo from 'components/Logo/CurrencyLogo'
-import { ListLogo } from 'components/Logo'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
+import React, { CSSProperties } from 'react'
+import { Token } from '@uniswap/sdk'
+import { AutoRow, RowFixed } from 'components/Row'
+import { AutoColumn } from 'components/Column'
+import CurrencyLogo from 'components/CurrencyLogo'
+import { TYPE } from 'theme'
+import ListLogo from 'components/ListLogo'
+import { useActiveWeb3React } from 'hooks'
 import { useCombinedInactiveList } from 'state/lists/hooks'
+import useTheme from 'hooks/useTheme'
+import { ButtonPrimary } from 'components/Button'
 import styled from 'styled-components'
 import { useIsUserAddedToken, useIsTokenActive } from 'hooks/Tokens'
-import { useTranslation } from '@fathomswap/localization'
+import { CheckCircle } from 'react-feather'
 
 const TokenSection = styled.div<{ dim?: boolean }>`
   padding: 4px 20px;
   height: 56px;
   display: grid;
   grid-template-columns: auto minmax(auto, 1fr) auto;
-  grid-gap: 10px;
+  grid-gap: 16px;
   align-items: center;
 
   opacity: ${({ dim }) => (dim ? '0.4' : '1')};
-
-  ${({ theme }) => theme.mediaQueries.md} {
-    grid-gap: 16px;
-  }
 `
 
-const CheckIcon = styled(CheckmarkCircleIcon)`
+const CheckIcon = styled(CheckCircle)`
   height: 16px;
   width: 16px;
   margin-right: 6px;
-  stroke: ${({ theme }) => theme.colors.success};
+  stroke: ${({ theme }) => theme.green1};
 `
 
 const NameOverflow = styled.div`
   white-space: nowrap;
+  text-overflow: ellipsis;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 140px;
@@ -46,7 +45,7 @@ export default function ImportRow({
   style,
   dim,
   showImportView,
-  setImportToken,
+  setImportToken
 }: {
   token: Token
   style?: CSSProperties
@@ -54,11 +53,9 @@ export default function ImportRow({
   showImportView: () => void
   setImportToken: (token: Token) => void
 }) {
-  // globals
+  // gloabls
   const { chainId } = useActiveWeb3React()
-  const { isMobile } = useMatchBreakpoints()
-
-  const { t } = useTranslation()
+  const theme = useTheme()
 
   // check if token comes from list
   const inactiveTokenList = useCombinedInactiveList()
@@ -70,40 +67,40 @@ export default function ImportRow({
 
   return (
     <TokenSection style={style}>
-      <CurrencyLogo currency={token} size={isMobile ? '20px' : '24px'} style={{ opacity: dim ? '0.6' : '1' }} />
+      <CurrencyLogo currency={token} size={'24px'} style={{ opacity: dim ? '0.6' : '1' }} />
       <AutoColumn gap="4px" style={{ opacity: dim ? '0.6' : '1' }}>
         <AutoRow>
-          <Text mr="8px">{token.symbol}</Text>
-          <Text color="textDisabled">
+          <TYPE.body fontWeight={500}>{token.symbol}</TYPE.body>
+          <TYPE.darkGray ml="8px" fontWeight={300}>
             <NameOverflow title={token.name}>{token.name}</NameOverflow>
-          </Text>
+          </TYPE.darkGray>
         </AutoRow>
         {list && list.logoURI && (
           <RowFixed>
-            <Text fontSize={isMobile ? '10px' : '14px'} mr="4px" color="textSubtle">
-              {t('via')} {list.name}
-            </Text>
+            <TYPE.small mr="4px" color={theme.text3}>
+              via {list.name}
+            </TYPE.small>
             <ListLogo logoURI={list.logoURI} size="12px" />
           </RowFixed>
         )}
       </AutoColumn>
       {!isActive && !isAdded ? (
-        <Button
-          scale={isMobile ? 'sm' : 'md'}
+        <ButtonPrimary
           width="fit-content"
+          padding="6px 12px"
+          fontWeight={500}
+          fontSize="14px"
           onClick={() => {
-            if (setImportToken) {
-              setImportToken(token)
-            }
+            setImportToken && setImportToken(token)
             showImportView()
           }}
         >
-          {t('Import')}
-        </Button>
+          Import
+        </ButtonPrimary>
       ) : (
         <RowFixed style={{ minWidth: 'fit-content' }}>
           <CheckIcon />
-          <Text color="success">Active</Text>
+          <TYPE.main color={theme.green1}>Active</TYPE.main>
         </RowFixed>
       )}
     </TokenSection>

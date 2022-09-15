@@ -1,15 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import {
-  Field,
-  replaceSwapState,
-  selectCurrency,
-  setRecipient,
-  switchCurrencies,
-  typeInput,
-  updateDerivedPairData,
-  updatePairData,
-} from './actions'
-import { DerivedPairDataNormalized, PairDataNormalized } from './types'
+import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
 
 export interface SwapState {
   readonly independentField: Field
@@ -20,45 +10,39 @@ export interface SwapState {
   readonly [Field.OUTPUT]: {
     readonly currencyId: string | undefined
   }
-  // the typed recipient address, or null if swap should go to sender
+  // the typed recipient address or ENS name, or null if swap should go to sender
   readonly recipient: string | null
-  readonly pairDataById: Record<number, Record<string, PairDataNormalized>> | null
-  readonly derivedPairDataById: Record<number, Record<string, DerivedPairDataNormalized>> | null
 }
 
 const initialState: SwapState = {
   independentField: Field.INPUT,
   typedValue: '',
   [Field.INPUT]: {
-    currencyId: '',
+    currencyId: ''
   },
   [Field.OUTPUT]: {
-    currencyId: '',
+    currencyId: ''
   },
-  pairDataById: {},
-  derivedPairDataById: {},
-  recipient: null,
+  recipient: null
 }
 
-export default createReducer<SwapState>(initialState, (builder) =>
+export default createReducer<SwapState>(initialState, builder =>
   builder
     .addCase(
       replaceSwapState,
       (state, { payload: { typedValue, recipient, field, inputCurrencyId, outputCurrencyId } }) => {
         return {
           [Field.INPUT]: {
-            currencyId: inputCurrencyId,
+            currencyId: inputCurrencyId
           },
           [Field.OUTPUT]: {
-            currencyId: outputCurrencyId,
+            currencyId: outputCurrencyId
           },
           independentField: field,
-          typedValue,
-          recipient,
-          pairDataById: state.pairDataById,
-          derivedPairDataById: state.derivedPairDataById,
+          typedValue: typedValue,
+          recipient
         }
-      },
+      }
     )
     .addCase(selectCurrency, (state, { payload: { currencyId, field } }) => {
       const otherField = field === Field.INPUT ? Field.OUTPUT : Field.INPUT
@@ -67,44 +51,33 @@ export default createReducer<SwapState>(initialState, (builder) =>
         return {
           ...state,
           independentField: state.independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT,
-          [field]: { currencyId },
-          [otherField]: { currencyId: state[field].currencyId },
+          [field]: { currencyId: currencyId },
+          [otherField]: { currencyId: state[field].currencyId }
+        }
+      } else {
+        // the normal case
+        return {
+          ...state,
+          [field]: { currencyId: currencyId }
         }
       }
-      // the normal case
-      return {
-        ...state,
-        [field]: { currencyId },
-      }
     })
-    .addCase(switchCurrencies, (state) => {
+    .addCase(switchCurrencies, state => {
       return {
         ...state,
         independentField: state.independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT,
         [Field.INPUT]: { currencyId: state[Field.OUTPUT].currencyId },
-        [Field.OUTPUT]: { currencyId: state[Field.INPUT].currencyId },
+        [Field.OUTPUT]: { currencyId: state[Field.INPUT].currencyId }
       }
     })
     .addCase(typeInput, (state, { payload: { field, typedValue } }) => {
       return {
         ...state,
         independentField: field,
-        typedValue,
+        typedValue
       }
     })
     .addCase(setRecipient, (state, { payload: { recipient } }) => {
       state.recipient = recipient
     })
-    .addCase(updatePairData, (state, { payload: { pairData, pairId, timeWindow } }) => {
-      if (!state.pairDataById[pairId]) {
-        state.pairDataById[pairId] = {}
-      }
-      state.pairDataById[pairId][timeWindow] = pairData
-    })
-    .addCase(updateDerivedPairData, (state, { payload: { pairData, pairId, timeWindow } }) => {
-      if (!state.derivedPairDataById[pairId]) {
-        state.derivedPairDataById[pairId] = {}
-      }
-      state.derivedPairDataById[pairId][timeWindow] = pairData
-    }),
 )

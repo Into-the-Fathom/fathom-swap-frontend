@@ -1,38 +1,51 @@
 import { nanoid } from '@reduxjs/toolkit'
+import { ChainId } from '@uniswap/sdk'
 import { TokenList } from '@uniswap/token-lists'
 import { useCallback } from 'react'
-import { useListState } from 'state/lists/lists'
+import { useDispatch } from 'react-redux'
+import { getNetworkLibrary, NETWORK_CHAIN_ID } from '../connectors'
+import { AppDispatch } from '../state'
 import { fetchTokenList } from '../state/lists/actions'
+import getTokenList from '../utils/getTokenList'
+import resolveENSContentHash from '../utils/resolveENSContentHash'
+import { useActiveWeb3React } from './index'
 
-function useFetchListCallback(): (listUrl: string, sendDispatch?: boolean) => Promise<TokenList> {
-  const [, dispatch] = useListState()
+export function useFetchListCallback(): (listUrl: string, sendDispatch?: boolean) => Promise<TokenList> {
+  const { chainId, library } = useActiveWeb3React()
+  const dispatch = useDispatch<AppDispatch>()
+
+  const ensResolver = useCallback(
+    (ensName: string) => {
+      if (!library || chainId !== ChainId.MAINNET) {
+        if (NETWORK_CHAIN_ID === ChainId.MAINNET) {
+          const networkLibrary = getNetworkLibrary()
+          if (networkLibrary) {
+            return resolveENSContentHash(ensName, networkLibrary)
+          }
+        }
+        throw new Error('Could not construct mainnet ENS resolver')
+      }
+      return resolveENSContentHash(ensName, library)
+    },
+    [chainId, library]
+  )
 
   // note: prevent dispatch if using for list search or unsupported list
   return useCallback(
     async (listUrl: string, sendDispatch = true) => {
       const requestId = nanoid()
-      if (sendDispatch) {
-        dispatch(fetchTokenList.pending({ requestId, url: listUrl }))
-      }
-      // lazy load avj and token list schema
-      const getTokenList = (await import('../utils/getTokenList')).default
-      return getTokenList(listUrl)
-        .then((tokenList) => {
-          if (sendDispatch) {
-            dispatch(fetchTokenList.fulfilled({ url: listUrl, tokenList, requestId }))
-          }
+      sendDispatch && dispatch(fetchTokenList.pending({ requestId, url: listUrl }))
+      return getTokenList(listUrl, ensResolver)
+        .then(tokenList => {
+          sendDispatch && dispatch(fetchTokenList.fulfilled({ url: listUrl, tokenList, requestId }))
           return tokenList
         })
-        .catch((error) => {
-          console.error(`Failed to get list at url ${listUrl}`, error)
-          if (sendDispatch) {
-            dispatch(fetchTokenList.rejected({ url: listUrl, requestId, errorMessage: error.message }))
-          }
+        .catch(error => {
+          console.debug(`Failed to get list at url ${listUrl}`, error)
+          sendDispatch && dispatch(fetchTokenList.rejected({ url: listUrl, requestId, errorMessage: error.message }))
           throw error
         })
     },
-    [dispatch],
+    [dispatch, ensResolver]
   )
 }
-
-export default useFetchListCallback

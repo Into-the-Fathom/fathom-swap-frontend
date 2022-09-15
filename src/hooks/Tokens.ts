@@ -1,89 +1,83 @@
-/* eslint-disable no-param-reassign */
-import { arrayify } from '@ethersproject/bytes'
+import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
 import { parseBytes32String } from '@ethersproject/strings'
-import { Currency, Token } from '@fathomswap/sdk'
-import { TokenAddressMap } from '@fathomswap/tokens'
-import { GELATO_NATIVE } from 'config/constants'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useAtomValue } from 'jotai'
+import { Currency, ETHER, Token, currencyEquals } from '@uniswap/sdk'
 import { useMemo } from 'react'
-import { useSelector } from 'react-redux'
-import {
-  combinedTokenMapFromActiveUrlsAtom,
-  combinedTokenMapFromOfficialsUrlsAtom,
-  useUnsupportedTokenList,
-  useWarningTokenList,
-} from '../state/lists/hooks'
+import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
-import useUserAddedTokens, { userAddedTokenSelector } from '../state/user/hooks/useUserAddedTokens'
+import { useUserAddedTokens } from '../state/user/hooks'
 import { isAddress } from '../utils'
+
+import { useActiveWeb3React } from './index'
 import { useBytes32TokenContract, useTokenContract } from './useContract'
-import useNativeCurrency from './useNativeCurrency'
+import { filterTokens } from '../components/SearchModal/filtering'
+import { arrayify } from 'ethers/lib/utils'
 
-const mapWithoutUrls = (tokenMap: TokenAddressMap, chainId: number) =>
-  Object.keys(tokenMap[chainId] || {}).reduce<{ [address: string]: Token }>((newMap, address) => {
-    newMap[address] = tokenMap[chainId][address].token
-    return newMap
-  }, {})
-
-/**
- * Returns all tokens that are from active urls and user added tokens
- */
-export function useAllTokens(): { [address: string]: Token } {
+// reduce token map into standard address <-> Token mapping, optionally include user added tokens
+function useTokensFromMap(tokenMap: TokenAddressMap, includeUserAdded: boolean): { [address: string]: Token } {
   const { chainId } = useActiveWeb3React()
-  const tokenMap = useAtomValue(combinedTokenMapFromActiveUrlsAtom)
-  const userAddedTokens = useSelector(userAddedTokenSelector(chainId))
+  const userAddedTokens = useUserAddedTokens()
+
   return useMemo(() => {
-    return (
-      userAddedTokens
-        // reduce into all ALL_TOKENS filtered by the current chain
-        .reduce<{ [address: string]: Token }>(
-          (tokenMap_, token) => {
-            tokenMap_[token.address] = token
-            return tokenMap_
-          },
-          // must make a copy because reduce modifies the map, and we do not
-          // want to make a copy in every iteration
-          mapWithoutUrls(tokenMap, chainId),
-        )
-    )
-  }, [userAddedTokens, tokenMap, chainId])
+    if (!chainId) return {}
+
+    // reduce to just tokens
+    const mapWithoutUrls = Object.keys(tokenMap[chainId]).reduce<{ [address: string]: Token }>((newMap, address) => {
+      newMap[address] = tokenMap[chainId][address].token
+      return newMap
+    }, {})
+
+    if (includeUserAdded) {
+      return (
+        userAddedTokens
+          // reduce into all ALL_TOKENS filtered by the current chain
+          .reduce<{ [address: string]: Token }>(
+            (tokenMap, token) => {
+              tokenMap[token.address] = token
+              return tokenMap
+            },
+            // must make a copy because reduce modifies the map, and we do not
+            // want to make a copy in every iteration
+            { ...mapWithoutUrls }
+          )
+      )
+    }
+
+    return mapWithoutUrls
+  }, [chainId, userAddedTokens, tokenMap, includeUserAdded])
 }
 
-/**
- * Returns all tokens that are from officials token list and user added tokens
- */
-export function useOfficialsAndUserAddedTokens(): { [address: string]: Token } {
-  const { chainId } = useActiveWeb3React()
-  const tokenMap = useAtomValue(combinedTokenMapFromOfficialsUrlsAtom)
-  const userAddedTokens = useSelector(userAddedTokenSelector(chainId))
-  return useMemo(() => {
-    return (
-      userAddedTokens
-        // reduce into all ALL_TOKENS filtered by the current chain
-        .reduce<{ [address: string]: Token }>(
-          (tokenMap_, token) => {
-            tokenMap_[token.address] = token
-            return tokenMap_
-          },
-          // must make a copy because reduce modifies the map, and we do not
-          // want to make a copy in every iteration
-          mapWithoutUrls(tokenMap, chainId),
-        )
-    )
-  }, [userAddedTokens, tokenMap, chainId])
+export function useDefaultTokens(): { [address: string]: Token } {
+  const defaultList = useDefaultTokenList()
+  return useTokensFromMap(defaultList, false)
+}
+
+export function useAllTokens(): { [address: string]: Token } {
+  const allTokens = useCombinedActiveList()
+  return useTokensFromMap(allTokens, true)
+}
+
+export function useAllInactiveTokens(): { [address: string]: Token } {
+  // get inactive tokens
+  const inactiveTokensMap = useCombinedInactiveList()
+  const inactiveTokens = useTokensFromMap(inactiveTokensMap, false)
+
+  // filter out any token that are on active list
+  const activeTokensAddresses = Object.keys(useAllTokens())
+  const filteredInactive = activeTokensAddresses
+    ? Object.keys(inactiveTokens).reduce<{ [address: string]: Token }>((newMap, address) => {
+        if (!activeTokensAddresses.includes(address)) {
+          newMap[address] = inactiveTokens[address]
+        }
+        return newMap
+      }, {})
+    : inactiveTokens
+
+  return filteredInactive
 }
 
 export function useUnsupportedTokens(): { [address: string]: Token } {
-  const { chainId } = useActiveWeb3React()
   const unsupportedTokensMap = useUnsupportedTokenList()
-  return useMemo(() => mapWithoutUrls(unsupportedTokensMap, chainId), [unsupportedTokensMap, chainId])
-}
-
-export function useWarningTokens(): { [address: string]: Token } {
-  const warningTokensMap = useWarningTokenList()
-  const { chainId } = useActiveWeb3React()
-  return useMemo(() => mapWithoutUrls(warningTokensMap, chainId), [warningTokensMap, chainId])
+  return useTokensFromMap(unsupportedTokensMap, false)
 }
 
 export function useIsTokenActive(token: Token | undefined | null): boolean {
@@ -96,6 +90,21 @@ export function useIsTokenActive(token: Token | undefined | null): boolean {
   return !!activeTokens[token.address]
 }
 
+// used to detect extra search results
+export function useFoundOnInactiveList(searchQuery: string): Token[] | undefined {
+  const { chainId } = useActiveWeb3React()
+  const inactiveTokens = useAllInactiveTokens()
+
+  return useMemo(() => {
+    if (!chainId || searchQuery === '') {
+      return undefined
+    } else {
+      const tokens = filterTokens(Object.values(inactiveTokens), searchQuery)
+      return tokens
+    }
+  }, [chainId, inactiveTokens, searchQuery])
+}
+
 // Check if currency is included in custom list from user storage
 export function useIsUserAddedToken(currency: Currency | undefined | null): boolean {
   const userAddedTokens = useUserAddedTokens()
@@ -104,7 +113,7 @@ export function useIsUserAddedToken(currency: Currency | undefined | null): bool
     return false
   }
 
-  return !!userAddedTokens.find((token) => currency?.equals(token))
+  return !!userAddedTokens.find(token => currencyEquals(currency, token))
 }
 
 // parse a name or symbol from a token response
@@ -128,8 +137,8 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
 
   const address = isAddress(tokenAddress)
 
-  const tokenContract = useTokenContract(address || undefined, false)
-  const tokenContractBytes32 = useBytes32TokenContract(address || undefined, false)
+  const tokenContract = useTokenContract(address ? address : undefined, false)
+  const tokenContractBytes32 = useBytes32TokenContract(address ? address : undefined, false)
   const token: Token | undefined = address ? tokens[address] : undefined
 
   const tokenName = useSingleCallResult(token ? undefined : tokenContract, 'name', undefined, NEVER_RELOAD)
@@ -137,7 +146,7 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
     token ? undefined : tokenContractBytes32,
     'name',
     undefined,
-    NEVER_RELOAD,
+    NEVER_RELOAD
   )
   const symbol = useSingleCallResult(token ? undefined : tokenContract, 'symbol', undefined, NEVER_RELOAD)
   const symbolBytes32 = useSingleCallResult(token ? undefined : tokenContractBytes32, 'symbol', undefined, NEVER_RELOAD)
@@ -153,7 +162,7 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
         address,
         decimals.result[0],
         parseStringOrBytes32(symbol.result?.[0], symbolBytes32.result?.[0], 'UNKNOWN'),
-        parseStringOrBytes32(tokenName.result?.[0], tokenNameBytes32.result?.[0], 'Unknown Token'),
+        parseStringOrBytes32(tokenName.result?.[0], tokenNameBytes32.result?.[0], 'Unknown Token')
       )
     }
     return undefined
@@ -168,14 +177,12 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
     token,
     tokenName.loading,
     tokenName.result,
-    tokenNameBytes32.result,
+    tokenNameBytes32.result
   ])
 }
 
-export function useCurrency(currencyId: string | undefined): Currency | Token | null | undefined {
-  const native = useNativeCurrency()
-  const isNative =
-    currencyId?.toUpperCase() === native.symbol?.toUpperCase() || currencyId?.toLowerCase() === GELATO_NATIVE
-  const token = useToken(isNative ? undefined : currencyId)
-  return isNative ? native : token
+export function useCurrency(currencyId: string | undefined): Currency | null | undefined {
+  const isETH = currencyId?.toUpperCase() === 'ETH'
+  const token = useToken(isETH ? undefined : currencyId)
+  return isETH ? ETHER : token
 }

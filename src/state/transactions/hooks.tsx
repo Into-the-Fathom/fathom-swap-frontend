@@ -1,45 +1,28 @@
 import { TransactionResponse } from '@ethersproject/providers'
 import { useCallback, useMemo } from 'react'
-import { useSelector } from 'react-redux'
-import { Order } from '@gelatonetwork/limit-orders-lib'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { AppState, useAppDispatch } from '../index'
-import { addTransaction, TransactionType } from './actions'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { useActiveWeb3React } from '../../hooks'
+import { AppDispatch, AppState } from '../index'
+import { addTransaction } from './actions'
 import { TransactionDetails } from './reducer'
 
 // helper that can take a ethers library transaction response and add it to the list of transactions
 export function useTransactionAdder(): (
   response: TransactionResponse,
-  customData?: {
-    summary?: string
-    translatableSummary?: { text: string; data?: Record<string, string | number> }
-    approval?: { tokenAddress: string; spender: string }
-    claim?: { recipient: string }
-    type?: TransactionType
-    order?: Order
-  },
+  customData?: { summary?: string; approval?: { tokenAddress: string; spender: string }; claim?: { recipient: string } }
 ) => void {
   const { chainId, account } = useActiveWeb3React()
-  const dispatch = useAppDispatch()
+  const dispatch = useDispatch<AppDispatch>()
 
   return useCallback(
     (
       response: TransactionResponse,
       {
         summary,
-        translatableSummary,
         approval,
-        claim,
-        type,
-        order,
-      }: {
-        summary?: string
-        translatableSummary?: { text: string; data?: Record<string, string | number> }
-        claim?: { recipient: string }
-        approval?: { tokenAddress: string; spender: string }
-        type?: TransactionType
-        order?: Order
-      } = {},
+        claim
+      }: { summary?: string; claim?: { recipient: string }; approval?: { tokenAddress: string; spender: string } } = {}
     ) => {
       if (!account) return
       if (!chainId) return
@@ -48,11 +31,9 @@ export function useTransactionAdder(): (
       if (!hash) {
         throw Error('No transaction hash found.')
       }
-      dispatch(
-        addTransaction({ hash, from: account, chainId, approval, summary, translatableSummary, claim, type, order }),
-      )
+      dispatch(addTransaction({ hash, from: account, chainId, approval, summary, claim }))
     },
-    [dispatch, chainId, account],
+    [dispatch, chainId, account]
   )
 }
 
@@ -60,9 +41,9 @@ export function useTransactionAdder(): (
 export function useAllTransactions(): { [txHash: string]: TransactionDetails } {
   const { chainId } = useActiveWeb3React()
 
-  const state = useSelector<AppState, AppState['transactions']>((s) => s.transactions)
+  const state = useSelector<AppState, AppState['transactions']>(state => state.transactions)
 
-  return useMemo(() => (chainId ? state[chainId] ?? {} : {}), [chainId, state])
+  return chainId ? state[chainId] ?? {} : {}
 }
 
 export function useIsTransactionPending(transactionHash?: string): boolean {
@@ -88,38 +69,36 @@ export function useHasPendingApproval(tokenAddress: string | undefined, spender:
     () =>
       typeof tokenAddress === 'string' &&
       typeof spender === 'string' &&
-      Object.keys(allTransactions).some((hash) => {
+      Object.keys(allTransactions).some(hash => {
         const tx = allTransactions[hash]
         if (!tx) return false
         if (tx.receipt) {
           return false
+        } else {
+          const approval = tx.approval
+          if (!approval) return false
+          return approval.spender === spender && approval.tokenAddress === tokenAddress && isTransactionRecent(tx)
         }
-        const { approval } = tx
-        if (!approval) return false
-        return approval.spender === spender && approval.tokenAddress === tokenAddress && isTransactionRecent(tx)
       }),
-    [allTransactions, spender, tokenAddress],
+    [allTransactions, spender, tokenAddress]
   )
 }
 
-// we want the latest one to come first, so return negative if a is after b
-function newTransactionsFirst(a: TransactionDetails, b: TransactionDetails) {
-  return b.addedTime - a.addedTime
-}
-
-// calculate pending transactions
-export function usePendingTransactions(): { hasPendingTransactions: boolean; pendingNumber: number } {
+// watch for submissions to claim
+// return null if not done loading, return undefined if not found
+export function useUserHasSubmittedClaim(
+  account?: string
+): { claimSubmitted: boolean; claimTxn: TransactionDetails | undefined } {
   const allTransactions = useAllTransactions()
-  const sortedRecentTransactions = useMemo(() => {
-    const txs = Object.values(allTransactions)
-    return txs.filter(isTransactionRecent).sort(newTransactionsFirst)
-  }, [allTransactions])
 
-  const pending = sortedRecentTransactions.filter((tx) => !tx.receipt).map((tx) => tx.hash)
-  const hasPendingTransactions = !!pending.length
+  // get the txn if it has been submitted
+  const claimTxn = useMemo(() => {
+    const txnIndex = Object.keys(allTransactions).find(hash => {
+      const tx = allTransactions[hash]
+      return tx.claim && tx.claim.recipient === account
+    })
+    return txnIndex && allTransactions[txnIndex] ? allTransactions[txnIndex] : undefined
+  }, [account, allTransactions])
 
-  return {
-    hasPendingTransactions,
-    pendingNumber: pending.length,
-  }
+  return { claimSubmitted: Boolean(claimTxn), claimTxn }
 }
