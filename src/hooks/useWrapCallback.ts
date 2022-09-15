@@ -1,17 +1,15 @@
-import { Currency, WNATIVE } from '@fathomswap/sdk'
+import { Currency, currencyEquals, ETHER, WETH } from '@uniswap/sdk'
 import { useMemo } from 'react'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useTranslation } from '@fathomswap/localization'
-import tryParseAmount from '@fathomswap/utils/tryParseAmount'
+import { tryParseAmount } from '../state/swap/hooks'
 import { useTransactionAdder } from '../state/transactions/hooks'
 import { useCurrencyBalance } from '../state/wallet/hooks'
-import { useWNativeContract } from './useContract'
-import { useCallWithGasPrice } from './useCallWithGasPrice'
+import { useActiveWeb3React } from './index'
+import { useWETHContract } from './useContract'
 
 export enum WrapType {
   NOT_APPLICABLE,
   WRAP,
-  UNWRAP,
+  UNWRAP
 }
 
 const NOT_APPLICABLE = { wrapType: WrapType.NOT_APPLICABLE }
@@ -24,77 +22,54 @@ const NOT_APPLICABLE = { wrapType: WrapType.NOT_APPLICABLE }
 export default function useWrapCallback(
   inputCurrency: Currency | undefined,
   outputCurrency: Currency | undefined,
-  typedValue: string | undefined,
+  typedValue: string | undefined
 ): { wrapType: WrapType; execute?: undefined | (() => Promise<void>); inputError?: string } {
-  const { t } = useTranslation()
   const { chainId, account } = useActiveWeb3React()
-  const { callWithGasPrice } = useCallWithGasPrice()
-  const wbnbContract = useWNativeContract()
+  const wethContract = useWETHContract()
   const balance = useCurrencyBalance(account ?? undefined, inputCurrency)
   // we can always parse the amount typed as the input currency, since wrapping is 1:1
   const inputAmount = useMemo(() => tryParseAmount(typedValue, inputCurrency), [inputCurrency, typedValue])
   const addTransaction = useTransactionAdder()
 
   return useMemo(() => {
-    if (!wbnbContract || !chainId || !inputCurrency || !outputCurrency) return NOT_APPLICABLE
+    if (!wethContract || !chainId || !inputCurrency || !outputCurrency) return NOT_APPLICABLE
 
     const sufficientBalance = inputAmount && balance && !balance.lessThan(inputAmount)
 
-    if (inputCurrency?.isNative && WNATIVE[chainId]?.equals(outputCurrency)) {
+    if (inputCurrency === ETHER && currencyEquals(WETH[chainId], outputCurrency)) {
       return {
         wrapType: WrapType.WRAP,
         execute:
           sufficientBalance && inputAmount
             ? async () => {
                 try {
-                  const txReceipt = await callWithGasPrice(wbnbContract, 'deposit', undefined, {
-                    value: `0x${inputAmount.quotient.toString(16)}`,
-                  })
-                  const amount = inputAmount.toSignificant(6)
-                  const native = inputCurrency.symbol
-                  const wrap = WNATIVE[chainId].symbol
-                  addTransaction(txReceipt, {
-                    summary: `Wrap ${amount} ${native} to ${wrap}`,
-                    translatableSummary: { text: 'Wrap %amount% %native% to %wrap%', data: { amount, native, wrap } },
-                    type: 'wrap',
-                  })
+                  const txReceipt = await wethContract.deposit({ value: `0x${inputAmount.raw.toString(16)}` })
+                  addTransaction(txReceipt, { summary: `Wrap ${inputAmount.toSignificant(6)} ETH to WETH` })
                 } catch (error) {
                   console.error('Could not deposit', error)
                 }
               }
             : undefined,
-        inputError: sufficientBalance
-          ? undefined
-          : t('Insufficient %symbol% balance', { symbol: inputCurrency.symbol }),
+        inputError: sufficientBalance ? undefined : 'Insufficient ETH balance'
       }
-    }
-    if (WNATIVE[chainId]?.equals(inputCurrency) && outputCurrency?.isNative) {
+    } else if (currencyEquals(WETH[chainId], inputCurrency) && outputCurrency === ETHER) {
       return {
         wrapType: WrapType.UNWRAP,
         execute:
           sufficientBalance && inputAmount
             ? async () => {
                 try {
-                  const txReceipt = await callWithGasPrice(wbnbContract, 'withdraw', [
-                    `0x${inputAmount.quotient.toString(16)}`,
-                  ])
-                  const amount = inputAmount.toSignificant(6)
-                  const wrap = WNATIVE[chainId].symbol
-                  const native = outputCurrency.symbol
-                  addTransaction(txReceipt, {
-                    summary: `Unwrap ${amount} ${wrap} to ${native}`,
-                    translatableSummary: { text: 'Unwrap %amount% %wrap% to %native%', data: { amount, wrap, native } },
-                  })
+                  const txReceipt = await wethContract.withdraw(`0x${inputAmount.raw.toString(16)}`)
+                  addTransaction(txReceipt, { summary: `Unwrap ${inputAmount.toSignificant(6)} WETH to ETH` })
                 } catch (error) {
                   console.error('Could not withdraw', error)
                 }
               }
             : undefined,
-        inputError: sufficientBalance
-          ? undefined
-          : t('Insufficient %symbol% balance', { symbol: inputCurrency.symbol }),
+        inputError: sufficientBalance ? undefined : 'Insufficient WETH balance'
       }
+    } else {
+      return NOT_APPLICABLE
     }
-    return NOT_APPLICABLE
-  }, [wbnbContract, chainId, inputCurrency, outputCurrency, t, inputAmount, balance, addTransaction, callWithGasPrice])
+  }, [wethContract, chainId, inputCurrency, outputCurrency, inputAmount, balance, addTransaction])
 }

@@ -1,56 +1,53 @@
-import { useEffect, useMemo } from 'react'
-import { useSelector } from 'react-redux'
-import { useTranslation } from '@fathomswap/localization'
-import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { useCurrentBlock } from 'state/block/hooks'
-import { ToastDescriptionWithTx } from 'components/Toast'
-import { useToast } from '@fathomswap/uikit'
-import { AppState, useAppDispatch } from '../index'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useActiveWeb3React } from '../../hooks'
+import { useAddPopup, useBlockNumber } from '../application/hooks'
+import { AppDispatch, AppState } from '../index'
 import { checkedTransaction, finalizeTransaction } from './actions'
 
 export function shouldCheck(
-  currentBlock: number,
-  tx: { addedTime: number; receipt?: any; lastCheckedBlockNumber?: number },
+  lastBlockNumber: number,
+  tx: { addedTime: number; receipt?: {}; lastCheckedBlockNumber?: number }
 ): boolean {
   if (tx.receipt) return false
   if (!tx.lastCheckedBlockNumber) return true
-  const blocksSinceCheck = currentBlock - tx.lastCheckedBlockNumber
+  const blocksSinceCheck = lastBlockNumber - tx.lastCheckedBlockNumber
   if (blocksSinceCheck < 1) return false
   const minutesPending = (new Date().getTime() - tx.addedTime) / 1000 / 60
   if (minutesPending > 60) {
     // every 10 blocks if pending for longer than an hour
     return blocksSinceCheck > 9
-  }
-  if (minutesPending > 5) {
+  } else if (minutesPending > 5) {
     // every 3 blocks if pending more than 5 minutes
     return blocksSinceCheck > 2
+  } else {
+    // otherwise every block
+    return true
   }
-  // otherwise every block
-  return true
 }
 
 export default function Updater(): null {
-  const { chainId, provider } = useActiveWeb3React()
-  const { t } = useTranslation()
+  const { chainId, library } = useActiveWeb3React()
 
-  const currentBlock = useCurrentBlock()
+  const lastBlockNumber = useBlockNumber()
 
-  const dispatch = useAppDispatch()
-  const state = useSelector<AppState, AppState['transactions']>((s) => s.transactions)
+  const dispatch = useDispatch<AppDispatch>()
+  const state = useSelector<AppState, AppState['transactions']>(state => state.transactions)
 
-  const transactions = useMemo(() => (chainId ? state[chainId] ?? {} : {}), [chainId, state])
+  const transactions = chainId ? state[chainId] ?? {} : {}
 
-  const { toastError, toastSuccess } = useToast()
+  // show popup on confirm
+  const addPopup = useAddPopup()
 
   useEffect(() => {
-    if (!chainId || !provider || !currentBlock) return
+    if (!chainId || !library || !lastBlockNumber) return
 
     Object.keys(transactions)
-      .filter((hash) => shouldCheck(currentBlock, transactions[hash]))
-      .forEach((hash) => {
-        provider
+      .filter(hash => shouldCheck(lastBlockNumber, transactions[hash]))
+      .forEach(hash => {
+        library
           .getTransactionReceipt(hash)
-          .then((receipt) => {
+          .then(receipt => {
             if (receipt) {
               dispatch(
                 finalizeTransaction({
@@ -64,22 +61,30 @@ export default function Updater(): null {
                     status: receipt.status,
                     to: receipt.to,
                     transactionHash: receipt.transactionHash,
-                    transactionIndex: receipt.transactionIndex,
-                  },
-                }),
+                    transactionIndex: receipt.transactionIndex
+                  }
+                })
               )
 
-              const toast = receipt.status === 1 ? toastSuccess : toastError
-              toast(t('Transaction receipt'), <ToastDescriptionWithTx txHash={receipt.transactionHash} />)
+              addPopup(
+                {
+                  txn: {
+                    hash,
+                    success: receipt.status === 1,
+                    summary: transactions[hash]?.summary
+                  }
+                },
+                hash
+              )
             } else {
-              dispatch(checkedTransaction({ chainId, hash, blockNumber: currentBlock }))
+              dispatch(checkedTransaction({ chainId, hash, blockNumber: lastBlockNumber }))
             }
           })
-          .catch((error) => {
+          .catch(error => {
             console.error(`failed to check transaction hash: ${hash}`, error)
           })
       })
-  }, [chainId, provider, transactions, currentBlock, dispatch, toastSuccess, toastError, t])
+  }, [chainId, library, transactions, lastBlockNumber, dispatch, addPopup])
 
   return null
 }

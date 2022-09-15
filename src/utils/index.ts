@@ -1,75 +1,105 @@
-import type { Signer } from '@ethersproject/abstract-signer'
-import { getAddress } from '@ethersproject/address'
-import { BigNumber } from '@ethersproject/bignumber'
-import { AddressZero } from '@ethersproject/constants'
 import { Contract } from '@ethersproject/contracts'
-import type { Provider } from '@ethersproject/providers'
-import { ChainId, Currency } from '@fathomswap/sdk'
-import { bsc } from '@fathomswap/wagmi/chains'
-import memoize from 'lodash/memoize'
-import { TokenAddressMap } from '@fathomswap/tokens'
-import { BASE_BSC_SCAN_URLS } from '../config'
-import { chains } from './wagmi'
+import { getAddress } from '@ethersproject/address'
+import { AddressZero } from '@ethersproject/constants'
+import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
+import { BigNumber } from '@ethersproject/bignumber'
+import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
+import { ROUTER_ADDRESS } from '../constants'
+import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from '@uniswap/sdk'
+import { TokenAddressMap } from '../state/lists/hooks'
 
 // returns the checksummed address if the address is valid, otherwise returns false
-export const isAddress = memoize((value: any): string | false => {
+export function isAddress(value: any): string | false {
   try {
     return getAddress(value)
   } catch {
     return false
   }
-})
+}
 
-export function getBlockExploreLink(
-  data: string | number,
-  type: 'transaction' | 'token' | 'address' | 'block' | 'countdown',
-  chainIdOverride?: number,
+const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
+  1: '',
+  3: 'ropsten.',
+  4: 'rinkeby.',
+  5: 'goerli.',
+  42: 'kovan.'
+}
+
+export function getEtherscanLink(
+  chainId: ChainId,
+  data: string,
+  type: 'transaction' | 'token' | 'address' | 'block'
 ): string {
-  const chainId = chainIdOverride || ChainId.BSC
-  const chain = chains.find((c) => c.id === chainId)
-  if (!chain) return bsc.blockExplorers.default.url
+  const prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
+
   switch (type) {
     case 'transaction': {
-      return `${chain.blockExplorers.default.url}/tx/${data}`
+      return `${prefix}/tx/${data}`
     }
     case 'token': {
-      return `${chain.blockExplorers.default.url}/token/${data}`
+      return `${prefix}/token/${data}`
     }
     case 'block': {
-      return `${chain.blockExplorers.default.url}/block/${data}`
+      return `${prefix}/block/${data}`
     }
-    case 'countdown': {
-      return `${chain.blockExplorers.default.url}/block/countdown/${data}`
-    }
+    case 'address':
     default: {
-      return `${chain.blockExplorers.default.url}/address/${data}`
+      return `${prefix}/address/${data}`
     }
   }
 }
 
-export function getBlockExploreName(chainIdOverride?: number) {
-  const chainId = chainIdOverride || ChainId.BSC
-  const chain = chains.find((c) => c.id === chainId)
-
-  return chain?.blockExplorers?.default.name || 'BscScan'
-}
-
-export function getBscScanLinkForNft(collectionAddress: string, tokenId: string): string {
-  return `${BASE_BSC_SCAN_URLS[ChainId.BSC]}/token/${collectionAddress}?a=${tokenId}`
+// shorten the checksummed version of the input address to have 0x + 4 characters at start and end
+export function shortenAddress(address: string, chars = 4): string {
+  const parsed = isAddress(address)
+  if (!parsed) {
+    throw Error(`Invalid 'address' parameter '${address}'.`)
+  }
+  return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`
 }
 
 // add 10%
-export function calculateGasMargin(value: BigNumber, margin = 1000): BigNumber {
-  return value.mul(BigNumber.from(10000).add(BigNumber.from(margin))).div(BigNumber.from(10000))
+export function calculateGasMargin(value: BigNumber): BigNumber {
+  return value.mul(BigNumber.from(10000).add(BigNumber.from(1000))).div(BigNumber.from(10000))
+}
+
+// converts a basis points value to a sdk percent
+export function basisPointsToPercent(num: number): Percent {
+  return new Percent(JSBI.BigInt(num), JSBI.BigInt(10000))
+}
+
+export function calculateSlippageAmount(value: CurrencyAmount, slippage: number): [JSBI, JSBI] {
+  if (slippage < 0 || slippage > 10000) {
+    throw Error(`Unexpected slippage value: ${slippage}`)
+  }
+  return [
+    JSBI.divide(JSBI.multiply(value.raw, JSBI.BigInt(10000 - slippage)), JSBI.BigInt(10000)),
+    JSBI.divide(JSBI.multiply(value.raw, JSBI.BigInt(10000 + slippage)), JSBI.BigInt(10000))
+  ]
+}
+
+// account is not optional
+export function getSigner(library: Web3Provider, account: string): JsonRpcSigner {
+  return library.getSigner(account).connectUnchecked()
 }
 
 // account is optional
-export function getContract(address: string, ABI: any, signer?: Signer | Provider): Contract {
+export function getProviderOrSigner(library: Web3Provider, account?: string): Web3Provider | JsonRpcSigner {
+  return account ? getSigner(library, account) : library
+}
+
+// account is optional
+export function getContract(address: string, ABI: any, library: Web3Provider, account?: string): Contract {
   if (!isAddress(address) || address === AddressZero) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
 
-  return new Contract(address, ABI, signer)
+  return new Contract(address, ABI, getProviderOrSigner(library, account) as any)
+}
+
+// account is optional
+export function getRouterContract(_: number, library: Web3Provider, account?: string): Contract {
+  return getContract(ROUTER_ADDRESS, IUniswapV2Router02ABI, library, account)
 }
 
 export function escapeRegExp(string: string): string {
@@ -77,6 +107,6 @@ export function escapeRegExp(string: string): string {
 }
 
 export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currency): boolean {
-  if (currency?.isNative) return true
-  return Boolean(currency?.isToken && defaultTokens[currency.chainId]?.[currency.address])
+  if (currency === ETHER) return true
+  return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address])
 }
