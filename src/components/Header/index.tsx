@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
 
-import Logo from '../../assets/svg/logo.svg'
-import LogoDark from '../../assets/svg/logo_white.svg'
+import Logo from '../../assets/svg/Fathom-logo-aqua.svg'
+import LogoDark from '../../assets/svg/Fathom-logo-aqua.svg'
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks'
@@ -50,7 +50,7 @@ const HeaderFrame = styled.div`
     width: calc(100%);
     position: relative;
   `};
-
+  background: ${({ theme }) => theme.bg6};
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
         padding: 0.5rem 1rem;
   `}
@@ -129,7 +129,7 @@ const AccountElement = styled.div<{ active: boolean }>`
   }
 `
 
-const UNIAmount = styled(AccountElement)`
+const FTHMAmount = styled(AccountElement)`
   color: white;
   padding: 4px 8px;
   height: 36px;
@@ -138,7 +138,7 @@ const UNIAmount = styled(AccountElement)`
   background: radial-gradient(174.47% 188.91% at 1.84% 0%, #ff007a 0%, #2172e5 100%), #edeef2;
 `
 
-const UNIWrapper = styled.span`
+const FTHMWrapper = styled.span`
   width: fit-content;
   position: relative;
   cursor: pointer;
@@ -191,7 +191,7 @@ const Title = styled.a`
   }
 `
 
-const UniIcon = styled.div`
+const FathomIcon = styled.div`
   transition: transform 0.3s ease;
   :hover {
     transform: rotate(-5deg);
@@ -288,10 +288,12 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.RINKEBY]: 'Rinkeby',
-  [ChainId.ROPSTEN]: 'Ropsten',
-  [ChainId.GÖRLI]: 'Görli',
-  [ChainId.KOVAN]: 'Kovan'
+  // [ChainId.RINKEBY]: 'Rinkeby',
+  // [ChainId.ROPSTEN]: 'Ropsten',
+  // [ChainId.GÖRLI]: 'Görli',
+  // [ChainId.KOVAN]: 'Kovan'
+  [ChainId.XDC]: 'XDC Network',
+  [ChainId.AXDC]: 'XDC Apothem Network',
 }
 
 export default function Header() {
@@ -324,9 +326,9 @@ export default function Header() {
       </Modal>
       <HeaderRow>
         <Title href=".">
-          <UniIcon>
-            <img width={'24px'} src={darkMode ? LogoDark : Logo} alt="logo" />
-          </UniIcon>
+          <FathomIcon>
+            <img width={'100px'} src={darkMode ? LogoDark : Logo} alt="logo" />
+          </FathomIcon>
         </Title>
         <HeaderLinks>
           <StyledNavLink id={`swap-nav-link`} to={'/swap'}>
@@ -364,18 +366,18 @@ export default function Header() {
             )}
           </HideSmall>
           {availableClaim && !showClaimPopup && (
-            <UNIWrapper onClick={toggleClaimModal}>
-              <UNIAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
+            <FTHMWrapper onClick={toggleClaimModal}>
+              <FTHMAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
                 <TYPE.white padding="0 2px">
-                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming UNI</Dots> : 'Claim UNI'}
+                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming FTHM</Dots> : 'Claim FTHM'}
                 </TYPE.white>
-              </UNIAmount>
+              </FTHMAmount>
               <CardNoise />
-            </UNIWrapper>
+            </FTHMWrapper>
           )}
           {!availableClaim && aggregateBalance && (
-            <UNIWrapper onClick={() => setShowUniBalanceModal(true)}>
-              <UNIAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
+            <FTHMWrapper onClick={() => setShowUniBalanceModal(true)}>
+              <FTHMAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
                 {account && (
                   <HideSmall>
                     <TYPE.white
@@ -394,10 +396,10 @@ export default function Header() {
                     </TYPE.white>
                   </HideSmall>
                 )}
-                UNI
-              </UNIAmount>
+                FTHM
+              </FTHMAmount>
               <CardNoise />
-            </UNIWrapper>
+            </FTHMWrapper>
           )}
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
