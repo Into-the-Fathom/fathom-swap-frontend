@@ -62,12 +62,6 @@ const WETH_ONLY: ChainTokenList = {
   [ChainId.KOVAN]: [WETH[ChainId.KOVAN]]
 }
 
-const WDEV_ONLY: ChainTokenList = {
-  [ChainId.MAINNET]: [WDEV[ChainId.MAINNET]],
-  [ChainId.XDC]: [WDEV[ChainId.XDC]],
-  [ChainId.AXDC]: [WDEV[ChainId.AXDC]],
-}
-
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WETH_ONLY,

@@ -288,12 +288,12 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  // [ChainId.RINKEBY]: 'Rinkeby',
-  // [ChainId.ROPSTEN]: 'Ropsten',
-  // [ChainId.GÖRLI]: 'Görli',
-  // [ChainId.KOVAN]: 'Kovan'
-  [ChainId.XDC]: 'XDC Network',
-  [ChainId.AXDC]: 'XDC Apothem Network',
+  [ChainId.RINKEBY]: 'Rinkeby',
+  [ChainId.ROPSTEN]: 'Ropsten',
+  [ChainId.GÖRLI]: 'Görli',
+  [ChainId.KOVAN]: 'Kovan'
+  // [ChainId.XDC]: 'XDC Network',
+  // [ChainId.AXDC]: 'XDC Apothem Network',
 }
 
 export default function Header() {
