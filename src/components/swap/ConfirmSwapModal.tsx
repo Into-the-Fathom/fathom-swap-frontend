@@ -1,4 +1,4 @@
-import { currencyEquals, Trade } from '@uniswap/sdk'
+import { currencyEquals, Trade } from 'fathomswap-sdk'
 import React, { useCallback, useMemo } from 'react'
 import TransactionConfirmationModal, {
   ConfirmationModalContent,
@@ -95,7 +95,7 @@ export default function ConfirmSwapModal({
       ),
     [onDismiss, modalBottom, modalHeader, swapErrorMessage]
   )
-
+  
   return (
     <TransactionConfirmationModal
       isOpen={isOpen}
