@@ -44,7 +44,7 @@ export const UNI: { [chainId in ChainId]: Token } = {
   [ChainId.GOERLI]: new Token(ChainId.GOERLI, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
   [ChainId.KOVAN]: new Token(ChainId.KOVAN, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
   [ChainId.XDC]: new Token(ChainId.XDC, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.AXDC]: new Token(ChainId.AXDC, UNI_ADDRESS, 18, 'UNI', 'Uniswap')
+  [ChainId.AXDC]: new Token(ChainId.AXDC, '0x5118Dbf63360539365bf1694cD9b78a8892919DD', 18, 'FTHM', 'Fathom')
 }
 
 export const COMMON_CONTRACT_NAMES: { [address: string]: string } = {
