@@ -1,4 +1,4 @@
-import { ChainId } from 'fathomswap-sdk'
+import { ChainId } from 'fathomswap-test-sdk'
 import MULTICALL_ABI from './abi.json'
 
 const MULTICALL_NETWORKS: { [chainId in ChainId]: string } = {

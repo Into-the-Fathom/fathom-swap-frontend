@@ -1,4 +1,4 @@
-import { JSBI, Pair, Percent, TokenAmount } from 'fathomswap-sdk'
+import { JSBI, Pair, Percent, TokenAmount } from 'fathomswap-test-sdk'
 import { darken } from 'polished'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'

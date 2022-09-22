@@ -1,4 +1,4 @@
-import { ChainId, JSBI, Pair, Route, Token, TokenAmount, Trade, TradeType } from 'fathomswap-sdk'
+import { ChainId, JSBI, Pair, Route, Token, TokenAmount, Trade, TradeType } from 'fathomswap-test-sdk'
 import { computeTradePriceBreakdown } from './prices'
 
 describe('prices', () => {

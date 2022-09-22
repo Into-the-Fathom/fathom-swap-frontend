@@ -1,6 +1,6 @@
 import React, { useContext, useMemo } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import { Pair, JSBI } from 'fathomswap-sdk'
+import { Pair, JSBI } from 'fathomswap-test-sdk'
 import { Link } from 'react-router-dom'
 import { SwapPoolTabs } from '../../components/NavigationTabs'
 

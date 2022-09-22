@@ -1,4 +1,4 @@
-import { JSBI, TokenAmount } from 'fathomswap-sdk'
+import { JSBI, TokenAmount } from 'fathomswap-test-sdk'
 import { isAddress } from 'ethers/lib/utils'
 import React, { useEffect, useState } from 'react'
 import { Text } from 'rebass'

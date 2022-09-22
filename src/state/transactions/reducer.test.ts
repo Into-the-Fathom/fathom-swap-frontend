@@ -1,4 +1,4 @@
-import { ChainId } from 'fathomswap-sdk'
+import { ChainId } from 'fathomswap-test-sdk'
 import { createStore, Store } from 'redux'
 import { addTransaction, checkedTransaction, clearAllTransactions, finalizeTransaction } from './actions'
 import reducer, { initialState, TransactionState } from './reducer'

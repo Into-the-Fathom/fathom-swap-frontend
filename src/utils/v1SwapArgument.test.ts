@@ -1,4 +1,4 @@
-import { CurrencyAmount, ETHER, Percent, Route, TokenAmount, Trade } from 'fathomswap-sdk'
+import { CurrencyAmount, ETHER, Percent, Route, TokenAmount, Trade } from 'fathomswap-test-sdk'
 import { DAI, USDC } from '../constants'
 import { MockV1Pair } from '../data/V1'
 import v1SwapArguments from './v1SwapArguments'

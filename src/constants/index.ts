@@ -1,9 +1,9 @@
-import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-sdk'
+import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-test-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 
-export const ROUTER_ADDRESS = '0x3813C341207A9b9c3dbC2C1eDD6D9332C74Dfe02'
+export const ROUTER_ADDRESS = '0xF017C51164a8c7E6aD57fe82A6eAC39bC048A8Cd'
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 

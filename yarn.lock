@@ -1264,54 +1264,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@baldyash/address@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@baldyash/address/-/address-0.2.0.tgz#2a883c3d25b8e7102deea4338f1830e6b1ab42cb"
-  integrity sha512-6shQslyb2d/XAU4D3kWTQJApRYBIZ29xB27FM1iM8C2RA6Wjc+uD5xl0PwkKVq5v2WPoJILxDKRDyp9eND5YDA==
-  dependencies:
-    "@baldyash/bignumber" "0.2.0"
-    "@baldyash/bytes" "0.2.0"
-    "@baldyash/keccak256" "0.2.0"
-    "@baldyash/logger" "0.2.0"
-    "@baldyash/rlp" "0.2.0"
-
-"@baldyash/bignumber@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@baldyash/bignumber/-/bignumber-0.2.0.tgz#1309da3d08b663983a5ae21da36e9e32bc9d863c"
-  integrity sha512-GxPVVLt0W/7TpwkDTlFpw2gaEHEc54UNDYBoKH6sDEQs9E/RCvMip17lrDHRIx4nEEYgAmxuJLKMurttYmfo8g==
-  dependencies:
-    "@baldyash/bytes" "0.2.0"
-    "@baldyash/logger" "0.2.0"
-    bn.js "^5.2.1"
-
-"@baldyash/bytes@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@baldyash/bytes/-/bytes-0.2.0.tgz#393d4c68eb5fc7db6b66e1e80a9b714e7dd2f9af"
-  integrity sha512-XHuGVwVyJuFROQ6hJ7HWP1RQMmx5Kl5yiXEtsqm4utKB7HTm+2GfCx2MDFn1UyMobpNTMIILZFMEoaVINKFwkQ==
-  dependencies:
-    "@baldyash/logger" "0.2.0"
-
-"@baldyash/keccak256@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@baldyash/keccak256/-/keccak256-0.2.0.tgz#804d000a3f6d943816d0adcaa816226975cd4636"
-  integrity sha512-kayMnVQuEkAwEA0+MttUaAl0ciXEhWz0l2A6mHYlh165g7xFwEDfg9NV/W1WO2uSG8DEo0mkkIl2lZHgNgf27A==
-  dependencies:
-    "@baldyash/bytes" "0.2.0"
-    js-sha3 "0.8.0"
-
-"@baldyash/logger@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@baldyash/logger/-/logger-0.2.0.tgz#595831e2f1cd5bbe4c8dccae24422bd86fd7ebe0"
-  integrity sha512-KxFlAsP6QbfpBqT5aGNzQr5azrqwkzRPYm2M69P3gndLx9IMrt1oZXsrXWqLLUo6JM0dUPwfEyh8nK25FaVvjA==
-
-"@baldyash/rlp@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@baldyash/rlp/-/rlp-0.2.0.tgz#2dc9148d5e0d6d5fb31125ce4ba2012529eaca35"
-  integrity sha512-2RZqdthpkf8Q7Vuui6vngSnBykDutfWszIEipr0+p4hbOZH0aI3x7nS1Q2+RAZYXII6hbDqCIzphjmsLF+Qljg==
-  dependencies:
-    "@baldyash/bytes" "0.2.0"
-    "@baldyash/logger" "0.2.0"
-
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -4614,11 +4566,6 @@ bn.js@^5.1.1:
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.1.2.tgz#c9686902d3c9a27729f43ab10f9d79c2004da7b0"
   integrity sha512-40rZaf3bUNKTVYu9sIeeEGOg7g14Yvnj9kH7b50EiwX0Q7A6umbvfI5tvHaOERH0XigqKkfLkFQxzb4e6CIXnA==
 
-bn.js@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-5.2.1.tgz#0bc527a6a0d18d0aa8d5b0538ce4a77dccfa7b70"
-  integrity sha512-eXRvHzWyYPBuB4NBy0cmYQjGitUrtqwbvlzP3G6VFnNRbsZQIxQ10PbKKHt8gZ/HW/D/747aDl+QkDqg3KQLMQ==
-
 body-parser@1.19.0:
   version "1.19.0"
   resolved "https://registry.yarnpkg.com/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
@@ -7781,32 +7728,19 @@ fast-url-parser@1.1.3:
   dependencies:
     punycode "^1.3.2"
 
-fathomswap-contracts@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-contracts/-/fathomswap-contracts-0.6.0.tgz#3372abd1b3b796cf754b1b5581bfffe030073ab6"
-  integrity sha512-y/nIoGCkx1xkin1OUdBBOV/kSTrqDWXu6F5IcIKL2AxskVoF6PV8J1VzlNeNU/31RshUwUH54DlwMoGq5n2weA==
+fathomswap-test-contracts@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-test-contracts/-/fathomswap-test-contracts-0.1.0.tgz#76e7b62ccb00450876479619ef84bd4c7e951292"
+  integrity sha512-2vm27OeX7ljp1DbaYgKKFWjBPTPOaK/2Xvb90zTdTVJ7zSVRpSMPMdMMHoVAkV0890E1nfJiOYop3a090xPG9w==
 
-fathomswap-sdk-core@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-sdk-core/-/fathomswap-sdk-core-0.6.0.tgz#9c40cc44821719df17ccd7569f14b8354e15f988"
-  integrity sha512-iapa4gtkUstTgWEf0g5z+iI7LBh0pqqfovkinekevdBic5sl/TUayLxXsbCwqfHbxP9rhUfZafKICG2uEjx88Q==
-  dependencies:
-    "@baldyash/address" "0.2.0"
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    jsbi "^3.1.4"
-    tiny-invariant "^1.1.0"
-    toformat "^2.0.0"
-
-fathomswap-sdk@1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-1.7.0.tgz#b9ca4e6d16ec5032c6be4b6fb561ed4aea51c7c8"
-  integrity sha512-PLC10cXXNBdKq7TkxMEuZNHuNYRJYtbEKlSxJPDJFQ4WXubdsvBgSzYc7C9DW30U5AUadc8YMVlYP/OthLcoBg==
+fathomswap-test-sdk@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-test-sdk/-/fathomswap-test-sdk-0.1.0.tgz#9ce2d48af59690003517f5bcd85540bea0998966"
+  integrity sha512-B2evZWBNZJwJZKbots+SM2Gg7mhWQXmF0S+dE1MsUryuj6K3dIVr04R+DFkTzFb1U2fXNpgKYpPT5qQnF+ZQ3g==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    fathomswap-contracts "0.6.0"
-    fathomswap-sdk-core "0.6.0"
+    fathomswap-test-contracts "0.1.0"
     jsbi "^3.1.1"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
@@ -9952,11 +9886,6 @@ jsbi@^3.1.1:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.1.3.tgz#f024b340032f7c7caaa6ca4b32b55e8d33f6e897"
   integrity sha512-nBJqA0C6Qns+ZxurbEoIR56wyjiUszpNy70FHvxO5ervMoCbZVE3z3kxr5nKGhlxr/9MhKTSUBs7cAwwuf3g9w==
-
-jsbi@^3.1.4:
-  version "3.2.5"
-  resolved "https://registry.yarnpkg.com/jsbi/-/jsbi-3.2.5.tgz#b37bb90e0e5c2814c1c2a1bcd8c729888a2e37d6"
-  integrity sha512-aBE4n43IPvjaddScbvWRA2YlTzKEynHzu7MqOyTipdHucf/VxS63ViCjxYRg86M8Rxwbt/GfzHl1kKERkt45fQ==
 
 jsbn@~0.1.0:
   version "0.1.1"

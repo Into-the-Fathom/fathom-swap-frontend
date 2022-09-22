@@ -1,4 +1,4 @@
-import { CurrencyAmount, ETHER, JSBI } from 'fathomswap-sdk'
+import { CurrencyAmount, ETHER, JSBI } from 'fathomswap-test-sdk'
 import { MIN_ETH } from '../constants'
 
 /**

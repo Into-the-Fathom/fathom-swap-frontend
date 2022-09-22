@@ -12,7 +12,7 @@ import {
   Trade,
   TradeType,
   WETH
-} from 'fathomswap-sdk'
+} from 'fathomswap-test-sdk'
 import { useMemo } from 'react'
 import { useActiveWeb3React } from '../hooks'
 import { useAllTokens } from '../hooks/Tokens'
