@@ -63,12 +63,12 @@ export default function Earn() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>Fathom liquidity mining</TYPE.white>
+                <TYPE.black fontWeight={600}>Fathom liquidity mining</TYPE.black>
               </RowBetween>
               <RowBetween>
-                <TYPE.white fontSize={14}>
+                <TYPE.black fontSize={14}>
                   Deposit your Liquidity Provider tokens to receive FTHM, the Fathom protocol governance token.
-                </TYPE.white>
+                </TYPE.black>
               </RowBetween>{' '}
               {/*<ExternalLink*/}
               {/*  style={{ color: 'white', textDecoration: 'underline' }}*/}

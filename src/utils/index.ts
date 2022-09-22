@@ -7,7 +7,7 @@ import { BigNumber } from '@baldyash/bignumber'
 import { abi as IUniswapV2Router02ABI } from 'fathomswap-test-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
 
 import { ROUTER_ADDRESS } from '../constants'
-import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from 'fathomswap-test-sdk'
+import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'fathomswap-test-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
 
 // returns the checksummed address if the address is valid, otherwise returns false
@@ -26,29 +26,53 @@ const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   5: 'goerli.',
   42: 'kovan.',
   50: 'xdc.',
-  51: 'axdc.'
+  51: 'apothem.'
 }
+
+export const XDC_CHAIN_IDS = [50, 51]
 
 export function getEtherscanLink(
   chainId: ChainId,
   data: string,
-  type: 'transaction' | 'token' | 'address' | 'block'
+  type: 'transaction' | 'token' | 'address' | 'block' | 'transactions' | 'tokens' | 'blocks'
 ): string {
-  const prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
+  let prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
 
-  switch (type) {
-    case 'transaction': {
-      return `${prefix}/tx/${data}`
+  if (XDC_CHAIN_IDS.includes(chainId)) {
+    prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}blocksscan.io`
+  }
+
+  if (XDC_CHAIN_IDS.includes(chainId)) {
+    switch (type) {
+      case 'transaction': {
+        return `${prefix}/txs/${data}`
+      }
+      case 'token': {
+        return `${prefix}/tokens/${data}`
+      }
+      case 'block': {
+        return `${prefix}/blocks/${data}`
+      }
+      case 'address':
+      default: {
+        return `${prefix}/address/${data}`
+      }
     }
-    case 'token': {
-      return `${prefix}/token/${data}`
-    }
-    case 'block': {
-      return `${prefix}/block/${data}`
-    }
-    case 'address':
-    default: {
-      return `${prefix}/address/${data}`
+  } else {
+    switch (type) {
+      case 'transaction': {
+        return `${prefix}/tx/${data}`
+      }
+      case 'token': {
+        return `${prefix}/token/${data}`
+      }
+      case 'block': {
+        return `${prefix}/block/${data}`
+      }
+      case 'address':
+      default: {
+        return `${prefix}/address/${data}`
+      }
     }
   }
 }

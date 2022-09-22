@@ -17,19 +17,20 @@ import { CountUp } from 'use-count-up'
 import { TYPE, ExternalLink } from '../../theme'
 
 import { YellowCard } from '../Card'
-import { Moon, Sun } from 'react-feather'
-import Menu from '../Menu'
+// import { Moon, Sun } from 'react-feather'
+// import Menu from '../Menu'
 
 import Row, { RowFixed } from '../Row'
 import Web3Status from '../Web3Status'
-import ClaimModal from '../claim/ClaimModal'
-import { useToggleSelfClaimModal, useShowClaimPopup } from '../../state/application/hooks'
-import { useUserHasAvailableClaim } from '../../state/claim/hooks'
-import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
-import { Dots } from '../swap/styleds'
+// import ClaimModal from '../claim/ClaimModal'
+// import { useToggleSelfClaimModal, useShowClaimPopup } from '../../state/application/hooks'
+// import { useUserHasAvailableClaim } from '../../state/claim/hooks'
+// import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
+// import { Dots } from '../swap/styleds'
 import Modal from '../Modal'
 import UniBalanceContent from './UniBalanceContent'
 import usePrevious from '../../hooks/usePrevious'
+import { XDC_CHAIN_IDS } from '../../utils'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -95,10 +96,10 @@ const HeaderElement = styled.div`
   `};
 `
 
-const HeaderElementWrap = styled.div`
-  display: flex;
-  align-items: center;
-`
+// const HeaderElementWrap = styled.div`
+//   display: flex;
+//   align-items: center;
+// `
 
 const HeaderRow = styled(RowFixed)`
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -302,25 +303,27 @@ export default function Header() {
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   // const [isDark] = useDarkModeManager()
-  const [darkMode, toggleDarkMode] = useDarkModeManager()
+  const [darkMode /*, toggleDarkMode*/] = useDarkModeManager()
 
-  const toggleClaimModal = useToggleSelfClaimModal()
+  console.log(userEthBalance)
 
-  const availableClaim: boolean = useUserHasAvailableClaim(account)
+  // const toggleClaimModal = useToggleSelfClaimModal()
 
-  const { claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
+  // const availableClaim: boolean = useUserHasAvailableClaim(account)
+
+  // const { claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
 
   const aggregateBalance: TokenAmount | undefined = useAggregateUniBalance()
 
   const [showUniBalanceModal, setShowUniBalanceModal] = useState(false)
-  const showClaimPopup = useShowClaimPopup()
+  // const showClaimPopup = useShowClaimPopup()
 
   const countUpValue = aggregateBalance?.toFixed(0) ?? '0'
   const countUpValuePrevious = usePrevious(countUpValue) ?? '0'
 
   return (
     <HeaderFrame>
-      <ClaimModal />
+      {/*<ClaimModal />*/}
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
         <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
@@ -365,19 +368,19 @@ export default function Header() {
               <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
             )}
           </HideSmall>
-          {availableClaim && !showClaimPopup && (
-            <FTHMWrapper onClick={toggleClaimModal}>
-              <FTHMAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
-                <TYPE.white padding="0 2px">
-                  {claimTxn && !claimTxn?.receipt ? <Dots>Claiming FTHM</Dots> : 'Claim FTHM'}
-                </TYPE.white>
-              </FTHMAmount>
-              <CardNoise />
-            </FTHMWrapper>
-          )}
-          {!availableClaim && aggregateBalance && (
+          {/*{availableClaim && !showClaimPopup && (*/}
+          {/*  <FTHMWrapper onClick={toggleClaimModal}>*/}
+          {/*    <FTHMAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>*/}
+          {/*      <TYPE.white padding="0 2px">*/}
+          {/*        {claimTxn && !claimTxn?.receipt ? <Dots>Claiming FTHM</Dots> : 'Claim FTHM'}*/}
+          {/*      </TYPE.white>*/}
+          {/*    </FTHMAmount>*/}
+          {/*    <CardNoise />*/}
+          {/*  </FTHMWrapper>*/}
+          {/*)}*/}
+          {/*!availableClaim &&*/ aggregateBalance && (
             <FTHMWrapper onClick={() => setShowUniBalanceModal(true)}>
-              <FTHMAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
+              <FTHMAmount active={!!account /*&& !availableClaim*/} style={{ pointerEvents: 'auto' }}>
                 {account && (
                   <HideSmall>
                     <TYPE.black
@@ -404,18 +407,18 @@ export default function Header() {
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} ETH
+                {userEthBalance?.toSignificant(4)} {XDC_CHAIN_IDS.includes(chainId as ChainId) ? 'XDC' : 'ETH'}
               </BalanceText>
             ) : null}
             <Web3Status />
           </AccountElement>
         </HeaderElement>
-        <HeaderElementWrap>
-          <StyledMenuButton onClick={() => toggleDarkMode()}>
-            {darkMode ? <Moon size={20} /> : <Sun size={20} />}
-          </StyledMenuButton>
-          <Menu />
-        </HeaderElementWrap>
+        {/*<HeaderElementWrap>*/}
+        {/*  <StyledMenuButton onClick={() => toggleDarkMode()}>*/}
+        {/*    {darkMode ? <Moon size={20} /> : <Sun size={20} />}*/}
+        {/*  </StyledMenuButton>*/}
+        {/*  <Menu />*/}
+        {/*</HeaderElementWrap>*/}
       </HeaderControls>
     </HeaderFrame>
   )

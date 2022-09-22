@@ -84,7 +84,7 @@ export default function ClaimModal() {
   }, [attempting, claimConfirmed, claimSubmitted, isOpen, toggleClaimModal])
 
   const nonLPAmount = JSBI.multiply(
-    JSBI.BigInt((userClaimData?.flags?.isSOCKS ? SOCKS_AMOUNT : 0) + (userClaimData?.flags?.isUser ? USER_AMOUNT : 0)),
+  JSBI.BigInt((userClaimData?.flags?.isSOCKS ? SOCKS_AMOUNT : 0) + (userClaimData?.flags?.isUser ? USER_AMOUNT : 0)),
     JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
   )
 

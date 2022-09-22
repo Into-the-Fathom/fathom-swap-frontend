@@ -1,7 +1,4 @@
-import {
-  ChainId,
-  TokenAmount
-} from 'fathomswap-test-sdk'
+import { ChainId, TokenAmount } from 'fathomswap-test-sdk'
 import React, { useMemo } from 'react'
 import { X } from 'react-feather'
 import styled from 'styled-components'
@@ -11,28 +8,14 @@ import { useTotalSupply } from '../../data/TotalSupply'
 import { useActiveWeb3React } from '../../hooks'
 import { useMerkleDistributorContract } from '../../hooks/useContract'
 import useCurrentBlockTimestamp from '../../hooks/useCurrentBlockTimestamp'
-import { useTotalUniEarned } from '../../state/stake/hooks'
-import {
-  useAggregateUniBalance,
-  useTokenBalance
-} from '../../state/wallet/hooks'
-import {
-  ExternalLink,
-  StyledInternalLink,
-  TYPE,
-  UniTokenAnimated
-} from '../../theme'
+// import { useTotalUniEarned } from '../../state/stake/hooks'
+import { useAggregateUniBalance, useTokenBalance } from '../../state/wallet/hooks'
+import { ExternalLink, /*StyledInternalLink,*/ TYPE, UniTokenAnimated } from '../../theme'
 import { computeUniCirculation } from '../../utils/computeUniCirculation'
 import useUSDCPrice from '../../utils/useUSDCPrice'
 import { AutoColumn } from '../Column'
 import { RowBetween } from '../Row'
-import {
-  Break,
-  CardBGImage,
-  CardNoise,
-  CardSection,
-  DataCard
-} from '../earn/styled'
+import { Break, CardBGImage, CardNoise, CardSection, DataCard } from '../earn/styled'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -63,14 +46,14 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
   const uni = chainId ? UNI[chainId] : undefined
 
   const total = useAggregateUniBalance()
-  const uniBalance: TokenAmount|undefined = useTokenBalance(account ?? undefined, uni)
-  const uniToClaim: TokenAmount|undefined = useTotalUniEarned()
+  const uniBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, uni)
+  // const uniToClaim: TokenAmount | undefined = useTotalUniEarned()
 
-  const totalSupply: TokenAmount|undefined = useTotalSupply(uni)
+  const totalSupply: TokenAmount | undefined = useTotalSupply(uni)
   const uniPrice = useUSDCPrice(uni)
   const blockTimestamp = useCurrentBlockTimestamp()
   const unclaimedUni = useTokenBalance(useMerkleDistributorContract()?.address, uni)
-  const circulation: TokenAmount|undefined = useMemo(
+  const circulation: TokenAmount | undefined = useMemo(
     () =>
       blockTimestamp && uni && chainId === ChainId.MAINNET
         ? computeUniCirculation(uni, blockTimestamp, unclaimedUni)
@@ -81,20 +64,20 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
   return (
     <ContentWrapper gap="lg">
       <ModalUpper>
-        <CardBGImage/>
-        <CardNoise/>
+        <CardBGImage />
+        <CardNoise />
         <CardSection gap="md">
           <RowBetween>
             <TYPE.black color="black">Your FTHM Breakdown</TYPE.black>
-            <StyledClose stroke="black" onClick={() => setShowUniBalanceModal(false)}/>
+            <StyledClose stroke="black" onClick={() => setShowUniBalanceModal(false)} />
           </RowBetween>
         </CardSection>
-        <Break/>
+        <Break />
         {account && (
           <>
             <CardSection gap="sm">
               <AutoColumn gap="md" justify="center">
-                <UniTokenAnimated width="48px" src={tokenLogo}/>{' '}
+                <UniTokenAnimated width="48px" src={tokenLogo} />{' '}
                 <TYPE.black fontSize={48} fontWeight={600} color="black">
                   {total?.toFixed(2, { groupSeparator: ',' })}
                 </TYPE.black>
@@ -104,20 +87,20 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
                   <TYPE.black color="black">Balance:</TYPE.black>
                   <TYPE.black color="black">{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.black>
                 </RowBetween>
-                <RowBetween>
-                  <TYPE.black color="black">Unclaimed:</TYPE.black>
-                  <TYPE.black color="black">
-                    {uniToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}
-                    {uniToClaim && uniToClaim.greaterThan('0') && (
-                      <StyledInternalLink onClick={() => setShowUniBalanceModal(false)} to="/fthm">
-                        (claim)
-                      </StyledInternalLink>
-                    )}
-                  </TYPE.black>
-                </RowBetween>
+                {/*<RowBetween>*/}
+                {/*  <TYPE.black color="black">Unclaimed:</TYPE.black>*/}
+                {/*  <TYPE.black color="black">*/}
+                {/*    {uniToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}*/}
+                {/*    {uniToClaim && uniToClaim.greaterThan('0') && (*/}
+                {/*      <StyledInternalLink onClick={() => setShowUniBalanceModal(false)} to="/fthm">*/}
+                {/*        (claim)*/}
+                {/*      </StyledInternalLink>*/}
+                {/*    )}*/}
+                {/*  </TYPE.black>*/}
+                {/*</RowBetween>*/}
               </AutoColumn>
             </CardSection>
-            <Break/>
+            <Break />
           </>
         )}
         <CardSection gap="sm">

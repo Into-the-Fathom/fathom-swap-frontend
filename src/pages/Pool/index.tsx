@@ -28,7 +28,7 @@ const PageWrapper = styled(AutoColumn)`
 `
 
 const VoteCard = styled(DataCard)`
-  background: radial-gradient(76.02% 75.41% at 1.84% 0%, #27ae60 0%, #000000 100%);
+  background: ${({ theme }) => theme.bg7};
   overflow: hidden;
 `
 
@@ -133,20 +133,20 @@ export default function Pool() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>Liquidity provider rewards</TYPE.white>
+                <TYPE.black fontWeight={600}>Liquidity provider rewards</TYPE.black>
               </RowBetween>
               <RowBetween>
-                <TYPE.white fontSize={14}>
+                <TYPE.black fontSize={14}>
                   {`Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.`}
-                </TYPE.white>
+                </TYPE.black>
               </RowBetween>
-              <ExternalLink
-                style={{ color: 'white', textDecoration: 'underline' }}
-                target="_blank"
-                href="https://uniswap.org/docs/v2/core-concepts/pools/"
-              >
-                <TYPE.white fontSize={14}>Read more about providing liquidity</TYPE.white>
-              </ExternalLink>
+              {/*<ExternalLink*/}
+              {/*  style={{ color: 'white', textDecoration: 'underline' }}*/}
+              {/*  target="_blank"*/}
+              {/*  href="https://uniswap.org/docs/v2/core-concepts/pools/"*/}
+              {/*>*/}
+              {/*  <TYPE.black fontSize={14}>Read more about providing liquidity</TYPE.black>*/}
+              {/*</ExternalLink>*/}
             </AutoColumn>
           </CardSection>
           <CardBGImage />
