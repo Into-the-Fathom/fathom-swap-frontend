@@ -1,5 +1,5 @@
-import { BigNumber } from '@ethersproject/bignumber'
-import { Contract } from '@ethersproject/contracts'
+import { BigNumber } from '@baldyash/bignumber'
+import { Contract } from '@baldyash/contracts'
 import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from 'fathomswap-test-sdk'
 import { useMemo } from 'react'
 import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from '../constants'
@@ -115,10 +115,6 @@ export function useSwapCallback(
 
   const swapCalls = useSwapCallArguments(trade, allowedSlippage, recipientAddressOrName)
 
-  console.log("swapCalls: ", swapCalls)
-  console.log("chainId: ", chainId)
-  console.log("library: ", library)
-
   const addTransaction = useTransactionAdder()
 
   const { address: recipientAddress } = useENS(recipientAddressOrName)
@@ -141,21 +137,13 @@ export function useSwapCallback(
     return {
       state: SwapCallbackState.VALID,
       callback: async function onSwap(): Promise<string> {
-        console.log("in swap callback")
-        console.log("swapcalls ", swapCalls)
-
-        
         const estimatedCalls: EstimatedSwapCall[] = await Promise.all(
           swapCalls.map(call => {
-            console.log("call is: ", call)
 
             const {
               parameters: { methodName, args, value },
               contract
             } = call
-            console.log("methodName ", methodName)
-            console.log("args ", args)
-            console.log("value ", value)
 
 
             // console.debug('Gas estimate failed, trying eth_call to extract error', call)
@@ -203,8 +191,6 @@ export function useSwapCallback(
 
         if (!successfulEstimation) {
           const errorCalls = estimatedCalls.filter((call): call is FailedCall => 'error' in call)
-          console.log("testing");
-          console.log("eastimated calls ", estimatedCalls)
           if (errorCalls.length > 0) throw errorCalls[errorCalls.length - 1].error
           throw new Error('Unexpected error. Please contact support: none of the calls threw an error')
         }

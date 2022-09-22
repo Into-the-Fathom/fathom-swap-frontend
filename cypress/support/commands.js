@@ -4,9 +4,9 @@
 // https://on.cypress.io/custom-commands
 // ***********************************************
 
-import { JsonRpcProvider } from '@ethersproject/providers'
-import { Wallet } from '@ethersproject/wallet'
-import { _Eip1193Bridge } from '@ethersproject/experimental/lib/eip1193-bridge'
+import { JsonRpcProvider } from '@baldyash/providers'
+import { Wallet } from '@baldyash/wallet'
+import { _Eip1193Bridge } from '@baldyash/experimental/lib/eip1193-bridge'
 
 const TEST_PRIVATE_KEY = Cypress.env('INTEGRATION_TEST_PRIVATE_KEY')
 

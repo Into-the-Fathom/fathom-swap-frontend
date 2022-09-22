@@ -1,6 +1,6 @@
 import useENS from '../../hooks/useENS'
 import { Version } from '../../hooks/useToggledVersion'
-import { parseUnits } from '@ethersproject/units'
+import { parseUnits } from '@baldyash/units'
 import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade } from 'fathomswap-test-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'

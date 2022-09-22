@@ -1,4 +1,4 @@
-import { TransactionResponse } from '@ethersproject/abstract-provider'
+import { TransactionResponse } from '@baldyash/abstract-provider'
 import { JSBI, Token, TokenAmount, WETH, Fraction, Percent, CurrencyAmount } from 'fathomswap-test-sdk'
 import React, { useCallback, useMemo, useState } from 'react'
 import ReactGA from 'react-ga'
@@ -20,9 +20,9 @@ import { isAddress } from '../../utils'
 import { BodyWrapper } from '../AppBody'
 import { EmptyState } from './EmptyState'
 import { V1LiquidityInfo } from './MigrateV1Exchange'
-import { AddressZero } from '@ethersproject/constants'
+import { AddressZero } from '@baldyash/constants'
 import { Dots } from '../../components/swap/styleds'
-import { Contract } from '@ethersproject/contracts'
+import { Contract } from '@baldyash/contracts'
 import { useTotalSupply } from '../../data/TotalSupply'
 
 const WEI_DENOM = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))

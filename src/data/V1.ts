@@ -1,4 +1,4 @@
-import { AddressZero } from '@ethersproject/constants'
+import { AddressZero } from '@baldyash/constants'
 import {
   BigintIsh,
   Currency,

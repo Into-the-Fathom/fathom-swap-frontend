@@ -1,5 +1,5 @@
 import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
-import { parseBytes32String } from '@ethersproject/strings'
+import { parseBytes32String } from '@baldyash/strings'
 import { Currency, ETHER, Token, currencyEquals } from 'fathomswap-test-sdk'
 import { useMemo } from 'react'
 import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'

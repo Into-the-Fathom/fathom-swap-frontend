@@ -1,5 +1,5 @@
-import { MaxUint256 } from '@ethersproject/constants'
-import { TransactionResponse } from '@ethersproject/providers'
+import { MaxUint256 } from '@baldyash/constants'
+import { TransactionResponse } from '@baldyash/providers'
 import { Trade, TokenAmount, CurrencyAmount, ETHER } from 'fathomswap-test-sdk'
 import { useCallback, useMemo } from 'react'
 import { ROUTER_ADDRESS } from '../constants'
