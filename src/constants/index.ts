@@ -4,10 +4,10 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 
 // ROPSTEN -- 0xF017C51164a8c7E6aD57fe82A6eAC39bC048A8Cd
-// APOTHEM -- 0x32A015805a83187E260A5B78fb4a6c3c9C0145EE
-export const ROUTER_ADDRESS = '0xF017C51164a8c7E6aD57fe82A6eAC39bC048A8Cd'
+// APOTHEM -- 0xc68f7E9CBc881F362065235D2a373B5B96644351
+export const ROUTER_ADDRESS = '0xc68f7E9CBc881F362065235D2a373B5B96644351'
 
-export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'  
 
 export { PRELOADED_PROPOSALS } from './proposals'
 
