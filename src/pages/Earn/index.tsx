@@ -2,7 +2,8 @@ import React from 'react'
 import { AutoColumn } from '../../components/Column'
 import styled from 'styled-components'
 import { STAKING_REWARDS_INFO, useStakingInfo } from '../../state/stake/hooks'
-import { TYPE, ExternalLink } from '../../theme'
+import { TYPE } from '../../theme'
+// import { ExternalLink } from '../../theme'
 import PoolCard from '../../components/earn/PoolCard'
 import { RowBetween } from '../../components/Row'
 import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
@@ -62,20 +63,20 @@ export default function Earn() {
           <CardSection>
             <AutoColumn gap="md">
               <RowBetween>
-                <TYPE.white fontWeight={600}>Uniswap liquidity mining</TYPE.white>
+                <TYPE.white fontWeight={600}>Fathom liquidity mining</TYPE.white>
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                  Deposit your Liquidity Provider tokens to receive UNI, the Uniswap protocol governance token.
+                  Deposit your Liquidity Provider tokens to receive UNI, the Fathom protocol governance token.
                 </TYPE.white>
               </RowBetween>{' '}
-              <ExternalLink
-                style={{ color: 'white', textDecoration: 'underline' }}
-                href="https://uniswap.org/blog/uni/"
-                target="_blank"
-              >
-                <TYPE.white fontSize={14}>Read more about UNI</TYPE.white>
-              </ExternalLink>
+              {/*<ExternalLink*/}
+              {/*  style={{ color: 'white', textDecoration: 'underline' }}*/}
+              {/*  href="https://uniswap.org/blog/uni/"*/}
+              {/*  target="_blank"*/}
+              {/*>*/}
+              {/*  <TYPE.white fontSize={14}>Read more about UNI</TYPE.white>*/}
+              {/*</ExternalLink>*/}
             </AutoColumn>
           </CardSection>
           <CardBGImage />

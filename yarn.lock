@@ -1157,7 +1157,7 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@baldyash/address@0.2.0", "@baldyash/address@^0.2.0":
+"@baldyash/address@0.2.0":
   version "0.2.0"
   resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/address/-/address-0.2.0.tgz"
   integrity sha1-Kog8PSW45xAt7qQzjxgw5rGrQss=
@@ -1184,13 +1184,6 @@
   dependencies:
     "@baldyash/logger" "0.2.0"
 
-"@baldyash/constants@0.2.0":
-  version "0.2.0"
-  resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/constants/-/constants-0.2.0.tgz"
-  integrity sha1-cwgZL6rh+8RqjDJTAHE0tDuoNoc=
-  dependencies:
-    "@baldyash/bignumber" "0.2.0"
-
 "@baldyash/keccak256@0.2.0":
   version "0.2.0"
   resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/keccak256/-/keccak256-0.2.0.tgz"
@@ -1210,36 +1203,6 @@
   integrity sha1-LckUjV4NbV+zESXOS6IBJSnqyjU=
   dependencies:
     "@baldyash/bytes" "0.2.0"
-    "@baldyash/logger" "0.2.0"
-
-"@baldyash/sha2@0.2.0":
-  version "0.2.0"
-  resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/sha2/-/sha2-0.2.0.tgz"
-  integrity sha1-8ueZL/u1RklTD2VOw2lGp/p1pFI=
-  dependencies:
-    "@baldyash/bytes" "0.2.0"
-    "@baldyash/logger" "0.2.0"
-    hash.js "1.1.7"
-
-"@baldyash/solidity@^0.2.0":
-  version "0.2.0"
-  resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/solidity/-/solidity-0.2.0.tgz"
-  integrity sha1-4X30bt/bZWQFxTqxapy4g7y5rj4=
-  dependencies:
-    "@baldyash/bignumber" "0.2.0"
-    "@baldyash/bytes" "0.2.0"
-    "@baldyash/keccak256" "0.2.0"
-    "@baldyash/logger" "0.2.0"
-    "@baldyash/sha2" "0.2.0"
-    "@baldyash/strings" "0.2.0"
-
-"@baldyash/strings@0.2.0":
-  version "0.2.0"
-  resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/strings/-/strings-0.2.0.tgz"
-  integrity sha1-l3gVIqMb+7Kl+ERjfkEjN92WXR4=
-  dependencies:
-    "@baldyash/bytes" "0.2.0"
-    "@baldyash/constants" "0.2.0"
     "@baldyash/logger" "0.2.0"
 
 "@cnakazawa/watch@^1.0.3":
@@ -7778,10 +7741,15 @@ fast-url-parser@1.1.3:
   dependencies:
     punycode "^1.3.2"
 
-fathomswap-sdk-core@^0.2.0:
-  version "0.2.0"
-  resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/fathomswap-sdk-core/-/fathomswap-sdk-core-0.2.0.tgz"
-  integrity sha1-ZmvZy6ovIV7h3AsjBcDnHdFihng=
+fathomswap-contracts@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-contracts/-/fathomswap-contracts-0.6.0.tgz#3372abd1b3b796cf754b1b5581bfffe030073ab6"
+  integrity sha512-y/nIoGCkx1xkin1OUdBBOV/kSTrqDWXu6F5IcIKL2AxskVoF6PV8J1VzlNeNU/31RshUwUH54DlwMoGq5n2weA==
+
+fathomswap-sdk-core@0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk-core/-/fathomswap-sdk-core-0.6.0.tgz#9c40cc44821719df17ccd7569f14b8354e15f988"
+  integrity sha512-iapa4gtkUstTgWEf0g5z+iI7LBh0pqqfovkinekevdBic5sl/TUayLxXsbCwqfHbxP9rhUfZafKICG2uEjx88Q==
   dependencies:
     "@baldyash/address" "0.2.0"
     big.js "^5.2.2"
@@ -7790,16 +7758,19 @@ fathomswap-sdk-core@^0.2.0:
     tiny-invariant "^1.1.0"
     toformat "^2.0.0"
 
-fathomswap-sdk@^0.3.0:
-  version "0.3.0"
-  resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/fathomswap-sdk/-/fathomswap-sdk-0.3.0.tgz"
-  integrity sha1-DA8QqKwWjZVvkTx5QGi0dhJqXiM=
+fathomswap-sdk@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-1.6.0.tgz#28ce405f31d997369d46542aac117dd761b43ba5"
+  integrity sha512-kojAvES+fixarlTkg50orKhlAWEQvLvwx8zzWkDF7Ic4bEuWKbOAp8GY1cvK1ZQdslrG4I/dgB8U2J2l8qe8AA==
   dependencies:
-    "@baldyash/address" "^0.2.0"
-    "@baldyash/solidity" "^0.2.0"
-    fathomswap-sdk-core "^0.2.0"
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    fathomswap-contracts "0.6.0"
+    fathomswap-sdk-core "0.6.0"
+    jsbi "^3.1.1"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
+    toformat "^2.0.0"
 
 faye-websocket@^0.10.0:
   version "0.10.0"
@@ -8536,7 +8507,7 @@ hash.js@1.1.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.0"
 
-hash.js@1.1.7, hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.7:
+hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.7:
   version "1.1.7"
   resolved "https://registry.npmjs.org/hash.js/-/hash.js-1.1.7.tgz"
   integrity sha512-taOaskGt4z4SOANNseOviYDvjEJinIkRgmp7LbKP2YTTmVxWBl87s/uzK9r+44BclBSp2X7K1hqeNfz9JbBeXA==

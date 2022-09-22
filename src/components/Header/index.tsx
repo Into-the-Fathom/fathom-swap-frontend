@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from '@uniswap/sdk'
+import { ChainId, TokenAmount } from 'fathomswap-sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
 
-import Logo from '../../assets/svg/Fathom-logo-aqua.svg'
+import Logo from '../../assets/svg/Fathom-logo-black.svg'
 import LogoDark from '../../assets/svg/Fathom-logo-aqua.svg'
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
@@ -288,12 +288,9 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.RINKEBY]: 'Rinkeby',
-  [ChainId.ROPSTEN]: 'Ropsten',
-  [ChainId.GÖRLI]: 'Görli',
-  [ChainId.KOVAN]: 'Kovan'
-  // [ChainId.XDC]: 'XDC Network',
-  // [ChainId.AXDC]: 'XDC Apothem Network',
+  [ChainId.GOERLI]: 'Görli',
+  [ChainId.XDC]: 'XDC Network',
+  [ChainId.AXDC]: 'XDC Apothem Network'
 }
 
 export default function Header() {
@@ -347,12 +344,12 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          <StyledNavLink id={`stake-nav-link`} to={'/uni'}>
-            UNI
+          <StyledNavLink id={`stake-nav-link`} to={'/fthm'}>
+            FTHM
           </StyledNavLink>
-          <StyledNavLink id={`stake-nav-link`} to={'/vote'}>
-            Vote
-          </StyledNavLink>
+          {/*<StyledNavLink id={`stake-nav-link`} to={'/vote'}>*/}
+          {/*  Vote*/}
+          {/*</StyledNavLink>*/}
           <StyledExternalLink id={`stake-nav-link`} href={'https://uniswap.info'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
