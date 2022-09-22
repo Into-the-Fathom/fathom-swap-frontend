@@ -1,4 +1,4 @@
-import { Currency } from 'fathomswap-sdk'
+import { Currency } from 'fathomswap-test-sdk'
 import React from 'react'
 import styled from 'styled-components'
 import CurrencyLogo from '../CurrencyLogo'

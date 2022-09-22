@@ -1,4 +1,4 @@
-import { AddressZero } from '@ethersproject/constants'
+import { AddressZero } from '@baldyash/constants'
 import {
   BigintIsh,
   Currency,
@@ -12,7 +12,7 @@ import {
   Trade,
   TradeType,
   WETH
-} from '@uniswap/sdk'
+} from 'fathomswap-test-sdk'
 import { useMemo } from 'react'
 import { useActiveWeb3React } from '../hooks'
 import { useAllTokens } from '../hooks/Tokens'

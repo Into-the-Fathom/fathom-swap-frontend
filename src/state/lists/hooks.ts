@@ -1,6 +1,6 @@
 import { UNSUPPORTED_LIST_URLS } from './../../constants/lists'
 import DEFAULT_TOKEN_LIST from '@uniswap/default-token-list'
-import { ChainId, Token } from 'fathomswap-sdk'
+import { ChainId, Token } from 'fathomswap-test-sdk'
 import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -37,13 +37,13 @@ export type TokenAddressMap = Readonly<
  * An empty result, useful as a default.
  */
 const EMPTY_LIST: TokenAddressMap = {
+  [ChainId.AXDC]: {},
+  [ChainId.XDC]: {},
   [ChainId.KOVAN]: {},
   [ChainId.RINKEBY]: {},
   [ChainId.ROPSTEN]: {},
   [ChainId.GOERLI]: {},
-  [ChainId.MAINNET]: {},
-  [ChainId.XDC]: {},
-  [ChainId.AXDC]: {}
+  [ChainId.MAINNET]: {}
 }
 
 const listCache: WeakMap<TokenList, TokenAddressMap> | null =

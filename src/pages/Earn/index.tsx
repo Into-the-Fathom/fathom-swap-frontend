@@ -10,7 +10,7 @@ import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/
 import { Countdown } from './Countdown'
 import Loader from '../../components/Loader'
 import { useActiveWeb3React } from '../../hooks'
-import { JSBI } from '@uniswap/sdk'
+import { JSBI } from 'fathomswap-test-sdk'
 import { BIG_INT_ZERO } from '../../constants'
 import { OutlineCard } from '../../components/Card'
 
@@ -67,7 +67,7 @@ export default function Earn() {
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                  Deposit your Liquidity Provider tokens to receive UNI, the Fathom protocol governance token.
+                  Deposit your Liquidity Provider tokens to receive FTHM, the Fathom protocol governance token.
                 </TYPE.white>
               </RowBetween>{' '}
               {/*<ExternalLink*/}

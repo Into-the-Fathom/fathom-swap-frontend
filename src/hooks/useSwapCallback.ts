@@ -1,6 +1,6 @@
-import { BigNumber } from '@ethersproject/bignumber'
-import { Contract } from '@ethersproject/contracts'
-import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from '@uniswap/sdk'
+import { BigNumber } from '@baldyash/bignumber'
+import { Contract } from '@baldyash/contracts'
+import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from 'fathomswap-test-sdk'
 import { useMemo } from 'react'
 import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from '../constants'
 import { getTradeVersion, useV1TradeExchangeAddress } from '../data/V1'
@@ -139,10 +139,15 @@ export function useSwapCallback(
       callback: async function onSwap(): Promise<string> {
         const estimatedCalls: EstimatedSwapCall[] = await Promise.all(
           swapCalls.map(call => {
+
             const {
               parameters: { methodName, args, value },
               contract
             } = call
+
+
+            // console.debug('Gas estimate failed, trying eth_call to extract error', call)
+
             const options = !value || isZero(value) ? {} : { value }
 
             return contract.estimateGas[methodName](...args, options)

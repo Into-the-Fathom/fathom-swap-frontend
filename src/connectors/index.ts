@@ -1,4 +1,4 @@
-import { Web3Provider } from '@ethersproject/providers'
+import { Web3Provider } from '@baldyash/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
@@ -29,7 +29,7 @@ export function getNetworkLibrary(): Web3Provider {
 }
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [1, 5, 50, 51]
+  supportedChainIds: [1, 3, 4, 5, 42, 50, 51]
 })
 
 // mainnet only

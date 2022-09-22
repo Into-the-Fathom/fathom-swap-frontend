@@ -1,4 +1,4 @@
-import { Token } from 'fathomswap-sdk'
+import { Token } from 'fathomswap-test-sdk'
 import React from 'react'
 import Modal from '../Modal'
 import { ImportToken } from 'components/SearchModal/ImportToken'

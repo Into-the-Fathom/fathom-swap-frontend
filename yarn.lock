@@ -1157,6 +1157,45 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
+"@baldyash/abi@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/abi/-/abi-0.2.0.tgz#5dd1fa33188bb39b82832333333b9b82dda1eeaa"
+  integrity sha512-QYdA0iKCpYKIZOmMYrz4Ecd/WEcbHPvn99UJtQidh9Aq5lFf+Mkp/Hudl5FUhEOmjY4GTfgsrm6IES6Q1nye7A==
+  dependencies:
+    "@baldyash/address" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/constants" "0.2.0"
+    "@baldyash/hash" "0.2.0"
+    "@baldyash/keccak256" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/strings" "0.2.0"
+
+"@baldyash/abstract-provider@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/abstract-provider/-/abstract-provider-0.2.0.tgz#1ebd7477110d81ada5a8e61fac37794f0e7c0379"
+  integrity sha512-PGb8nFlhtMCbepAZsrMlk1lbAssy9Jwq3XYBMumO0t2+5qSAx1YPuNMWLy5aY5VGXqM+CvP1TJBb98I2LLA9/g==
+  dependencies:
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/networks" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/transactions" "0.2.0"
+    "@baldyash/web" "0.2.0"
+
+"@baldyash/abstract-signer@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/abstract-signer/-/abstract-signer-0.2.0.tgz#9ad06eecc1a6e85da72dc73f3df816b4d9ba5106"
+  integrity sha512-dJGXqwpx9dR3LhktzaW1nMGHjZ8bYDxJ2SS0qzAlY8XorUjHxvvgTEfh74DDFWu656Wa/AbG5VefUCXuSHNP/w==
+  dependencies:
+    "@baldyash/abstract-provider" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+
 "@baldyash/address@0.2.0":
   version "0.2.0"
   resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/address/-/address-0.2.0.tgz"
@@ -1167,6 +1206,21 @@
     "@baldyash/keccak256" "0.2.0"
     "@baldyash/logger" "0.2.0"
     "@baldyash/rlp" "0.2.0"
+
+"@baldyash/base64@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/base64/-/base64-0.2.0.tgz#32925a047260f570e1cd6c920941c392cc2fca5a"
+  integrity sha512-ou4VIgz7Ac6jy5nYHZpIXt2rOxDdxaKpVt7uAvbgHtkGmoxsUvx8wZF3E2kFL7v9Yyo65vtwuQCohzln5zaBbw==
+  dependencies:
+    "@baldyash/bytes" "0.2.0"
+
+"@baldyash/basex@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/basex/-/basex-0.2.0.tgz#9c0e7230f3cb59a322dd2742236def5c13961803"
+  integrity sha512-91gZ/H+HEat0nxmHPAvNNP91n+QUrZlFhwboCo0fQ+mjhsNbKE0p5L9sOKrJ1vumES4ookaxCMDeLpLgNITymg==
+  dependencies:
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/properties" "0.2.0"
 
 "@baldyash/bignumber@0.2.0":
   version "0.2.0"
@@ -1184,6 +1238,81 @@
   dependencies:
     "@baldyash/logger" "0.2.0"
 
+"@baldyash/constants@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/constants/-/constants-0.2.0.tgz#7308192faae1fbc46a8c3253007134b43ba83687"
+  integrity sha512-YurqALkqiJYEDzhD98gL5ygX1cp13GvFAI6TXLBK3bEQ9RP4ZpNkb4rc11xUSDIfEtXtfto3ULCIQtj9++heHQ==
+  dependencies:
+    "@baldyash/bignumber" "0.2.0"
+
+"@baldyash/contracts@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/contracts/-/contracts-0.2.0.tgz#e7e73a0b7b813e85ff453c520f8cf28fa7f6a18f"
+  integrity sha512-L1aDiLXS4PW7pIlcIAbJM3f6HYTu4942obUEIcdQOzaJ/QCTs6Oo4QxlO7yQ0GPDP95lAEadF31iKeUqa+7KJg==
+  dependencies:
+    "@baldyash/abi" "0.2.0"
+    "@baldyash/abstract-provider" "0.2.0"
+    "@baldyash/abstract-signer" "0.2.0"
+    "@baldyash/address" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/constants" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/transactions" "0.2.0"
+
+"@baldyash/hash@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/hash/-/hash-0.2.0.tgz#c40e40e194c918beb5be7f50d3bd608b7af32d5c"
+  integrity sha512-Nrqh4cxtyWBkf1m9o1RfuIAArZneCDhiEq5q1d/lnlD9ff5vyBuEiVSOwb7HpnVl4YH2wo+2gjfk0eXB1M7yXQ==
+  dependencies:
+    "@baldyash/abstract-signer" "0.2.0"
+    "@baldyash/address" "0.2.0"
+    "@baldyash/base64" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/keccak256" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/strings" "0.2.0"
+
+"@baldyash/hdnode@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/hdnode/-/hdnode-0.2.0.tgz#256bbf54011c8bb4a68914eafca6831deefbbcca"
+  integrity sha512-3T5zsGS8sqP0bHxu6xcS0xu81acEdKGr/V784V5jwi+yP8d4BPFBDNuT9zF9wHx3RUbvxBk5gVpfrMaNJaFC6Q==
+  dependencies:
+    "@baldyash/abstract-signer" "0.2.0"
+    "@baldyash/basex" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/pbkdf2" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/sha2" "0.2.0"
+    "@baldyash/signing-key" "0.2.0"
+    "@baldyash/strings" "0.2.0"
+    "@baldyash/transactions" "0.2.0"
+    "@baldyash/wordlists" "0.2.0"
+
+"@baldyash/json-wallets@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/json-wallets/-/json-wallets-0.2.0.tgz#3d7f5776933b6c4b032f163ee444f6ca94bc95d1"
+  integrity sha512-fcBcE7Rxr2VSVE3PoQ2OtOHTrACV3TOv6alolBNaI2j5v9GGu9DD9WLMGf8vuGStbfmhJt4tMudCijP3ZjPPiA==
+  dependencies:
+    "@baldyash/abstract-signer" "0.2.0"
+    "@baldyash/address" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/hdnode" "0.2.0"
+    "@baldyash/keccak256" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/pbkdf2" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/random" "0.2.0"
+    "@baldyash/strings" "0.2.0"
+    "@baldyash/transactions" "0.2.0"
+    aes-js "3.0.0"
+    scrypt-js "3.0.1"
+
 "@baldyash/keccak256@0.2.0":
   version "0.2.0"
   resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/keccak256/-/keccak256-0.2.0.tgz"
@@ -1197,6 +1326,62 @@
   resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/logger/-/logger-0.2.0.tgz"
   integrity sha1-WVgx4vHNW75MjcyuJEIr2G/X6+A=
 
+"@baldyash/networks@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/networks/-/networks-0.2.0.tgz#d243442f8926b529bc527ef2c2283e8643c36020"
+  integrity sha512-8dJ+H3vhQXi6unb8hF7nZrkBMKtacf2W5gWq3ieMQHo5QJS5/q2rF4IYC6kYAvXokkxbR9vZLOGNVpLKNGOR1g==
+  dependencies:
+    "@baldyash/logger" "0.2.0"
+
+"@baldyash/pbkdf2@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/pbkdf2/-/pbkdf2-0.2.0.tgz#37fedb43c5357d334d7bb839664b2402cc0cbd65"
+  integrity sha512-fam/9zfvOEalHIeap22RUk4dhtBE6tNauqFAA/umvm1pNUnmnGcFmuP1rHDRfdqv6a+z0KKB3gX2pUPXy6e5pg==
+  dependencies:
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/sha2" "0.2.0"
+
+"@baldyash/properties@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/properties/-/properties-0.2.0.tgz#83ceec5c81bdb00112e4150fa3a8267e05c31fcf"
+  integrity sha512-2K4gEHl4x5YANPmdTqKgN2svFc5anBYfH6WjXTTAuWQx4BJHRNdF4s0iyFPC/VIGZk5c6t6liOdVQDWdtCywjg==
+  dependencies:
+    "@baldyash/logger" "0.2.0"
+
+"@baldyash/providers@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/providers/-/providers-0.2.0.tgz#324953c5c9529aaddda63299e9d65a8f7a0da7f4"
+  integrity sha512-HHBhywMAZ1DpplQ3cjjsFurHnv11i9+S8vT9mfbMHX7mkiJ5ftD2iBoaP4TVGq0AhvQsoIbk/JqHM79IzyZbHg==
+  dependencies:
+    "@baldyash/abstract-provider" "0.2.0"
+    "@baldyash/abstract-signer" "0.2.0"
+    "@baldyash/address" "0.2.0"
+    "@baldyash/base64" "0.2.0"
+    "@baldyash/basex" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/constants" "0.2.0"
+    "@baldyash/hash" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/networks" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/random" "0.2.0"
+    "@baldyash/rlp" "0.2.0"
+    "@baldyash/sha2" "0.2.0"
+    "@baldyash/strings" "0.2.0"
+    "@baldyash/transactions" "0.2.0"
+    "@baldyash/web" "0.2.0"
+    bech32 "1.1.4"
+    ws "7.4.6"
+
+"@baldyash/random@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/random/-/random-0.2.0.tgz#7145d37f111cd1dea1fca20ecbd827be2d5e0b94"
+  integrity sha512-37Q/Qrs6qeBQ2Fiy6MxOYd4D5luuR3GWtLjYm+om06iJqYE1SBYlSEXeE/mWiRNT1CUCLBAVifA4I1WCAzc+4w==
+  dependencies:
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+
 "@baldyash/rlp@0.2.0":
   version "0.2.0"
   resolved "https://pkgs.dev.azure.com/Securrency/Securrency/_packaging/Secur/npm/registry/@baldyash/rlp/-/rlp-0.2.0.tgz"
@@ -1204,6 +1389,115 @@
   dependencies:
     "@baldyash/bytes" "0.2.0"
     "@baldyash/logger" "0.2.0"
+
+"@baldyash/sha2@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/sha2/-/sha2-0.2.0.tgz#f2e7992ffbb54649530f654ec36946a7fa75a452"
+  integrity sha512-r15CJanrMbwahJR/KAy36C+MmFS+yd7WlgNssXoQgS3eGDoOCQzubm6oCn3yZ/1AkDfMlD6yewgOEW1om82RGQ==
+  dependencies:
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    hash.js "1.1.7"
+
+"@baldyash/signing-key@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/signing-key/-/signing-key-0.2.0.tgz#3f2c94af476f9875b96e9f2bc3b3f7b28023cbb4"
+  integrity sha512-IoVIGAN8raZtc8aKv9y2T1hXMPe65ahsXMg7YhFwmrIQ1s89WikUxj4vr9SeNlw72zl+p960OLAt1N6OHR2otg==
+  dependencies:
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    bn.js "^5.2.1"
+    elliptic "6.5.4"
+    hash.js "1.1.7"
+
+"@baldyash/solidity@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/solidity/-/solidity-0.2.0.tgz#e17df46edfdb656405c53ab16a9cb883bcb9ae3e"
+  integrity sha512-0kT8DlhFtEPWX5NEVehj+BHK379gf6BIOiObwNnIkjJ6Bb+8+arUAnl1NdNQ/HQpXVfElbWVARPqskLSZ+ASeg==
+  dependencies:
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/keccak256" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/sha2" "0.2.0"
+    "@baldyash/strings" "0.2.0"
+
+"@baldyash/strings@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/strings/-/strings-0.2.0.tgz#97781522a31bfbb2a5f844637e412337dd965d1e"
+  integrity sha512-xAAEl0dal219SvmKK1amQ9YQQ/iwL/695518Sf16HaxwDzf2UbDyAqTVa2QK4Jce/rGm3ON0OtLNhwh3nDNFIg==
+  dependencies:
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/constants" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+
+"@baldyash/transactions@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/transactions/-/transactions-0.2.0.tgz#155736c4602fa73c707e6d99011ab79556169f4f"
+  integrity sha512-s+LbinYdGElnlOvuGEYStXpuQcQGIIUWdSzFUFCfKajS4r++JMA8wdui/MYb7AUpS2Ehkyxew4HmJCxqW31TDA==
+  dependencies:
+    "@baldyash/address" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/constants" "0.2.0"
+    "@baldyash/keccak256" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/rlp" "0.2.0"
+    "@baldyash/signing-key" "0.2.0"
+
+"@baldyash/units@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/units/-/units-0.2.0.tgz#19faa575c61dead3bbb7dbb4d2f96cdfd78daeaa"
+  integrity sha512-g8x+7E9gzF+FZaG8mOwXKSJwON78xV3ipPE/EtlCjP+ahZSHSLDQYZra6D7VRQtjA8gbSw15IguJ35+9lFH2Lw==
+  dependencies:
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/constants" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+
+"@baldyash/wallet@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/wallet/-/wallet-0.2.0.tgz#92446c1307c8551fea00da72103d0758ec44ffaf"
+  integrity sha512-ejx6pBHKfAcV3urVveS6Aeb+iq7+iQdNJc2yteWIzC12X6uGf79OmVQFA8Vxp9W8k2FniBJR/8tKsYwGPfQ91Q==
+  dependencies:
+    "@baldyash/abstract-provider" "0.2.0"
+    "@baldyash/abstract-signer" "0.2.0"
+    "@baldyash/address" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/hash" "0.2.0"
+    "@baldyash/hdnode" "0.2.0"
+    "@baldyash/json-wallets" "0.2.0"
+    "@baldyash/keccak256" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/random" "0.2.0"
+    "@baldyash/signing-key" "0.2.0"
+    "@baldyash/transactions" "0.2.0"
+    "@baldyash/wordlists" "0.2.0"
+
+"@baldyash/web@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/web/-/web-0.2.0.tgz#2719bdc771ba6a765ced97347bf85c673edb4be4"
+  integrity sha512-76qgmvGzAsUCCZ+S6xOVked59bU+m9oL3JDBcn5Wou7EyV9ncQIIR1HqSzdBZz9chlMqatBvTPRczv8qYq3PXQ==
+  dependencies:
+    "@baldyash/base64" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/strings" "0.2.0"
+
+"@baldyash/wordlists@0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@baldyash/wordlists/-/wordlists-0.2.0.tgz#544f38c4b51f632770d03ede0d0459f5619d65ba"
+  integrity sha512-eIZe8/9tPpSV1vAa0myNrwfPSKI5eeSu36u3Kpbcksrf41k6rWvCG5GFft0OP64QAfoi81Nzq+02NRXbEBLxpw==
+  dependencies:
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/hash" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/strings" "0.2.0"
 
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
@@ -2859,11 +3153,6 @@
   resolved "https://registry.npmjs.org/@uniswap/governance/-/governance-1.0.2.tgz"
   integrity sha512-L7BzdI/asAINB2F6EvJuQcg5YhykNeEfZxJrn2RPIVvx+9A9u+opDuqnBK4SYnanrsr3UEX1NwWXwDHmyw2TjQ==
 
-"@uniswap/lib@1.1.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@uniswap/lib/-/lib-1.1.1.tgz"
-  integrity sha512-2yK7sLpKIT91TiS5sewHtOa7YuM8IuBXVl4GZv2jZFys4D2sY7K5vZh6MqD25TPA95Od+0YzCVq6cTF2IKrOmg==
-
 "@uniswap/liquidity-staker@^1.0.2":
   version "1.0.2"
   resolved "https://registry.npmjs.org/@uniswap/liquidity-staker/-/liquidity-staker-1.0.2.tgz"
@@ -2876,41 +3165,10 @@
   resolved "https://registry.npmjs.org/@uniswap/merkle-distributor/-/merkle-distributor-1.0.1.tgz"
   integrity sha512-5gDiTI5hrXIh5UWTrxKYjw30QQDnpl8ckDSpefldNenDlYO1RKkdUYMYpvrqGi2r7YzLYTlO6+TDlNs6O7hDRw==
 
-"@uniswap/sdk@3.0.3":
-  version "3.0.3"
-  resolved "https://registry.npmjs.org/@uniswap/sdk/-/sdk-3.0.3.tgz"
-  integrity sha512-t4s8bvzaCFSiqD2qfXIm3rWhbdnXp+QjD3/mRaeVDHK7zWevs6RGEb1ohMiNgOCTZANvBayb4j8p+XFdnMBadQ==
-  dependencies:
-    "@uniswap/v2-core" "^1.0.0"
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    jsbi "^3.1.1"
-    tiny-invariant "^1.1.0"
-    tiny-warning "^1.0.3"
-    toformat "^2.0.0"
-
 "@uniswap/token-lists@^1.0.0-beta.19":
   version "1.0.0-beta.19"
   resolved "https://registry.npmjs.org/@uniswap/token-lists/-/token-lists-1.0.0-beta.19.tgz"
   integrity sha512-19V3KM7DAe40blWW1ApiaSYwqbq0JTKMO3yChGBrXzQBl+BoQZRTNZ4waCyoZ5QM45Q0Mxd6bCn6jXcH9G1kjg==
-
-"@uniswap/v2-core@1.0.0":
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/@uniswap/v2-core/-/v2-core-1.0.0.tgz"
-  integrity sha512-BJiXrBGnN8mti7saW49MXwxDBRFiWemGetE58q8zgfnPPzQKq55ADltEILqOt6VFZ22kVeVKbF8gVd8aY3l7pA==
-
-"@uniswap/v2-core@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/@uniswap/v2-core/-/v2-core-1.0.1.tgz"
-  integrity sha512-MtybtkUPSyysqLY2U210NBDeCHX+ltHt3oADGdjqoThZaFRDKwM6k1Nb3F0A3hk5hwuQvytFWhrWHOEq6nVJ8Q==
-
-"@uniswap/v2-periphery@^1.1.0-beta.0":
-  version "1.1.0-beta.0"
-  resolved "https://registry.npmjs.org/@uniswap/v2-periphery/-/v2-periphery-1.1.0-beta.0.tgz"
-  integrity sha512-6dkwAMKza8nzqYiXEr2D86dgW3TTavUvCR0w2Tu33bAbM8Ah43LKAzH7oKKPRT5VJQaMi1jtkGs1E8JPor1n5g==
-  dependencies:
-    "@uniswap/lib" "1.1.1"
-    "@uniswap/v2-core" "1.0.0"
 
 "@walletconnect/browser-utils@^1.4.1":
   version "1.4.1"
@@ -4507,7 +4765,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-bech32@^1.1.3:
+bech32@1.1.4, bech32@^1.1.3:
   version "1.1.4"
   resolved "https://registry.npmjs.org/bech32/-/bech32-1.1.4.tgz"
   integrity sha512-s0IrSOzLlbvX7yp4WBfPITzpAU8sqQcpsmwXDiKwrG4r491vwCO/XpejasRNl0piBMe/DvP4Tz0mIS/X1DPJBQ==
@@ -6552,7 +6810,7 @@ elliptic@6.5.3:
     minimalistic-assert "^1.0.0"
     minimalistic-crypto-utils "^1.0.0"
 
-elliptic@^6.0.0, elliptic@^6.5.2:
+elliptic@6.5.4, elliptic@^6.0.0, elliptic@^6.5.2:
   version "6.5.4"
   resolved "https://registry.npmjs.org/elliptic/-/elliptic-6.5.4.tgz"
   integrity sha512-iLhC6ULemrljPZb+QutR5TQGB+pdW6KGD5RSegS+8sorOZT+rdQFbsQFJgvN3eRqNALqJer4oQ16YvJHlU8hzQ==
@@ -7381,7 +7639,7 @@ ethereumjs-vm@^2.1.0, ethereumjs-vm@^2.3.4, ethereumjs-vm@^2.6.0:
     rustbn.js "~0.2.0"
     safe-buffer "^5.1.1"
 
-ethers@^5.0.0, ethers@^5.0.7:
+ethers@^5.0.0:
   version "5.0.7"
   resolved "https://registry.npmjs.org/ethers/-/ethers-5.0.7.tgz"
   integrity sha512-1Zu9s+z4BgsDAZcGIYACJdWBB6mVtCCmUonj68Njul7STcSdgwOyj0sCAxCUr2Nsmsamckr4E12q3ecvZPGAUw==
@@ -7415,6 +7673,42 @@ ethers@^5.0.0, ethers@^5.0.7:
     "@ethersproject/wallet" "^5.0.0"
     "@ethersproject/web" "^5.0.0"
     "@ethersproject/wordlists" "^5.0.0"
+
+ethersfathom@0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/ethersfathom/-/ethersfathom-0.4.0.tgz#b46f1ee227f3ce47f63ca14d7515cca19876a3ad"
+  integrity sha512-tjJco8545dGDeENUNZAN0aGTQlpGmiiSm2YabldWQeMyDawRiYgzhZUDaB07tLpDGwPttad5hmN+CiQTMC4I1Q==
+  dependencies:
+    "@baldyash/abi" "0.2.0"
+    "@baldyash/abstract-provider" "0.2.0"
+    "@baldyash/abstract-signer" "0.2.0"
+    "@baldyash/address" "0.2.0"
+    "@baldyash/base64" "0.2.0"
+    "@baldyash/basex" "0.2.0"
+    "@baldyash/bignumber" "0.2.0"
+    "@baldyash/bytes" "0.2.0"
+    "@baldyash/constants" "0.2.0"
+    "@baldyash/contracts" "0.2.0"
+    "@baldyash/hash" "0.2.0"
+    "@baldyash/hdnode" "0.2.0"
+    "@baldyash/json-wallets" "0.2.0"
+    "@baldyash/keccak256" "0.2.0"
+    "@baldyash/logger" "0.2.0"
+    "@baldyash/networks" "0.2.0"
+    "@baldyash/pbkdf2" "0.2.0"
+    "@baldyash/properties" "0.2.0"
+    "@baldyash/providers" "0.2.0"
+    "@baldyash/random" "0.2.0"
+    "@baldyash/rlp" "0.2.0"
+    "@baldyash/sha2" "0.2.0"
+    "@baldyash/signing-key" "0.2.0"
+    "@baldyash/solidity" "0.2.0"
+    "@baldyash/strings" "0.2.0"
+    "@baldyash/transactions" "0.2.0"
+    "@baldyash/units" "0.2.0"
+    "@baldyash/wallet" "0.2.0"
+    "@baldyash/web" "0.2.0"
+    "@baldyash/wordlists" "0.2.0"
 
 ethjs-util@0.1.6, ethjs-util@^0.1.3:
   version "0.1.6"
@@ -7767,6 +8061,24 @@ fathomswap-sdk@^1.6.0:
     decimal.js-light "^2.5.0"
     fathomswap-contracts "0.6.0"
     fathomswap-sdk-core "0.6.0"
+    jsbi "^3.1.1"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+
+fathomswap-test-contracts@0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-test-contracts/-/fathomswap-test-contracts-0.1.0.tgz#76e7b62ccb00450876479619ef84bd4c7e951292"
+  integrity sha512-2vm27OeX7ljp1DbaYgKKFWjBPTPOaK/2Xvb90zTdTVJ7zSVRpSMPMdMMHoVAkV0890E1nfJiOYop3a090xPG9w==
+
+fathomswap-test-sdk@0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-test-sdk/-/fathomswap-test-sdk-0.2.0.tgz#be776bba26dea91ed537afb22cb202397f0a5c1f"
+  integrity sha512-33dsMyr/WQ96RMa0+gdSwFjxRF6EqGBRU+UdjHI7Yz1lnChpcWo2S7B2GBjxX+6egUOSOFlENvH56BHNW9Pzvw==
+  dependencies:
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    fathomswap-test-contracts "0.1.0"
     jsbi "^3.1.1"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
@@ -8507,7 +8819,7 @@ hash.js@1.1.3:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.0"
 
-hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.7:
+hash.js@1.1.7, hash.js@^1.0.0, hash.js@^1.0.3, hash.js@^1.1.7:
   version "1.1.7"
   resolved "https://registry.npmjs.org/hash.js/-/hash.js-1.1.7.tgz"
   integrity sha512-taOaskGt4z4SOANNseOviYDvjEJinIkRgmp7LbKP2YTTmVxWBl87s/uzK9r+44BclBSp2X7K1hqeNfz9JbBeXA==
@@ -16460,6 +16772,11 @@ ws@7.3.0:
   version "7.3.0"
   resolved "https://registry.npmjs.org/ws/-/ws-7.3.0.tgz"
   integrity sha512-iFtXzngZVXPGgpTlP1rBqsUK82p9tKqsWRPg5L56egiljujJT3vGAYnHANvFxBieXrTFavhzhxW52jnaWV+w2w==
+
+ws@7.4.6:
+  version "7.4.6"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-7.4.6.tgz#5654ca8ecdeee47c33a9a4bf6d28e2be2980377c"
+  integrity sha512-YmhHDO4MzaDLB+M9ym/mDA5z0naX8j7SIlT8f8z+I0VtzsRbekxEutHSme7NPS2qE8StCYQNUnfWdXta/Yu85A==
 
 ws@^5.1.1, ws@^5.2.0:
   version "5.2.2"

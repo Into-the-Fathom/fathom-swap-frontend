@@ -1,5 +1,5 @@
-import { Contract } from '@ethersproject/contracts'
-import { Provider } from '@ethersproject/abstract-provider'
+import { Contract } from '@baldyash/contracts'
+import { Provider } from '@baldyash/abstract-provider'
 import { namehash } from 'ethers/lib/utils'
 
 const REGISTRAR_ABI = [

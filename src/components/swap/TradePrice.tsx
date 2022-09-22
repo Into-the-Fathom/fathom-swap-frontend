@@ -1,5 +1,5 @@
 import React from 'react'
-import { Price } from 'fathomswap-sdk'
+import { Price } from 'fathomswap-test-sdk'
 import { useContext } from 'react'
 import { Repeat } from 'react-feather'
 import { Text } from 'rebass'

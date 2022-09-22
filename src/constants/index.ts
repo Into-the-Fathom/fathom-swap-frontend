@@ -1,9 +1,11 @@
-import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-sdk'
+import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-test-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 
-export const ROUTER_ADDRESS = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'
+// ROPSTEN -- 0xF017C51164a8c7E6aD57fe82A6eAC39bC048A8Cd
+// APOTHEM -- 0x32A015805a83187E260A5B78fb4a6c3c9C0145EE
+export const ROUTER_ADDRESS = '0xF017C51164a8c7E6aD57fe82A6eAC39bC048A8Cd'
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
@@ -41,12 +43,12 @@ export const UNI: { [chainId in ChainId]: Token } = {
   [ChainId.ROPSTEN]: new Token(ChainId.ROPSTEN, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
   [ChainId.GOERLI]: new Token(ChainId.GOERLI, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
   [ChainId.KOVAN]: new Token(ChainId.KOVAN, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.XDC]: new Token(ChainId.KOVAN, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.AXDC]: new Token(ChainId.KOVAN, UNI_ADDRESS, 18, 'UNI', 'Uniswap')
+  [ChainId.XDC]: new Token(ChainId.XDC, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
+  [ChainId.AXDC]: new Token(ChainId.AXDC, UNI_ADDRESS, 18, 'UNI', 'Uniswap')
 }
 
 export const COMMON_CONTRACT_NAMES: { [address: string]: string } = {
-  [UNI_ADDRESS]: 'FTHM',
+  [UNI_ADDRESS]: 'UNI',
   [GOVERNANCE_ADDRESS]: 'Governance',
   [TIMELOCK_ADDRESS]: 'Timelock'
 }
@@ -60,8 +62,10 @@ const WETH_ONLY: ChainTokenList = {
   [ChainId.MAINNET]: [WETH[ChainId.MAINNET]],
   [ChainId.ROPSTEN]: [WETH[ChainId.ROPSTEN]],
   [ChainId.RINKEBY]: [WETH[ChainId.RINKEBY]],
-  [ChainId.GÖRLI]: [WETH[ChainId.GÖRLI]],
-  [ChainId.KOVAN]: [WETH[ChainId.KOVAN]]
+  [ChainId.GOERLI]: [WETH[ChainId.GOERLI]],
+  [ChainId.KOVAN]: [WETH[ChainId.KOVAN]],
+  [ChainId.XDC]: [WETH[ChainId.XDC]],
+  [ChainId.AXDC]: [WETH[ChainId.AXDC]]
 }
 
 // used to construct intermediary pairs for trading
@@ -72,8 +76,8 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
 
 export const ADDITIONAL_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: Token[] } } = {
   [ChainId.MAINNET]: {
-    '0xA948E86885e12Fb09AfEF8C52142EBDbDf73cD18': [new Token(ChainId.MAINNET, UNI_ADDRESS, 18, 'FTHM', 'Fathom')],
-    '0x561a4717537ff4AF5c687328c0f7E90a319705C0': [new Token(ChainId.MAINNET, UNI_ADDRESS, 18, 'FTHM', 'Fathom')],
+    '0xA948E86885e12Fb09AfEF8C52142EBDbDf73cD18': [new Token(ChainId.MAINNET, UNI_ADDRESS, 18, 'UNI', 'Uniswap')],
+    '0x561a4717537ff4AF5c687328c0f7E90a319705C0': [new Token(ChainId.MAINNET, UNI_ADDRESS, 18, 'UNI', 'Uniswap')],
     [FEI.address]: [TRIBE],
     [TRIBE.address]: [FEI],
     [FRAX.address]: [FXS],

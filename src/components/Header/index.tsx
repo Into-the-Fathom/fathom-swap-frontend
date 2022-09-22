@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from 'fathomswap-sdk'
+import { ChainId, TokenAmount } from 'fathomswap-test-sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -134,8 +134,8 @@ const FTHMAmount = styled(AccountElement)`
   padding: 4px 8px;
   height: 36px;
   font-weight: 500;
-  background-color: ${({ theme }) => theme.bg3};
-  background: radial-gradient(174.47% 188.91% at 1.84% 0%, #ff007a 0%, #2172e5 100%), #edeef2;
+  background-color: ${({ theme }) => theme.bg7};
+  color: ${({ theme }) => theme.text6};
 `
 
 const FTHMWrapper = styled.span`
@@ -288,9 +288,12 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.GOERLI]: 'Görli',
-  [ChainId.XDC]: 'XDC Network',
-  [ChainId.AXDC]: 'XDC Apothem Network'
+  [ChainId.RINKEBY]: 'Rinkeby',
+  [ChainId.ROPSTEN]: 'Ropsten',
+  [ChainId.GOERLI]: 'GOERLI',
+  [ChainId.KOVAN]: 'Kovan',
+  [ChainId.XDC]: 'XDC',
+  [ChainId.AXDC]: 'AXDC'
 }
 
 export default function Header() {
@@ -377,7 +380,7 @@ export default function Header() {
               <FTHMAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
                 {account && (
                   <HideSmall>
-                    <TYPE.white
+                    <TYPE.black
                       style={{
                         paddingRight: '.4rem'
                       }}
@@ -390,7 +393,7 @@ export default function Header() {
                         thousandsSeparator={','}
                         duration={1}
                       />
-                    </TYPE.white>
+                    </TYPE.black>
                   </HideSmall>
                 )}
                 FTHM
