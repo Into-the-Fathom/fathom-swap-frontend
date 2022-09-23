@@ -1,7 +1,6 @@
 import { TokenAmount, Pair, Currency } from 'fathomswap-test-sdk'
 import { useMemo } from 'react'
-// import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
-import { abi as IUniswapV2PairABI } from 'fathomswap-test-contracts/artifacts/contracts/core/interfaces/IUniswapV2Pair.sol/IUniswapV2Pair.json'
+import { abi as IUniswapV2PairABI } from 'fathomswap-contracts/artifacts/contracts/core/interfaces/IUniswapV2Pair.sol/IUniswapV2Pair.json'
 import { Interface } from '@baldyash/abi'
 import { useActiveWeb3React } from '../hooks'
 

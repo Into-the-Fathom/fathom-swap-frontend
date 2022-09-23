@@ -8111,19 +8111,19 @@ fast-url-parser@1.1.3:
   dependencies:
     punycode "^1.3.2"
 
-fathomswap-test-contracts@0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-test-contracts/-/fathomswap-test-contracts-0.1.0.tgz#76e7b62ccb00450876479619ef84bd4c7e951292"
-  integrity sha512-2vm27OeX7ljp1DbaYgKKFWjBPTPOaK/2Xvb90zTdTVJ7zSVRpSMPMdMMHoVAkV0890E1nfJiOYop3a090xPG9w==
+fathomswap-contracts@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-contracts/-/fathomswap-contracts-1.0.0.tgz#da9a84438ef1a7d689fc78899d1e0c0889748701"
+  integrity sha512-tCS6uiryxxNTceMOC7f9Fp0Jhlmw2egRKxyMZ1KL941/4hL/C84N/ntcreA+5aqSTZrdZssNugXIn7xL0g3zlw==
 
-fathomswap-test-sdk@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-test-sdk/-/fathomswap-test-sdk-0.3.0.tgz#cf1df5f35bfc54009cb3386d54426a6387ff204c"
-  integrity sha512-v6TLxhEYUdhdqQPnd9Gka9Dli3GBEloQwwV4/hOo2BrJOvRzaAB2DqJ+jjXcrJxKfhBQsURGJiBEHGBQip1NsA==
+fathomswap-test-sdk@^0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-test-sdk/-/fathomswap-test-sdk-0.4.0.tgz#7686351efc83b47b10c3fd2e11c71711fc2f2f8c"
+  integrity sha512-2MEJ+xefpngr1rwdEEdT8UW40T6iG39yH1BTgRSArYQwovfbtlALNe3Pr7+fIQphbjVH6ns2muRvlAAH38qm5A==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    fathomswap-test-contracts "0.1.0"
+    fathomswap-contracts "1.0.0"
     jsbi "^3.1.1"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
