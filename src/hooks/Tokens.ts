@@ -1,11 +1,11 @@
 import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
 import { parseBytes32String } from '@baldyash/strings'
-import { Currency, ETHER, Token, currencyEquals } from 'fathomswap-sdk'
+import { Currency, currencyEquals, ETHER, Token, XDC } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
 import { useUserAddedTokens } from '../state/user/hooks'
-import { isAddress } from '../utils'
+import { isAddress, XDC_CHAIN_IDS } from '../utils'
 
 import { useActiveWeb3React } from './index'
 import { useBytes32TokenContract, useTokenContract } from './useContract'
@@ -182,7 +182,8 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
 }
 
 export function useCurrency(currencyId: string | undefined): Currency | null | undefined {
-  const isETH = currencyId?.toUpperCase() === 'ETH'
+  const { chainId } = useActiveWeb3React()
+  const isETH = currencyId?.toUpperCase() === 'ETH' || currencyId?.toUpperCase() === 'XDC'
   const token = useToken(isETH ? undefined : currencyId)
-  return isETH ? ETHER : token
+  return isETH ? (XDC_CHAIN_IDS.includes(chainId!) ? XDC : ETHER) : token
 }
