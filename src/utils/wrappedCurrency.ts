@@ -2,7 +2,11 @@ import { ChainId, Currency, CurrencyAmount, ETHER, Token, TokenAmount, WETH, XDC
 import { XDC_CHAIN_IDS } from './index'
 
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {
-  return chainId && currency === ETHER ? WETH[chainId] : currency instanceof Token ? currency : undefined
+  return chainId && (currency === ETHER || currency === XDC)
+    ? WETH[chainId]
+    : currency instanceof Token
+    ? currency
+    : undefined
 }
 
 export function wrappedCurrencyAmount(

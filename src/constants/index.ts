@@ -3,14 +3,31 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 
+export const ROUTER_ADDRESS = '0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F'
+
+// a list of tokens by chain
+type RouterAddressesList = {
+  readonly [chainId in ChainId]: string
+}
+
 // APOTHEM -- 0xc68f7E9CBc881F362065235D2a373B5B96644351
 // ROPSTEN -- 0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F
 // RINKEBY -- 0x95F81bA096bdF2316890e5C21A852B9C5cE6BE8A
 // GOERLI  -- 0x3505004AF79Ba4d4db556ACF4B9549ec4F6788b8
 // KOVAN   -- 0xCda6fc69869cb07934A1F1Cf65e04aC18eea9B3b
-export const ROUTER_ADDRESS = '0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F'
+// MAINNET -- 0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F
+export const ROUTER_ADDRESSES: RouterAddressesList = {
+  [ChainId.MAINNET]: '0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F',
+  [ChainId.ROPSTEN]: '0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F',
+  [ChainId.RINKEBY]: '0x95F81bA096bdF2316890e5C21A852B9C5cE6BE8A',
+  [ChainId.GOERLI]: '0x3505004AF79Ba4d4db556ACF4B9549ec4F6788b8',
+  [ChainId.KOVAN]: '0xCda6fc69869cb07934A1F1Cf65e04aC18eea9B3b',
+  // @todo: Need to change it after deploy to XDC
+  [ChainId.XDC]: '0xc68f7E9CBc881F362065235D2a373B5B96644351',
+  [ChainId.AXDC]: '0xc68f7E9CBc881F362065235D2a373B5B96644351'
+}
 
-export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'  
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 export { PRELOADED_PROPOSALS } from './proposals'
 

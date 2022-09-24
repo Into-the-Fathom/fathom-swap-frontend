@@ -5,7 +5,7 @@ import { JsonRpcSigner, Web3Provider } from '@baldyash/providers'
 import { BigNumber } from '@baldyash/bignumber'
 import { abi as IUniswapV2Router02ABI } from 'fathomswap-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
 
-import { ROUTER_ADDRESS } from '../constants'
+import { ROUTER_ADDRESSES } from '../constants'
 import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'fathomswap-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
 
@@ -125,8 +125,8 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
 }
 
 // account is optional
-export function getRouterContract(_: number, library: Web3Provider, account?: string): Contract {
-  return getContract(ROUTER_ADDRESS, IUniswapV2Router02ABI, library, account)
+export function getRouterContract(chainId: ChainId, library: Web3Provider, account?: string): Contract {
+  return getContract(ROUTER_ADDRESSES[chainId], IUniswapV2Router02ABI, library, account)
 }
 
 export function escapeRegExp(string: string): string {
