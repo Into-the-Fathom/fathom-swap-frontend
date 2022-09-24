@@ -150,6 +150,18 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
     [
       new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
       new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT')
+    ],
+    [
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC'),
+      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC')
+    ],
+    [
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC'),
+      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT')
     ]
   ],
   [ChainId.ROPSTEN]: [
