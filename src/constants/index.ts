@@ -8,7 +8,7 @@ import { fortmatic, injected, portis, walletconnect, walletlink } from '../conne
 // RINKEBY -- 0x95F81bA096bdF2316890e5C21A852B9C5cE6BE8A
 // GOERLI  -- 0x3505004AF79Ba4d4db556ACF4B9549ec4F6788b8
 // KOVAN   -- 0xCda6fc69869cb07934A1F1Cf65e04aC18eea9B3b
-export const ROUTER_ADDRESS = '0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F'
+export const ROUTER_ADDRESS = '0xc68f7E9CBc881F362065235D2a373B5B96644351'
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'  
 
@@ -132,6 +132,18 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
     ],
     [
       new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT')
+    ],
+    [
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC'),
+      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC')
+    ],
+    [
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC'),
       new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT')
     ]
   ],
