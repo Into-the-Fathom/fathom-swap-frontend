@@ -157,8 +157,6 @@ export default function CurrencyInputPanel({
   const selectedCurrencyBalance = useCurrencyBalance(account ?? undefined, currency ?? undefined)
   const theme = useTheme()
 
-  console.log(selectedCurrencyBalance)
-
   const handleDismissSearch = useCallback(() => {
     setModalOpen(false)
   }, [setModalOpen])

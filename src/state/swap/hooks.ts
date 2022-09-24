@@ -1,6 +1,6 @@
 import useENS from '../../hooks/useENS'
 import { parseUnits } from '@baldyash/units'
-import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade } from 'fathomswap-sdk'
+import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade, XDC } from 'fathomswap-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -8,7 +8,7 @@ import { useActiveWeb3React } from '../../hooks'
 import { useCurrency } from '../../hooks/Tokens'
 import { useTradeExactIn, useTradeExactOut } from '../../hooks/Trades'
 import useParsedQueryString from '../../hooks/useParsedQueryString'
-import { isAddress } from '../../utils'
+import { isAddress, XDC_CHAIN_IDS } from '../../utils'
 import { AppDispatch, AppState } from '../index'
 import { useCurrencyBalances } from '../wallet/hooks'
 import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
@@ -30,10 +30,21 @@ export function useSwapActionHandlers(): {
   const dispatch = useDispatch<AppDispatch>()
   const onCurrencySelection = useCallback(
     (field: Field, currency: Currency) => {
+      let currencyId
+      if (currency instanceof Token) {
+        currencyId = currency.address
+      } else if (currency === ETHER) {
+        currencyId = 'ETH'
+      } else if (currency === XDC) {
+        currencyId = 'XDC'
+      } else {
+        currencyId = ''
+      }
+
       dispatch(
         selectCurrency({
           field,
-          currencyId: currency instanceof Token ? currency.address : currency === ETHER ? 'ETH' : ''
+          currencyId
         })
       )
     },
@@ -185,9 +196,7 @@ export function useDerivedSwapInfo(): {
   // compare input balance to max input based on version
   const [balanceIn, amountIn] = [
     currencyBalances[Field.INPUT],
-    toggledVersion === slippageAdjustedAmounts
-      ? slippageAdjustedAmounts[Field.INPUT]
-      : null
+    toggledVersion === slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.INPUT] : null
   ]
 
   if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
@@ -203,14 +212,17 @@ export function useDerivedSwapInfo(): {
   }
 }
 
-function parseCurrencyFromURLParameter(urlParam: any): string {
+function parseCurrencyFromURLParameter(urlParam: any, chainId?: ChainId): string {
   if (typeof urlParam === 'string') {
     const valid = isAddress(urlParam)
     if (valid) return valid
     if (urlParam.toUpperCase() === 'ETH') return 'ETH'
-    if (valid === false) return 'ETH'
+    if (urlParam.toUpperCase() === 'XDC') return 'XDC'
+    if (valid === false) {
+      return XDC_CHAIN_IDS.includes(chainId!) ? 'XDC' : 'ETH'
+    }
   }
-  return 'ETH' ?? ''
+  return XDC_CHAIN_IDS.includes(chainId!) ? 'XDC' : 'ETH' ?? ''
 }
 
 function parseTokenAmountURLParameter(urlParam: any): string {
@@ -223,6 +235,7 @@ function parseIndependentFieldURLParameter(urlParam: any): Field {
 
 const ENS_NAME_REGEX = /^[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&/=]*)?$/
 const ADDRESS_REGEX = /^0x[a-fA-F0-9]{40}$/
+
 function validatedRecipient(recipient: any): string | null {
   if (typeof recipient !== 'string') return null
   const address = isAddress(recipient)
@@ -232,9 +245,9 @@ function validatedRecipient(recipient: any): string | null {
   return null
 }
 
-export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
-  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
-  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
+export function queryParametersToSwapState(parsedQs: ParsedQs, chainId?: ChainId): SwapState {
+  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency, chainId)
+  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency, chainId)
   if (inputCurrency === outputCurrency) {
     if (typeof parsedQs.outputCurrency === 'string') {
       inputCurrency = ''
@@ -271,7 +284,7 @@ export function useDefaultsFromURLSearch():
 
   useEffect(() => {
     if (!chainId) return
-    const parsed = queryParametersToSwapState(parsedQs)
+    const parsed = queryParametersToSwapState(parsedQs, chainId)
 
     dispatch(
       replaceSwapState({
