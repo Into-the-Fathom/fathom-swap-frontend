@@ -3,8 +3,11 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 
-// ROPSTEN -- 0xF017C51164a8c7E6aD57fe82A6eAC39bC048A8Cd
 // APOTHEM -- 0xc68f7E9CBc881F362065235D2a373B5B96644351
+// ROPSTEN -- 0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F
+// RINKEBY -- 0x95F81bA096bdF2316890e5C21A852B9C5cE6BE8A
+// GOERLI  -- 0x3505004AF79Ba4d4db556ACF4B9549ec4F6788b8
+// KOVAN   -- 0xCda6fc69869cb07934A1F1Cf65e04aC18eea9B3b
 export const ROUTER_ADDRESS = '0xc68f7E9CBc881F362065235D2a373B5B96644351'
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'  
@@ -39,12 +42,12 @@ export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
 const UNI_ADDRESS = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
 export const UNI: { [chainId in ChainId]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.ROPSTEN]: new Token(ChainId.ROPSTEN, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.GOERLI]: new Token(ChainId.GOERLI, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.KOVAN]: new Token(ChainId.KOVAN, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
+  [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, '0x79dFFC4DcBb1f598EC3741E939f22bAAF56448Da', 18, 'FTHM', 'Fathom'),
+  [ChainId.ROPSTEN]: new Token(ChainId.ROPSTEN, '0xE48bE22Fc8b2B5BeB16264B60729e5D0a2083EcB', 18, 'FTHM', 'Fathom'),
+  [ChainId.GOERLI]: new Token(ChainId.GOERLI, '0x405B1270cBF871bA54c31D3181DDb56C48c545f8', 18, 'FTHM', 'Fathom'),
+  [ChainId.KOVAN]: new Token(ChainId.KOVAN, '0x792F5c3F320629dd250E73b331442852514C2458', 18, 'FTHM', 'Fathom'),
   [ChainId.XDC]: new Token(ChainId.XDC, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.AXDC]: new Token(ChainId.AXDC, '0x5118Dbf63360539365bf1694cD9b78a8892919DD', 18, 'FTHM', 'Fathom')
+  [ChainId.AXDC]: new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
 }
 
 export const COMMON_CONTRACT_NAMES: { [address: string]: string } = {
@@ -117,6 +120,12 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
     ],
     [USDC, USDT],
     [DAI, USDT]
+  ],
+  [ChainId.AXDC]: [
+    [
+      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT'),
+      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+    ]
   ]
 }
 

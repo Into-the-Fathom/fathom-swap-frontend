@@ -30,7 +30,7 @@
     "@uniswap/governance": "^1.0.2",
     "@uniswap/liquidity-staker": "^1.0.2",
     "@uniswap/merkle-distributor": "1.0.1",
-    "fathomswap-sdk": "^2.0.0",
+    "fathomswap-sdk": "^2.1.0",
     "@uniswap/token-lists": "^1.0.0-beta.19",
     "@web3-react/core": "^6.0.9",
     "@web3-react/fortmatic-connector": "^6.0.9",
@@ -120,6 +120,6 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "fathomswap-default-token-list": "0.6.0"
+    "fathomswap-default-token-list": "0.7.0"
   }
 }

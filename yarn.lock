@@ -8111,15 +8111,15 @@ fathomswap-contracts@1.0.0:
   resolved "https://registry.yarnpkg.com/fathomswap-contracts/-/fathomswap-contracts-1.0.0.tgz#da9a84438ef1a7d689fc78899d1e0c0889748701"
   integrity sha512-tCS6uiryxxNTceMOC7f9Fp0Jhlmw2egRKxyMZ1KL941/4hL/C84N/ntcreA+5aqSTZrdZssNugXIn7xL0g3zlw==
 
-fathomswap-default-token-list@0.6.0:
-  version "0.6.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-default-token-list/-/fathomswap-default-token-list-0.6.0.tgz#315190c36f7c5ce0eb81d1e5f16103418fb7bafa"
-  integrity sha512-qnHv6BFS5JYcSGjoYatV+xaTYqixuuzgWlv2iW1lS1OsnYEG93n/10V6667+pEziZ5B75Y49sg6yoryoEmcf+Q==
+fathomswap-default-token-list@0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-default-token-list/-/fathomswap-default-token-list-0.7.0.tgz#a567c5cfb2f7a0815ca0cd436cea3f07c307a2d4"
+  integrity sha512-bGym7fRa2CfxURm5FXaSImjodjrDx4IUkdh/9olW7sv706B6WndFfGSeDjQL9bNaos+5v+xC9n51owM5Hv8cnQ==
 
-fathomswap-sdk@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-2.0.0.tgz#e1421dd0e8b60a7132651fc0a52c8266c5a68b30"
-  integrity sha512-y76J7k/cD2XgjZ6oY2UxcLoDyyNG/BBeNcNxBvUAczoAZmvip5CIA0XUXv1XO58C5mVNuc36bcpTGARAzzB7aQ==
+fathomswap-sdk@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-2.1.0.tgz#7aa906b9a8d090999864da4ff1a691f155ced26e"
+  integrity sha512-ctqfoFUcagwke5VtCVR3j1T8zilNANJPR7EOMbEyedrBTeA2enYlnxgdC2k2qImpUbrSMOCx6Ul7tXY4iKUJWg==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
