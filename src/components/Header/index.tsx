@@ -305,8 +305,6 @@ export default function Header() {
   // const [isDark] = useDarkModeManager()
   const [darkMode /*, toggleDarkMode*/] = useDarkModeManager()
 
-  console.log(userEthBalance)
-
   // const toggleClaimModal = useToggleSelfClaimModal()
 
   // const availableClaim: boolean = useUserHasAvailableClaim(account)

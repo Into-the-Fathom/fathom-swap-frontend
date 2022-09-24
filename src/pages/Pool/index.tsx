@@ -79,6 +79,8 @@ export default function Pool() {
 
   // fetch the user's balances of all tracked V2 LP tokens
   const trackedTokenPairs = useTrackedTokenPairs()
+  // console.log(trackedTokenPairs)
+
   const tokenPairsWithLiquidityTokens = useMemo(
     () => trackedTokenPairs.map(tokens => ({ liquidityToken: toV2LiquidityToken(tokens), tokens })),
     [trackedTokenPairs]
@@ -106,20 +108,13 @@ export default function Pool() {
 
   const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair))
 
-
   // show liquidity even if its deposited in rewards contract
   const stakingInfo = useStakingInfo()
   const stakingInfosWithBalance = stakingInfo?.filter(pool => JSBI.greaterThan(pool.stakedAmount.raw, BIG_INT_ZERO))
   const stakingPairs = usePairs(stakingInfosWithBalance?.map(stakingInfo => stakingInfo.tokens))
 
   // remove any pairs that also are included in pairs with stake in mining pool
-  const v2PairsWithoutStakedAmount = allV2PairsWithLiquidity.filter(v2Pair => {
-    return (
-      stakingPairs
-        ?.map(stakingPair => stakingPair[1])
-        .filter(stakingPair => stakingPair?.liquidityToken.address === v2Pair.liquidityToken.address).length === 0
-    )
-  })
+  const v2PairsWithoutStakedAmount = allV2PairsWithLiquidity
 
   return (
     <>
@@ -223,9 +218,9 @@ export default function Pool() {
 
             <AutoColumn justify={'center'} gap="md">
               {"Don't see a pool you joined?"}{' '}
-                <StyledInternalLink id="import-pool-link" to={'/find'}>
-                  {'Import it.'}
-                </StyledInternalLink>
+              <StyledInternalLink id="import-pool-link" to={'/find'}>
+                {'Import it.'}
+              </StyledInternalLink>
             </AutoColumn>
           </AutoColumn>
         </AutoColumn>

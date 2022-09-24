@@ -1,4 +1,4 @@
-import { Currency, ETHER, JSBI, TokenAmount } from 'fathomswap-sdk'
+import { Currency, ETHER, JSBI, TokenAmount, XDC } from 'fathomswap-sdk'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
 import { Text } from 'rebass'
@@ -20,6 +20,7 @@ import AppBody from '../AppBody'
 import { Dots } from '../Pool/styleds'
 import { BlueCard } from '../../components/Card'
 import { TYPE } from '../../theme'
+import { XDC_CHAIN_IDS } from '../../utils'
 
 enum Fields {
   TOKEN0 = 0,
@@ -27,12 +28,12 @@ enum Fields {
 }
 
 export default function PoolFinder() {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
 
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
 
-  const [currency0, setCurrency0] = useState<Currency | null>(ETHER)
+  const [currency0, setCurrency0] = useState<Currency | null>(XDC_CHAIN_IDS.includes(chainId!) ? XDC : ETHER)
   const [currency1, setCurrency1] = useState<Currency | null>(null)
 
   const [pairState, pair] = usePair(currency0 ?? undefined, currency1 ?? undefined)
