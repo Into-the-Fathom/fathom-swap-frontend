@@ -1,4 +1,4 @@
-import { ChainId, Currency, CurrencyAmount, ETHER, Token, TokenAmount, WETH, XDC } from 'fathomswap-sdk'
+import { ChainId, Currency, CurrencyAmount, ETHER, Token, TokenAmount, WETH, XDC } from 'into-the-fathom-swap-sdk'
 import { XDC_CHAIN_IDS } from './index'
 
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {

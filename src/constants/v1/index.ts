@@ -1,4 +1,4 @@
-import { Interface } from '@baldyash/abi'
+import { Interface } from '@into-the-fathom/abi'
 import V1_EXCHANGE_ABI from './v1_exchange.json'
 import V1_FACTORY_ABI from './v1_factory.json'
 

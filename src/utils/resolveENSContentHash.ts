@@ -1,6 +1,6 @@
-import { Contract } from '@baldyash/contracts'
-import { Provider } from '@baldyash/abstract-provider'
-import { namehash } from 'ethers/lib/utils'
+import { Contract } from '@into-the-fathom/contracts'
+import { Provider } from '@into-the-fathom/abstract-provider'
+import { namehash } from 'fathom-ethers/lib/utils'
 
 const REGISTRAR_ABI = [
   {

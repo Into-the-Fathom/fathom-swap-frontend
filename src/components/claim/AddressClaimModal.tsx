@@ -13,11 +13,11 @@ import Circle from '../../assets/images/blue-loader.svg'
 import AddressInputPanel from '../AddressInputPanel'
 import useENS from '../../hooks/useENS'
 import { useActiveWeb3React } from '../../hooks'
-// import { isAddress } from 'ethers/lib/utils'
+// import { isAddress } from 'fathom-ethers/lib/utils'
 import Confetti from '../Confetti'
 import { CardNoise, CardBGImage, CardBGImageSmaller } from '../earn/styled'
 import { useIsTransactionPending } from '../../state/transactions/hooks'
-// import { TokenAmount } from 'fathomswap-sdk'
+// import { TokenAmount } from 'into-the-fathom-swap-sdk'
 import { getEtherscanLink, shortenAddress } from '../../utils'
 
 const ContentWrapper = styled(AutoColumn)`

@@ -1,4 +1,4 @@
-import { ChainId, Currency } from 'fathomswap-sdk'
+import { ChainId, Currency } from 'into-the-fathom-swap-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import Modal from '../Modal'

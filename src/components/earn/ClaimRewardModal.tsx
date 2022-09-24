@@ -8,7 +8,7 @@ import { ButtonError } from '../Button'
 import { StakingInfo } from '../../state/stake/hooks'
 import { useStakingContract } from '../../hooks/useContract'
 import { SubmittedView, LoadingView } from '../ModalViews'
-import { TransactionResponse } from '@baldyash/providers'
+import { TransactionResponse } from '@into-the-fathom/providers'
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { useActiveWeb3React } from '../../hooks'
 
