@@ -192,10 +192,6 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
 
   const backgroundColor = useColor(pair?.token0)
 
-  console.log(pair.token0)
-  console.log(pair.token1)
-  console.log('----------------------------------')
-
   return (
     <StyledPositionCard border={border} bgColor={backgroundColor}>
       <CardNoise />

@@ -26,7 +26,7 @@ export default function useAddTokenToMetamask(
               address: token.address,
               symbol: token.symbol,
               decimals: token.decimals,
-              image: getTokenLogoURL(token.address)
+              image: getTokenLogoURL(token.address, chainId)
             }
           }
         })
@@ -37,7 +37,7 @@ export default function useAddTokenToMetamask(
     } else {
       setSuccess(false)
     }
-  }, [library, token])
+  }, [library, token, chainId])
 
   return { addToken, success }
 }

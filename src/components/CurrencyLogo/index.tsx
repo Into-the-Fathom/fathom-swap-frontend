@@ -13,11 +13,12 @@ import { useWeb3React } from '@web3-react/core'
 
 export const getTokenLogoURL = (address: string, chainId?: ChainId) => {
   let logo
-  if (chainId && XDC_CHAIN_IDS.includes(chainId!)) {
+  if (XDC_CHAIN_IDS.includes(chainId!)) {
     const findToken = DEFAULT_TOKEN_LIST.tokens.find(token => token.address.toLowerCase() === address.toLowerCase())
     if (findToken) {
       logo = findToken.logoURI
     } else {
+      console.log(address)
       logo = ''
     }
   } else {
@@ -55,7 +56,7 @@ export default function CurrencyLogo({
   const { chainId } = useWeb3React()
 
   const srcs: string[] = useMemo(() => {
-    if (currency === ETHER) return []
+    if (currency === ETHER || currency === XDC) return []
 
     if (currency instanceof Token) {
       if (currency instanceof WrappedTokenInfo) {
