@@ -239,7 +239,7 @@ export function useDerivedStakeInfo(
 } {
   const { account, chainId } = useActiveWeb3React()
 
-  const parsedInput: CurrencyAmount | undefined = tryParseAmount(typedValue, stakingToken, chainId)
+  const parsedInput: CurrencyAmount | undefined = tryParseAmount(typedValue, stakingToken, chainId!)
 
   const parsedAmount =
     parsedInput && userLiquidityUnstaked && JSBI.lessThanOrEqual(parsedInput.raw, userLiquidityUnstaked.raw)
@@ -268,9 +268,9 @@ export function useDerivedUnstakeInfo(
   parsedAmount?: CurrencyAmount
   error?: string
 } {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
 
-  const parsedInput: CurrencyAmount | undefined = tryParseAmount(typedValue, stakingAmount.token)
+  const parsedInput: CurrencyAmount | undefined = tryParseAmount(typedValue, stakingAmount.token, chainId!)
 
   const parsedAmount = parsedInput && JSBI.lessThanOrEqual(parsedInput.raw, stakingAmount.raw) ? parsedInput : undefined
 

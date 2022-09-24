@@ -78,10 +78,11 @@ export function useSwapActionHandlers(): {
 }
 
 // try to parse a user entered amount for a given token
-export function tryParseAmount(value?: string, currency?: Currency): CurrencyAmount | undefined {
+export function tryParseAmount(value?: string, currency?: Currency, chainId?: ChainId): CurrencyAmount | undefined {
   if (!value || !currency) {
     return undefined
   }
+  console.log(XDC_CHAIN_IDS.includes(chainId!))
   try {
     const typedValueParsed = parseUnits(value, currency.decimals).toString()
     if (typedValueParsed !== '0') {
