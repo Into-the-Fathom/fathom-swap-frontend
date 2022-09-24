@@ -1,4 +1,4 @@
-import { TransactionResponse } from '@baldyash/providers'
+import { TransactionResponse } from '@into-the-fathom/providers'
 import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 

@@ -1,7 +1,7 @@
-import { splitSignature } from '@baldyash/bytes'
-import { Contract } from '@baldyash/contracts'
-import { TransactionResponse } from '@baldyash/providers'
-import { Currency, currencyEquals, ETHER, Percent, WETH } from 'fathomswap-sdk'
+import { splitSignature } from '@into-the-fathom/bytes'
+import { Contract } from '@into-the-fathom/contracts'
+import { TransactionResponse } from '@into-the-fathom/providers'
+import { Currency, currencyEquals, ETHER, Percent, WETH } from 'into-the-fathom-swap-sdk'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import ReactGA from 'react-ga'
@@ -42,7 +42,7 @@ import { useDerivedBurnInfo, useBurnState } from '../../state/burn/hooks'
 import { Field } from '../../state/burn/actions'
 import { useWalletModalToggle } from '../../state/application/hooks'
 import { useUserSlippageTolerance } from '../../state/user/hooks'
-import { BigNumber } from '@baldyash/bignumber'
+import { BigNumber } from '@into-the-fathom/bignumber'
 
 export default function RemoveLiquidity({
   history,

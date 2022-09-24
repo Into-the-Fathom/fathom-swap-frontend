@@ -1,12 +1,12 @@
-import { Contract } from '@baldyash/contracts'
-import { getAddress } from '@baldyash/address'
-import { AddressZero } from '@baldyash/constants'
-import { JsonRpcSigner, Web3Provider } from '@baldyash/providers'
-import { BigNumber } from '@baldyash/bignumber'
-import { abi as IUniswapV2Router02ABI } from 'fathomswap-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
+import { Contract } from '@into-the-fathom/contracts'
+import { getAddress } from '@into-the-fathom/address'
+import { AddressZero } from '@into-the-fathom/constants'
+import { JsonRpcSigner, Web3Provider } from '@into-the-fathom/providers'
+import { BigNumber } from '@into-the-fathom/bignumber'
+import { abi as IUniswapV2Router02ABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
 
 import { ROUTER_ADDRESSES } from '../constants'
-import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'fathomswap-sdk'
+import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'into-the-fathom-swap-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
 
 // returns the checksummed address if the address is valid, otherwise returns false

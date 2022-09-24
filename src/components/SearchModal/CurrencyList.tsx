@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, currencyEquals, ETHER, Token } from 'fathomswap-sdk'
+import { Currency, CurrencyAmount, currencyEquals, ETHER, Token } from 'into-the-fathom-swap-sdk'
 import React, { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'

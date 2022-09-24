@@ -1,4 +1,4 @@
-import { ChainId, Currency, ETHER, Token, XDC } from 'fathomswap-sdk'
+import { ChainId, Currency, ETHER, Token, XDC } from 'into-the-fathom-swap-sdk'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
@@ -7,7 +7,7 @@ import XdcLogo from '../../assets/images/xdc-logo.png'
 import useHttpLocations from '../../hooks/useHttpLocations'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
 import Logo from '../Logo'
-import DEFAULT_TOKEN_LIST from 'fathomswap-default-token-list'
+import DEFAULT_TOKEN_LIST from 'fathom-swap-standard-token-list'
 import { useWeb3React } from '@web3-react/core'
 
 export const getTokenLogoURL = (address: string, chainId?: ChainId) => {

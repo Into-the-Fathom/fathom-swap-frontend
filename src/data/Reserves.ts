@@ -1,7 +1,7 @@
-import { TokenAmount, Pair, Currency } from 'fathomswap-sdk'
+import { TokenAmount, Pair, Currency } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
-import { abi as IUniswapV2PairABI } from 'fathomswap-contracts/artifacts/contracts/core/interfaces/IUniswapV2Pair.sol/IUniswapV2Pair.json'
-import { Interface } from '@baldyash/abi'
+import { abi as IUniswapV2PairABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/core/interfaces/IUniswapV2Pair.sol/IUniswapV2Pair.json'
+import { Interface } from '@into-the-fathom/abi'
 import { useActiveWeb3React } from '../hooks'
 
 import { useMultipleContractSingleData } from '../state/multicall/hooks'

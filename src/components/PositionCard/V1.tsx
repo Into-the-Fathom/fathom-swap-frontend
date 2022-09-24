@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Link, RouteComponentProps, withRouter } from 'react-router-dom'
-import { Token, TokenAmount, WETH } from 'fathomswap-sdk'
+import { Token, TokenAmount, WETH } from 'into-the-fathom-swap-sdk'
 
 import { Text } from 'rebass'
 import { AutoColumn } from '../Column'
