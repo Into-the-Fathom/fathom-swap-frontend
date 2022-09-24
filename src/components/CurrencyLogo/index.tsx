@@ -8,19 +8,13 @@ import useHttpLocations from '../../hooks/useHttpLocations'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
 import Logo from '../Logo'
 import DEFAULT_TOKEN_LIST from 'fathomswap-default-token-list'
-import { XDC_CHAIN_IDS } from '../../utils'
 import { useWeb3React } from '@web3-react/core'
 
 export const getTokenLogoURL = (address: string, chainId?: ChainId) => {
   let logo
-  if (XDC_CHAIN_IDS.includes(chainId!)) {
-    const findToken = DEFAULT_TOKEN_LIST.tokens.find(token => token.address.toLowerCase() === address.toLowerCase())
-    if (findToken) {
-      logo = findToken.logoURI
-    } else {
-      console.log(address)
-      logo = ''
-    }
+  const findToken = DEFAULT_TOKEN_LIST.tokens.find(token => token.address.toLowerCase() === address.toLowerCase())
+  if (findToken) {
+    logo = findToken.logoURI
   } else {
     logo = `https://raw.githubusercontent.com/trustwallet/assets/master/blockchains/ethereum/assets/${address}/logo.png`
   }

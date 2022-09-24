@@ -8111,10 +8111,10 @@ fathomswap-contracts@1.0.0:
   resolved "https://registry.yarnpkg.com/fathomswap-contracts/-/fathomswap-contracts-1.0.0.tgz#da9a84438ef1a7d689fc78899d1e0c0889748701"
   integrity sha512-tCS6uiryxxNTceMOC7f9Fp0Jhlmw2egRKxyMZ1KL941/4hL/C84N/ntcreA+5aqSTZrdZssNugXIn7xL0g3zlw==
 
-fathomswap-default-token-list@0.7.0:
-  version "0.7.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-default-token-list/-/fathomswap-default-token-list-0.7.0.tgz#a567c5cfb2f7a0815ca0cd436cea3f07c307a2d4"
-  integrity sha512-bGym7fRa2CfxURm5FXaSImjodjrDx4IUkdh/9olW7sv706B6WndFfGSeDjQL9bNaos+5v+xC9n51owM5Hv8cnQ==
+fathomswap-default-token-list@0.8.0:
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-default-token-list/-/fathomswap-default-token-list-0.8.0.tgz#fc075057db8a09200bdf8ee1dd0f3156de635824"
+  integrity sha512-LfuLpYTq+8JiEXFJFxDpBhOdYXAKiUsNPF4qgEQqaWYfFraAHjuG7D0nDIMNljeNirqHOc3WoE8LdrdGpNun4Q==
 
 fathomswap-sdk@^2.2.0:
   version "2.2.0"
