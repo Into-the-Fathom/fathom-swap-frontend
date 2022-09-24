@@ -120,6 +120,6 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@uniswap/default-token-list": "^2.0.0"
+    "fathomswap-default-token-list": "0.6.0"
   }
 }
