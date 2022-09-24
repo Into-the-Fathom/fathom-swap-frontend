@@ -1,4 +1,4 @@
-// import { TokenAmount } from 'fathomswap-test-sdk'
+// import { TokenAmount } from 'fathomswap-sdk'
 import React /*, { useEffect }*/ from 'react'
 import { X } from 'react-feather'
 import styled, { keyframes } from 'styled-components'

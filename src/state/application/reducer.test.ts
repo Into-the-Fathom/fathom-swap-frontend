@@ -1,4 +1,4 @@
-import { ChainId } from 'fathomswap-test-sdk'
+import { ChainId } from 'fathomswap-sdk'
 import { createStore, Store } from 'redux'
 import { addPopup, ApplicationModal, removePopup, setOpenModal, updateBlockNumber } from './actions'
 import reducer, { ApplicationState } from './reducer'

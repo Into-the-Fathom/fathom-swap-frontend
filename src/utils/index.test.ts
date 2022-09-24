@@ -1,6 +1,6 @@
 import { BigNumber } from '@baldyash/bignumber'
 import { AddressZero } from '@baldyash/constants'
-import { TokenAmount, Token, ChainId, Percent, JSBI } from 'fathomswap-test-sdk'
+import { TokenAmount, Token, ChainId, Percent, JSBI } from 'fathomswap-sdk'
 
 import {
   getEtherscanLink,

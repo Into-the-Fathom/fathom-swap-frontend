@@ -1,6 +1,6 @@
 import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
 import { parseBytes32String } from '@baldyash/strings'
-import { Currency, ETHER, Token, currencyEquals } from 'fathomswap-test-sdk'
+import { Currency, ETHER, Token, currencyEquals } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'

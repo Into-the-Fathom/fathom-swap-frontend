@@ -1,6 +1,6 @@
 import { BigNumber } from '@baldyash/bignumber'
 import { TransactionResponse } from '@baldyash/providers'
-import { Currency, currencyEquals, ETHER, TokenAmount, WETH } from 'fathomswap-test-sdk'
+import { Currency, currencyEquals, ETHER, TokenAmount, WETH } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import ReactGA from 'react-ga'

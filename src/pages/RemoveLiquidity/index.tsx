@@ -1,7 +1,7 @@
 import { splitSignature } from '@baldyash/bytes'
 import { Contract } from '@baldyash/contracts'
 import { TransactionResponse } from '@baldyash/providers'
-import { Currency, currencyEquals, ETHER, Percent, WETH } from 'fathomswap-test-sdk'
+import { Currency, currencyEquals, ETHER, Percent, WETH } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import ReactGA from 'react-ga'

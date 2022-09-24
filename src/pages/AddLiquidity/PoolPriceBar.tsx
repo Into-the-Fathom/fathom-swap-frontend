@@ -1,4 +1,4 @@
-import { Currency, Percent, Price } from 'fathomswap-test-sdk'
+import { Currency, Percent, Price } from 'fathomswap-sdk'
 import React, { useContext } from 'react'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'

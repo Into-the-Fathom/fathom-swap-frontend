@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from 'fathomswap-test-sdk'
+import { ChainId, TokenAmount } from 'fathomswap-sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'

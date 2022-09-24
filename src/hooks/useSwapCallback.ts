@@ -1,6 +1,6 @@
 import { BigNumber } from '@baldyash/bignumber'
 import { Contract } from '@baldyash/contracts'
-import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from 'fathomswap-test-sdk'
+import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from '../constants'
 import { getTradeVersion } from '../data/V1'

@@ -1,6 +1,6 @@
 import { MaxUint256 } from '@baldyash/constants'
 import { TransactionResponse } from '@baldyash/providers'
-import { Trade, TokenAmount, CurrencyAmount, ETHER } from 'fathomswap-test-sdk'
+import { Trade, TokenAmount, CurrencyAmount, ETHER } from 'fathomswap-sdk'
 import { useCallback, useMemo } from 'react'
 import { ROUTER_ADDRESS } from '../constants'
 import { useTokenAllowance } from '../data/Allowances'

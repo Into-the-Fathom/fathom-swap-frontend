@@ -6,7 +6,7 @@ import { BigNumber } from '@baldyash/bignumber'
 import { abi as IUniswapV2Router02ABI } from 'fathomswap-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
 
 import { ROUTER_ADDRESS } from '../constants'
-import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'fathomswap-test-sdk'
+import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'fathomswap-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
 
 // returns the checksummed address if the address is valid, otherwise returns false
