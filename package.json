@@ -2,6 +2,7 @@
   "name": "fathom-swap-frontend",
   "description": "Fathomswap Interface",
   "homepage": ".",
+  "version": "1.0.0",
   "private": true,
   "devDependencies": {
     "@into-the-fathom/experimental": "^1.1.0",
