@@ -28,7 +28,7 @@ import { useBlockNumber, useModalOpen, useToggleDelegateModal, useToggleVoteModa
 import DelegateModal from '../../components/vote/DelegateModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import useCurrentBlockTimestamp from 'hooks/useCurrentBlockTimestamp'
-import { BigNumber } from 'ethers'
+import { BigNumber } from 'fathom-ethers'
 import { GreyCard } from '../../components/Card'
 
 const PageWrapper = styled(AutoColumn)`

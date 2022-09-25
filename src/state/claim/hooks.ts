@@ -1,6 +1,6 @@
 import { UNI } from './../../constants/index'
 import { TokenAmount, JSBI, ChainId } from 'fathomswap-sdk'
-import { TransactionResponse } from '@baldyash/providers'
+import { TransactionResponse } from '@into-the-fathom/providers'
 import { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../hooks'
 import { useMerkleDistributorContract } from '../../hooks/useContract'

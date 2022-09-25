@@ -1,5 +1,5 @@
 import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
-import { parseBytes32String } from '@baldyash/strings'
+import { parseBytes32String } from '@into-the-fathom/strings'
 import { Currency, currencyEquals, ETHER, Token, XDC } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'
@@ -10,7 +10,7 @@ import { isAddress, XDC_CHAIN_IDS } from '../utils'
 import { useActiveWeb3React } from './index'
 import { useBytes32TokenContract, useTokenContract } from './useContract'
 import { filterTokens } from '../components/SearchModal/filtering'
-import { arrayify } from 'ethers/lib/utils'
+import { arrayify } from 'fathom-ethers/lib/utils'
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens
 function useTokensFromMap(tokenMap: TokenAddressMap, includeUserAdded: boolean): { [address: string]: Token } {

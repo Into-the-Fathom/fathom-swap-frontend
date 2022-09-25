@@ -1,5 +1,5 @@
 import useENS from '../../hooks/useENS'
-import { parseUnits } from '@baldyash/units'
+import { parseUnits } from '@into-the-fathom/units'
 import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade, XDC } from 'fathomswap-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
@@ -88,6 +88,8 @@ export function tryParseAmount(value?: string, currency?: Currency, chainId?: Ch
     if (typedValueParsed !== '0') {
       return currency instanceof Token
         ? new TokenAmount(currency, JSBI.BigInt(typedValueParsed))
+        : XDC_CHAIN_IDS.includes(chainId!)
+        ? CurrencyAmount.xdc(JSBI.BigInt(typedValueParsed))
         : CurrencyAmount.ether(JSBI.BigInt(typedValueParsed))
     }
   } catch (error) {

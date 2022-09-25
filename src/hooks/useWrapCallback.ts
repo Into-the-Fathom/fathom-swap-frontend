@@ -1,10 +1,11 @@
-import { Currency, currencyEquals, ETHER, WETH } from 'fathomswap-sdk'
+import { Currency, currencyEquals, ETHER, WETH, XDC } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import { tryParseAmount } from '../state/swap/hooks'
 import { useTransactionAdder } from '../state/transactions/hooks'
 import { useCurrencyBalance } from '../state/wallet/hooks'
 import { useActiveWeb3React } from './index'
 import { useWETHContract } from './useContract'
+import { XDC_CHAIN_IDS } from '../utils'
 
 export enum WrapType {
   NOT_APPLICABLE,
@@ -40,7 +41,7 @@ export default function useWrapCallback(
 
     const sufficientBalance = inputAmount && balance && !balance.lessThan(inputAmount)
 
-    if (inputCurrency === ETHER && currencyEquals(WETH[chainId], outputCurrency)) {
+    if ((inputCurrency === ETHER || inputCurrency === XDC) && currencyEquals(WETH[chainId], outputCurrency)) {
       return {
         wrapType: WrapType.WRAP,
         execute:
@@ -48,15 +49,21 @@ export default function useWrapCallback(
             ? async () => {
                 try {
                   const txReceipt = await wethContract.deposit({ value: `0x${inputAmount.raw.toString(16)}` })
-                  addTransaction(txReceipt, { summary: `Wrap ${inputAmount.toSignificant(6)} XDC to WXDC` })
+                  addTransaction(txReceipt, {
+                    summary: `Wrap ${inputAmount.toSignificant(6)} ${
+                      XDC_CHAIN_IDS.includes(chainId) ? 'XDC to WXDC' : 'ETH to WETH'
+                    }`
+                  })
                 } catch (error) {
                   console.error('Could not deposit', error)
                 }
               }
             : undefined,
-        inputError: sufficientBalance ? undefined : 'Insufficient ETH balance'
+        inputError: sufficientBalance
+          ? undefined
+          : `Insufficient ${XDC_CHAIN_IDS.includes(chainId) ? 'XDC' : 'ETH'} balance`
       }
-    } else if (currencyEquals(WETH[chainId], inputCurrency) && outputCurrency === ETHER) {
+    } else if (currencyEquals(WETH[chainId], inputCurrency) && (outputCurrency === ETHER || outputCurrency === XDC)) {
       return {
         wrapType: WrapType.UNWRAP,
         execute:
@@ -64,13 +71,19 @@ export default function useWrapCallback(
             ? async () => {
                 try {
                   const txReceipt = await wethContract.withdraw(`0x${inputAmount.raw.toString(16)}`)
-                  addTransaction(txReceipt, { summary: `Unwrap ${inputAmount.toSignificant(6)} WETH to ETH` })
+                  addTransaction(txReceipt, {
+                    summary: `Unwrap ${inputAmount.toSignificant(6)} ${
+                      XDC_CHAIN_IDS.includes(chainId) ? 'WXDC to XDC' : 'WETH to ETH'
+                    }`
+                  })
                 } catch (error) {
                   console.error('Could not withdraw', error)
                 }
               }
             : undefined,
-        inputError: sufficientBalance ? undefined : 'Insufficient WETH balance'
+        inputError: sufficientBalance
+          ? undefined
+          : `Insufficient ${XDC_CHAIN_IDS.includes(chainId) ? 'WXDC' : 'WETH'} balance`
       }
     } else {
       return NOT_APPLICABLE

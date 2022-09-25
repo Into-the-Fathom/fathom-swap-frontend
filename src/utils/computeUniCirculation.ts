@@ -1,5 +1,5 @@
 import { JSBI, Token, TokenAmount } from 'fathomswap-sdk'
-import { BigNumber } from 'ethers'
+import { BigNumber } from 'fathom-ethers'
 import { STAKING_GENESIS } from '../state/stake/hooks'
 
 const STAKING_END = STAKING_GENESIS + 60 * 60 * 24 * 60

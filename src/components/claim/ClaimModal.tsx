@@ -1,5 +1,5 @@
 import { JSBI, TokenAmount } from 'fathomswap-sdk'
-import { isAddress } from 'ethers/lib/utils'
+import { isAddress } from 'fathom-ethers/lib/utils'
 import React, { useEffect, useState } from 'react'
 import { Text } from 'rebass'
 import styled from 'styled-components'

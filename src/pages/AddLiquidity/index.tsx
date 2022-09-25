@@ -1,5 +1,5 @@
-import { BigNumber } from '@baldyash/bignumber'
-import { TransactionResponse } from '@baldyash/providers'
+import { BigNumber } from '@into-the-fathom/bignumber'
+import { TransactionResponse } from '@into-the-fathom/providers'
 import { Currency, currencyEquals, ETHER, TokenAmount, WETH } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'

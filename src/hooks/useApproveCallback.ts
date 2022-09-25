@@ -1,6 +1,12 @@
-import { MaxUint256 } from '@baldyash/constants'
-import { TransactionResponse } from '@baldyash/providers'
-import { Trade, TokenAmount, CurrencyAmount, ETHER } from 'fathomswap-sdk'
+import { MaxUint256 } from '@into-the-fathom/constants'
+import { TransactionResponse } from '@into-the-fathom/providers'
+import {
+  Trade,
+  TokenAmount,
+  CurrencyAmount,
+  ETHER,
+  XDC
+} from 'fathomswap-sdk'
 import { useCallback, useMemo } from 'react'
 import { ROUTER_ADDRESSES } from '../constants'
 import { useTokenAllowance } from '../data/Allowances'
@@ -31,7 +37,8 @@ export function useApproveCallback(
   // check the current approval status
   const approvalState: ApprovalState = useMemo(() => {
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
-    if (amountToApprove.currency === ETHER) return ApprovalState.APPROVED
+    // In case if we have native token (amount)
+    if (amountToApprove.currency === ETHER || amountToApprove.currency === XDC) return ApprovalState.APPROVED
     // we might not have enough data to know whether or not we need to approve
     if (!currentAllowance) return ApprovalState.UNKNOWN
 
