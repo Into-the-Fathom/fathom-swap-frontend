@@ -1,16 +1,16 @@
 import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
-import { parseBytes32String } from '@ethersproject/strings'
-import { Currency, ETHER, Token, currencyEquals } from '@uniswap/sdk'
+import { parseBytes32String } from '@into-the-fathom/strings'
+import { Currency, currencyEquals, ETHER, Token, XDC } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
 import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
 import { useUserAddedTokens } from '../state/user/hooks'
-import { isAddress } from '../utils'
+import { isAddress, XDC_CHAIN_IDS } from '../utils'
 
 import { useActiveWeb3React } from './index'
 import { useBytes32TokenContract, useTokenContract } from './useContract'
 import { filterTokens } from '../components/SearchModal/filtering'
-import { arrayify } from 'ethers/lib/utils'
+import { arrayify } from 'fathom-ethers/lib/utils'
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens
 function useTokensFromMap(tokenMap: TokenAddressMap, includeUserAdded: boolean): { [address: string]: Token } {
@@ -182,7 +182,8 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
 }
 
 export function useCurrency(currencyId: string | undefined): Currency | null | undefined {
-  const isETH = currencyId?.toUpperCase() === 'ETH'
+  const { chainId } = useActiveWeb3React()
+  const isETH = currencyId?.toUpperCase() === 'ETH' || currencyId?.toUpperCase() === 'XDC'
   const token = useToken(isETH ? undefined : currencyId)
-  return isETH ? ETHER : token
+  return isETH ? (XDC_CHAIN_IDS.includes(chainId!) ? XDC : ETHER) : token
 }

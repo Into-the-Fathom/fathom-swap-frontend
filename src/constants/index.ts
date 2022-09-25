@@ -1,9 +1,31 @@
-import { ChainId, JSBI, Percent, Token, WETH } from '@uniswap/sdk'
+import { ChainId, JSBI, Percent, Token, WETH } from 'into-the-fathom-swap-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 
-export const ROUTER_ADDRESS = '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D'
+export const ROUTER_ADDRESS = '0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F'
+
+// a list of tokens by chain
+type RouterAddressesList = {
+  readonly [chainId in ChainId]: string
+}
+
+// APOTHEM -- 0xc68f7E9CBc881F362065235D2a373B5B96644351
+// ROPSTEN -- 0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F
+// RINKEBY -- 0x95F81bA096bdF2316890e5C21A852B9C5cE6BE8A
+// GOERLI  -- 0x3505004AF79Ba4d4db556ACF4B9549ec4F6788b8
+// KOVAN   -- 0xCda6fc69869cb07934A1F1Cf65e04aC18eea9B3b
+// MAINNET -- 0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F
+export const ROUTER_ADDRESSES: RouterAddressesList = {
+  [ChainId.MAINNET]: '0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F',
+  [ChainId.ROPSTEN]: '0xD5dB82a5f6cA964C6e7f6Ed6318A36C37fbc9c8F',
+  [ChainId.RINKEBY]: '0x95F81bA096bdF2316890e5C21A852B9C5cE6BE8A',
+  [ChainId.GOERLI]: '0x3505004AF79Ba4d4db556ACF4B9549ec4F6788b8',
+  [ChainId.KOVAN]: '0xCda6fc69869cb07934A1F1Cf65e04aC18eea9B3b',
+  // @todo: Need to change it after deploy to XDC
+  [ChainId.XDC]: '0xc68f7E9CBc881F362065235D2a373B5B96644351',
+  [ChainId.AXDC]: '0xc68f7E9CBc881F362065235D2a373B5B96644351'
+}
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
@@ -37,10 +59,12 @@ export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
 const UNI_ADDRESS = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
 export const UNI: { [chainId in ChainId]: Token } = {
   [ChainId.MAINNET]: new Token(ChainId.MAINNET, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.ROPSTEN]: new Token(ChainId.ROPSTEN, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.GÖRLI]: new Token(ChainId.GÖRLI, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.KOVAN]: new Token(ChainId.KOVAN, UNI_ADDRESS, 18, 'UNI', 'Uniswap')
+  [ChainId.RINKEBY]: new Token(ChainId.RINKEBY, '0x79dFFC4DcBb1f598EC3741E939f22bAAF56448Da', 18, 'FTHM', 'Fathom'),
+  [ChainId.ROPSTEN]: new Token(ChainId.ROPSTEN, '0xE48bE22Fc8b2B5BeB16264B60729e5D0a2083EcB', 18, 'FTHM', 'Fathom'),
+  [ChainId.GOERLI]: new Token(ChainId.GOERLI, '0x405B1270cBF871bA54c31D3181DDb56C48c545f8', 18, 'FTHM', 'Fathom'),
+  [ChainId.KOVAN]: new Token(ChainId.KOVAN, '0x792F5c3F320629dd250E73b331442852514C2458', 18, 'FTHM', 'Fathom'),
+  [ChainId.XDC]: new Token(ChainId.XDC, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
+  [ChainId.AXDC]: new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
 }
 
 export const COMMON_CONTRACT_NAMES: { [address: string]: string } = {
@@ -58,8 +82,10 @@ const WETH_ONLY: ChainTokenList = {
   [ChainId.MAINNET]: [WETH[ChainId.MAINNET]],
   [ChainId.ROPSTEN]: [WETH[ChainId.ROPSTEN]],
   [ChainId.RINKEBY]: [WETH[ChainId.RINKEBY]],
-  [ChainId.GÖRLI]: [WETH[ChainId.GÖRLI]],
-  [ChainId.KOVAN]: [WETH[ChainId.KOVAN]]
+  [ChainId.GOERLI]: [WETH[ChainId.GOERLI]],
+  [ChainId.KOVAN]: [WETH[ChainId.KOVAN]],
+  [ChainId.XDC]: [WETH[ChainId.XDC]],
+  [ChainId.AXDC]: [WETH[ChainId.AXDC]]
 }
 
 // used to construct intermediary pairs for trading
@@ -111,6 +137,88 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
     ],
     [USDC, USDT],
     [DAI, USDT]
+  ],
+  [ChainId.AXDC]: [
+    [
+      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT'),
+      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT')
+    ],
+    [
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC'),
+      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC')
+    ],
+    [
+      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC'),
+      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT')
+    ]
+  ],
+  [ChainId.ROPSTEN]: [
+    [
+      new Token(ChainId.ROPSTEN, '0xe48c5813fBAf76e94751E3053f46Dac20a7A1272', 18, 'USDT', 'USDT'),
+      new Token(ChainId.ROPSTEN, '0xE48bE22Fc8b2B5BeB16264B60729e5D0a2083EcB', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.ROPSTEN, '0xa65cE860764B731D6BdB91ceB1F3E65d5B463462', 18, 'FXD', 'FXD'),
+      new Token(ChainId.ROPSTEN, '0xE48bE22Fc8b2B5BeB16264B60729e5D0a2083EcB', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.ROPSTEN, '0xa65cE860764B731D6BdB91ceB1F3E65d5B463462', 18, 'FXD', 'FXD'),
+      new Token(ChainId.ROPSTEN, '0xe48c5813fBAf76e94751E3053f46Dac20a7A1272', 18, 'USDT', 'USDT')
+    ]
+  ],
+  [ChainId.RINKEBY]: [
+    [
+      new Token(ChainId.RINKEBY, '0x47E5E2227274aa9fa996d60b0DE9baD4602a65A2', 18, 'USDT', 'USDT'),
+      new Token(ChainId.RINKEBY, '0x79dFFC4DcBb1f598EC3741E939f22bAAF56448Da', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.RINKEBY, '0x1376E5642CF962104882935903F1f01DB838FD20', 18, 'FXD', 'FXD'),
+      new Token(ChainId.RINKEBY, '0x79dFFC4DcBb1f598EC3741E939f22bAAF56448Da', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.RINKEBY, '0x1376E5642CF962104882935903F1f01DB838FD20', 18, 'FXD', 'FXD'),
+      new Token(ChainId.RINKEBY, '0x47E5E2227274aa9fa996d60b0DE9baD4602a65A2', 18, 'USDT', 'USDT')
+    ]
+  ],
+  [ChainId.GOERLI]: [
+    [
+      new Token(ChainId.GOERLI, '0x619aBf5F87B1B3F285C213ab4E9BfA80494113cE', 18, 'USDT', 'USDT'),
+      new Token(ChainId.GOERLI, '0x405B1270cBF871bA54c31D3181DDb56C48c545f8', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.GOERLI, '0xae8D1971BAd98AD570cDA767382AFd06769c0186', 18, 'FXD', 'FXD'),
+      new Token(ChainId.GOERLI, '0x405B1270cBF871bA54c31D3181DDb56C48c545f8', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.GOERLI, '0xae8D1971BAd98AD570cDA767382AFd06769c0186', 18, 'FXD', 'FXD'),
+      new Token(ChainId.GOERLI, '0x619aBf5F87B1B3F285C213ab4E9BfA80494113cE', 18, 'USDT', 'USDT')
+    ]
+  ],
+  [ChainId.KOVAN]: [
+    [
+      new Token(ChainId.KOVAN, '0xCAA7e30046d1e0DD22e69Bb72cc1a9AcF18C5aE5', 18, 'USDT', 'USDT'),
+      new Token(ChainId.KOVAN, '0x792F5c3F320629dd250E73b331442852514C2458', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.KOVAN, '0x17ebb81bd5Cd0f4bD0fECACE4c4096c00529dE5d', 18, 'FXD', 'FXD'),
+      new Token(ChainId.KOVAN, '0x792F5c3F320629dd250E73b331442852514C2458', 18, 'FTHM', 'Fathom')
+    ],
+    [
+      new Token(ChainId.KOVAN, '0x17ebb81bd5Cd0f4bD0fECACE4c4096c00529dE5d', 18, 'FXD', 'FXD'),
+      new Token(ChainId.KOVAN, '0xCAA7e30046d1e0DD22e69Bb72cc1a9AcF18C5aE5', 18, 'USDT', 'USDT')
+    ]
   ]
 }
 
