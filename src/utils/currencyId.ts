@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, ETHER, Token, XDC } from 'fathomswap-sdk'
 
 export function currencyId(currency: Currency): string {
   if (currency === ETHER) return 'ETH'
