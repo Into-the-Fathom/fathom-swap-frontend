@@ -19,7 +19,7 @@ import {
 import { DateTime } from 'luxon'
 import ReactMarkdown from 'react-markdown'
 import VoteModal from '../../components/vote/VoteModal'
-import { JSBI, TokenAmount } from '@uniswap/sdk'
+import { JSBI, TokenAmount } from 'into-the-fathom-swap-sdk'
 import { useActiveWeb3React } from '../../hooks'
 import { AVERAGE_BLOCK_TIME_IN_SECS, COMMON_CONTRACT_NAMES, UNI, ZERO_ADDRESS } from '../../constants'
 import { getEtherscanLink, isAddress } from '../../utils'
@@ -28,7 +28,7 @@ import { useBlockNumber, useModalOpen, useToggleDelegateModal, useToggleVoteModa
 import DelegateModal from '../../components/vote/DelegateModal'
 import { useTokenBalance } from '../../state/wallet/hooks'
 import useCurrentBlockTimestamp from 'hooks/useCurrentBlockTimestamp'
-import { BigNumber } from 'ethers'
+import { BigNumber } from 'fathom-ethers'
 import { GreyCard } from '../../components/Card'
 
 const PageWrapper = styled(AutoColumn)`

@@ -1,11 +1,12 @@
-import { Contract } from '@ethersproject/contracts'
-import { getAddress } from '@ethersproject/address'
-import { AddressZero } from '@ethersproject/constants'
-import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
-import { BigNumber } from '@ethersproject/bignumber'
-import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
-import { ROUTER_ADDRESS } from '../constants'
-import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from '@uniswap/sdk'
+import { Contract } from '@into-the-fathom/contracts'
+import { getAddress } from '@into-the-fathom/address'
+import { AddressZero } from '@into-the-fathom/constants'
+import { JsonRpcSigner, Web3Provider } from '@into-the-fathom/providers'
+import { BigNumber } from '@into-the-fathom/bignumber'
+import { abi as IUniswapV2Router02ABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
+
+import { ROUTER_ADDRESSES } from '../constants'
+import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'into-the-fathom-swap-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
 
 // returns the checksummed address if the address is valid, otherwise returns false
@@ -22,29 +23,55 @@ const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   3: 'ropsten.',
   4: 'rinkeby.',
   5: 'goerli.',
-  42: 'kovan.'
+  42: 'kovan.',
+  50: 'xdc.',
+  51: 'apothem.'
 }
+
+export const XDC_CHAIN_IDS = [50, 51]
 
 export function getEtherscanLink(
   chainId: ChainId,
   data: string,
-  type: 'transaction' | 'token' | 'address' | 'block'
+  type: 'transaction' | 'token' | 'address' | 'block' | 'transactions' | 'tokens' | 'blocks'
 ): string {
-  const prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
+  let prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
 
-  switch (type) {
-    case 'transaction': {
-      return `${prefix}/tx/${data}`
+  if (XDC_CHAIN_IDS.includes(chainId)) {
+    prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}blocksscan.io`
+  }
+
+  if (XDC_CHAIN_IDS.includes(chainId)) {
+    switch (type) {
+      case 'transaction': {
+        return `${prefix}/txs/${data}`
+      }
+      case 'token': {
+        return `${prefix}/tokens/${data}`
+      }
+      case 'block': {
+        return `${prefix}/blocks/${data}`
+      }
+      case 'address':
+      default: {
+        return `${prefix}/address/${data}`
+      }
     }
-    case 'token': {
-      return `${prefix}/token/${data}`
-    }
-    case 'block': {
-      return `${prefix}/block/${data}`
-    }
-    case 'address':
-    default: {
-      return `${prefix}/address/${data}`
+  } else {
+    switch (type) {
+      case 'transaction': {
+        return `${prefix}/tx/${data}`
+      }
+      case 'token': {
+        return `${prefix}/token/${data}`
+      }
+      case 'block': {
+        return `${prefix}/block/${data}`
+      }
+      case 'address':
+      default: {
+        return `${prefix}/address/${data}`
+      }
     }
   }
 }
@@ -98,8 +125,8 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
 }
 
 // account is optional
-export function getRouterContract(_: number, library: Web3Provider, account?: string): Contract {
-  return getContract(ROUTER_ADDRESS, IUniswapV2Router02ABI, library, account)
+export function getRouterContract(chainId: ChainId, library: Web3Provider, account?: string): Contract {
+  return getContract(ROUTER_ADDRESSES[chainId], IUniswapV2Router02ABI, library, account)
 }
 
 export function escapeRegExp(string: string): string {

@@ -5,19 +5,19 @@ import styled from 'styled-components'
 import { DataCard, CardSection, Break } from '../earn/styled'
 import { RowBetween } from '../Row'
 import { TYPE, ExternalLink, CloseIcon, CustomLightSpinner, UniTokenAnimated } from '../../theme'
-import { ButtonPrimary } from '../Button'
-import { useClaimCallback, useUserUnclaimedAmount, useUserHasAvailableClaim } from '../../state/claim/hooks'
+// import { ButtonPrimary } from '../Button'
+// import { useClaimCallback, useUserUnclaimedAmount, useUserHasAvailableClaim } from '../../state/claim/hooks'
 import tokenLogo from '../../assets/images/token-logo.png'
 import Circle from '../../assets/images/blue-loader.svg'
-import { Text } from 'rebass'
+// import { Text } from 'rebass'
 import AddressInputPanel from '../AddressInputPanel'
 import useENS from '../../hooks/useENS'
 import { useActiveWeb3React } from '../../hooks'
-import { isAddress } from 'ethers/lib/utils'
+// import { isAddress } from 'fathom-ethers/lib/utils'
 import Confetti from '../Confetti'
 import { CardNoise, CardBGImage, CardBGImageSmaller } from '../earn/styled'
 import { useIsTransactionPending } from '../../state/transactions/hooks'
-import { TokenAmount } from '@uniswap/sdk'
+// import { TokenAmount } from 'into-the-fathom-swap-sdk'
 import { getEtherscanLink, shortenAddress } from '../../utils'
 
 const ContentWrapper = styled(AutoColumn)`
@@ -57,12 +57,12 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
   // used for UI loading states
   const [attempting, setAttempting] = useState<boolean>(false)
 
-  // monitor the status of the claim from contracts and txns
-  const { claimCallback } = useClaimCallback(parsedAddress)
-  const unclaimedAmount: TokenAmount | undefined = useUserUnclaimedAmount(parsedAddress)
-
-  // check if the user has something available
-  const hasAvailableClaim = useUserHasAvailableClaim(parsedAddress)
+  // // monitor the status of the claim from contracts and txns
+  // const { claimCallback } = useClaimCallback(parsedAddress)
+  // const unclaimedAmount: TokenAmount | undefined = useUserUnclaimedAmount(parsedAddress)
+  //
+  // // check if the user has something available
+  // const hasAvailableClaim = useUserHasAvailableClaim(parsedAddress)
 
   const [hash, setHash] = useState<string | undefined>()
 
@@ -72,18 +72,18 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
 
   // use the hash to monitor this txn
 
-  function onClaim() {
-    setAttempting(true)
-    claimCallback()
-      .then(hash => {
-        setHash(hash)
-      })
-      // reset modal and log error
-      .catch(error => {
-        setAttempting(false)
-        console.log(error)
-      })
-  }
+  // function onClaim() {
+  //   setAttempting(true)
+  //   claimCallback()
+  //     .then(hash => {
+  //       setHash(hash)
+  //     })
+  //     // reset modal and log error
+  //     .catch(error => {
+  //       setAttempting(false)
+  //       console.log(error)
+  //     })
+  // }
 
   function wrappedOnDismiss() {
     setAttempting(false)
@@ -105,9 +105,9 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
                 <TYPE.white fontWeight={500}>Claim UNI Token</TYPE.white>
                 <CloseIcon onClick={wrappedOnDismiss} style={{ zIndex: 99 }} stroke="white" />
               </RowBetween>
-              <TYPE.white fontWeight={700} fontSize={36}>
-                {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} UNI
-              </TYPE.white>
+              {/*<TYPE.white fontWeight={700} fontSize={36}>*/}
+              {/*  {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} UNI*/}
+              {/*</TYPE.white>*/}
             </CardSection>
             <Break />
           </ModalUpper>
@@ -117,19 +117,19 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
               submission.
             </TYPE.subHeader>
             <AddressInputPanel value={typed} onChange={handleRecipientType} />
-            {parsedAddress && !hasAvailableClaim && (
+            {parsedAddress /*&& !hasAvailableClaim*/ && (
               <TYPE.error error={true}>Address has no available claim</TYPE.error>
             )}
-            <ButtonPrimary
-              disabled={!isAddress(parsedAddress ?? '') || !hasAvailableClaim}
-              padding="16px 16px"
-              width="100%"
-              borderRadius="12px"
-              mt="1rem"
-              onClick={onClaim}
-            >
-              Claim UNI
-            </ButtonPrimary>
+            {/*<ButtonPrimary*/}
+            {/*  disabled={!isAddress(parsedAddress ?? '') /*|| !hasAvailableClaim*!/*/}
+            {/*  padding="16px 16px"*/}
+            {/*  width="100%"*/}
+            {/*  borderRadius="12px"*/}
+            {/*  mt="1rem"*/}
+            {/*  onClick={onClaim}*/}
+            {/*>*/}
+            {/*  Claim UNI*/}
+            {/*</ButtonPrimary>*/}
           </AutoColumn>
         </ContentWrapper>
       )}
@@ -153,11 +153,11 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
               <TYPE.largeHeader fontWeight={600} color="black">
                 {claimConfirmed ? 'Claimed' : 'Claiming'}
               </TYPE.largeHeader>
-              {!claimConfirmed && (
-                <Text fontSize={36} color={'#ff007a'} fontWeight={800}>
-                  {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} UNI
-                </Text>
-              )}
+              {/*{!claimConfirmed && (*/}
+              {/*  <Text fontSize={36} color={'#ff007a'} fontWeight={800}>*/}
+              {/*    {unclaimedAmount?.toFixed(0, { groupSeparator: ',' } ?? '-')} UNI*/}
+              {/*  </Text>*/}
+              {/*)}*/}
               {parsedAddress && (
                 <TYPE.largeHeader fontWeight={600} color="black">
                   for {shortenAddress(parsedAddress)}

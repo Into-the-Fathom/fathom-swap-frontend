@@ -1,5 +1,5 @@
-import { JSBI, TokenAmount } from '@uniswap/sdk'
-import { isAddress } from 'ethers/lib/utils'
+import { JSBI, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { isAddress } from 'fathom-ethers/lib/utils'
 import React, { useEffect, useState } from 'react'
 import { Text } from 'rebass'
 import styled from 'styled-components'
@@ -84,7 +84,7 @@ export default function ClaimModal() {
   }, [attempting, claimConfirmed, claimSubmitted, isOpen, toggleClaimModal])
 
   const nonLPAmount = JSBI.multiply(
-    JSBI.BigInt((userClaimData?.flags?.isSOCKS ? SOCKS_AMOUNT : 0) + (userClaimData?.flags?.isUser ? USER_AMOUNT : 0)),
+  JSBI.BigInt((userClaimData?.flags?.isSOCKS ? SOCKS_AMOUNT : 0) + (userClaimData?.flags?.isUser ? USER_AMOUNT : 0)),
     JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18))
   )
 

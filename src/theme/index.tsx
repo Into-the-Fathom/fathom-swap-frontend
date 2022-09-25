@@ -1,13 +1,16 @@
 import { transparentize } from 'polished'
 import React, { useMemo } from 'react'
 import styled, {
-  ThemeProvider as StyledComponentsThemeProvider,
   createGlobalStyle,
   css,
-  DefaultTheme
+  DefaultTheme,
+  ThemeProvider as StyledComponentsThemeProvider
 } from 'styled-components'
 import { useIsDarkMode } from '../state/user/hooks'
-import { Text, TextProps } from 'rebass'
+import {
+  Text,
+  TextProps
+} from 'rebass'
 import { Colors } from './styled'
 
 export * from './components'
@@ -41,18 +44,26 @@ export function colors(darkMode: boolean): Colors {
     black,
 
     // text
-    text1: darkMode ? '#FFFFFF' : '#000000',
-    text2: darkMode ? '#C3C5CB' : '#565A69',
+    text1: darkMode ? '#00FFF9' : '#000000',
+    text2: darkMode ? '#FFFFFF' : '#565A69',
     text3: darkMode ? '#6C7284' : '#888D9B',
     text4: darkMode ? '#565A69' : '#C3C5CB',
     text5: darkMode ? '#2C2F36' : '#EDEEF2',
+    text6: darkMode ? '#0E0F15' : '#FFFFFF',
 
     // backgrounds / greys
     bg1: darkMode ? '#212429' : '#FFFFFF',
-    bg2: darkMode ? '#2C2F36' : '#F7F8FA',
+
+    // main background
+    bg2: darkMode ? '#10131C' : '#F7F8FA',
     bg3: darkMode ? '#40444F' : '#EDEEF2',
     bg4: darkMode ? '#565A69' : '#CED0D9',
     bg5: darkMode ? '#6C7284' : '#888D9B',
+
+    // header background
+    bg6: darkMode ? '#0E0F15' : 'transparent',
+
+    bg7: darkMode ? '#00FFF9' : 'transparent',
 
     //specialty colors
     modalBG: darkMode ? 'rgba(0,0,0,.425)' : 'rgba(0,0,0,0.3)',
@@ -136,7 +147,7 @@ export const TYPE = {
     return <TextWrapper fontWeight={500} color={'primary1'} {...props} />
   },
   black(props: TextProps) {
-    return <TextWrapper fontWeight={500} color={'text1'} {...props} />
+    return <TextWrapper fontWeight={500} color={'text6'} {...props} />
   },
   white(props: TextProps) {
     return <TextWrapper fontWeight={500} color={'white'} {...props} />
@@ -171,65 +182,66 @@ export const TYPE = {
   italic(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={12} fontStyle={'italic'} color={'text2'} {...props} />
   },
-  error({ error, ...props }: { error: boolean } & TextProps) {
+  error({ error, ...props }: { error: boolean }&TextProps) {
     return <TextWrapper fontWeight={500} color={error ? 'red1' : 'text2'} {...props} />
   }
 }
 
 export const FixedGlobalStyle = createGlobalStyle`
-html, input, textarea, button {
-  font-family: 'Inter', sans-serif;
-  font-display: fallback;
-}
-@supports (font-variation-settings: normal) {
   html, input, textarea, button {
-    font-family: 'Inter var', sans-serif;
+    font-family: 'Inter', sans-serif;
+    font-display: fallback;
   }
-}
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-}
+  @supports (font-variation-settings: normal) {
+    html, input, textarea, button {
+      font-family: 'Inter var', sans-serif;
+    }
+  }
 
- a {
-   color: ${colors(false).blue1}; 
- }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
 
-* {
-  box-sizing: border-box;
-}
+  a {
+    color: ${colors(false).blue1};
+  }
 
-button {
-  user-select: none;
-}
+  * {
+    box-sizing: border-box;
+  }
 
-html {
-  font-size: 16px;
-  font-variant: none;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on;
-  
-}
+  button {
+    user-select: none;
+  }
+
+  html {
+    font-size: 16px;
+    font-variant: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-feature-settings: 'ss01' on, 'ss02' on, 'cv01' on, 'cv03' on;
+
+  }
 `
 
 export const ThemedGlobalStyle = createGlobalStyle`
-html {
-  color: ${({ theme }) => theme.text1};
-  background-color: ${({ theme }) => theme.bg2};
-}
+  html {
+    color: ${({ theme }) => theme.text1};
+    background-color: ${({ theme }) => theme.bg2};
+  }
 
-body {
-  min-height: 100vh;
-  background-position: 0 -30vh;
-  background-repeat: no-repeat;
-  background-image: ${({ theme }) =>
-    `radial-gradient(50% 50% at 50% 50%, ${transparentize(0.9, theme.primary1)} 0%, ${transparentize(
-      1,
-      theme.bg1
-    )} 100%)`};
-}
+  body {
+    min-height: 100vh;
+    background-position: 0 -30vh;
+    background-repeat: no-repeat;
+    background-image: ${({ theme }) =>
+            `radial-gradient(50% 50% at 50% 50%, ${transparentize(0.9, theme.primary1)} 0%, ${transparentize(
+                    1,
+                    theme.bg1
+            )} 100%)`};
+  }
 `
