@@ -1,6 +1,6 @@
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { AddressZero } from '@into-the-fathom/constants'
-import { TokenAmount, Token, ChainId, Percent, JSBI } from 'into-the-fathom-swap-sdk'
+import { TokenAmount, Token, ChainId, Percent, JSBI } from 'fathomswap-sdk'
 
 import {
   getEtherscanLink,

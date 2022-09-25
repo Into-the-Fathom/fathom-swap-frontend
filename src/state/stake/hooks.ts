@@ -1,4 +1,4 @@
-import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, WETH, Pair } from 'into-the-fathom-swap-sdk'
+import { ChainId, CurrencyAmount, JSBI, Token, TokenAmount, WETH, Pair } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import { DAI, UNI, USDC, USDT, WBTC } from '../../constants'
 import { STAKING_REWARDS_INTERFACE } from '../../constants/abis/staking-rewards'

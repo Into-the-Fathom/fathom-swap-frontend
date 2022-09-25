@@ -1,6 +1,6 @@
 import useENS from '../../hooks/useENS'
 import { parseUnits } from '@into-the-fathom/units'
-import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade, XDC } from 'into-the-fathom-swap-sdk'
+import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade, XDC } from 'fathomswap-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -83,11 +83,14 @@ export function tryParseAmount(value?: string, currency?: Currency, chainId?: Ch
     return undefined
   }
   console.log(XDC_CHAIN_IDS.includes(chainId!))
+  
   try {
     const typedValueParsed = parseUnits(value, currency.decimals).toString()
     if (typedValueParsed !== '0') {
       return currency instanceof Token
         ? new TokenAmount(currency, JSBI.BigInt(typedValueParsed))
+        : XDC_CHAIN_IDS.includes(chainId!) 
+        ? CurrencyAmount.xdc(JSBI.BigInt(typedValueParsed))
         : CurrencyAmount.ether(JSBI.BigInt(typedValueParsed))
     }
   } catch (error) {

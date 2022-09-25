@@ -1,4 +1,4 @@
-import { Currency, Token } from 'into-the-fathom-swap-sdk'
+import { Currency, Token } from 'fathomswap-sdk'
 import React, { useCallback, useEffect, useState } from 'react'
 import useLast from '../../hooks/useLast'
 import Modal from '../Modal'

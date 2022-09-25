@@ -1,4 +1,4 @@
-import { Currency, Pair } from 'into-the-fathom-swap-sdk'
+import { Currency, Pair } from 'fathomswap-sdk'
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { darken } from 'polished'

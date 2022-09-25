@@ -1,4 +1,4 @@
-import { ChainId, JSBI, Percent, Token, WETH } from 'into-the-fathom-swap-sdk'
+import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'

@@ -17,7 +17,7 @@ import { useActiveWeb3React } from '../../hooks'
 import Confetti from '../Confetti'
 import { CardNoise, CardBGImage, CardBGImageSmaller } from '../earn/styled'
 import { useIsTransactionPending } from '../../state/transactions/hooks'
-// import { TokenAmount } from 'into-the-fathom-swap-sdk'
+// import { TokenAmount } from 'fathomswap-sdk'
 import { getEtherscanLink, shortenAddress } from '../../utils'
 
 const ContentWrapper = styled(AutoColumn)`

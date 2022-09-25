@@ -7740,6 +7740,19 @@ fathom-swap-standard-token-list@^1.5.0:
   resolved "https://registry.yarnpkg.com/fathom-swap-standard-token-list/-/fathom-swap-standard-token-list-1.5.0.tgz#23fc5afda975e128878cd70c4258bf7f5fd78b22"
   integrity sha512-rScGBrJ60lN/txmZ1RomvCOr5LhC4sR4dN0Q1ycisYM348tclN/0ZW0xbp63MPwPkXH3CnO7l6tpDLVbIK7jqQ==
 
+fathomswap-sdk@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-2.4.0.tgz#bc93b559446e195abe35bd86d832b8ba4fe97f99"
+  integrity sha512-hPdnPrYVXjKpV6nQ+oQA4Zj6HphB0vrTYhwh1P3kitF2pqpJsjd6vLdlT9UlreTYv/+S21Rk8rdxAJJtktUMHA==
+  dependencies:
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    into-the-fathom-swap-smart-contracts "^1.0.0"
+    jsbi "^3.1.1"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
+
 faye-websocket@^0.10.0:
   version "0.10.0"
   resolved "https://registry.yarnpkg.com/faye-websocket/-/faye-websocket-0.10.0.tgz#4e492f8d04dfb6f89003507f6edbf2d501e7c6f4"
@@ -8899,19 +8912,6 @@ internal-slot@^1.0.2:
     es-abstract "^1.17.0-next.1"
     has "^1.0.3"
     side-channel "^1.0.2"
-
-into-the-fathom-swap-sdk@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/into-the-fathom-swap-sdk/-/into-the-fathom-swap-sdk-1.2.0.tgz#3d2ee677dff3619268deb0780fceedd029c58ed3"
-  integrity sha512-GDd1iiKTb4QG/PT12Zjtr54s3sND8P6DarG3rzPkVbceJO7cIO09sJpFRZdKJL8l/cIT8M3+lWTtWQYSPBLbZQ==
-  dependencies:
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    into-the-fathom-swap-smart-contracts "^1.0.0"
-    jsbi "^3.1.1"
-    tiny-invariant "^1.1.0"
-    tiny-warning "^1.0.3"
-    toformat "^2.0.0"
 
 into-the-fathom-swap-smart-contracts@^1.0.0:
   version "1.0.0"
