@@ -82,7 +82,7 @@ export function tryParseAmount(value?: string, currency?: Currency, chainId?: Ch
   if (!value || !currency) {
     return undefined
   }
-  console.log(XDC_CHAIN_IDS.includes(chainId!))
+
   try {
     const typedValueParsed = parseUnits(value, currency.decimals).toString()
     if (typedValueParsed !== '0') {
