@@ -1,4 +1,4 @@
-import { Currency, ETHER, Token } from 'fathomswap-sdk'
+import { Currency, ETHER, Token } from 'into-the-fathom-swap-sdk'
 import React, { KeyboardEvent, RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ReactGA from 'react-ga'
 import { useTranslation } from 'react-i18next'

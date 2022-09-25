@@ -1,5 +1,5 @@
 import { UNI } from './../../constants/index'
-import { TokenAmount, JSBI, ChainId } from 'fathomswap-sdk'
+import { TokenAmount, JSBI, ChainId } from 'into-the-fathom-swap-sdk'
 import { TransactionResponse } from '@into-the-fathom/providers'
 import { useEffect, useState } from 'react'
 import { useActiveWeb3React } from '../../hooks'

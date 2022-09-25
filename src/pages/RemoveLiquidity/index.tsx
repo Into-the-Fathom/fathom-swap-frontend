@@ -1,7 +1,7 @@
 import { splitSignature } from '@into-the-fathom/bytes'
 import { Contract } from '@into-the-fathom/contracts'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, ETHER, Percent, WETH } from 'fathomswap-sdk'
+import { Currency, currencyEquals, ETHER, Percent, WETH } from 'into-the-fathom-swap-sdk'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import ReactGA from 'react-ga'

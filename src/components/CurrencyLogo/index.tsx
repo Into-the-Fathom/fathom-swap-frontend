@@ -1,4 +1,4 @@
-import { ChainId, Currency, ETHER, Token, XDC } from 'fathomswap-sdk'
+import { ChainId, Currency, ETHER, Token, XDC } from 'into-the-fathom-swap-sdk'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 

@@ -6,7 +6,7 @@ import {
   CurrencyAmount,
   ETHER,
   XDC
-} from 'fathomswap-sdk'
+} from 'into-the-fathom-swap-sdk'
 import { useCallback, useMemo } from 'react'
 import { ROUTER_ADDRESSES } from '../constants'
 import { useTokenAllowance } from '../data/Allowances'

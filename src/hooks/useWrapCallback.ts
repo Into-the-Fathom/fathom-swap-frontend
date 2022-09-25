@@ -1,4 +1,4 @@
-import { Currency, currencyEquals, ETHER, WETH, XDC } from 'fathomswap-sdk'
+import { Currency, currencyEquals, ETHER, WETH, XDC } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
 import { tryParseAmount } from '../state/swap/hooks'
 import { useTransactionAdder } from '../state/transactions/hooks'

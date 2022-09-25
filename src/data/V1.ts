@@ -4,7 +4,7 @@ import {
   TokenAmount,
   Trade,
   WETH
-} from 'fathomswap-sdk'
+} from 'into-the-fathom-swap-sdk'
 
 import { Version } from '../hooks/useToggledVersion'
 

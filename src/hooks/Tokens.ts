@@ -1,6 +1,6 @@
 import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
 import { parseBytes32String } from '@into-the-fathom/strings'
-import { Currency, currencyEquals, ETHER, Token, XDC } from 'fathomswap-sdk'
+import { Currency, currencyEquals, ETHER, Token, XDC } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
 import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'
 import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'

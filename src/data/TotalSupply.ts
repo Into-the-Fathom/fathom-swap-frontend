@@ -1,5 +1,5 @@
 import { BigNumber } from '@into-the-fathom/bignumber'
-import { Token, TokenAmount } from 'fathomswap-sdk'
+import { Token, TokenAmount } from 'into-the-fathom-swap-sdk'
 import { useTokenContract } from '../hooks/useContract'
 import { useSingleCallResult } from '../state/multicall/hooks'
 
