@@ -131,13 +131,13 @@ function CurrencyRow({
         <Text title={currency.name} fontWeight={500}>
           {currency.symbol}
         </Text>
-        <TYPE.darkGray ml="0px" fontSize={'12px'} fontWeight={300}>
+        <TYPE.white ml="0px" fontSize={'12px'} fontWeight={300}>
           {currency.name} {!isOnSelectedList && customAdded && '• Added by user'}
-        </TYPE.darkGray>
+        </TYPE.white>
       </Column>
       <TokenTags currency={currency} />
       <RowFixed style={{ justifySelf: 'flex-end' }}>
-        {balance ? <Balance balance={balance} /> : account ? <Loader /> : null}
+        {balance ? <Balance balance={balance} /> : account ? <Loader stroke={'white'} /> : null}
       </RowFixed>
     </MenuItem>
   )

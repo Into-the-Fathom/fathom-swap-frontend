@@ -89,13 +89,7 @@ export default function Swap({ history }: RouteComponentProps) {
 
   // swap state
   const { independentField, typedValue, recipient } = useSwapState()
-  const {
-    v2Trade,
-    currencyBalances,
-    parsedAmount,
-    currencies,
-    inputError: swapInputError
-  } = useDerivedSwapInfo()
+  const { v2Trade, currencyBalances, parsedAmount, currencies, inputError: swapInputError } = useDerivedSwapInfo()
 
   const { wrapType, execute: onWrap, inputError: wrapInputError } = useWrapCallback(
     currencies[Field.INPUT],
@@ -110,7 +104,6 @@ export default function Swap({ history }: RouteComponentProps) {
   }
   const trade = showWrap ? undefined : tradesByVersion[toggledVersion]
   const defaultTrade = showWrap ? undefined : tradesByVersion[DEFAULT_VERSION]
-
 
   const parsedAmounts = showWrap
     ? {
@@ -503,9 +496,7 @@ export default function Swap({ history }: RouteComponentProps) {
               </Column>
             )}
             {isExpertMode && swapErrorMessage ? <SwapCallbackError error={swapErrorMessage} /> : null}
-            {toggledVersion !== DEFAULT_VERSION && defaultTrade ? (
-              <DefaultVersionLink />
-            ) : null}
+            {toggledVersion !== DEFAULT_VERSION && defaultTrade ? <DefaultVersionLink /> : null}
           </BottomGrouping>
         </Wrapper>
       </AppBody>

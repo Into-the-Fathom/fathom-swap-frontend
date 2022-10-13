@@ -38,7 +38,7 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
 
   :focus,
   :hover {
-    background-color: ${({ selected, theme }) => (selected ? theme.bg2 : darken(0.05, theme.primary1))};
+    background-color: transparent;
   }
 `
 
@@ -82,7 +82,7 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
 const Container = styled.div<{ hideInput: boolean }>`
   border-radius: ${({ hideInput }) => (hideInput ? '8px' : '20px')};
   border: 1px solid ${({ theme }) => theme.bg2};
-  background-color: ${({ theme }) => theme.bg1};
+  background-color: ${({ theme }) => theme.bg2};
 `
 
 const StyledTokenName = styled.span<{ active?: boolean }>`

@@ -71,15 +71,13 @@ export default function ImportRow({
       <AutoColumn gap="4px" style={{ opacity: dim ? '0.6' : '1' }}>
         <AutoRow>
           <TYPE.body fontWeight={500}>{token.symbol}</TYPE.body>
-          <TYPE.darkGray ml="8px" fontWeight={300}>
+          <TYPE.white ml="8px" fontWeight={300}>
             <NameOverflow title={token.name}>{token.name}</NameOverflow>
-          </TYPE.darkGray>
+          </TYPE.white>
         </AutoRow>
         {list && list.logoURI && (
           <RowFixed>
-            <TYPE.small mr="4px" color={theme.text3}>
-              via {list.name}
-            </TYPE.small>
+            <TYPE.small mr="4px">via {list.name}</TYPE.small>
             <ListLogo logoURI={list.logoURI} size="12px" />
           </RowFixed>
         )}
