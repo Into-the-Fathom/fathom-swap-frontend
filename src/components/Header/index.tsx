@@ -204,6 +204,7 @@ const StyledNavLink = styled(NavLink).attrs({
   width: fit-content;
   margin: 0 12px;
   font-weight: 500;
+  text-transform: capitalize;
 
   &.${activeClassName} {
     border-radius: 12px;
