@@ -41,7 +41,7 @@ const StyledClose = styled(X)`
 /**
  * Content for balance stats modal
  */
-export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowUniBalanceModal: any }) {
+export default function FathomBalanceContent({ setShowUniBalanceModal }: { setShowUniBalanceModal: any }) {
   const { account, chainId } = useActiveWeb3React()
   const uni = chainId ? UNI[chainId] : undefined
 
@@ -87,17 +87,6 @@ export default function UniBalanceContent({ setShowUniBalanceModal }: { setShowU
                   <TYPE.black color="black">Balance:</TYPE.black>
                   <TYPE.black color="black">{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.black>
                 </RowBetween>
-                {/*<RowBetween>*/}
-                {/*  <TYPE.black color="black">Unclaimed:</TYPE.black>*/}
-                {/*  <TYPE.black color="black">*/}
-                {/*    {uniToClaim?.toFixed(4, { groupSeparator: ',' })}{' '}*/}
-                {/*    {uniToClaim && uniToClaim.greaterThan('0') && (*/}
-                {/*      <StyledInternalLink onClick={() => setShowUniBalanceModal(false)} to="/fthm">*/}
-                {/*        (claim)*/}
-                {/*      </StyledInternalLink>*/}
-                {/*    )}*/}
-                {/*  </TYPE.black>*/}
-                {/*</RowBetween>*/}
               </AutoColumn>
             </CardSection>
             <Break />

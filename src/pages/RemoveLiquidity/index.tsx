@@ -1,7 +1,7 @@
 import { splitSignature } from '@into-the-fathom/bytes'
 import { Contract } from '@into-the-fathom/contracts'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, ETHER, Percent, WETH } from 'into-the-fathom-swap-sdk'
+import { Currency, currencyEquals, ETHER, Percent, WETH, XDC } from 'into-the-fathom-swap-sdk'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import ReactGA from 'react-ga'
@@ -29,7 +29,7 @@ import useTransactionDeadline from '../../hooks/useTransactionDeadline'
 
 import { useTransactionAdder } from '../../state/transactions/hooks'
 import { StyledInternalLink, TYPE } from '../../theme'
-import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from '../../utils'
+import { calculateGasMargin, calculateSlippageAmount, getRouterContract, XDC_CHAIN_IDS } from '../../utils'
 import { currencyId } from '../../utils/currencyId'
 import useDebouncedChangeHandler from '../../utils/useDebouncedChangeHandler'
 import { wrappedCurrency } from '../../utils/wrappedCurrency'
@@ -209,8 +209,10 @@ export default function RemoveLiquidity({
     const liquidityAmount = parsedAmounts[Field.LIQUIDITY]
     if (!liquidityAmount) throw new Error('missing liquidity amount')
 
-    const currencyBIsETH = currencyB === ETHER
-    const oneCurrencyIsETH = currencyA === ETHER || currencyBIsETH
+    const currencyBIsETH = XDC_CHAIN_IDS.includes(chainId) ? currencyB === XDC : currencyB === ETHER
+    const oneCurrencyIsETH = XDC_CHAIN_IDS.includes(chainId)
+      ? currencyA === XDC || currencyBIsETH
+      : currencyA === ETHER || currencyBIsETH
 
     if (!tokenA || !tokenB) throw new Error('could not wrap')
 
@@ -428,7 +430,9 @@ export default function RemoveLiquidity({
     [onUserInput]
   )
 
-  const oneCurrencyIsETH = currencyA === ETHER || currencyB === ETHER
+  const oneCurrencyIsETH = XDC_CHAIN_IDS.includes(chainId!)
+    ? currencyA === XDC || currencyB === XDC
+    : currencyA === ETHER || currencyB === ETHER
   const oneCurrencyIsWETH = Boolean(
     chainId &&
       ((currencyA && currencyEquals(WETH[chainId], currencyA)) ||
@@ -494,7 +498,7 @@ export default function RemoveLiquidity({
           <AutoColumn gap="md">
             <BlueCard>
               <AutoColumn gap="10px">
-                <TYPE.link fontWeight={400} color={'primaryText1'}>
+                <TYPE.link fontWeight={400} color={'text1'}>
                   <b>Tip:</b> Removing pool tokens converts your position back into underlying tokens at the current
                   rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive.
                 </TYPE.link>
@@ -572,17 +576,37 @@ export default function RemoveLiquidity({
                       <RowBetween style={{ justifyContent: 'flex-end' }}>
                         {oneCurrencyIsETH ? (
                           <StyledInternalLink
-                            to={`/remove/${currencyA === ETHER ? WETH[chainId].address : currencyIdA}/${
-                              currencyB === ETHER ? WETH[chainId].address : currencyIdB
+                            to={`/remove/${
+                              (XDC_CHAIN_IDS.includes(chainId!)
+                              ? currencyA === XDC
+                              : currencyA === ETHER)
+                                ? WETH[chainId].address
+                                : currencyIdA
+                            }/${
+                              (XDC_CHAIN_IDS.includes(chainId!)
+                              ? currencyB === XDC
+                              : currencyB === ETHER)
+                                ? WETH[chainId].address
+                                : currencyIdB
                             }`}
                           >
-                            Receive WETH
+                            Receive {XDC_CHAIN_IDS.includes(chainId!) ? 'WXDC' : 'WETH'}
                           </StyledInternalLink>
                         ) : oneCurrencyIsWETH ? (
                           <StyledInternalLink
                             to={`/remove/${
-                              currencyA && currencyEquals(currencyA, WETH[chainId]) ? 'ETH' : currencyIdA
-                            }/${currencyB && currencyEquals(currencyB, WETH[chainId]) ? 'ETH' : currencyIdB}`}
+                              currencyA && currencyEquals(currencyA, WETH[chainId])
+                                ? XDC_CHAIN_IDS.includes(chainId!)
+                                  ? 'XDC'
+                                  : 'ETH'
+                                : currencyIdA
+                            }/${
+                              currencyB && currencyEquals(currencyB, WETH[chainId])
+                                ? XDC_CHAIN_IDS.includes(chainId!)
+                                  ? 'XDC'
+                                  : 'ETH'
+                                : currencyIdB
+                            }`}
                           >
                             Receive ETH
                           </StyledInternalLink>

@@ -7,28 +7,19 @@ import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
 
-import Logo from '../../assets/svg/Fathom-logo-black.svg'
-import LogoDark from '../../assets/svg/Fathom-logo-aqua.svg'
+import Logo from '../../assets/svg/Fathom-app-logo.svg'
 import { useActiveWeb3React } from '../../hooks'
-import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks'
 import { CardNoise } from '../earn/styled'
 import { CountUp } from 'use-count-up'
 import { TYPE, ExternalLink } from '../../theme'
 
 import { YellowCard } from '../Card'
-// import { Moon, Sun } from 'react-feather'
-// import Menu from '../Menu'
 
-import Row, { RowFixed } from '../Row'
+import Row from '../Row'
 import Web3Status from '../Web3Status'
-// import ClaimModal from '../claim/ClaimModal'
-// import { useToggleSelfClaimModal, useShowClaimPopup } from '../../state/application/hooks'
-// import { useUserHasAvailableClaim } from '../../state/claim/hooks'
-// import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
-// import { Dots } from '../swap/styleds'
 import Modal from '../Modal'
-import UniBalanceContent from './UniBalanceContent'
+import FathomBalanceContent from './FathomBalanceContent'
 import usePrevious from '../../hooks/usePrevious'
 import { XDC_CHAIN_IDS } from '../../utils'
 
@@ -42,7 +33,7 @@ const HeaderFrame = styled.div`
   width: 100%;
   top: 0;
   position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #2c3f59;
   padding: 1rem;
   z-index: 2;
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -51,7 +42,7 @@ const HeaderFrame = styled.div`
     width: calc(100%);
     position: relative;
   `};
-  background: ${({ theme }) => theme.bg6};
+  background: transparent;
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
         padding: 0.5rem 1rem;
   `}
@@ -96,14 +87,11 @@ const HeaderElement = styled.div`
   `};
 `
 
-// const HeaderElementWrap = styled.div`
-//   display: flex;
-//   align-items: center;
-// `
-
-const HeaderRow = styled(RowFixed)`
+const HeaderRow = styled(Row)<{ gap?: string; justify?: string }>`
+  margin: ${({ gap }) => gap && `-${gap}`};
   ${({ theme }) => theme.mediaWidth.upToMedium`
-   width: 100%;
+    width: 100%;
+    background: '#fff';
   `};
 `
 
@@ -111,7 +99,7 @@ const HeaderLinks = styled(Row)`
   justify-content: center;
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem 0 1rem 1rem;
-    justify-content: flex-end;
+    justify-content: center;
 `};
 `
 
@@ -119,11 +107,12 @@ const AccountElement = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: ${({ theme, active }) => (!active ? theme.bg1 : theme.bg3)};
+  background-color: ${({ theme }) => theme.bg1};
   border-radius: 12px;
   white-space: nowrap;
   width: 100%;
   cursor: pointer;
+  color: ${({ theme }) => theme.text1};
 
   :focus {
     border: 1px solid blue;
@@ -135,8 +124,8 @@ const FTHMAmount = styled(AccountElement)`
   padding: 4px 8px;
   height: 36px;
   font-weight: 500;
-  background-color: ${({ theme }) => theme.bg7};
-  color: ${({ theme }) => theme.text6};
+  background-color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text1};
 `
 
 const FTHMWrapper = styled.span`
@@ -215,11 +204,15 @@ const StyledNavLink = styled(NavLink).attrs({
   width: fit-content;
   margin: 0 12px;
   font-weight: 500;
+  text-transform: capitalize;
 
   &.${activeClassName} {
     border-radius: 12px;
     font-weight: 600;
     color: ${({ theme }) => theme.text1};
+    background-color: ${({ theme }) => theme.primary5};
+    padding: 8px 12px;
+    border-radius: 8px;
   }
 
   :hover,
@@ -302,14 +295,6 @@ export default function Header() {
   const { t } = useTranslation()
 
   const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
-  // const [isDark] = useDarkModeManager()
-  const [darkMode /*, toggleDarkMode*/] = useDarkModeManager()
-
-  // const toggleClaimModal = useToggleSelfClaimModal()
-
-  // const availableClaim: boolean = useUserHasAvailableClaim(account)
-
-  // const { claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
 
   const aggregateBalance: TokenAmount | undefined = useAggregateUniBalance()
 
@@ -323,12 +308,12 @@ export default function Header() {
     <HeaderFrame>
       {/*<ClaimModal />*/}
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
-        <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
+        <FathomBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
       <HeaderRow>
-        <Title href=".">
+        <Title href="/">
           <FathomIcon>
-            <img width={'100px'} src={darkMode ? LogoDark : Logo} alt="logo" />
+            <img width={'140px'} src={Logo} alt="logo" />
           </FathomIcon>
         </Title>
         <HeaderLinks>
@@ -366,22 +351,12 @@ export default function Header() {
               <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
             )}
           </HideSmall>
-          {/*{availableClaim && !showClaimPopup && (*/}
-          {/*  <FTHMWrapper onClick={toggleClaimModal}>*/}
-          {/*    <FTHMAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>*/}
-          {/*      <TYPE.white padding="0 2px">*/}
-          {/*        {claimTxn && !claimTxn?.receipt ? <Dots>Claiming FTHM</Dots> : 'Claim FTHM'}*/}
-          {/*      </TYPE.white>*/}
-          {/*    </FTHMAmount>*/}
-          {/*    <CardNoise />*/}
-          {/*  </FTHMWrapper>*/}
-          {/*)}*/}
-          {/*!availableClaim &&*/ aggregateBalance && (
+          {aggregateBalance && (
             <FTHMWrapper onClick={() => setShowUniBalanceModal(true)}>
               <FTHMAmount active={!!account /*&& !availableClaim*/} style={{ pointerEvents: 'auto' }}>
                 {account && (
                   <HideSmall>
-                    <TYPE.black
+                    <TYPE.white
                       style={{
                         paddingRight: '.4rem'
                       }}
@@ -394,7 +369,7 @@ export default function Header() {
                         thousandsSeparator={','}
                         duration={1}
                       />
-                    </TYPE.black>
+                    </TYPE.white>
                   </HideSmall>
                 )}
                 FTHM

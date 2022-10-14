@@ -1,5 +1,5 @@
-import React, { useContext, useMemo } from 'react'
-import styled, { ThemeContext } from 'styled-components'
+import React, { useMemo } from 'react'
+import styled from 'styled-components'
 import { Pair, JSBI } from 'into-the-fathom-swap-sdk'
 import { Link } from 'react-router-dom'
 import { SwapPoolTabs } from '../../components/NavigationTabs'
@@ -75,7 +75,6 @@ const EmptyProposals = styled.div`
 `
 
 export default function Pool() {
-  const theme = useContext(ThemeContext)
   const { account, chainId } = useActiveWeb3React()
 
   // fetch the user's balances of all tracked V2 LP tokens
@@ -156,7 +155,11 @@ export default function Pool() {
                 </TYPE.mediumHeader>
               </HideSmall>
               <ButtonRow>
-                <ResponsiveButtonSecondary as={Link} padding="6px 8px" to={XDC_CHAIN_IDS.includes(chainId!) ? '/create/XDC' : '/create/ETH'}>
+                <ResponsiveButtonSecondary
+                  as={Link}
+                  padding="6px 8px"
+                  to={XDC_CHAIN_IDS.includes(chainId!) ? '/create/XDC' : '/create/ETH'}
+                >
                   Create a pair
                 </ResponsiveButtonSecondary>
                 <ResponsiveButtonPrimary
@@ -175,13 +178,11 @@ export default function Pool() {
 
             {!account ? (
               <Card padding="40px">
-                <TYPE.body color={theme.text3} textAlign="center">
-                  Connect to a wallet to view your liquidity.
-                </TYPE.body>
+                <TYPE.body textAlign="center">Connect to a wallet to view your liquidity.</TYPE.body>
               </Card>
             ) : v2IsLoading ? (
               <EmptyProposals>
-                <TYPE.body color={theme.text3} textAlign="center">
+                <TYPE.body textAlign="center">
                   <Dots>Loading</Dots>
                 </TYPE.body>
               </EmptyProposals>
@@ -211,9 +212,7 @@ export default function Pool() {
               </>
             ) : (
               <EmptyProposals>
-                <TYPE.body color={theme.text3} textAlign="center">
-                  No liquidity found.
-                </TYPE.body>
+                <TYPE.body textAlign="center">No liquidity found.</TYPE.body>
               </EmptyProposals>
             )}
 

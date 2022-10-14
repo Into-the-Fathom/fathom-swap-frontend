@@ -1,4 +1,3 @@
-import { transparentize } from 'polished'
 import React, { useMemo } from 'react'
 import styled, {
   createGlobalStyle,
@@ -6,11 +5,7 @@ import styled, {
   DefaultTheme,
   ThemeProvider as StyledComponentsThemeProvider
 } from 'styled-components'
-import { useIsDarkMode } from '../state/user/hooks'
-import {
-  Text,
-  TextProps
-} from 'rebass'
+import { Text, TextProps } from 'rebass'
 import { Colors } from './styled'
 
 export * from './components'
@@ -37,52 +32,51 @@ const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } 
 const white = '#FFFFFF'
 const black = '#000000'
 
-export function colors(darkMode: boolean): Colors {
+export function colors(): Colors {
   return {
     // base
     white,
     black,
 
     // text
-    text1: darkMode ? '#00FFF9' : '#000000',
-    text2: darkMode ? '#FFFFFF' : '#565A69',
-    text3: darkMode ? '#6C7284' : '#888D9B',
-    text4: darkMode ? '#565A69' : '#C3C5CB',
-    text5: darkMode ? '#2C2F36' : '#EDEEF2',
-    text6: darkMode ? '#0E0F15' : '#FFFFFF',
+    text1: white,
+    text2: white,
+    text3: '#002F2D',
+    text4: '#565A69',
+    text5: '#2C2F36',
+    text6: '#0E0F15',
 
     // backgrounds / greys
-    bg1: darkMode ? '#212429' : '#FFFFFF',
+    bg1: '#192A42',
 
     // main background
-    bg2: darkMode ? '#10131C' : '#F7F8FA',
-    bg3: darkMode ? '#40444F' : '#EDEEF2',
-    bg4: darkMode ? '#565A69' : '#CED0D9',
-    bg5: darkMode ? '#6C7284' : '#888D9B',
+    bg2: '#0E1D34',
+    bg3: '#43FFF6',
+    bg4: '#565A69',
+    bg5: '#6C7284',
 
     // header background
-    bg6: darkMode ? '#0E0F15' : 'transparent',
-
-    bg7: darkMode ? '#00FFF9' : 'transparent',
+    bg6: '#0E0F15',
+    bg7: '#00FFF9',
 
     //specialty colors
-    modalBG: darkMode ? 'rgba(0,0,0,.425)' : 'rgba(0,0,0,0.3)',
-    advancedBG: darkMode ? 'rgba(0,0,0,0.1)' : 'rgba(255,255,255,0.6)',
+    modalBG: 'rgba(0,0,0,.425)',
+    advancedBG: 'rgba(0,0,0,0.1)',
 
     //primary colors
-    primary1: darkMode ? '#2172E5' : '#ff007a',
-    primary2: darkMode ? '#3680E7' : '#FF8CC3',
-    primary3: darkMode ? '#4D8FEA' : '#FF99C9',
-    primary4: darkMode ? '#376bad70' : '#F6DDE8',
-    primary5: darkMode ? '#153d6f70' : '#FDEAF1',
+    primary1: '#192A42',
+    primary2: '#3680E7',
+    primary3: '#4D8FEA',
+    primary4: '#376bad70',
+    primary5: '#22354F',
 
     // color text
-    primaryText1: darkMode ? '#6da8ff' : '#ff007a',
+    primaryText1: '#43FFF6',
 
     // secondary colors
-    secondary1: darkMode ? '#2172E5' : '#ff007a',
-    secondary2: darkMode ? '#17000b26' : '#F6DDE8',
-    secondary3: darkMode ? '#17000b26' : '#FDEAF1',
+    secondary1: '#2172E5',
+    secondary2: '#17000b26',
+    secondary3: '#17000b26',
 
     // other
     red1: '#FD4040',
@@ -92,16 +86,12 @@ export function colors(darkMode: boolean): Colors {
     yellow1: '#FFE270',
     yellow2: '#F3841E',
     blue1: '#2172E5'
-
-    // dont wanna forget these blue yet
-    // blue4: darkMode ? '#153d6f70' : '#C4D9F8',
-    // blue5: darkMode ? '#153d6f70' : '#EBF4FF',
   }
 }
 
-export function theme(darkMode: boolean): DefaultTheme {
+export function theme(): DefaultTheme {
   return {
-    ...colors(darkMode),
+    ...colors(),
 
     grids: {
       sm: 8,
@@ -110,7 +100,7 @@ export function theme(darkMode: boolean): DefaultTheme {
     },
 
     //shadows
-    shadow1: darkMode ? '#000' : '#2F80ED',
+    shadow1: '#000',
 
     // media queries
     mediaWidth: mediaWidthTemplates,
@@ -128,10 +118,7 @@ export function theme(darkMode: boolean): DefaultTheme {
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const darkMode = useIsDarkMode()
-
-  const themeObject = useMemo(() => theme(darkMode), [darkMode])
-
+  const themeObject = useMemo(() => theme(), [])
   return <StyledComponentsThemeProvider theme={themeObject}>{children}</StyledComponentsThemeProvider>
 }
 
@@ -182,7 +169,7 @@ export const TYPE = {
   italic(props: TextProps) {
     return <TextWrapper fontWeight={500} fontSize={12} fontStyle={'italic'} color={'text2'} {...props} />
   },
-  error({ error, ...props }: { error: boolean }&TextProps) {
+  error({ error, ...props }: { error: boolean } & TextProps) {
     return <TextWrapper fontWeight={500} color={error ? 'red1' : 'text2'} {...props} />
   }
 }
@@ -206,7 +193,7 @@ export const FixedGlobalStyle = createGlobalStyle`
   }
 
   a {
-    color: ${colors(false).blue1};
+    color: ${colors().blue1};
   }
 
   * {
@@ -238,10 +225,6 @@ export const ThemedGlobalStyle = createGlobalStyle`
     min-height: 100vh;
     background-position: 0 -30vh;
     background-repeat: no-repeat;
-    background-image: ${({ theme }) =>
-            `radial-gradient(50% 50% at 50% 50%, ${transparentize(0.9, theme.primary1)} 0%, ${transparentize(
-                    1,
-                    theme.bg1
-            )} 100%)`};
+    background: linear-gradient(180deg, #000817 7.88%, #0D1725 113.25%);
   }
 `

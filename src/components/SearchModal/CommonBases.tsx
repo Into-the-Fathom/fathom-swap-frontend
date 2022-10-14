@@ -11,7 +11,6 @@ import CurrencyLogo from '../CurrencyLogo'
 import { XDC_CHAIN_IDS } from '../../utils'
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
-  border: 1px solid ${({ theme, disable }) => (disable ? 'transparent' : theme.bg3)};
   border-radius: 10px;
   display: flex;
   padding: 6px;
@@ -22,7 +21,7 @@ const BaseWrapper = styled.div<{ disable?: boolean }>`
     background-color: ${({ theme, disable }) => !disable && theme.bg2};
   }
 
-  background-color: ${({ theme, disable }) => disable && theme.bg3};
+  background-color: ${({ theme, disable }) => disable && theme.bg2};
   opacity: ${({ disable }) => disable && '0.4'};
 `
 
