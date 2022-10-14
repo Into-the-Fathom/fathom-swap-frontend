@@ -13,7 +13,6 @@ import { ExternalLink, TYPE } from '../../theme'
 import { currencyId } from '../../utils/currencyId'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { ButtonPrimary, ButtonSecondary, ButtonEmpty } from '../Button'
-import { transparentize } from 'polished'
 import { CardNoise } from '../earn/styled'
 
 import { useColor } from '../../hooks/useColor'
@@ -38,8 +37,7 @@ export const HoverCard = styled(Card)`
 `
 const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   border: none;
-  background: ${({ theme, bgColor }) =>
-    `radial-gradient(91.85% 100% at 1.84% 0%, ${transparentize(0.8, bgColor)} 0%, ${theme.bg3} 100%) `};
+  background-color: ${({ theme }) => theme.bg1};
   position: relative;
   overflow: hidden;
 `
@@ -52,10 +50,10 @@ interface PositionCardProps {
 }
 
 export function MinimalPositionCard({ pair, showUnwrapped = false, border }: PositionCardProps) {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
 
-  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0)
-  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1)
+  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0, chainId)
+  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1, chainId)
 
   const [showMore, setShowMore] = useState(false)
 
@@ -213,12 +211,12 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               {showMore ? (
                 <>
                   Manage
-                  <ChevronUp size="20" style={{ marginLeft: '10px' }} />
+                  <ChevronUp stroke={'white'} size="20" style={{ marginLeft: '10px' }} />
                 </>
               ) : (
                 <>
                   Manage
-                  <ChevronDown size="20" style={{ marginLeft: '10px' }} />
+                  <ChevronDown stroke={'white'} size="20" style={{ marginLeft: '10px' }} />
                 </>
               )}
             </ButtonEmpty>
@@ -302,7 +300,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             </ButtonSecondary>
             {userDefaultPoolBalance && JSBI.greaterThan(userDefaultPoolBalance.raw, BIG_INT_ZERO) && (
               <RowBetween marginTop="10px">
-                <ButtonPrimary
+                <ButtonSecondary
                   padding="8px"
                   borderRadius="8px"
                   as={Link}
@@ -310,8 +308,8 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                   width="48%"
                 >
                   Add
-                </ButtonPrimary>
-                <ButtonPrimary
+                </ButtonSecondary>
+                <ButtonSecondary
                   padding="8px"
                   borderRadius="8px"
                   as={Link}
@@ -319,7 +317,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                   to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
                 >
                   Remove
-                </ButtonPrimary>
+                </ButtonSecondary>
               </RowBetween>
             )}
             {stakedBalance && JSBI.greaterThan(stakedBalance.raw, BIG_INT_ZERO) && (
