@@ -5,7 +5,9 @@ import { isMobile } from 'react-device-detect'
 import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
 import { Provider } from 'react-redux'
-import { BrowserRouter } from 'react-router-dom'
+import {
+  HashRouter
+} from 'react-router-dom'
 import Blocklist from './components/Blocklist'
 import { NetworkContextName } from './constants'
 import './i18n'
@@ -69,9 +71,9 @@ ReactDOM.render(
             <Updaters />
             <ThemeProvider>
               <ThemedGlobalStyle />
-              <BrowserRouter>
+              <HashRouter>
                 <App />
-              </BrowserRouter>
+              </HashRouter>
             </ThemeProvider>
           </Provider>
         </Blocklist>
