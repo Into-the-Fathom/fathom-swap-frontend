@@ -4,9 +4,12 @@ import useCopyClipboard from '../../hooks/useCopyClipboard'
 
 import { LinkStyledButton } from '../../theme'
 import { CheckCircle, Copy } from 'react-feather'
+import { useActiveWeb3React } from '../../hooks'
+import { XDC_CHAIN_IDS } from '../../utils'
+import { toXdcAddress } from '../../utils/toXdcAddress'
 
 const CopyIcon = styled(LinkStyledButton)`
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text1};
   flex-shrink: 0;
   display: flex;
   text-decoration: none;
@@ -27,9 +30,10 @@ const TransactionStatusText = styled.span`
 
 export default function CopyHelper(props: { toCopy: string; children?: React.ReactNode }) {
   const [isCopied, setCopied] = useCopyClipboard()
+  const { chainId } = useActiveWeb3React()
 
   return (
-    <CopyIcon onClick={() => setCopied(props.toCopy)}>
+    <CopyIcon onClick={() => setCopied(XDC_CHAIN_IDS.includes(chainId!) ? toXdcAddress(props.toCopy) : props.toCopy)}>
       {isCopied ? (
         <TransactionStatusText>
           <CheckCircle size={'16'} />
