@@ -204,7 +204,7 @@ export default function Vote() {
                     href={getEtherscanLink(ChainId.MAINNET, userDelegatee, 'address')}
                     style={{ margin: '0 4px' }}
                   >
-                    {userDelegatee === account ? 'Self' : shortenAddress(userDelegatee)}
+                    {userDelegatee === account ? 'Self' : shortenAddress(userDelegatee, 4, chainId!)}
                   </StyledExternalLink>
                   <TextButton onClick={toggleDelegateModal} style={{ marginLeft: '4px' }}>
                     (edit)

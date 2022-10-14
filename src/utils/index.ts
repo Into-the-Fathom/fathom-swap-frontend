@@ -8,6 +8,7 @@ import { abi as IUniswapV2Router02ABI } from 'into-the-fathom-swap-smart-contrac
 import { ROUTER_ADDRESSES } from '../constants'
 import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'into-the-fathom-swap-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
+import { toXdcAddress } from './toXdcAddress'
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -47,14 +48,14 @@ export function getEtherscanLink(
         return `${prefix}/txs/${data}`
       }
       case 'token': {
-        return `${prefix}/tokens/${data}`
+        return `${prefix}/tokens/${toXdcAddress(data)}`
       }
       case 'block': {
         return `${prefix}/blocks/${data}`
       }
       case 'address':
       default: {
-        return `${prefix}/address/${data}`
+        return `${prefix}/address/${toXdcAddress(data)}`
       }
     }
   } else {
@@ -77,11 +78,12 @@ export function getEtherscanLink(
 }
 
 // shorten the checksummed version of the input address to have 0x + 4 characters at start and end
-export function shortenAddress(address: string, chars = 4): string {
-  const parsed = isAddress(address)
+export function shortenAddress(address: string, chars = 4, chainId: ChainId): string {
+  let parsed = isAddress(address)
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
+  parsed = XDC_CHAIN_IDS.includes(chainId!) ? toXdcAddress(parsed) : parsed
   return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`
 }
 

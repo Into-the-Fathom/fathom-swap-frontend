@@ -335,7 +335,7 @@ export default function AccountDetails({
                     <>
                       <div>
                         {getStatusIcon()}
-                        <p> {account && shortenAddress(account)}</p>
+                        <p> {account && shortenAddress(account, 4, chainId!)}</p>
                       </div>
                     </>
                   )}

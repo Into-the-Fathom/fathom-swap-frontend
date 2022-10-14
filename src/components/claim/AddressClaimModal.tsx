@@ -160,7 +160,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
               {/*)}*/}
               {parsedAddress && (
                 <TYPE.largeHeader fontWeight={600} color="black">
-                  for {shortenAddress(parsedAddress)}
+                  for {shortenAddress(parsedAddress, 4, chainId!)}
                 </TYPE.largeHeader>
               )}
             </AutoColumn>
