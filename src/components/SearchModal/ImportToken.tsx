@@ -84,7 +84,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
                   <TYPE.body ml="8px" mr="8px" fontWeight={500}>
                     {token.symbol}
                   </TYPE.body>
-                  <TYPE.darkGray fontWeight={300}>{token.name}</TYPE.darkGray>
+                  <TYPE.gray fontWeight={300}>{token.name}</TYPE.gray>
                 </AutoRow>
                 {chainId && (
                   <ExternalLink href={getEtherscanLink(chainId, token.address, 'address')}>

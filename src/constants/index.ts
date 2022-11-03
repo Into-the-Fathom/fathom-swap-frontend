@@ -64,7 +64,7 @@ export const UNI: { [chainId in ChainId]: Token } = {
   [ChainId.GOERLI]: new Token(ChainId.GOERLI, '0x405B1270cBF871bA54c31D3181DDb56C48c545f8', 18, 'FTHM', 'Fathom'),
   [ChainId.KOVAN]: new Token(ChainId.KOVAN, '0x792F5c3F320629dd250E73b331442852514C2458', 18, 'FTHM', 'Fathom'),
   [ChainId.XDC]: new Token(ChainId.XDC, UNI_ADDRESS, 18, 'UNI', 'Uniswap'),
-  [ChainId.AXDC]: new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+  [ChainId.AXDC]: new Token(ChainId.AXDC, '0x4c52500DdC18EE0C6CB6155961347076E43ABb99', 18, 'FTHM', 'Fathom')
 }
 
 export const COMMON_CONTRACT_NAMES: { [address: string]: string } = {
@@ -140,56 +140,28 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
   ],
   [ChainId.AXDC]: [
     [
-      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT'),
-      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+      new Token(ChainId.AXDC, '0xCcdC0653935A251B6839F30359917977f994b5d9', 18, 'USDT', 'USDT'),
+      new Token(ChainId.AXDC, '0x4c52500DdC18EE0C6CB6155961347076E43ABb99', 18, 'FTHM', 'Fathom')
     ],
     [
-      new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
-      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+      new Token(ChainId.AXDC, '0x32333d7d5aE3Ea3bee41618838842EdA5581576c', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0x4c52500DdC18EE0C6CB6155961347076E43ABb99', 18, 'FTHM', 'Fathom')
     ],
     [
-      new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
-      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT')
+      new Token(ChainId.AXDC, '0x32333d7d5aE3Ea3bee41618838842EdA5581576c', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0xCcdC0653935A251B6839F30359917977f994b5d9', 18, 'USDT', 'USDT')
     ],
     [
-      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC'),
-      new Token(ChainId.AXDC, '0x9E50E77b499b3DEd6Ff9155DbDfd3ae0b4C93f62', 18, 'FTHM', 'Fathom')
+      new Token(ChainId.AXDC, '0xcEc1609Efd3f12d0Da63250eF6761A7482Dda3BF', 18, 'WXDC', 'Wrapped XDC'),
+      new Token(ChainId.AXDC, '0x4c52500DdC18EE0C6CB6155961347076E43ABb99', 18, 'FTHM', 'Fathom')
     ],
     [
-      new Token(ChainId.AXDC, '0x7F423a0b9d189081A09ceDE3ec27fAB247f458a8', 18, 'FXD', 'FXD'),
-      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC')
+      new Token(ChainId.AXDC, '0x32333d7d5aE3Ea3bee41618838842EdA5581576c', 18, 'FXD', 'FXD'),
+      new Token(ChainId.AXDC, '0xcEc1609Efd3f12d0Da63250eF6761A7482Dda3BF', 18, 'WXDC', 'Wrapped XDC')
     ],
     [
-      new Token(ChainId.AXDC, '0xc039850F937C623024DA66D6dF370022E6F16e30', 18, 'WXDC', 'Wrapped XDC'),
-      new Token(ChainId.AXDC, '0x95bFc555EF6C66cf2ecB142AFbEF15dA9CF016B1', 18, 'USDT', 'USDT')
-    ]
-  ],
-  [ChainId.ROPSTEN]: [
-    [
-      new Token(ChainId.ROPSTEN, '0xe48c5813fBAf76e94751E3053f46Dac20a7A1272', 18, 'USDT', 'USDT'),
-      new Token(ChainId.ROPSTEN, '0xE48bE22Fc8b2B5BeB16264B60729e5D0a2083EcB', 18, 'FTHM', 'Fathom')
-    ],
-    [
-      new Token(ChainId.ROPSTEN, '0xa65cE860764B731D6BdB91ceB1F3E65d5B463462', 18, 'FXD', 'FXD'),
-      new Token(ChainId.ROPSTEN, '0xE48bE22Fc8b2B5BeB16264B60729e5D0a2083EcB', 18, 'FTHM', 'Fathom')
-    ],
-    [
-      new Token(ChainId.ROPSTEN, '0xa65cE860764B731D6BdB91ceB1F3E65d5B463462', 18, 'FXD', 'FXD'),
-      new Token(ChainId.ROPSTEN, '0xe48c5813fBAf76e94751E3053f46Dac20a7A1272', 18, 'USDT', 'USDT')
-    ]
-  ],
-  [ChainId.RINKEBY]: [
-    [
-      new Token(ChainId.RINKEBY, '0x47E5E2227274aa9fa996d60b0DE9baD4602a65A2', 18, 'USDT', 'USDT'),
-      new Token(ChainId.RINKEBY, '0x79dFFC4DcBb1f598EC3741E939f22bAAF56448Da', 18, 'FTHM', 'Fathom')
-    ],
-    [
-      new Token(ChainId.RINKEBY, '0x1376E5642CF962104882935903F1f01DB838FD20', 18, 'FXD', 'FXD'),
-      new Token(ChainId.RINKEBY, '0x79dFFC4DcBb1f598EC3741E939f22bAAF56448Da', 18, 'FTHM', 'Fathom')
-    ],
-    [
-      new Token(ChainId.RINKEBY, '0x1376E5642CF962104882935903F1f01DB838FD20', 18, 'FXD', 'FXD'),
-      new Token(ChainId.RINKEBY, '0x47E5E2227274aa9fa996d60b0DE9baD4602a65A2', 18, 'USDT', 'USDT')
+      new Token(ChainId.AXDC, '0xcEc1609Efd3f12d0Da63250eF6761A7482Dda3BF', 18, 'WXDC', 'Wrapped XDC'),
+      new Token(ChainId.AXDC, '0xCcdC0653935A251B6839F30359917977f994b5d9', 18, 'USDT', 'USDT')
     ]
   ],
   [ChainId.GOERLI]: [
@@ -206,20 +178,6 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
       new Token(ChainId.GOERLI, '0x619aBf5F87B1B3F285C213ab4E9BfA80494113cE', 18, 'USDT', 'USDT')
     ]
   ],
-  [ChainId.KOVAN]: [
-    [
-      new Token(ChainId.KOVAN, '0xCAA7e30046d1e0DD22e69Bb72cc1a9AcF18C5aE5', 18, 'USDT', 'USDT'),
-      new Token(ChainId.KOVAN, '0x792F5c3F320629dd250E73b331442852514C2458', 18, 'FTHM', 'Fathom')
-    ],
-    [
-      new Token(ChainId.KOVAN, '0x17ebb81bd5Cd0f4bD0fECACE4c4096c00529dE5d', 18, 'FXD', 'FXD'),
-      new Token(ChainId.KOVAN, '0x792F5c3F320629dd250E73b331442852514C2458', 18, 'FTHM', 'Fathom')
-    ],
-    [
-      new Token(ChainId.KOVAN, '0x17ebb81bd5Cd0f4bD0fECACE4c4096c00529dE5d', 18, 'FXD', 'FXD'),
-      new Token(ChainId.KOVAN, '0xCAA7e30046d1e0DD22e69Bb72cc1a9AcF18C5aE5', 18, 'USDT', 'USDT')
-    ]
-  ]
 }
 
 export interface WalletInfo {
