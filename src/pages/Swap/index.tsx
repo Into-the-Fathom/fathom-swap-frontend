@@ -1,25 +1,25 @@
-import { CurrencyAmount, JSBI, Token, Trade } from 'into-the-fathom-swap-sdk'
+import { CurrencyAmount, JSBI, Token, Trade } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import AddressInputPanel from '../../components/AddressInputPanel'
-import { ButtonError, ButtonLight, ButtonPrimary, ButtonConfirmed } from '../../components/Button'
-import Card, { GreyCard } from '../../components/Card'
-import Column, { AutoColumn } from '../../components/Column'
-import ConfirmSwapModal from '../../components/swap/ConfirmSwapModal'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel'
-import { SwapPoolTabs } from '../../components/NavigationTabs'
-import { AutoRow, RowBetween } from '../../components/Row'
-import AdvancedSwapDetailsDropdown from '../../components/swap/AdvancedSwapDetailsDropdown'
-import { DefaultVersionLink } from '../../components/swap/BetterTradeLink'
-import confirmPriceImpactWithoutFee from '../../components/swap/confirmPriceImpactWithoutFee'
-import { ArrowWrapper, BottomGrouping, SwapCallbackError, Wrapper } from '../../components/swap/styleds'
-import TradePrice from '../../components/swap/TradePrice'
-import TokenWarningModal from '../../components/TokenWarningModal'
-import ProgressSteps from '../../components/ProgressSteps'
-import SwapHeader from '../../components/swap/SwapHeader'
+import AddressInputPanel from 'components/AddressInputPanel'
+import { ButtonError, ButtonLight, ButtonPrimary, ButtonConfirmed } from 'components/Button'
+import Card, { GreyCard } from 'components/Card'
+import Column, { AutoColumn } from 'components/Column'
+import ConfirmSwapModal from 'components/swap/ConfirmSwapModal'
+import CurrencyInputPanel from 'components/CurrencyInputPanel'
+import { SwapPoolTabs } from 'components/NavigationTabs'
+import { AutoRow, RowBetween } from 'components/Row'
+import AdvancedSwapDetailsDropdown from 'components/swap/AdvancedSwapDetailsDropdown'
+import { DefaultVersionLink } from 'components/swap/BetterTradeLink'
+import confirmPriceImpactWithoutFee from 'components/swap/confirmPriceImpactWithoutFee'
+import { ArrowWrapper, BottomGrouping, SwapCallbackError, Wrapper } from 'components/swap/styleds'
+import TradePrice from 'components/swap/TradePrice'
+import TokenWarningModal from 'components/TokenWarningModal'
+import ProgressSteps from 'components/ProgressSteps'
+import SwapHeader from 'components/swap/SwapHeader'
 
 import { INITIAL_ALLOWED_SLIPPAGE } from '../../constants'
 import { getTradeVersion } from '../../data/V1'
@@ -68,6 +68,7 @@ export default function Swap({ history }: RouteComponentProps) {
 
   // dismiss warning if all imported tokens are in active lists
   const defaultTokens = useAllTokens()
+
   const importTokensNotInDefault =
     urlLoadedTokens &&
     urlLoadedTokens.filter((token: Token) => {

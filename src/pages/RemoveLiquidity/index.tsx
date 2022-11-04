@@ -1,47 +1,47 @@
 import { splitSignature } from '@into-the-fathom/bytes'
 import { Contract } from '@into-the-fathom/contracts'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, ETHER, Percent, WETH, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, currencyEquals, Percent, WETH, XDC } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import { ButtonPrimary, ButtonLight, ButtonError, ButtonConfirmed } from '../../components/Button'
-import { BlueCard, LightCard } from '../../components/Card'
-import { AutoColumn, ColumnCenter } from '../../components/Column'
-import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel'
-import DoubleCurrencyLogo from '../../components/DoubleLogo'
-import { AddRemoveTabs } from '../../components/NavigationTabs'
-import { MinimalPositionCard } from '../../components/PositionCard'
-import Row, { RowBetween, RowFixed } from '../../components/Row'
+import { ButtonPrimary, ButtonLight, ButtonError, ButtonConfirmed } from 'components/Button'
+import { BlueCard, LightCard } from 'components/Card'
+import { AutoColumn, ColumnCenter } from 'components/Column'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
+import CurrencyInputPanel from 'components/CurrencyInputPanel'
+import DoubleCurrencyLogo from 'components/DoubleLogo'
+import { AddRemoveTabs } from 'components/NavigationTabs'
+import { MinimalPositionCard } from 'components/PositionCard'
+import Row, { RowBetween, RowFixed } from 'components/Row'
 
-import Slider from '../../components/Slider'
-import CurrencyLogo from '../../components/CurrencyLogo'
-import { ROUTER_ADDRESSES } from '../../constants'
-import { useActiveWeb3React } from '../../hooks'
-import { useCurrency } from '../../hooks/Tokens'
-import { usePairContract } from '../../hooks/useContract'
-import useIsArgentWallet from '../../hooks/useIsArgentWallet'
-import useTransactionDeadline from '../../hooks/useTransactionDeadline'
+import Slider from 'components/Slider'
+import CurrencyLogo from 'components/CurrencyLogo'
+import { ROUTER_ADDRESSES } from 'constants/index'
+import { useActiveWeb3React } from 'hooks'
+import { useCurrency } from 'hooks/Tokens'
+import { usePairContract } from 'hooks/useContract'
+import useIsArgentWallet from 'hooks/useIsArgentWallet'
+import useTransactionDeadline from 'hooks/useTransactionDeadline'
 
-import { useTransactionAdder } from '../../state/transactions/hooks'
-import { StyledInternalLink, TYPE } from '../../theme'
-import { calculateGasMargin, calculateSlippageAmount, getRouterContract, XDC_CHAIN_IDS } from '../../utils'
-import { currencyId } from '../../utils/currencyId'
-import useDebouncedChangeHandler from '../../utils/useDebouncedChangeHandler'
-import { wrappedCurrency } from '../../utils/wrappedCurrency'
-import AppBody from '../AppBody'
-import { ClickableText, MaxButton, Wrapper } from '../Pool/styleds'
-import { useApproveCallback, ApprovalState } from '../../hooks/useApproveCallback'
-import { Dots } from '../../components/swap/styleds'
-import { useBurnActionHandlers } from '../../state/burn/hooks'
-import { useDerivedBurnInfo, useBurnState } from '../../state/burn/hooks'
-import { Field } from '../../state/burn/actions'
-import { useWalletModalToggle } from '../../state/application/hooks'
-import { useUserSlippageTolerance } from '../../state/user/hooks'
+import { useTransactionAdder } from 'state/transactions/hooks'
+import { StyledInternalLink, TYPE } from 'theme'
+import { calculateGasMargin, calculateSlippageAmount, getRouterContract, XDC_CHAIN_IDS } from 'utils'
+import { currencyId } from 'utils/currencyId'
+import useDebouncedChangeHandler from 'utils/useDebouncedChangeHandler'
+import { wrappedCurrency } from 'utils/wrappedCurrency'
+import AppBody from 'pages/AppBody'
+import { ClickableText, MaxButton, Wrapper } from 'pages/Pool/styleds'
+import { useApproveCallback, ApprovalState } from 'hooks/useApproveCallback'
+import { Dots } from 'components/swap/styleds'
+import { useBurnActionHandlers } from 'state/burn/hooks'
+import { useDerivedBurnInfo, useBurnState } from 'state/burn/hooks'
+import { Field } from 'state/burn/actions'
+import { useWalletModalToggle } from 'state/application/hooks'
+import { useUserSlippageTolerance } from 'state/user/hooks'
 import { BigNumber } from '@into-the-fathom/bignumber'
 
 export default function RemoveLiquidity({
@@ -209,10 +209,8 @@ export default function RemoveLiquidity({
     const liquidityAmount = parsedAmounts[Field.LIQUIDITY]
     if (!liquidityAmount) throw new Error('missing liquidity amount')
 
-    const currencyBIsETH = XDC_CHAIN_IDS.includes(chainId) ? currencyB === XDC : currencyB === ETHER
-    const oneCurrencyIsETH = XDC_CHAIN_IDS.includes(chainId)
-      ? currencyA === XDC || currencyBIsETH
-      : currencyA === ETHER || currencyBIsETH
+    const currencyBIsXDC = currencyB === XDC
+    const oneCurrencyIsXDC = currencyA === XDC || currencyBIsXDC
 
     if (!tokenA || !tokenB) throw new Error('could not wrap')
 
@@ -220,13 +218,13 @@ export default function RemoveLiquidity({
     // we have approval, use normal remove liquidity
     if (approval === ApprovalState.APPROVED) {
       // removeLiquidityETH
-      if (oneCurrencyIsETH) {
+      if (oneCurrencyIsXDC) {
         methodNames = ['removeLiquidityETH', 'removeLiquidityETHSupportingFeeOnTransferTokens']
         args = [
-          currencyBIsETH ? tokenA.address : tokenB.address,
+          currencyBIsXDC ? tokenA.address : tokenB.address,
           liquidityAmount.raw.toString(),
-          amountsMin[currencyBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
-          amountsMin[currencyBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
+          amountsMin[currencyBIsXDC ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
+          amountsMin[currencyBIsXDC ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
           account,
           deadline.toHexString()
         ]
@@ -248,13 +246,13 @@ export default function RemoveLiquidity({
     // we have a signataure, use permit versions of remove liquidity
     else if (signatureData !== null) {
       // removeLiquidityETHWithPermit
-      if (oneCurrencyIsETH) {
+      if (oneCurrencyIsXDC) {
         methodNames = ['removeLiquidityETHWithPermit', 'removeLiquidityETHWithPermitSupportingFeeOnTransferTokens']
         args = [
-          currencyBIsETH ? tokenA.address : tokenB.address,
+          currencyBIsXDC ? tokenA.address : tokenB.address,
           liquidityAmount.raw.toString(),
-          amountsMin[currencyBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
-          amountsMin[currencyBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
+          amountsMin[currencyBIsXDC ? Field.CURRENCY_A : Field.CURRENCY_B].toString(),
+          amountsMin[currencyBIsXDC ? Field.CURRENCY_B : Field.CURRENCY_A].toString(),
           account,
           signatureData.deadline,
           false,
@@ -430,9 +428,7 @@ export default function RemoveLiquidity({
     [onUserInput]
   )
 
-  const oneCurrencyIsETH = XDC_CHAIN_IDS.includes(chainId!)
-    ? currencyA === XDC || currencyB === XDC
-    : currencyA === ETHER || currencyB === ETHER
+  const oneCurrencyIsXDC = currencyA === XDC || currencyB === XDC
   const oneCurrencyIsWETH = Boolean(
     chainId &&
       ((currencyA && currencyEquals(WETH[chainId], currencyA)) ||
@@ -572,25 +568,15 @@ export default function RemoveLiquidity({
                         </Text>
                       </RowFixed>
                     </RowBetween>
-                    {chainId && (oneCurrencyIsWETH || oneCurrencyIsETH) ? (
+                    {chainId && (oneCurrencyIsWETH || oneCurrencyIsXDC) ? (
                       <RowBetween style={{ justifyContent: 'flex-end' }}>
-                        {oneCurrencyIsETH ? (
+                        {oneCurrencyIsXDC ? (
                           <StyledInternalLink
-                            to={`/remove/${
-                              (XDC_CHAIN_IDS.includes(chainId!)
-                              ? currencyA === XDC
-                              : currencyA === ETHER)
-                                ? WETH[chainId].address
-                                : currencyIdA
-                            }/${
-                              (XDC_CHAIN_IDS.includes(chainId!)
-                              ? currencyB === XDC
-                              : currencyB === ETHER)
-                                ? WETH[chainId].address
-                                : currencyIdB
+                            to={`/remove/${currencyA === XDC ? WETH[chainId].address : currencyIdA}/${
+                              currencyB === XDC ? WETH[chainId].address : currencyIdB
                             }`}
                           >
-                            Receive {XDC_CHAIN_IDS.includes(chainId!) ? 'WXDC' : 'WETH'}
+                            Receive WXDC
                           </StyledInternalLink>
                         ) : oneCurrencyIsWETH ? (
                           <StyledInternalLink

@@ -1,29 +1,29 @@
-import { Currency, CurrencyAmount, currencyEquals, ETHER, Token } from 'into-the-fathom-swap-sdk'
+import { Currency, CurrencyAmount, currencyEquals, XDC, Token } from 'fathomswap-sdk'
 import React, { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
 import styled from 'styled-components'
-import { useActiveWeb3React } from '../../hooks'
-import { WrappedTokenInfo, useCombinedActiveList } from '../../state/lists/hooks'
-import { useCurrencyBalance } from '../../state/wallet/hooks'
-import { TYPE } from '../../theme'
-import { useIsUserAddedToken, useAllInactiveTokens } from '../../hooks/Tokens'
-import Column from '../Column'
-import { RowFixed, RowBetween } from '../Row'
-import CurrencyLogo from '../CurrencyLogo'
-import { MouseoverTooltip } from '../Tooltip'
-import { MenuItem } from './styleds'
-import Loader from '../Loader'
-import { isTokenOnList, XDC_CHAIN_IDS } from '../../utils'
-import ImportRow from './ImportRow'
+import { useActiveWeb3React } from 'hooks'
+import { WrappedTokenInfo, useCombinedActiveList } from 'state/lists/hooks'
+import { useCurrencyBalance } from 'state/wallet/hooks'
+import { TYPE } from 'theme'
+import { useIsUserAddedToken, useAllInactiveTokens } from 'hooks/Tokens'
+import Column from 'components/Column'
+import { RowFixed, RowBetween } from 'components/Row'
+import CurrencyLogo from 'components/CurrencyLogo'
+import { MouseoverTooltip } from 'components/Tooltip'
+import { MenuItem } from 'components/SearchModal/styleds'
+import Loader from 'components/Loader'
+import { isTokenOnList, XDC_CHAIN_IDS } from 'utils'
+import ImportRow from 'components/SearchModal/ImportRow'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
 import { LightGreyCard } from 'components/Card'
-import TokenListLogo from '../../assets/svg/tokenlist.svg'
+import TokenListLogo from 'assets/svg/tokenlist.svg'
 import QuestionHelper from 'components/QuestionHelper'
 import useTheme from 'hooks/useTheme'
 
 function currencyKey(currency: Currency): string {
-  return currency instanceof Token ? currency.address : currency === ETHER ? 'ETHER' : ''
+  return currency instanceof Token ? currency.address : currency === XDC ? 'XDC' : ''
 }
 
 const StyledBalanceText = styled(Text)`
@@ -169,7 +169,7 @@ export default function CurrencyList({
   const { chainId } = useActiveWeb3React()
   const itemData: (Currency | undefined)[] = useMemo(() => {
     let formatted: (Currency | undefined)[] = showETH
-      ? [XDC_CHAIN_IDS.includes(chainId!) ? Currency.XDC : Currency.ETHER, ...currencies]
+      ? [XDC_CHAIN_IDS.includes(chainId!) ? Currency.XDC : Currency.XDC, ...currencies]
       : currencies
     if (breakIndex !== undefined) {
       formatted = [...formatted.slice(0, breakIndex), undefined, ...formatted.slice(breakIndex, formatted.length)]

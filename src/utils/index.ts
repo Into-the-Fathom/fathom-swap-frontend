@@ -6,7 +6,7 @@ import { BigNumber } from '@into-the-fathom/bignumber'
 import { abi as IUniswapV2Router02ABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
 
 import { ROUTER_ADDRESSES } from '../constants'
-import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'into-the-fathom-swap-sdk'
+import { ChainId, Currency, CurrencyAmount, XDC, JSBI, Percent, Token } from 'fathomswap-sdk'
 import { TokenAddressMap } from '../state/lists/hooks'
 import { toXdcAddress } from './toXdcAddress'
 
@@ -20,11 +20,6 @@ export function isAddress(value: any): string | false {
 }
 
 const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
-  1: '',
-  3: 'ropsten.',
-  4: 'rinkeby.',
-  5: 'goerli.',
-  42: 'kovan.',
   50: 'xdc.',
   51: 'apothem.'
 }
@@ -36,11 +31,7 @@ export function getEtherscanLink(
   data: string,
   type: 'transaction' | 'token' | 'address' | 'block' | 'transactions' | 'tokens' | 'blocks'
 ): string {
-  let prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
-
-  if (XDC_CHAIN_IDS.includes(chainId)) {
-    prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}blocksscan.io`
-  }
+  const prefix = `https://${ETHERSCAN_PREFIXES[chainId]}blocksscan.io`
 
   if (XDC_CHAIN_IDS.includes(chainId)) {
     switch (type) {
@@ -136,6 +127,6 @@ export function escapeRegExp(string: string): string {
 }
 
 export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currency): boolean {
-  if (currency === ETHER) return true
+  if (currency === XDC) return true
   return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address])
 }

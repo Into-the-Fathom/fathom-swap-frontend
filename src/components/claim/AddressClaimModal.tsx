@@ -4,20 +4,15 @@ import { AutoColumn, ColumnCenter } from '../Column'
 import styled from 'styled-components'
 import { DataCard, CardSection, Break } from '../earn/styled'
 import { RowBetween } from '../Row'
-import { TYPE, ExternalLink, CloseIcon, CustomLightSpinner, UniTokenAnimated } from '../../theme'
-// import { ButtonPrimary } from '../Button'
-// import { useClaimCallback, useUserUnclaimedAmount, useUserHasAvailableClaim } from '../../state/claim/hooks'
+import { TYPE, ExternalLink, CloseIcon, CustomLightSpinner, FthmTokenAnimated } from 'theme'
 import tokenLogo from '../../assets/images/token-logo.png'
 import Circle from '../../assets/images/blue-loader.svg'
-// import { Text } from 'rebass'
 import AddressInputPanel from '../AddressInputPanel'
 import useENS from '../../hooks/useENS'
 import { useActiveWeb3React } from '../../hooks'
-// import { isAddress } from 'fathom-ethers/lib/utils'
 import Confetti from '../Confetti'
 import { CardNoise, CardBGImage, CardBGImageSmaller } from '../earn/styled'
-import { useIsTransactionPending } from '../../state/transactions/hooks'
-// import { TokenAmount } from 'into-the-fathom-swap-sdk'
+import { useIsTransactionPending } from 'state/transactions/hooks'
 import { getEtherscanLink, shortenAddress } from '../../utils'
 
 const ContentWrapper = styled(AutoColumn)`
@@ -145,7 +140,7 @@ export default function AddressClaimModal({ isOpen, onDismiss }: { isOpen: boole
             {!claimConfirmed ? (
               <CustomLightSpinner src={Circle} alt="loader" size={'90px'} />
             ) : (
-              <UniTokenAnimated width="72px" src={tokenLogo} />
+              <FthmTokenAnimated width="72px" src={tokenLogo} />
             )}
           </ConfirmedIcon>
           <AutoColumn gap="100px" justify={'center'}>

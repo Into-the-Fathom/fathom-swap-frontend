@@ -1,11 +1,11 @@
-import { Currency, currencyEquals, ETHER, WETH, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, currencyEquals, WETH, XDC } from 'fathomswap-sdk'
 import { useMemo } from 'react'
-import { tryParseAmount } from '../state/swap/hooks'
-import { useTransactionAdder } from '../state/transactions/hooks'
-import { useCurrencyBalance } from '../state/wallet/hooks'
-import { useActiveWeb3React } from './index'
-import { useWETHContract } from './useContract'
-import { XDC_CHAIN_IDS } from '../utils'
+import { tryParseAmount } from 'state/swap/hooks'
+import { useTransactionAdder } from 'state/transactions/hooks'
+import { useCurrencyBalance } from 'state/wallet/hooks'
+import { useActiveWeb3React } from 'hooks'
+import { useWETHContract } from 'hooks/useContract'
+import { XDC_CHAIN_IDS } from 'utils'
 
 export enum WrapType {
   NOT_APPLICABLE,
@@ -41,7 +41,7 @@ export default function useWrapCallback(
 
     const sufficientBalance = inputAmount && balance && !balance.lessThan(inputAmount)
 
-    if ((inputCurrency === ETHER || inputCurrency === XDC) && currencyEquals(WETH[chainId], outputCurrency)) {
+    if (inputCurrency === XDC && currencyEquals(WETH[chainId], outputCurrency)) {
       return {
         wrapType: WrapType.WRAP,
         execute:
@@ -63,7 +63,7 @@ export default function useWrapCallback(
           ? undefined
           : `Insufficient ${XDC_CHAIN_IDS.includes(chainId) ? 'XDC' : 'ETH'} balance`
       }
-    } else if (currencyEquals(WETH[chainId], inputCurrency) && (outputCurrency === ETHER || outputCurrency === XDC)) {
+    } else if (currencyEquals(WETH[chainId], inputCurrency) && outputCurrency === XDC) {
       return {
         wrapType: WrapType.UNWRAP,
         execute:

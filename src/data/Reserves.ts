@@ -1,4 +1,4 @@
-import { TokenAmount, Pair, Currency } from 'into-the-fathom-swap-sdk'
+import { TokenAmount, Pair, Currency } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import { abi as IUniswapV2PairABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/core/interfaces/IUniswapV2Pair.sol/IUniswapV2Pair.json'
 import { Interface } from '@into-the-fathom/abi'
@@ -35,6 +35,8 @@ export function usePairs(currencies: [Currency | undefined, Currency | undefined
       }),
     [tokens]
   )
+
+  console.log(pairAddresses)
 
   const results = useMultipleContractSingleData(pairAddresses, PAIR_INTERFACE, 'getReserves')
 

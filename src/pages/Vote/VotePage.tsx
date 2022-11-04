@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
-import { AutoColumn } from '../../components/Column'
+import { AutoColumn } from 'components/Column'
 import styled from 'styled-components'
 
 import { RouteComponentProps } from 'react-router-dom'
-import { ExternalLink, StyledInternalLink, TYPE } from '../../theme'
-import { RowBetween, RowFixed } from '../../components/Row'
-import { CardSection, DataCard } from '../../components/earn/styled'
+import { ExternalLink, StyledInternalLink, TYPE } from 'theme'
+import { RowBetween, RowFixed } from 'components/Row'
+import { CardSection, DataCard } from 'components/earn/styled'
 import { ArrowLeft } from 'react-feather'
-import { ButtonPrimary } from '../../components/Button'
+import { ButtonPrimary } from 'components/Button'
 import { ProposalStatus } from './styled'
 import {
   ProposalData,
@@ -15,21 +15,21 @@ import {
   useProposalData,
   useUserDelegatee,
   useUserVotesAsOfBlock
-} from '../../state/governance/hooks'
+} from 'state/governance/hooks'
 import { DateTime } from 'luxon'
 import ReactMarkdown from 'react-markdown'
-import VoteModal from '../../components/vote/VoteModal'
-import { JSBI, TokenAmount } from 'into-the-fathom-swap-sdk'
+import VoteModal from 'components/vote/VoteModal'
+import { JSBI, TokenAmount } from 'fathomswap-sdk'
 import { useActiveWeb3React } from '../../hooks'
-import { AVERAGE_BLOCK_TIME_IN_SECS, COMMON_CONTRACT_NAMES, UNI, ZERO_ADDRESS } from '../../constants'
-import { getEtherscanLink, isAddress } from '../../utils'
-import { ApplicationModal } from '../../state/application/actions'
-import { useBlockNumber, useModalOpen, useToggleDelegateModal, useToggleVoteModal } from '../../state/application/hooks'
-import DelegateModal from '../../components/vote/DelegateModal'
-import { useTokenBalance } from '../../state/wallet/hooks'
+import { AVERAGE_BLOCK_TIME_IN_SECS, COMMON_CONTRACT_NAMES, FTHM, ZERO_ADDRESS } from 'constants/index'
+import { getEtherscanLink, isAddress } from 'utils'
+import { ApplicationModal } from 'state/application/actions'
+import { useBlockNumber, useModalOpen, useToggleDelegateModal, useToggleVoteModal } from 'state/application/hooks'
+import DelegateModal from 'components/vote/DelegateModal'
+import { useTokenBalance } from 'state/wallet/hooks'
 import useCurrentBlockTimestamp from 'hooks/useCurrentBlockTimestamp'
 import { BigNumber } from 'fathom-ethers'
-import { GreyCard } from '../../components/Card'
+import { GreyCard } from 'components/Card'
 
 const PageWrapper = styled(AutoColumn)`
   width: 100%;
@@ -160,12 +160,15 @@ export default function VotePage({
     proposalData &&
     proposalData.status === ProposalState.Active
 
-  const uniBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, chainId ? UNI[chainId] : undefined)
+  const fthmBalance: TokenAmount | undefined = useTokenBalance(
+    account ?? undefined,
+    chainId ? FTHM[chainId] : undefined
+  )
   const userDelegatee: string | undefined = useUserDelegatee()
 
   // in blurb link to home page if they are able to unlock
   const showLinkForUnlock = Boolean(
-    uniBalance && JSBI.notEqual(uniBalance.raw, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS
+    fthmBalance && JSBI.notEqual(fthmBalance.raw, JSBI.BigInt(0)) && userDelegatee === ZERO_ADDRESS
   )
 
   // show links in propsoal details if content is an address

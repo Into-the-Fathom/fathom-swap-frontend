@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Token, Currency } from 'into-the-fathom-swap-sdk'
+import { Token, Currency } from 'fathomswap-sdk'
 import styled from 'styled-components'
 import { TYPE, CloseIcon } from 'theme'
 import Card from 'components/Card'
@@ -47,6 +47,8 @@ interface ImportProps {
 }
 
 export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }: ImportProps) {
+  console.log(tokens)
+
   const theme = useTheme()
 
   const { chainId } = useActiveWeb3React()

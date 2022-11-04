@@ -1,36 +1,36 @@
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, ETHER, TokenAmount, WETH, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, currencyEquals, TokenAmount, WETH, XDC } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import { ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
-import { BlueCard, LightCard } from '../../components/Card'
-import { AutoColumn, ColumnCenter } from '../../components/Column'
-import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel'
-import DoubleCurrencyLogo from '../../components/DoubleLogo'
-import { AddRemoveTabs } from '../../components/NavigationTabs'
-import { MinimalPositionCard } from '../../components/PositionCard'
-import Row, { RowBetween, RowFlat } from '../../components/Row'
+import { ButtonError, ButtonLight, ButtonPrimary } from 'components/Button'
+import { BlueCard, LightCard } from 'components/Card'
+import { AutoColumn, ColumnCenter } from 'components/Column'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
+import CurrencyInputPanel from 'components/CurrencyInputPanel'
+import DoubleCurrencyLogo from 'components/DoubleLogo'
+import { AddRemoveTabs } from 'components/NavigationTabs'
+import { MinimalPositionCard } from 'components/PositionCard'
+import Row, { RowBetween, RowFlat } from 'components/Row'
 
-import { ROUTER_ADDRESSES } from '../../constants'
-import { PairState } from '../../data/Reserves'
-import { useActiveWeb3React } from '../../hooks'
-import { useCurrency } from '../../hooks/Tokens'
-import { ApprovalState, useApproveCallback } from '../../hooks/useApproveCallback'
-import useTransactionDeadline from '../../hooks/useTransactionDeadline'
-import { useWalletModalToggle } from '../../state/application/hooks'
-import { Field } from '../../state/mint/actions'
-import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
+import { ROUTER_ADDRESSES } from 'constants/index'
+import { PairState } from 'data/Reserves'
+import { useActiveWeb3React } from 'hooks'
+import { useCurrency } from 'hooks/Tokens'
+import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
+import useTransactionDeadline from 'hooks/useTransactionDeadline'
+import { useWalletModalToggle } from 'state/application/hooks'
+import { Field } from 'state/mint/actions'
+import { useDerivedMintInfo, useMintActionHandlers, useMintState } from 'state/mint/hooks'
 
-import { useTransactionAdder } from '../../state/transactions/hooks'
-import { useIsExpertMode, useUserSlippageTolerance } from '../../state/user/hooks'
+import { useTransactionAdder } from 'state/transactions/hooks'
+import { useIsExpertMode, useUserSlippageTolerance } from 'state/user/hooks'
 import { TYPE } from '../../theme'
-import { calculateGasMargin, calculateSlippageAmount, getRouterContract, XDC_CHAIN_IDS } from '../../utils'
+import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from 'utils'
 import { maxAmountSpend } from '../../utils/maxAmountSpend'
 import { wrappedCurrency } from '../../utils/wrappedCurrency'
 import AppBody from '../AppBody'
@@ -143,23 +143,22 @@ export default function AddLiquidity({
       method: (...args: any) => Promise<TransactionResponse>,
       args: Array<string | string[] | number>,
       value: BigNumber | null
-    const isNativeToken = XDC_CHAIN_IDS.includes(chainId!)
-      ? currencyA === XDC || currencyB === XDC
-      : currencyA === ETHER || currencyB === ETHER
+    const isNativeToken = currencyA === XDC || currencyB === XDC
 
     if (isNativeToken) {
-      const tokenBIsETH = XDC_CHAIN_IDS.includes(chainId!) ? currencyB === XDC : currencyB === ETHER
+      const tokenBIsXDC = currencyB === XDC
       estimate = router.estimateGas.addLiquidityETH
       method = router.addLiquidityETH
+
       args = [
-        wrappedCurrency(tokenBIsETH ? currencyA : currencyB, chainId)?.address ?? '', // token
-        (tokenBIsETH ? parsedAmountA : parsedAmountB).raw.toString(), // token desired
-        amountsMin[tokenBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(), // token min
-        amountsMin[tokenBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(), // eth min
+        wrappedCurrency(tokenBIsXDC ? currencyA : currencyB, chainId)?.address ?? '', // token
+        (tokenBIsXDC ? parsedAmountA : parsedAmountB).raw.toString(), // token desired
+        amountsMin[tokenBIsXDC ? Field.CURRENCY_A : Field.CURRENCY_B].toString(), // token min
+        amountsMin[tokenBIsXDC ? Field.CURRENCY_B : Field.CURRENCY_A].toString(), // eth min
         account,
         deadline.toHexString()
       ]
-      value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).raw.toString())
+      value = BigNumber.from((tokenBIsXDC ? parsedAmountB : parsedAmountA).raw.toString())
     } else {
       estimate = router.estimateGas.addLiquidity
       method = router.addLiquidity

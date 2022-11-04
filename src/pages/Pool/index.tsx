@@ -1,26 +1,24 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { Pair, JSBI } from 'into-the-fathom-swap-sdk'
+import { Pair } from 'fathomswap-sdk'
 import { Link } from 'react-router-dom'
-import { SwapPoolTabs } from '../../components/NavigationTabs'
+import { SwapPoolTabs } from 'components/NavigationTabs'
 
-import FullPositionCard from '../../components/PositionCard'
-import { useTokenBalancesWithLoadingIndicator } from '../../state/wallet/hooks'
-import { StyledInternalLink, ExternalLink, TYPE, HideSmall } from '../../theme'
+import FullPositionCard from 'components/PositionCard'
+import { useTokenBalancesWithLoadingIndicator } from 'state/wallet/hooks'
+import { StyledInternalLink, ExternalLink, TYPE, HideSmall } from 'theme'
 import { Text } from 'rebass'
-import Card from '../../components/Card'
-import { RowBetween, RowFixed } from '../../components/Row'
-import { ButtonPrimary, ButtonSecondary } from '../../components/Button'
-import { AutoColumn } from '../../components/Column'
+import Card from 'components/Card'
+import { RowBetween, RowFixed } from 'components/Row'
+import { ButtonPrimary, ButtonSecondary } from 'components/Button'
+import { AutoColumn } from 'components/Column'
 
-import { useActiveWeb3React } from '../../hooks'
-import { usePairs } from '../../data/Reserves'
-import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks'
-import { Dots } from '../../components/swap/styleds'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
-import { useStakingInfo } from '../../state/stake/hooks'
-import { BIG_INT_ZERO } from '../../constants'
-import { XDC_CHAIN_IDS } from '../../utils'
+import { useActiveWeb3React } from 'hooks'
+import { usePairs } from 'data/Reserves'
+import { toV2LiquidityToken, useTrackedTokenPairs } from 'state/user/hooks'
+import { Dots } from 'components/swap/styleds'
+import { CardSection, DataCard, CardNoise, CardBGImage } from 'components/earn/styled'
+import { XDC_CHAIN_IDS } from 'utils'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -108,11 +106,6 @@ export default function Pool() {
 
   const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair))
 
-  // show liquidity even if its deposited in rewards contract
-  const stakingInfo = useStakingInfo()
-  const stakingInfosWithBalance = stakingInfo?.filter(pool => JSBI.greaterThan(pool.stakedAmount.raw, BIG_INT_ZERO))
-  const stakingPairs = usePairs(stakingInfosWithBalance?.map(stakingInfo => stakingInfo.tokens))
-
   // remove any pairs that also are included in pairs with stake in mining pool
   const v2PairsWithoutStakedAmount = allV2PairsWithLiquidity
 
@@ -186,7 +179,7 @@ export default function Pool() {
                   <Dots>Loading</Dots>
                 </TYPE.body>
               </EmptyProposals>
-            ) : allV2PairsWithLiquidity?.length > 0 || stakingPairs?.length > 0 ? (
+            ) : allV2PairsWithLiquidity?.length > 0 ? (
               <>
                 <ButtonSecondary>
                   <RowBetween>
@@ -199,16 +192,6 @@ export default function Pool() {
                 {v2PairsWithoutStakedAmount.map(v2Pair => (
                   <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
                 ))}
-                {stakingPairs.map(
-                  (stakingPair, i) =>
-                    stakingPair[1] && ( // skip pairs that arent loaded
-                      <FullPositionCard
-                        key={stakingInfosWithBalance[i].stakingRewardAddress}
-                        pair={stakingPair[1]}
-                        stakedBalance={stakingInfosWithBalance[i].stakedAmount}
-                      />
-                    )
-                )}
               </>
             ) : (
               <EmptyProposals>

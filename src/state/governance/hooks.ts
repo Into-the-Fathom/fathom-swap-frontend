@@ -1,13 +1,13 @@
-import { UNI, PRELOADED_PROPOSALS } from './../../constants/index'
-import { TokenAmount } from 'into-the-fathom-swap-sdk'
+import { FTHM, PRELOADED_PROPOSALS } from 'constants/index'
+import { TokenAmount } from 'fathomswap-sdk'
 import { isAddress } from 'fathom-ethers/lib/utils'
-import { useGovernanceContract, useUniContract } from '../../hooks/useContract'
-import { useSingleCallResult, useSingleContractMultipleData } from '../multicall/hooks'
-import { useActiveWeb3React } from '../../hooks'
+import { useGovernanceContract, useUniContract } from 'hooks/useContract'
+import { useSingleCallResult, useSingleContractMultipleData } from 'state/multicall/hooks'
+import { useActiveWeb3React } from 'hooks'
 import { ethers, utils } from 'fathom-ethers'
-import { calculateGasMargin } from '../../utils'
+import { calculateGasMargin } from 'utils'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { useTransactionAdder } from '../transactions/hooks'
+import { useTransactionAdder } from 'state/transactions/hooks'
 import { useState, useEffect, useCallback } from 'react'
 import { abi as GOV_ABI } from '@uniswap/governance/build/GovernorAlpha.json'
 
@@ -167,9 +167,9 @@ export function useUserVotes(): TokenAmount | undefined {
   const uniContract = useUniContract()
 
   // check for available votes
-  const uni = chainId ? UNI[chainId] : undefined
+  const fthm = chainId ? FTHM[chainId] : undefined
   const votes = useSingleCallResult(uniContract, 'getCurrentVotes', [account ?? undefined])?.result?.[0]
-  return votes && uni ? new TokenAmount(uni, votes) : undefined
+  return votes && fthm ? new TokenAmount(fthm, votes) : undefined
 }
 
 // fetch available votes as of block (usually proposal start block)
@@ -178,10 +178,10 @@ export function useUserVotesAsOfBlock(block: number | undefined): TokenAmount | 
   const uniContract = useUniContract()
 
   // check for available votes
-  const uni = chainId ? UNI[chainId] : undefined
+  const fthm = chainId ? FTHM[chainId] : undefined
   const votes = useSingleCallResult(uniContract, 'getPriorVotes', [account ?? undefined, block ?? undefined])
     ?.result?.[0]
-  return votes && uni ? new TokenAmount(uni, votes) : undefined
+  return votes && fthm ? new TokenAmount(fthm, votes) : undefined
 }
 
 export function useDelegateCallback(): (delegatee: string | undefined) => undefined | Promise<string> {

@@ -1,12 +1,12 @@
-import { UNI } from './../../constants/index'
-import { TokenAmount, JSBI, ChainId } from 'into-the-fathom-swap-sdk'
+import { FTHM } from 'constants/index'
+import { TokenAmount, JSBI, ChainId } from 'fathomswap-sdk'
 import { TransactionResponse } from '@into-the-fathom/providers'
 import { useEffect, useState } from 'react'
-import { useActiveWeb3React } from '../../hooks'
-import { useMerkleDistributorContract } from '../../hooks/useContract'
-import { useSingleCallResult } from '../multicall/hooks'
-import { calculateGasMargin, isAddress } from '../../utils'
-import { useTransactionAdder } from '../transactions/hooks'
+import { useActiveWeb3React } from 'hooks'
+import { useMerkleDistributorContract } from 'hooks/useContract'
+import { useSingleCallResult } from 'state/multicall/hooks'
+import { calculateGasMargin, isAddress } from 'utils'
+import { useTransactionAdder } from 'state/transactions/hooks'
 
 interface UserClaimData {
   index: number
@@ -78,12 +78,12 @@ export function useUserUnclaimedAmount(account: string | null | undefined): Toke
   const userClaimData = useUserClaimData(account)
   const canClaim = useUserHasAvailableClaim(account)
 
-  const uni = chainId ? UNI[chainId] : undefined
-  if (!uni) return undefined
+  const fthm = chainId ? FTHM[chainId] : undefined
+  if (!fthm) return undefined
   if (!canClaim || !userClaimData) {
-    return new TokenAmount(uni, JSBI.BigInt(0))
+    return new TokenAmount(fthm, JSBI.BigInt(0))
   }
-  return new TokenAmount(uni, JSBI.BigInt(userClaimData.amount))
+  return new TokenAmount(fthm, JSBI.BigInt(userClaimData.amount))
 }
 
 export function useClaimCallback(

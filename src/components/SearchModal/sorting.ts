@@ -1,4 +1,4 @@
-import { Token, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { Token, TokenAmount } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import { useAllTokenBalances } from '../../state/wallet/hooks'
 

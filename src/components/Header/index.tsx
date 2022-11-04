@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { ChainId, TokenAmount } from 'fathomswap-sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -282,10 +282,6 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.RINKEBY]: 'Rinkeby',
-  [ChainId.ROPSTEN]: 'Ropsten',
-  [ChainId.GOERLI]: 'GOERLI',
-  [ChainId.KOVAN]: 'Kovan',
   [ChainId.XDC]: 'XDC',
   [ChainId.AXDC]: 'Apothem'
 }

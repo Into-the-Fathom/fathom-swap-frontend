@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 
-import Modal from '../Modal'
-import { AutoColumn } from '../Column'
+import Modal from 'components/Modal'
+import { AutoColumn } from 'components/Column'
 import styled from 'styled-components'
-import { RowBetween } from '../Row'
-import { TYPE } from '../../theme'
+import { RowBetween } from 'components/Row'
+import { TYPE } from 'theme'
 import { X } from 'react-feather'
-import { ButtonPrimary } from '../Button'
-import { useActiveWeb3React } from '../../hooks'
-import AddressInputPanel from '../AddressInputPanel'
+import { ButtonPrimary } from 'components/Button'
+import { useActiveWeb3React } from 'hooks'
+import AddressInputPanel from 'components/AddressInputPanel'
 import { isAddress } from 'fathom-ethers/lib/utils'
-import useENS from '../../hooks/useENS'
-import { useDelegateCallback } from '../../state/governance/hooks'
-import { useTokenBalance } from '../../state/wallet/hooks'
-import { UNI } from '../../constants'
-import { LoadingView, SubmittedView } from '../ModalViews'
+import useENS from 'hooks/useENS'
+import { useDelegateCallback } from 'state/governance/hooks'
+import { useTokenBalance } from 'state/wallet/hooks'
+import { FTHM } from 'constants/index'
+import { LoadingView, SubmittedView } from 'components/ModalViews'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -55,7 +55,7 @@ export default function DelegateModal({ isOpen, onDismiss, title }: VoteModalPro
   const { address: parsedAddress } = useENS(activeDelegate)
 
   // get the number of votes available to delegate
-  const uniBalance = useTokenBalance(account ?? undefined, chainId ? UNI[chainId] : undefined)
+  const uniBalance = useTokenBalance(account ?? undefined, chainId ? FTHM[chainId] : undefined)
 
   const delegateCallback = useDelegateCallback()
 

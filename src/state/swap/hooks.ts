@@ -1,21 +1,21 @@
-import useENS from '../../hooks/useENS'
+import useENS from 'hooks/useENS'
 import { parseUnits } from '@into-the-fathom/units'
-import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, Trade, XDC } from 'into-the-fathom-swap-sdk'
+import { ChainId, Currency, CurrencyAmount, JSBI, Token, TokenAmount, Trade, XDC } from 'fathomswap-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useActiveWeb3React } from '../../hooks'
-import { useCurrency } from '../../hooks/Tokens'
-import { useTradeExactIn, useTradeExactOut } from '../../hooks/Trades'
-import useParsedQueryString from '../../hooks/useParsedQueryString'
-import { isAddress, XDC_CHAIN_IDS } from '../../utils'
-import { AppDispatch, AppState } from '../index'
-import { useCurrencyBalances } from '../wallet/hooks'
-import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from './actions'
-import { SwapState } from './reducer'
-import useToggledVersion from '../../hooks/useToggledVersion'
-import { useUserSlippageTolerance } from '../user/hooks'
-import { computeSlippageAdjustedAmounts } from '../../utils/prices'
+import { useActiveWeb3React } from 'hooks'
+import { useCurrency } from 'hooks/Tokens'
+import { useTradeExactIn, useTradeExactOut } from 'hooks/Trades'
+import useParsedQueryString from 'hooks/useParsedQueryString'
+import { isAddress, XDC_CHAIN_IDS } from 'utils'
+import { AppDispatch, AppState } from 'state/index'
+import { useCurrencyBalances } from 'state/wallet/hooks'
+import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from 'state/swap/actions'
+import { SwapState } from 'state/swap/reducer'
+import useToggledVersion from 'hooks/useToggledVersion'
+import { useUserSlippageTolerance } from 'state/user/hooks'
+import { computeSlippageAdjustedAmounts } from 'utils/prices'
 
 export function useSwapState(): AppState['swap'] {
   return useSelector<AppState, AppState['swap']>(state => state.swap)
@@ -33,8 +33,6 @@ export function useSwapActionHandlers(): {
       let currencyId
       if (currency instanceof Token) {
         currencyId = currency.address
-      } else if (currency === ETHER) {
-        currencyId = 'ETH'
       } else if (currency === XDC) {
         currencyId = 'XDC'
       } else {
@@ -87,10 +85,9 @@ export function tryParseAmount(value?: string, currency?: Currency, chainId?: Ch
     const typedValueParsed = parseUnits(value, currency.decimals).toString()
     if (typedValueParsed !== '0') {
       return currency instanceof Token
-        ? new TokenAmount(currency, JSBI.BigInt(typedValueParsed))
-        : XDC_CHAIN_IDS.includes(chainId!)
-        ? CurrencyAmount.xdc(JSBI.BigInt(typedValueParsed))
-        : CurrencyAmount.ether(JSBI.BigInt(typedValueParsed))
+        ? new TokenAmount(currency, JSBI.BigInt(typedValueParsed)) :
+        CurrencyAmount.xdc(JSBI.BigInt(typedValueParsed))
+
     }
   } catch (error) {
     // should fail if the user specifies too many decimal places of precision (or maybe exceed max uint?)

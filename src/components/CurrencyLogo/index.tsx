@@ -1,16 +1,14 @@
-import { ChainId, Currency, ETHER, Token, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, Token, XDC } from 'fathomswap-sdk'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 
-import EthereumLogo from '../../assets/images/ethereum-logo.png'
-import XdcLogo from '../../assets/images/xdc-logo.png'
-import useHttpLocations from '../../hooks/useHttpLocations'
-import { WrappedTokenInfo } from '../../state/lists/hooks'
-import Logo from '../Logo'
+import XdcLogo from 'assets/images/xdc-logo.png'
+import useHttpLocations from 'hooks/useHttpLocations'
+import { WrappedTokenInfo } from 'state/lists/hooks'
+import Logo from 'components/Logo'
 import DEFAULT_TOKEN_LIST from 'fathom-swap-standard-token-list'
-import { useWeb3React } from '@web3-react/core'
 
-export const getTokenLogoURL = (address: string, chainId?: ChainId) => {
+export const getTokenLogoURL = (address: string) => {
   let logo
   const findToken = DEFAULT_TOKEN_LIST.tokens.find(token => token.address.toLowerCase() === address.toLowerCase())
   if (findToken) {
@@ -22,7 +20,7 @@ export const getTokenLogoURL = (address: string, chainId?: ChainId) => {
   return logo
 }
 
-const StyledEthereumLogo = styled.img<{ size: string }>`
+const StyledXdcLogo = styled.img<{ size: string }>`
   width: ${({ size }) => size};
   height: ${({ size }) => size};
   box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.075);
@@ -47,24 +45,21 @@ export default function CurrencyLogo({
   style?: React.CSSProperties
 }) {
   const uriLocations = useHttpLocations(currency instanceof WrappedTokenInfo ? currency.logoURI : undefined)
-  const { chainId } = useWeb3React()
 
   const srcs: string[] = useMemo(() => {
-    if (currency === ETHER || currency === XDC) return []
+    if (currency === XDC) return []
 
     if (currency instanceof Token) {
       if (currency instanceof WrappedTokenInfo) {
-        return [...uriLocations, getTokenLogoURL(currency.address, chainId)]
+        return [...uriLocations, getTokenLogoURL(currency.address)]
       }
-      return [getTokenLogoURL(currency.address, chainId)]
+      return [getTokenLogoURL(currency.address)]
     }
     return []
-  }, [currency, uriLocations, chainId])
+  }, [currency, uriLocations])
 
-  if (currency === ETHER) {
-    return <StyledEthereumLogo src={EthereumLogo} size={size} style={style} />
-  } else if (currency === XDC) {
-    return <StyledEthereumLogo src={XdcLogo} size={size} style={style} />
+  if (currency === XDC) {
+    return <StyledXdcLogo src={XdcLogo} size={size} style={style} />
   }
 
   return <StyledLogo size={size} srcs={srcs} alt={`${currency?.symbol ?? 'token'} logo`} style={style} />
