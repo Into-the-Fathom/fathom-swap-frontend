@@ -6,7 +6,6 @@ import tokenLogo from 'assets/images/token-logo.svg'
 import { FTHM } from 'constants/index'
 import { useTotalSupply } from 'data/TotalSupply'
 import { useActiveWeb3React } from 'hooks'
-import { useMerkleDistributorContract } from 'hooks/useContract'
 import useCurrentBlockTimestamp from 'hooks/useCurrentBlockTimestamp'
 import { useAggregateUniBalance, useTokenBalance } from 'state/wallet/hooks'
 import { ExternalLink, TYPE, FthmTokenAnimated } from 'theme'
@@ -51,13 +50,12 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
   const totalSupply: TokenAmount | undefined = useTotalSupply(fthm)
   const fthmPrice = usePrice(fthm)
   const blockTimestamp = useCurrentBlockTimestamp()
-  const unclaimedUni = useTokenBalance(useMerkleDistributorContract()?.address, fthm)
   const circulation: TokenAmount | undefined = useMemo(
     () =>
       blockTimestamp && fthm && chainId === ChainId.XDC
-        ? computeUniCirculation(fthm, blockTimestamp, unclaimedUni)
+        ? computeUniCirculation(fthm, blockTimestamp, undefined)
         : totalSupply,
-    [blockTimestamp, chainId, totalSupply, unclaimedUni, fthm]
+    [blockTimestamp, chainId, totalSupply, fthm]
   )
 
   return (

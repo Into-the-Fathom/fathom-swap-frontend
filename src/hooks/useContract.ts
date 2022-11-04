@@ -1,13 +1,8 @@
 import { Contract } from '@into-the-fathom/contracts'
-import { abi as GOVERNANCE_ABI } from '@uniswap/governance/build/GovernorAlpha.json'
-import { abi as UNI_ABI } from '@uniswap/governance/build/Uni.json'
-import { abi as STAKING_REWARDS_ABI } from '@uniswap/liquidity-staker/build/StakingRewards.json'
-import { abi as MERKLE_DISTRIBUTOR_ABI } from '@uniswap/merkle-distributor/build/MerkleDistributor.json'
 import { WETH } from 'fathomswap-sdk'
 import { abi as IUniswapV2PairABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/core/interfaces/IUniswapV2Pair.sol/IUniswapV2Pair.json'
 
 import { useMemo } from 'react'
-import { GOVERNANCE_ADDRESS, FTHM } from 'constants/index'
 import { ARGENT_WALLET_DETECTOR_ABI } from 'constants/abis/argent-wallet-detector'
 import ENS_PUBLIC_RESOLVER_ABI from 'constants/abis/ens-public-resolver.json'
 import ENS_ABI from 'constants/abis/ens-registrar.json'
@@ -72,23 +67,6 @@ export function usePairContract(pairAddress?: string, withSignerIfPossible?: boo
 export function useMulticallContract(): Contract | null {
   const { chainId } = useActiveWeb3React()
   return useContract(chainId && MULTICALL_NETWORKS[chainId], MULTICALL_ABI, false)
-}
-
-export function useMerkleDistributorContract(): Contract | null {
-  return useContract(undefined, MERKLE_DISTRIBUTOR_ABI, true)
-}
-
-export function useGovernanceContract(): Contract | null {
-  return useContract(GOVERNANCE_ADDRESS, GOVERNANCE_ABI, true)
-}
-
-export function useUniContract(): Contract | null {
-  const { chainId } = useActiveWeb3React()
-  return useContract(chainId ? FTHM[chainId].address : undefined, UNI_ABI, true)
-}
-
-export function useStakingContract(stakingAddress?: string, withSignerIfPossible?: boolean): Contract | null {
-  return useContract(stakingAddress, STAKING_REWARDS_ABI, withSignerIfPossible)
 }
 
 export function useSocksController(): Contract | null {
