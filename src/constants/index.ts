@@ -32,7 +32,7 @@ export const GOVERNANCE_ADDRESS = '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F'
 
 export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
 
-export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0xCcdC0653935A251B6839F30359917977f994b5d9', 18, 'USDT', 'USDT')
+export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0xCcdC0653935A251B6839F30359917977f994b5d9', 18, 'US+', 'US+')
 export const FXD_AXDC = new Token(ChainId.AXDC, '0x32333d7d5aE3Ea3bee41618838842EdA5581576c', 18, 'FXD', 'FXD')
 export const FTHM_AXDC = new Token(ChainId.AXDC, '0x4c52500DdC18EE0C6CB6155961347076E43ABb99', 18, 'FTHM', 'Fathom')
 export const WXDC_AXDC = new Token(
@@ -45,7 +45,7 @@ export const WXDC_AXDC = new Token(
 
 const FTHM_ADDRESS = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
 export const FTHM: { [chainId in ChainId]: Token } = {
-  [ChainId.XDC]: new Token(ChainId.XDC, FTHM_ADDRESS, 18, 'UNI', 'Uniswap'),
+  [ChainId.XDC]: new Token(ChainId.XDC, FTHM_ADDRESS, 18, 'FTHM', 'Fathom'),
   [ChainId.AXDC]: new Token(ChainId.AXDC, '0x4c52500DdC18EE0C6CB6155961347076E43ABb99', 18, 'FTHM', 'Fathom')
 }
 

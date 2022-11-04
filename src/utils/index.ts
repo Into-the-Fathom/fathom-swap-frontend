@@ -5,10 +5,10 @@ import { JsonRpcSigner, Web3Provider } from '@into-the-fathom/providers'
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { abi as IUniswapV2Router02ABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
 
-import { ROUTER_ADDRESSES } from '../constants'
+import { ROUTER_ADDRESSES } from 'constants/index'
 import { ChainId, Currency, CurrencyAmount, XDC, JSBI, Percent, Token } from 'fathomswap-sdk'
-import { TokenAddressMap } from '../state/lists/hooks'
-import { toXdcAddress } from './toXdcAddress'
+import { TokenAddressMap } from 'state/lists/hooks'
+import { toXdcAddress } from 'utils/toXdcAddress'
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {

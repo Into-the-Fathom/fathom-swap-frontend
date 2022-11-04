@@ -30,7 +30,7 @@ const Footer = styled.div`
   border-radius: 20px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  border-top: 1px solid ${({ theme }) => theme.bg3};
+  border-top: 1px solid ${({ theme }) => theme.bg2};
   padding: 20px;
   text-align: center;
 `
@@ -136,7 +136,7 @@ export default function ManageTokens({
         </PaddedColumn>
       </Column>
       <Footer>
-        <TYPE.darkGray>Tip: Custom tokens are stored locally in your browser</TYPE.darkGray>
+        <TYPE.white>Tip: Custom tokens are stored locally in your browser</TYPE.white>
       </Footer>
     </Wrapper>
   )
