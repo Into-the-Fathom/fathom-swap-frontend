@@ -92,9 +92,9 @@ export function CurrencySearch({
     }
   }, [isAddressSearch])
 
-  const showETH: boolean = useMemo(() => {
+  const showXDC: boolean = useMemo(() => {
     const s = debouncedQuery.toLowerCase().trim()
-    return s === '' || s === 'e' || s === 'et' || s === 'eth'
+    return s === '' || s === 'x' || s === 'xd' || s === 'xdc'
   }, [debouncedQuery])
 
   const tokenComparator = useTokenComparator(invertSearchOrder)
@@ -195,7 +195,7 @@ export function CurrencySearch({
             {({ height }) => (
               <CurrencyList
                 height={height}
-                showETH={showETH}
+                showXDC={showXDC}
                 currencies={
                   filteredInactiveTokens ? filteredSortedTokens.concat(filteredInactiveTokens) : filteredSortedTokens
                 }

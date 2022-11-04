@@ -5,23 +5,23 @@ import React, { useMemo } from 'react'
 import { Activity } from 'react-feather'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
-import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
-import { injected, walletconnect, walletlink } from '../../connectors'
-import { NetworkContextName } from '../../constants'
-import useENSName from '../../hooks/useENSName'
-import { useHasSocks } from '../../hooks/useSocksBalance'
-import { useWalletModalToggle } from '../../state/application/hooks'
-import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
-import { TransactionDetails } from '../../state/transactions/reducer'
-import { shortenAddress } from '../../utils'
-import { ButtonSecondary } from '../Button'
+import CoinbaseWalletIcon from 'assets/images/coinbaseWalletIcon.svg'
+import WalletConnectIcon from 'assets/images/walletConnectIcon.svg'
+import { injected, walletconnect, walletlink } from 'connectors'
+import { NetworkContextName } from 'constants/index'
+import useENSName from 'hooks/useENSName'
+import { useHasSocks } from 'hooks/useSocksBalance'
+import { useWalletModalToggle } from 'state/application/hooks'
+import { isTransactionRecent, useAllTransactions } from 'state/transactions/hooks'
+import { TransactionDetails } from 'state/transactions/reducer'
+import { shortenAddress } from 'utils'
+import { ButtonSecondary } from 'components/Button'
 
-import Identicon from '../Identicon'
-import Loader from '../Loader'
+import Identicon from 'components/Identicon'
+import Loader from 'components/Loader'
 
-import { RowBetween } from '../Row'
-import WalletModal from '../WalletModal'
+import { RowBetween } from 'components/Row'
+import WalletModal from 'components/WalletModal'
 
 const IconWrapper = styled.div<{ size?: number }>`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -149,7 +149,7 @@ function StatusIcon({ connector }: { connector: AbstractConnector }) {
 
 function Web3StatusInner() {
   const { t } = useTranslation()
-  const { account, connector, error, chainId } = useWeb3React()
+  const { account, connector, error } = useWeb3React()
 
   const { ENSName } = useENSName(account ?? undefined)
 
@@ -176,7 +176,7 @@ function Web3StatusInner() {
         ) : (
           <>
             {hasSocks ? SOCK : null}
-            <Text>{ENSName || shortenAddress(account, 4, chainId!)}</Text>
+            <Text>{ENSName || shortenAddress(account, 4)}</Text>
           </>
         )}
         {!hasPendingTransactions && connector && <StatusIcon connector={connector} />}

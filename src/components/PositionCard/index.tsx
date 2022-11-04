@@ -1,40 +1,33 @@
 import { JSBI, Pair, Percent, TokenAmount } from 'fathomswap-sdk'
-import { darken } from 'polished'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import styled from 'styled-components'
-import { useTotalSupply } from '../../data/TotalSupply'
+import { useTotalSupply } from 'data/TotalSupply'
 
-import { useActiveWeb3React } from '../../hooks'
-import { useTokenBalance } from '../../state/wallet/hooks'
-import { ExternalLink, TYPE } from '../../theme'
-import { currencyId } from '../../utils/currencyId'
-import { unwrappedToken } from '../../utils/wrappedCurrency'
-import { ButtonPrimary, ButtonSecondary, ButtonEmpty } from '../Button'
-import { CardNoise } from '../earn/styled'
+import { useActiveWeb3React } from 'hooks'
+import { useTokenBalance } from 'state/wallet/hooks'
+import { ExternalLink, TYPE } from 'theme'
+import { currencyId } from 'utils/currencyId'
+import { unwrappedToken } from 'utils/wrappedCurrency'
+import { ButtonPrimary, ButtonSecondary, ButtonEmpty } from 'components/Button'
+import { CardNoise } from 'components/earn/styled'
 
-import { useColor } from '../../hooks/useColor'
+import { useColor } from 'hooks/useColor'
 
-import Card, { GreyCard, LightCard } from '../Card'
-import { AutoColumn } from '../Column'
-import CurrencyLogo from '../CurrencyLogo'
-import DoubleCurrencyLogo from '../DoubleLogo'
+import { GreyCard, LightCard } from 'components/Card'
+import { AutoColumn } from 'components/Column'
+import CurrencyLogo from 'components/CurrencyLogo'
+import DoubleCurrencyLogo from 'components/DoubleLogo'
 import { RowBetween, RowFixed, AutoRow } from '../Row'
-import { Dots } from '../swap/styleds'
-import { BIG_INT_ZERO } from '../../constants'
+import { Dots } from 'components/swap/styleds'
+import { BIG_INT_ZERO } from 'constants/index'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
 `
 
-export const HoverCard = styled(Card)`
-  border: 1px solid transparent;
-  :hover {
-    border: 1px solid ${({ theme }) => darken(0.06, theme.bg2)};
-  }
-`
 const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   border: none;
   background-color: ${({ theme }) => theme.bg1};

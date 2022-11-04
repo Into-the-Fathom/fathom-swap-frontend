@@ -29,7 +29,7 @@ import useTransactionDeadline from 'hooks/useTransactionDeadline'
 
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { StyledInternalLink, TYPE } from 'theme'
-import { calculateGasMargin, calculateSlippageAmount, getRouterContract, XDC_CHAIN_IDS } from 'utils'
+import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from 'utils'
 import { currencyId } from 'utils/currencyId'
 import useDebouncedChangeHandler from 'utils/useDebouncedChangeHandler'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
@@ -581,18 +581,8 @@ export default function RemoveLiquidity({
                         ) : oneCurrencyIsWETH ? (
                           <StyledInternalLink
                             to={`/remove/${
-                              currencyA && currencyEquals(currencyA, WETH[chainId])
-                                ? XDC_CHAIN_IDS.includes(chainId!)
-                                  ? 'XDC'
-                                  : 'ETH'
-                                : currencyIdA
-                            }/${
-                              currencyB && currencyEquals(currencyB, WETH[chainId])
-                                ? XDC_CHAIN_IDS.includes(chainId!)
-                                  ? 'XDC'
-                                  : 'ETH'
-                                : currencyIdB
-                            }`}
+                              currencyA && currencyEquals(currencyA, WETH[chainId]) ? 'XDC' : currencyIdA
+                            }/${currencyB && currencyEquals(currencyB, WETH[chainId]) ? 'XDC' : currencyIdB}`}
                           >
                             Receive ETH
                           </StyledInternalLink>

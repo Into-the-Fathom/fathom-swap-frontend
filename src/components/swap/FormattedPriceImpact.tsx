@@ -1,8 +1,8 @@
 import { Percent } from 'fathomswap-sdk'
 import React from 'react'
-import { ONE_BIPS } from '../../constants'
-import { warningSeverity } from '../../utils/prices'
-import { ErrorText } from './styleds'
+import { ONE_BIPS } from 'constants/index'
+import { warningSeverity } from 'utils/prices'
+import { ErrorText } from 'components/swap/styleds'
 
 /**
  * Formatted version of price impact text with warning colors

@@ -1,10 +1,10 @@
 import React, { useState, useRef, useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 
-import QuestionHelper from '../QuestionHelper'
-import { TYPE } from '../../theme'
-import { AutoColumn } from '../Column'
-import { RowBetween, RowFixed } from '../Row'
+import QuestionHelper from 'components/QuestionHelper'
+import { TYPE } from 'theme'
+import { AutoColumn } from 'components/Column'
+import { RowBetween, RowFixed } from 'components/Row'
 
 import { darken } from 'polished'
 

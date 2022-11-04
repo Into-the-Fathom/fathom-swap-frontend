@@ -17,8 +17,7 @@ import PoolFinder from 'pages/PoolFinder'
 import RemoveLiquidity from 'pages/RemoveLiquidity'
 import { RedirectOldRemoveLiquidityPathStructure } from 'pages/RemoveLiquidity/redirects'
 import Swap from 'pages/Swap'
-import { OpenClaimAddressModalAndRedirectToSwap, RedirectPathToSwapOnly, RedirectToSwap } from 'pages/Swap/redirects'
-import VotePage from 'pages/Vote/VotePage'
+import { RedirectPathToSwapOnly, RedirectToSwap } from 'pages/Swap/redirects'
 
 const AppWrapper = styled.div`
   display: flex;
@@ -71,7 +70,6 @@ export default function App() {
           <Web3ReactManager>
             <Switch>
               <Route exact strict path="/swap" component={Swap} />
-              <Route exact strict path="/claim" component={OpenClaimAddressModalAndRedirectToSwap} />
               <Route exact strict path="/swap/:outputCurrency" component={RedirectToSwap} />
               <Route exact strict path="/send" component={RedirectPathToSwapOnly} />
               <Route exact strict path="/find" component={PoolFinder} />
@@ -86,7 +84,6 @@ export default function App() {
               <Route exact path="/create/:currencyIdA/:currencyIdB" component={RedirectDuplicateTokenIds} />
               <Route exact strict path="/remove/:tokens" component={RedirectOldRemoveLiquidityPathStructure} />
               <Route exact strict path="/remove/:currencyIdA/:currencyIdB" component={RemoveLiquidity} />
-              <Route exact strict path="/vote/:id" component={VotePage} />
               <Route component={RedirectPathToSwapOnly} />
             </Switch>
           </Web3ReactManager>

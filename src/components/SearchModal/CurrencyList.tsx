@@ -14,7 +14,7 @@ import CurrencyLogo from 'components/CurrencyLogo'
 import { MouseoverTooltip } from 'components/Tooltip'
 import { MenuItem } from 'components/SearchModal/styleds'
 import Loader from 'components/Loader'
-import { isTokenOnList, XDC_CHAIN_IDS } from 'utils'
+import { isTokenOnList } from 'utils'
 import ImportRow from 'components/SearchModal/ImportRow'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
 import { LightGreyCard } from 'components/Card'
@@ -150,7 +150,7 @@ export default function CurrencyList({
   onCurrencySelect,
   otherCurrency,
   fixedListRef,
-  showETH,
+  showXDC,
   showImportView,
   setImportToken,
   breakIndex
@@ -161,21 +161,19 @@ export default function CurrencyList({
   onCurrencySelect: (currency: Currency) => void
   otherCurrency?: Currency | null
   fixedListRef?: MutableRefObject<FixedSizeList | undefined>
-  showETH: boolean
+  showXDC: boolean
   showImportView: () => void
   setImportToken: (token: Token) => void
   breakIndex: number | undefined
 }) {
   const { chainId } = useActiveWeb3React()
   const itemData: (Currency | undefined)[] = useMemo(() => {
-    let formatted: (Currency | undefined)[] = showETH
-      ? [XDC_CHAIN_IDS.includes(chainId!) ? Currency.XDC : Currency.XDC, ...currencies]
-      : currencies
+    let formatted: (Currency | undefined)[] = showXDC ? [Currency.XDC, ...currencies] : currencies
     if (breakIndex !== undefined) {
       formatted = [...formatted.slice(0, breakIndex), undefined, ...formatted.slice(breakIndex, formatted.length)]
     }
     return formatted
-  }, [breakIndex, currencies, showETH, chainId])
+  }, [breakIndex, currencies, showXDC])
   const theme = useTheme()
 
   const inactiveTokens: {

@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import { PaddedColumn, Separator } from './styleds'
+import { PaddedColumn, Separator } from 'components/SearchModal/styleds'
 import { RowBetween } from 'components/Row'
 import { ArrowLeft } from 'react-feather'
 import { Text } from 'rebass'
 import { CloseIcon } from 'theme'
 import styled from 'styled-components'
 import { Token } from 'fathomswap-sdk'
-import { ManageLists } from './ManageLists'
-import ManageTokens from './ManageTokens'
+import { ManageLists } from 'components/SearchModal/ManageLists'
+import ManageTokens from 'components/SearchModal/ManageTokens'
 import { TokenList } from '@uniswap/token-lists'
-import { CurrencyModalView } from './CurrencySearchModal'
+import { CurrencyModalView } from 'components/SearchModal/CurrencySearchModal'
 
 const Wrapper = styled.div`
   width: 100%;

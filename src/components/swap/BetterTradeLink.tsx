@@ -3,12 +3,12 @@ import React, { useContext, useMemo } from 'react'
 import { useLocation } from 'react-router'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import useParsedQueryString from '../../hooks/useParsedQueryString'
-import useToggledVersion, { DEFAULT_VERSION, Version } from '../../hooks/useToggledVersion'
+import useParsedQueryString from 'hooks/useParsedQueryString'
+import useToggledVersion, { DEFAULT_VERSION, Version } from 'hooks/useToggledVersion'
 
-import { StyledInternalLink } from '../../theme'
-import { YellowCard } from '../Card'
-import { AutoColumn } from '../Column'
+import { StyledInternalLink } from 'theme'
+import { YellowCard } from 'components/Card'
+import { AutoColumn } from 'components/Column'
 
 function VersionLinkContainer({ children }: { children: React.ReactNode }) {
   const theme = useContext(ThemeContext)

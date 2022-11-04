@@ -1,12 +1,6 @@
-import {
-  BigintIsh,
-  Pair,
-  TokenAmount,
-  Trade,
-  WETH
-} from 'fathomswap-sdk'
+import { BigintIsh, Pair, TokenAmount, Trade, WETH } from 'fathomswap-sdk'
 
-import { Version } from '../hooks/useToggledVersion'
+import { Version } from 'hooks/useToggledVersion'
 
 export class MockV1Pair extends Pair {
   constructor(etherAmount: BigintIsh, tokenAmount: TokenAmount) {
@@ -17,4 +11,3 @@ export class MockV1Pair extends Pair {
 export function getTradeVersion(trade?: Trade): Version | undefined {
   return Version.v2
 }
-

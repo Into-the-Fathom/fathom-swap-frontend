@@ -11,7 +11,7 @@ import { useActiveWeb3React } from 'hooks'
 import { getEtherscanLink } from 'utils'
 import { Currency, Token } from 'fathomswap-sdk'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
-import { useUnsupportedTokens } from '../../hooks/Tokens'
+import { useUnsupportedTokens } from 'hooks/Tokens'
 
 const DetailsFooter = styled.div<{ show: boolean }>`
   padding-top: calc(16px + 2rem);

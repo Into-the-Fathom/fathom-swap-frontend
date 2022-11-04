@@ -3,16 +3,15 @@ import React, { useContext, useMemo } from 'react'
 import { ArrowDown, AlertTriangle } from 'react-feather'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import { Field } from '../../state/swap/actions'
-import { TYPE } from '../../theme'
-import { ButtonPrimary } from '../Button'
-import { isAddress, shortenAddress } from '../../utils'
-import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
-import { AutoColumn } from '../Column'
-import CurrencyLogo from '../CurrencyLogo'
+import { Field } from 'state/swap/actions'
+import { TYPE } from 'theme'
+import { ButtonPrimary } from 'components/Button'
+import { isAddress, shortenAddress } from 'utils'
+import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity } from 'utils/prices'
+import { AutoColumn } from 'components/Column'
+import CurrencyLogo from 'components/CurrencyLogo'
 import { RowBetween, RowFixed } from '../Row'
-import { TruncatedText, SwapShowAcceptChanges } from './styleds'
-import { useActiveWeb3React } from '../../hooks';
+import { TruncatedText, SwapShowAcceptChanges } from 'components/swap/styleds'
 
 export default function SwapModalHeader({
   trade,
@@ -27,7 +26,6 @@ export default function SwapModalHeader({
   showAcceptChanges: boolean
   onAcceptChanges: () => void
 }) {
-  const { chainId } = useActiveWeb3React()
   const slippageAdjustedAmounts = useMemo(() => computeSlippageAdjustedAmounts(trade, allowedSlippage), [
     trade,
     allowedSlippage
@@ -121,7 +119,7 @@ export default function SwapModalHeader({
         <AutoColumn justify="flex-start" gap="sm" style={{ padding: '12px 0 0 0px' }}>
           <TYPE.main>
             Output will be sent to{' '}
-            <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient, 4 , chainId!) : recipient}</b>
+            <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient, 4) : recipient}</b>
           </TYPE.main>
         </AutoColumn>
       ) : null}

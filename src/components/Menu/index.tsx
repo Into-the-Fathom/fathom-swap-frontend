@@ -1,14 +1,12 @@
 import React, { useRef } from 'react'
 import { BookOpen, Code, Info, MessageCircle, PieChart } from 'react-feather'
 import styled from 'styled-components'
-import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
-// import { useActiveWeb3React } from '../../hooks'
-import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { ApplicationModal } from '../../state/application/actions'
-import { useModalOpen, useToggleModal } from '../../state/application/hooks'
+import { ReactComponent as MenuIcon } from 'assets/images/menu.svg'
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
+import { ApplicationModal } from 'state/application/actions'
+import { useModalOpen, useToggleModal } from 'state/application/hooks'
+import { ExternalLink } from 'theme'
 
-import { ExternalLink } from '../../theme'
-// import { ButtonPrimary } from '../Button'
 
 const StyledMenuIcon = styled(MenuIcon)`
   path {
@@ -125,11 +123,6 @@ export default function Menu() {
             <PieChart size={14} />
             Analytics
           </MenuItem>
-          {/*{account && (*/}
-          {/*  <ButtonPrimary onClick={openClaimModal} padding="8px 16px" width="100%" borderRadius="12px" mt="0.5rem">*/}
-          {/*    Claim UNI*/}
-          {/*  </ButtonPrimary>*/}
-          {/*)}*/}
         </MenuFlyout>
       )}
     </StyledMenu>

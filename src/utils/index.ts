@@ -19,7 +19,7 @@ export function isAddress(value: any): string | false {
   }
 }
 
-const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
+const BLOCKSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   50: 'xdc.',
   51: 'apothem.'
 }
@@ -31,50 +31,32 @@ export function getEtherscanLink(
   data: string,
   type: 'transaction' | 'token' | 'address' | 'block' | 'transactions' | 'tokens' | 'blocks'
 ): string {
-  const prefix = `https://${ETHERSCAN_PREFIXES[chainId]}blocksscan.io`
+  const prefix = `https://${BLOCKSCAN_PREFIXES[chainId]}blocksscan.io`
 
-  if (XDC_CHAIN_IDS.includes(chainId)) {
-    switch (type) {
-      case 'transaction': {
-        return `${prefix}/txs/${data}`
-      }
-      case 'token': {
-        return `${prefix}/tokens/${toXdcAddress(data)}`
-      }
-      case 'block': {
-        return `${prefix}/blocks/${data}`
-      }
-      case 'address':
-      default: {
-        return `${prefix}/address/${toXdcAddress(data)}`
-      }
+  switch (type) {
+    case 'transaction': {
+      return `${prefix}/txs/${data}`
     }
-  } else {
-    switch (type) {
-      case 'transaction': {
-        return `${prefix}/tx/${data}`
-      }
-      case 'token': {
-        return `${prefix}/token/${data}`
-      }
-      case 'block': {
-        return `${prefix}/block/${data}`
-      }
-      case 'address':
-      default: {
-        return `${prefix}/address/${data}`
-      }
+    case 'token': {
+      return `${prefix}/tokens/${toXdcAddress(data)}`
+    }
+    case 'block': {
+      return `${prefix}/blocks/${data}`
+    }
+    case 'address':
+    default: {
+      return `${prefix}/address/${toXdcAddress(data)}`
     }
   }
 }
 
 // shorten the checksummed version of the input address to have 0x + 4 characters at start and end
-export function shortenAddress(address: string, chars = 4, chainId: ChainId): string {
+export function shortenAddress(address: string, chars = 4): string {
   let parsed = isAddress(address)
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
-  parsed = XDC_CHAIN_IDS.includes(chainId!) ? toXdcAddress(parsed) : parsed
+  parsed = toXdcAddress(parsed)
   return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`
 }
 

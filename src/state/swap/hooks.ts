@@ -8,7 +8,7 @@ import { useActiveWeb3React } from 'hooks'
 import { useCurrency } from 'hooks/Tokens'
 import { useTradeExactIn, useTradeExactOut } from 'hooks/Trades'
 import useParsedQueryString from 'hooks/useParsedQueryString'
-import { isAddress, XDC_CHAIN_IDS } from 'utils'
+import { isAddress } from 'utils'
 import { AppDispatch, AppState } from 'state/index'
 import { useCurrencyBalances } from 'state/wallet/hooks'
 import { Field, replaceSwapState, selectCurrency, setRecipient, switchCurrencies, typeInput } from 'state/swap/actions'
@@ -85,9 +85,8 @@ export function tryParseAmount(value?: string, currency?: Currency, chainId?: Ch
     const typedValueParsed = parseUnits(value, currency.decimals).toString()
     if (typedValueParsed !== '0') {
       return currency instanceof Token
-        ? new TokenAmount(currency, JSBI.BigInt(typedValueParsed)) :
-        CurrencyAmount.xdc(JSBI.BigInt(typedValueParsed))
-
+        ? new TokenAmount(currency, JSBI.BigInt(typedValueParsed))
+        : CurrencyAmount.xdc(JSBI.BigInt(typedValueParsed))
     }
   } catch (error) {
     // should fail if the user specifies too many decimal places of precision (or maybe exceed max uint?)
@@ -212,17 +211,16 @@ export function useDerivedSwapInfo(): {
   }
 }
 
-function parseCurrencyFromURLParameter(urlParam: any, chainId?: ChainId): string {
+function parseCurrencyFromURLParameter(urlParam: any): string {
   if (typeof urlParam === 'string') {
     const valid = isAddress(urlParam)
     if (valid) return valid
-    if (urlParam.toUpperCase() === 'ETH') return 'ETH'
     if (urlParam.toUpperCase() === 'XDC') return 'XDC'
     if (valid === false) {
-      return XDC_CHAIN_IDS.includes(chainId!) ? 'XDC' : 'ETH'
+      return 'XDC'
     }
   }
-  return XDC_CHAIN_IDS.includes(chainId!) ? 'XDC' : 'ETH' ?? ''
+  return 'XDC'
 }
 
 function parseTokenAmountURLParameter(urlParam: any): string {
@@ -245,9 +243,9 @@ function validatedRecipient(recipient: any): string | null {
   return null
 }
 
-export function queryParametersToSwapState(parsedQs: ParsedQs, chainId?: ChainId): SwapState {
-  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency, chainId)
-  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency, chainId)
+export function queryParametersToSwapState(parsedQs: ParsedQs): SwapState {
+  let inputCurrency = parseCurrencyFromURLParameter(parsedQs.inputCurrency)
+  let outputCurrency = parseCurrencyFromURLParameter(parsedQs.outputCurrency)
   if (inputCurrency === outputCurrency) {
     if (typeof parsedQs.outputCurrency === 'string') {
       inputCurrency = ''
@@ -284,7 +282,7 @@ export function useDefaultsFromURLSearch():
 
   useEffect(() => {
     if (!chainId) return
-    const parsed = queryParametersToSwapState(parsedQs, chainId)
+    const parsed = queryParametersToSwapState(parsedQs)
 
     dispatch(
       replaceSwapState({

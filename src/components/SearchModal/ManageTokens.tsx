@@ -1,6 +1,6 @@
 import React, { useRef, RefObject, useCallback, useState, useMemo } from 'react'
 import Column from 'components/Column'
-import { PaddedColumn, Separator, SearchInput } from './styleds'
+import { PaddedColumn, Separator, SearchInput } from 'components/SearchModal/styleds'
 import Row, { RowBetween, RowFixed } from 'components/Row'
 import { TYPE, ExternalLinkIcon, TrashIcon, ButtonText, ExternalLink } from 'theme'
 import { useToken } from 'hooks/Tokens'
@@ -11,10 +11,10 @@ import CurrencyLogo from 'components/CurrencyLogo'
 import { getEtherscanLink, isAddress } from 'utils'
 import { useActiveWeb3React } from 'hooks'
 import Card from 'components/Card'
-import ImportRow from './ImportRow'
-import useTheme from '../../hooks/useTheme'
+import ImportRow from 'components/SearchModal/ImportRow'
+import useTheme from 'hooks/useTheme'
 
-import { CurrencyModalView } from './CurrencySearchModal'
+import { CurrencyModalView } from 'components/SearchModal/CurrencySearchModal'
 
 const Wrapper = styled.div`
   width: 100%;

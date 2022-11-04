@@ -1,15 +1,15 @@
 import { Currency, CurrencyAmount, JSBI, Pair, Percent, TokenAmount } from 'fathomswap-sdk'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { usePair } from '../../data/Reserves'
-import { useTotalSupply } from '../../data/TotalSupply'
+import { usePair } from 'data/Reserves'
+import { useTotalSupply } from 'data/TotalSupply'
 
-import { useActiveWeb3React } from '../../hooks'
-import { wrappedCurrency } from '../../utils/wrappedCurrency'
-import { AppDispatch, AppState } from '../index'
-import { tryParseAmount } from '../swap/hooks'
-import { useTokenBalances } from '../wallet/hooks'
-import { Field, typeInput } from './actions'
+import { useActiveWeb3React } from 'hooks'
+import { wrappedCurrency } from 'utils/wrappedCurrency'
+import { AppDispatch, AppState } from 'state'
+import { tryParseAmount } from 'state/swap/hooks'
+import { useTokenBalances } from 'state/wallet/hooks'
+import { Field, typeInput } from 'state/burn/actions'
 
 export function useBurnState(): AppState['burn'] {
   return useSelector<AppState, AppState['burn']>(state => state.burn)

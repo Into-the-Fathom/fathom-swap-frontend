@@ -1,4 +1,4 @@
-import { getTokenLogoURL } from './../components/CurrencyLogo/index'
+import { getTokenLogoURL } from 'components/CurrencyLogo/index'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
 import { Currency, Token } from 'fathomswap-sdk'
 import { useCallback, useState } from 'react'

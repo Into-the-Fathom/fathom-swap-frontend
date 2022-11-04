@@ -6,9 +6,9 @@ import styled, {
   ThemeProvider as StyledComponentsThemeProvider
 } from 'styled-components'
 import { Text, TextProps } from 'rebass'
-import { Colors } from './styled'
+import { Colors } from 'theme/styled'
 
-export * from './components'
+export * from 'theme/components'
 
 const MEDIA_WIDTHS = {
   upToExtraSmall: 500,

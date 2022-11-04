@@ -5,7 +5,7 @@ import {
   clearAllTransactions,
   finalizeTransaction,
   SerializableTransactionReceipt
-} from './actions'
+} from 'state/transactions/actions'
 
 const now = () => new Date().getTime()
 

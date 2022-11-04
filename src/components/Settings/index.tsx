@@ -3,23 +3,23 @@ import { Settings, X } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components'
-import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { ApplicationModal } from '../../state/application/actions'
-import { useModalOpen, useToggleSettingsMenu } from '../../state/application/hooks'
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
+import { ApplicationModal } from 'state/application/actions'
+import { useModalOpen, useToggleSettingsMenu } from 'state/application/hooks'
 import {
   useExpertModeManager,
   useUserTransactionTTL,
   useUserSlippageTolerance,
   useUserSingleHopOnly
-} from '../../state/user/hooks'
-import { TYPE } from '../../theme'
-import { ButtonError } from '../Button'
-import { AutoColumn } from '../Column'
-import Modal from '../Modal'
-import QuestionHelper from '../QuestionHelper'
-import { RowBetween, RowFixed } from '../Row'
-import Toggle from '../Toggle'
-import TransactionSettings from '../TransactionSettings'
+} from 'state/user/hooks'
+import { TYPE } from 'theme'
+import { ButtonError } from 'components/Button'
+import { AutoColumn } from 'components/Column'
+import Modal from 'components/Modal'
+import QuestionHelper from 'components/QuestionHelper'
+import { RowBetween, RowFixed } from 'components/Row'
+import Toggle from 'components/Toggle'
+import TransactionSettings from 'components/TransactionSettings'
 
 const StyledMenuIcon = styled(Settings)`
   height: 20px;

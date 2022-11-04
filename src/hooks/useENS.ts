@@ -1,6 +1,6 @@
-import { isAddress } from '../utils'
-import useENSAddress from './useENSAddress'
-import useENSName from './useENSName'
+import { isAddress } from 'utils'
+import useENSAddress from 'hooks/useENSAddress'
+import useENSName from 'hooks/useENSName'
 
 /**
  * Given a name or address, does a lookup to resolve to an address and name

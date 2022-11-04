@@ -16,9 +16,9 @@ import ERC20_ABI from 'constants/abis/erc20.json'
 import { MIGRATOR_ABI, MIGRATOR_ADDRESS } from 'constants/abis/migrator'
 import UNISOCKS_ABI from 'constants/abis/unisocks.json'
 import WETH_ABI from 'constants/abis/weth.json'
-import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall'
+import { MULTICALL_ABI, MULTICALL_NETWORKS } from 'constants/multicall'
 import { getContract } from 'utils'
-import { useActiveWeb3React } from './index'
+import { useActiveWeb3React } from 'hooks'
 
 // returns null on errors
 function useContract(address: string | undefined, ABI: any, withSignerIfPossible = true): Contract | null {

@@ -14,7 +14,7 @@ import { computeUniCirculation } from 'utils/computeUniCirculation'
 import usePrice from 'utils/usePrice'
 import { AutoColumn } from 'components/Column'
 import { RowBetween } from 'components/Row'
-import { Break, CardBGImage, CardNoise, CardSection, DataCard } from '../earn/styled'
+import { Break, CardBGImage, CardNoise, CardSection, DataCard } from 'components/earn/styled'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;

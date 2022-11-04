@@ -2,7 +2,7 @@ import { Web3Provider } from '@into-the-fathom/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { WalletLinkConnector } from '@web3-react/walletlink-connector'
-import { NetworkConnector } from './NetworkConnector'
+import { NetworkConnector } from 'connectors/NetworkConnector'
 import FATHOM_LOGO_SRC from 'assets/svg/Fathom-app-logo.svg'
 
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL

@@ -1,8 +1,8 @@
 import { JSBI } from 'fathomswap-sdk'
 import { useMemo } from 'react'
-import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
-import { useActiveWeb3React } from './index'
-import { useSocksController } from './useContract'
+import { NEVER_RELOAD, useSingleCallResult } from 'state/multicall/hooks'
+import { useActiveWeb3React } from 'hooks'
+import { useSocksController } from 'hooks/useContract'
 
 export default function useSocksBalance(): JSBI | undefined {
   const { account } = useActiveWeb3React()

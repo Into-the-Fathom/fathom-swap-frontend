@@ -14,10 +14,10 @@ import { SectionBreak } from 'components/swap/styleds'
 import { useAddUserToken } from 'state/user/hooks'
 import { getEtherscanLink } from 'utils'
 import { useActiveWeb3React } from 'hooks'
-import { ExternalLink } from '../../theme/components'
+import { ExternalLink } from 'theme/components'
 import { useCombinedInactiveList } from 'state/lists/hooks'
 import ListLogo from 'components/ListLogo'
-import { PaddedColumn, Checkbox } from './styleds'
+import { PaddedColumn, Checkbox } from 'components/SearchModal/styleds'
 
 const Wrapper = styled.div`
   position: relative;
