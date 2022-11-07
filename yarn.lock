@@ -2677,23 +2677,6 @@
     semver "^7.3.2"
     tsutils "^3.17.1"
 
-"@uniswap/governance@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@uniswap/governance/-/governance-1.0.2.tgz#7371ab54dea9a5c045275001e2d5325ff2c11a93"
-  integrity sha512-L7BzdI/asAINB2F6EvJuQcg5YhykNeEfZxJrn2RPIVvx+9A9u+opDuqnBK4SYnanrsr3UEX1NwWXwDHmyw2TjQ==
-
-"@uniswap/liquidity-staker@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@uniswap/liquidity-staker/-/liquidity-staker-1.0.2.tgz#afed49d51c5f97411432e891a59a24817728dad6"
-  integrity sha512-Rdj+QqapWO3sY1SJdLUQ8dhf26yXg9DC3XU3cpNoh5jrJ0UhAnKqciZss1F6oxBLbNWXzekuigLgSVbVb1BFcw==
-  dependencies:
-    openzeppelin-solidity-2.3.0 "npm:openzeppelin-solidity@2.3.0"
-
-"@uniswap/merkle-distributor@1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@uniswap/merkle-distributor/-/merkle-distributor-1.0.1.tgz#dc3d911f65a860fc3f0cae074bdcd08ed6a27a4d"
-  integrity sha512-5gDiTI5hrXIh5UWTrxKYjw30QQDnpl8ckDSpefldNenDlYO1RKkdUYMYpvrqGi2r7YzLYTlO6+TDlNs6O7hDRw==
-
 "@uniswap/token-lists@^1.0.0-beta.19":
   version "1.0.0-beta.19"
   resolved "https://registry.yarnpkg.com/@uniswap/token-lists/-/token-lists-1.0.0-beta.19.tgz#5256db144fba721a6233f43b92ffb388cbd58327"
@@ -6491,10 +6474,23 @@ fathom-ethers@^1.1.0:
     "@into-the-fathom/web" "^1.1.0"
     "@into-the-fathom/wordlists" "^1.1.0"
 
-fathom-swap-standard-token-list@^1.5.0:
-  version "1.5.0"
-  resolved "https://registry.yarnpkg.com/fathom-swap-standard-token-list/-/fathom-swap-standard-token-list-1.5.0.tgz#23fc5afda975e128878cd70c4258bf7f5fd78b22"
-  integrity sha512-rScGBrJ60lN/txmZ1RomvCOr5LhC4sR4dN0Q1ycisYM348tclN/0ZW0xbp63MPwPkXH3CnO7l6tpDLVbIK7jqQ==
+fathom-swap-standard-token-list@^1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/fathom-swap-standard-token-list/-/fathom-swap-standard-token-list-1.6.0.tgz#58b0512d1484040f2d348973313b6cc76168acb3"
+  integrity sha512-dekrIZOjAMMeSzX/dXTeDS3ppiYVi6Y1kZ52hIm45D/oo6POt5UVAAOdxw71xHzXZrTTW8j62ntCL1NKSaZqRw==
+
+fathomswap-sdk@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.0.tgz#950514a213dad141831a83df7a17685317fc0654"
+  integrity sha512-wtnmY4fVvl9oX8dDInJXeHran+Qo0Ghum3j6Dnz9mpIeW/GNE+Qb6FXV5dx50ZYzzPL9qLFeWXthvzW2aJLXgQ==
+  dependencies:
+    big.js "^5.2.2"
+    decimal.js-light "^2.5.0"
+    into-the-fathom-swap-smart-contracts "^1.0.0"
+    jsbi "^3.1.1"
+    tiny-invariant "^1.1.0"
+    tiny-warning "^1.0.3"
+    toformat "^2.0.0"
 
 faye-websocket@^0.10.0:
   version "0.10.0"
@@ -7607,10 +7603,10 @@ internal-slot@^1.0.2:
     has "^1.0.3"
     side-channel "^1.0.2"
 
-into-the-fathom-swap-sdk@^1.2.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/into-the-fathom-swap-sdk/-/into-the-fathom-swap-sdk-1.3.0.tgz#ad88e195935688ed01b0bee8423f1990cee44991"
-  integrity sha512-XQiBCjyzUDoMgowUaV4XSyokgCuhgLHOy+rASFKH9LZCXMdbhY9qjLqwW5falzkW/+FEkds5vINRm6M8pJGSWw==
+into-the-fathom-swap-sdk@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/into-the-fathom-swap-sdk/-/into-the-fathom-swap-sdk-1.4.0.tgz#961fe0a80163d7cf74133a7c219b5f0ca5cc08d0"
+  integrity sha512-FEewdCWYgTHKRLu3ZHknpt1zdaUZ5Vn/dHzKYis8Up5dzbYZ1Il70dRouWuc79Vh9yuUKO06s5sb0la8ScezrQ==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
@@ -9910,11 +9906,6 @@ open@^7.0.2:
   dependencies:
     is-docker "^2.0.0"
     is-wsl "^2.1.1"
-
-"openzeppelin-solidity-2.3.0@npm:openzeppelin-solidity@2.3.0":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/openzeppelin-solidity/-/openzeppelin-solidity-2.3.0.tgz#1ab7b4cc3782a5472ed61eb740c56a8bfdd74119"
-  integrity sha512-QYeiPLvB1oSbDt6lDQvvpx7k8ODczvE474hb2kLXZBPKMsxKT1WxTCHBYrCU7kS7hfAku4DcJ0jqOyL+jvjwQw==
 
 opn@^5.5.0:
   version "5.5.0"

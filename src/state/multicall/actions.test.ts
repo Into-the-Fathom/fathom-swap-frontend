@@ -1,4 +1,4 @@
-import { parseCallKey, toCallKey } from './actions'
+import { parseCallKey, toCallKey } from 'state/multicall/actions'
 
 describe('actions', () => {
   describe('#parseCallKey', () => {

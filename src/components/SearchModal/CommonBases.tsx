@@ -1,14 +1,13 @@
 import React from 'react'
 import { Text } from 'rebass'
-import { ChainId, Currency, currencyEquals, ETHER, XDC, Token } from 'into-the-fathom-swap-sdk'
+import { ChainId, Currency, currencyEquals, XDC, Token } from 'into-the-fathom-swap-sdk'
 import styled from 'styled-components'
 
-import { SUGGESTED_BASES } from '../../constants'
-import { AutoColumn } from '../Column'
-import QuestionHelper from '../QuestionHelper'
-import { AutoRow } from '../Row'
-import CurrencyLogo from '../CurrencyLogo'
-import { XDC_CHAIN_IDS } from '../../utils'
+import { SUGGESTED_BASES } from 'constants/index'
+import { AutoColumn } from 'components/Column'
+import QuestionHelper from 'components/QuestionHelper'
+import { AutoRow } from 'components/Row'
+import CurrencyLogo from 'components/CurrencyLogo'
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
   border-radius: 10px;
@@ -35,39 +34,21 @@ export default function CommonBases({
   onSelect: (currency: Currency) => void
 }) {
   const renderBaseToken = () => {
-    if (XDC_CHAIN_IDS.includes(chainId!)) {
-      return (
-        <BaseWrapper
-          onClick={() => {
-            if (!selectedCurrency || !currencyEquals(selectedCurrency, XDC)) {
-              onSelect(XDC)
-            }
-          }}
-          disable={selectedCurrency === XDC}
-        >
-          <CurrencyLogo currency={XDC} style={{ marginRight: 8 }} />
-          <Text fontWeight={500} fontSize={16}>
-            XDC
-          </Text>
-        </BaseWrapper>
-      )
-    } else {
-      return (
-        <BaseWrapper
-          onClick={() => {
-            if (!selectedCurrency || !currencyEquals(selectedCurrency, ETHER)) {
-              onSelect(ETHER)
-            }
-          }}
-          disable={selectedCurrency === ETHER}
-        >
-          <CurrencyLogo currency={ETHER} style={{ marginRight: 8 }} />
-          <Text fontWeight={500} fontSize={16}>
-            ETH
-          </Text>
-        </BaseWrapper>
-      )
-    }
+    return (
+      <BaseWrapper
+        onClick={() => {
+          if (!selectedCurrency || !currencyEquals(selectedCurrency, XDC)) {
+            onSelect(XDC)
+          }
+        }}
+        disable={selectedCurrency === XDC}
+      >
+        <CurrencyLogo currency={XDC} style={{ marginRight: 8 }} />
+        <Text fontWeight={500} fontSize={16}>
+          XDC
+        </Text>
+      </BaseWrapper>
+    )
   }
 
   return (

@@ -1,19 +1,17 @@
-import { UNI } from './../../constants/index'
-import { Currency, CurrencyAmount, ETHER, JSBI, Token, TokenAmount, XDC } from 'into-the-fathom-swap-sdk'
+import { FTHM } from 'constants/index'
+import { Currency, CurrencyAmount, XDC, JSBI, Token, TokenAmount } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
-import ERC20_INTERFACE from '../../constants/abis/erc20'
-import { useAllTokens } from '../../hooks/Tokens'
-import { useActiveWeb3React } from '../../hooks'
-import { useMulticallContract } from '../../hooks/useContract'
-import { isAddress } from '../../utils'
-import { useSingleContractMultipleData, useMultipleContractSingleData } from '../multicall/hooks'
-// import { useUserUnclaimedAmount } from '../claim/hooks'
-import { useTotalUniEarned } from '../stake/hooks'
+import ERC20_INTERFACE from 'constants/abis/erc20'
+import { useAllTokens } from 'hooks/Tokens'
+import { useActiveWeb3React } from 'hooks'
+import { useMulticallContract } from 'hooks/useContract'
+import { isAddress } from 'utils'
+import { useSingleContractMultipleData, useMultipleContractSingleData } from 'state/multicall/hooks'
 
 /**
- * Returns a map of the given addresses to their eventually consistent ETH balances.
+ * Returns a map of the given addresses to their eventually consistent XDC balances.
  */
-export function useETHBalances(
+export function useXDCBalances(
   uncheckedAddresses?: (string | undefined)[]
 ): { [address: string]: CurrencyAmount | undefined } {
   const multicallContract = useMulticallContract()
@@ -39,7 +37,7 @@ export function useETHBalances(
     () =>
       addresses.reduce<{ [address: string]: CurrencyAmount }>((memo, address, i) => {
         const value = results?.[i]?.result?.[0]
-        if (value) memo[address] = CurrencyAmount.ether(JSBI.BigInt(value.toString()))
+        if (value) memo[address] = CurrencyAmount.xdc(JSBI.BigInt(value.toString()))
         return memo
       }, {}),
     [addresses, results]
@@ -106,18 +104,18 @@ export function useCurrencyBalances(
   ])
 
   const tokenBalances = useTokenBalances(account, tokens)
-  const containsETH: boolean = useMemo(() => currencies?.some(currency => currency === ETHER || currency === XDC) ?? false, [currencies])
-  const ethBalance = useETHBalances(containsETH ? [account] : [])
+  const containsXDC: boolean = useMemo(() => currencies?.some(currency => currency === XDC) ?? false, [currencies])
+  const xdcBalance = useXDCBalances(containsXDC ? [account] : [])
 
   return useMemo(
     () =>
       currencies?.map(currency => {
         if (!account || !currency) return undefined
         if (currency instanceof Token) return tokenBalances[currency.address]
-        if (currency === ETHER || currency === XDC) return ethBalance[account]
+        if (currency === XDC) return xdcBalance[account]
         return undefined
       }) ?? [],
-    [account, currencies, ethBalance, tokenBalances]
+    [account, currencies, xdcBalance, tokenBalances]
   )
 }
 
@@ -138,12 +136,11 @@ export function useAllTokenBalances(): { [tokenAddress: string]: TokenAmount | u
 export function useAggregateUniBalance(): TokenAmount | undefined {
   const { account, chainId } = useActiveWeb3React()
 
-  const uni = chainId ? UNI[chainId] : undefined
+  const fthm = chainId ? FTHM[chainId] : undefined
 
-  const uniBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, uni)
-  const uniUnHarvested: TokenAmount | undefined = useTotalUniEarned()
+  const fthmBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, fthm)
 
-  if (!uni) return undefined
+  if (!fthm) return undefined
 
-  return new TokenAmount(uni, JSBI.add(uniBalance?.raw ?? JSBI.BigInt(0), uniUnHarvested?.raw ?? JSBI.BigInt(0)))
+  return new TokenAmount(fthm, JSBI.add(fthmBalance?.raw ?? JSBI.BigInt(0), JSBI.BigInt(0)))
 }

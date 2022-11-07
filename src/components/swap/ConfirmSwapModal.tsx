@@ -3,9 +3,9 @@ import React, { useCallback, useMemo } from 'react'
 import TransactionConfirmationModal, {
   ConfirmationModalContent,
   TransactionErrorContent
-} from '../TransactionConfirmationModal'
-import SwapModalFooter from './SwapModalFooter'
-import SwapModalHeader from './SwapModalHeader'
+} from 'components/TransactionConfirmationModal'
+import SwapModalFooter from 'components/swap/SwapModalFooter'
+import SwapModalHeader from 'components/swap/SwapModalHeader'
 
 /**
  * Returns true if the trade requires a confirmation of details before we can submit it

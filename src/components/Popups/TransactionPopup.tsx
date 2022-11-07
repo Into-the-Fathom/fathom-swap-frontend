@@ -1,15 +1,12 @@
 import React, { useContext } from 'react'
 import { AlertCircle, CheckCircle } from 'react-feather'
 import styled, { ThemeContext } from 'styled-components'
-import { useActiveWeb3React } from '../../hooks'
-import { TYPE } from '../../theme'
-import { ExternalLink } from '../../theme/components'
-import {
-  getEtherscanLink,
-  XDC_CHAIN_IDS
-} from '../../utils'
-import { AutoColumn } from '../Column'
-import { AutoRow } from '../Row'
+import { useActiveWeb3React } from 'hooks'
+import { TYPE } from 'theme'
+import { ExternalLink } from 'theme/components'
+import { getBlockScanLink } from 'utils'
+import { AutoColumn } from 'components/Column'
+import { AutoRow } from 'components/Row'
 
 const RowNoFlex = styled(AutoRow)`
   flex-wrap: nowrap;
@@ -36,9 +33,7 @@ export default function TransactionPopup({
       <AutoColumn gap="8px">
         <TYPE.body fontWeight={500}>{summary ?? 'Hash: ' + hash.slice(0, 8) + '...' + hash.slice(58, 65)}</TYPE.body>
         {chainId && (
-          <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>
-            View on {XDC_CHAIN_IDS.includes(chainId) ? 'Blocksscan' : 'Etherscan'}
-          </ExternalLink>
+          <ExternalLink href={getBlockScanLink(chainId, hash, 'transaction')}>View on Blocksscan</ExternalLink>
         )}
       </AutoColumn>
     </RowNoFlex>

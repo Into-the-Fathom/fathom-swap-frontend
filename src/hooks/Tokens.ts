@@ -1,15 +1,15 @@
-import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from './../state/lists/hooks'
+import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from 'state/lists/hooks'
 import { parseBytes32String } from '@into-the-fathom/strings'
-import { Currency, currencyEquals, ETHER, Token, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, currencyEquals, Token, XDC } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
-import { useCombinedActiveList, useCombinedInactiveList } from '../state/lists/hooks'
-import { NEVER_RELOAD, useSingleCallResult } from '../state/multicall/hooks'
-import { useUserAddedTokens } from '../state/user/hooks'
-import { isAddress, XDC_CHAIN_IDS } from '../utils'
+import { useCombinedActiveList, useCombinedInactiveList } from 'state/lists/hooks'
+import { NEVER_RELOAD, useSingleCallResult } from 'state/multicall/hooks'
+import { useUserAddedTokens } from 'state/user/hooks'
+import { isAddress } from 'utils'
 
-import { useActiveWeb3React } from './index'
-import { useBytes32TokenContract, useTokenContract } from './useContract'
-import { filterTokens } from '../components/SearchModal/filtering'
+import { useActiveWeb3React } from 'hooks'
+import { useBytes32TokenContract, useTokenContract } from 'hooks/useContract'
+import { filterTokens } from 'components/SearchModal/filtering'
 import { arrayify } from 'fathom-ethers/lib/utils'
 
 // reduce token map into standard address <-> Token mapping, optionally include user added tokens
@@ -182,8 +182,7 @@ export function useToken(tokenAddress?: string): Token | undefined | null {
 }
 
 export function useCurrency(currencyId: string | undefined): Currency | null | undefined {
-  const { chainId } = useActiveWeb3React()
-  const isETH = currencyId?.toUpperCase() === 'ETH' || currencyId?.toUpperCase() === 'XDC'
-  const token = useToken(isETH ? undefined : currencyId)
-  return isETH ? (XDC_CHAIN_IDS.includes(chainId!) ? XDC : ETHER) : token
+  const isXDC = currencyId?.toUpperCase() === 'XDC'
+  const token = useToken(isXDC ? undefined : currencyId)
+  return isXDC ? XDC : token
 }

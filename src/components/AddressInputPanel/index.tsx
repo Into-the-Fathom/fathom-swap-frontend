@@ -1,14 +1,11 @@
 import React, { useContext, useCallback } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import useENS from '../../hooks/useENS'
-import { useActiveWeb3React } from '../../hooks'
-import { ExternalLink, TYPE } from '../../theme'
-import { AutoColumn } from '../Column'
-import { RowBetween } from '../Row'
-import {
-  getEtherscanLink,
-  XDC_CHAIN_IDS
-} from '../../utils'
+import useENS from 'hooks/useENS'
+import { useActiveWeb3React } from 'hooks'
+import { ExternalLink, TYPE } from 'theme'
+import { AutoColumn } from 'components/Column'
+import { RowBetween } from 'components/Row'
+import { getBlockScanLink } from 'utils'
 
 const InputPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -105,8 +102,8 @@ export default function AddressInputPanel({
                 Recipient
               </TYPE.black>
               {address && chainId && (
-                <ExternalLink href={getEtherscanLink(chainId, name ?? address, 'address')} style={{ fontSize: '14px' }}>
-                  (View on {XDC_CHAIN_IDS.includes(chainId) ? 'Blocksscan' : 'Etherscan'})
+                <ExternalLink href={getBlockScanLink(chainId, name ?? address, 'address')} style={{ fontSize: '14px' }}>
+                  (View on Blocksscan)
                 </ExternalLink>
               )}
             </RowBetween>

@@ -1,6 +1,6 @@
-import { INITIAL_ALLOWED_SLIPPAGE, DEFAULT_DEADLINE_FROM_NOW } from '../../constants'
+import { INITIAL_ALLOWED_SLIPPAGE, DEFAULT_DEADLINE_FROM_NOW } from 'constants/index'
 import { createReducer } from '@reduxjs/toolkit'
-import { updateVersion } from '../global/actions'
+import { updateVersion } from 'state/global/actions'
 import {
   addSerializedPair,
   addSerializedToken,

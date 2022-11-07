@@ -1,24 +1,24 @@
 import React, { useCallback, useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import styled, { ThemeContext } from 'styled-components'
-import { useActiveWeb3React } from '../../hooks'
-import { AppDispatch } from '../../state'
-import { clearAllTransactions } from '../../state/transactions/actions'
-import { shortenAddress, XDC_CHAIN_IDS } from '../../utils'
-import { AutoRow } from '../Row'
-import Copy from './Copy'
-import Transaction from './Transaction'
+import { useActiveWeb3React } from 'hooks'
+import { AppDispatch } from 'state'
+import { clearAllTransactions } from 'state/transactions/actions'
+import { shortenAddress } from 'utils'
+import { AutoRow } from 'components/Row'
+import Copy from 'components/AccountDetails/Copy'
+import Transaction from 'components/AccountDetails/Transaction'
 
-import { SUPPORTED_WALLETS } from '../../constants'
-import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { getEtherscanLink } from '../../utils'
-import { injected, walletconnect, walletlink } from '../../connectors'
-import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
-import Identicon from '../Identicon'
-import { ButtonSecondary } from '../Button'
+import { SUPPORTED_WALLETS } from 'constants/index'
+import { ReactComponent as Close } from 'assets/images/x.svg'
+import { getBlockScanLink } from 'utils'
+import { injected, walletconnect, walletlink } from 'connectors'
+import CoinbaseWalletIcon from 'assets/images/coinbaseWalletIcon.svg'
+import WalletConnectIcon from 'assets/images/walletConnectIcon.svg'
+import Identicon from 'components/Identicon'
+import { ButtonSecondary } from 'components/Button'
 import { ExternalLink as LinkIcon } from 'react-feather'
-import { ExternalLink, LinkStyledButton, TYPE } from '../../theme'
+import { ExternalLink, LinkStyledButton, TYPE } from 'theme'
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -308,7 +308,7 @@ export default function AccountDetails({
                     <>
                       <div>
                         {getStatusIcon()}
-                        <p> {account && shortenAddress(account, 4, chainId!)}</p>
+                        <p> {account && shortenAddress(account, 4)}</p>
                       </div>
                     </>
                   )}
@@ -328,12 +328,10 @@ export default function AccountDetails({
                           <AddressLink
                             hasENS={!!ENSName}
                             isENS={true}
-                            href={chainId && getEtherscanLink(chainId, ENSName, 'address')}
+                            href={chainId && getBlockScanLink(chainId, ENSName, 'address')}
                           >
                             <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>
-                              View on {XDC_CHAIN_IDS.includes(chainId) ? 'Blocksscan' : 'Etherscan'}
-                            </span>
+                            <span style={{ marginLeft: '4px' }}>View on Blocksscan</span>
                           </AddressLink>
                         )}
                       </div>
@@ -352,12 +350,10 @@ export default function AccountDetails({
                           <AddressLink
                             hasENS={!!ENSName}
                             isENS={false}
-                            href={getEtherscanLink(chainId, account, 'address')}
+                            href={getBlockScanLink(chainId, account, 'address')}
                           >
                             <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>
-                              View on {XDC_CHAIN_IDS.includes(chainId) ? 'Blocksscan' : 'Etherscan'}
-                            </span>
+                            <span style={{ marginLeft: '4px' }}>View on Blocksscan</span>
                           </AddressLink>
                         )}
                       </div>

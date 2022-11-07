@@ -2,20 +2,18 @@ import { ChainId, TokenAmount } from 'into-the-fathom-swap-sdk'
 import React, { useMemo } from 'react'
 import { X } from 'react-feather'
 import styled from 'styled-components'
-import tokenLogo from '../../assets/images/token-logo.svg'
-import { UNI } from '../../constants'
-import { useTotalSupply } from '../../data/TotalSupply'
-import { useActiveWeb3React } from '../../hooks'
-import { useMerkleDistributorContract } from '../../hooks/useContract'
-import useCurrentBlockTimestamp from '../../hooks/useCurrentBlockTimestamp'
-// import { useTotalUniEarned } from '../../state/stake/hooks'
-import { useAggregateUniBalance, useTokenBalance } from '../../state/wallet/hooks'
-import { ExternalLink, /*StyledInternalLink,*/ TYPE, UniTokenAnimated } from '../../theme'
-import { computeUniCirculation } from '../../utils/computeUniCirculation'
-import useUSDCPrice from '../../utils/useUSDCPrice'
-import { AutoColumn } from '../Column'
-import { RowBetween } from '../Row'
-import { Break, CardBGImage, CardNoise, CardSection, DataCard } from '../earn/styled'
+import tokenLogo from 'assets/images/token-logo.svg'
+import { FTHM } from 'constants/index'
+import { useTotalSupply } from 'data/TotalSupply'
+import { useActiveWeb3React } from 'hooks'
+import useCurrentBlockTimestamp from 'hooks/useCurrentBlockTimestamp'
+import { useAggregateUniBalance, useTokenBalance } from 'state/wallet/hooks'
+import { ExternalLink, TYPE, FthmTokenAnimated } from 'theme'
+import { computeUniCirculation } from 'utils/computeUniCirculation'
+import usePrice from 'utils/usePrice'
+import { AutoColumn } from 'components/Column'
+import { RowBetween } from 'components/Row'
+import { Break, CardBGImage, CardNoise, CardSection, DataCard } from 'components/earn/styled'
 
 const ContentWrapper = styled(AutoColumn)`
   width: 100%;
@@ -43,22 +41,21 @@ const StyledClose = styled(X)`
  */
 export default function FathomBalanceContent({ setShowUniBalanceModal }: { setShowUniBalanceModal: any }) {
   const { account, chainId } = useActiveWeb3React()
-  const uni = chainId ? UNI[chainId] : undefined
+  const fthm = chainId ? FTHM[chainId] : undefined
 
   const total = useAggregateUniBalance()
-  const uniBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, uni)
+  const fthmBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, fthm)
   // const uniToClaim: TokenAmount | undefined = useTotalUniEarned()
 
-  const totalSupply: TokenAmount | undefined = useTotalSupply(uni)
-  const uniPrice = useUSDCPrice(uni)
+  const totalSupply: TokenAmount | undefined = useTotalSupply(fthm)
+  const fthmPrice = usePrice(fthm)
   const blockTimestamp = useCurrentBlockTimestamp()
-  const unclaimedUni = useTokenBalance(useMerkleDistributorContract()?.address, uni)
   const circulation: TokenAmount | undefined = useMemo(
     () =>
-      blockTimestamp && uni && chainId === ChainId.MAINNET
-        ? computeUniCirculation(uni, blockTimestamp, unclaimedUni)
+      blockTimestamp && fthm && chainId === ChainId.XDC
+        ? computeUniCirculation(fthm, blockTimestamp, undefined)
         : totalSupply,
-    [blockTimestamp, chainId, totalSupply, unclaimedUni, uni]
+    [blockTimestamp, chainId, totalSupply, fthm]
   )
 
   return (
@@ -77,7 +74,7 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
           <>
             <CardSection gap="sm">
               <AutoColumn gap="md" justify="center">
-                <UniTokenAnimated width="48px" src={tokenLogo} />{' '}
+                <FthmTokenAnimated width="48px" src={tokenLogo} />{' '}
                 <TYPE.black fontSize={48} fontWeight={600} color="black">
                   {total?.toFixed(2, { groupSeparator: ',' })}
                 </TYPE.black>
@@ -85,7 +82,7 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
               <AutoColumn gap="md">
                 <RowBetween>
                   <TYPE.black color="black">Balance:</TYPE.black>
-                  <TYPE.black color="black">{uniBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.black>
+                  <TYPE.black color="black">{fthmBalance?.toFixed(2, { groupSeparator: ',' })}</TYPE.black>
                 </RowBetween>
               </AutoColumn>
             </CardSection>
@@ -96,7 +93,7 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
           <AutoColumn gap="md">
             <RowBetween>
               <TYPE.black color="black">FTHM price:</TYPE.black>
-              <TYPE.black color="black">${uniPrice?.toFixed(2) ?? '-'}</TYPE.black>
+              <TYPE.black color="black">${fthmPrice?.toFixed(2) ?? '-'}</TYPE.black>
             </RowBetween>
             <RowBetween>
               <TYPE.black color="black">FTHM in circulation:</TYPE.black>
@@ -106,8 +103,8 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
               <TYPE.black color="black">Total Supply</TYPE.black>
               <TYPE.black color="black">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.black>
             </RowBetween>
-            {uni && uni.chainId === ChainId.MAINNET ? (
-              <ExternalLink href={`https://uniswap.info/token/${uni.address}`}>View FTHM Analytics</ExternalLink>
+            {fthm && fthm.chainId === ChainId.XDC ? (
+              <ExternalLink href={`https://uniswap.info/token/${fthm.address}`}>View FTHM Analytics</ExternalLink>
             ) : null}
           </AutoColumn>
         </CardSection>

@@ -1,12 +1,11 @@
-import { UNSUPPORTED_LIST_URLS } from './../../constants/lists'
+import { UNSUPPORTED_LIST_URLS } from 'constants/lists'
 import DEFAULT_TOKEN_LIST from 'fathom-swap-standard-token-list'
 import { ChainId, Token } from 'into-the-fathom-swap-sdk'
 import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { AppState } from '../index'
+import { AppState } from 'state/index'
 import sortByListPriority from 'utils/listSort'
-import UNSUPPORTED_TOKEN_LIST from '../../constants/tokenLists/uniswap-v2-unsupported.tokenlist.json'
 
 type TagDetails = Tags[keyof Tags]
 export interface TagInfo extends TagDetails {
@@ -38,12 +37,7 @@ export type TokenAddressMap = Readonly<
  */
 const EMPTY_LIST: TokenAddressMap = {
   [ChainId.AXDC]: {},
-  [ChainId.XDC]: {},
-  [ChainId.KOVAN]: {},
-  [ChainId.RINKEBY]: {},
-  [ChainId.ROPSTEN]: {},
-  [ChainId.GOERLI]: {},
-  [ChainId.MAINNET]: {}
+  [ChainId.XDC]: {}
 }
 
 const listCache: WeakMap<TokenList, TokenAddressMap> | null =
@@ -97,11 +91,6 @@ export function useAllLists(): {
 
 function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddressMap {
   return {
-    1: { ...map1[1], ...map2[1] },
-    3: { ...map1[3], ...map2[3] },
-    4: { ...map1[4], ...map2[4] },
-    5: { ...map1[5], ...map2[5] },
-    42: { ...map1[42], ...map2[42] },
     50: { ...map1[50], ...map2[50] },
     51: { ...map1[51], ...map2[51] }
   }
@@ -166,14 +155,8 @@ export function useDefaultTokenList(): TokenAddressMap {
 
 // list of tokens not supported on interface, used to show warnings and prevent swaps and adds
 export function useUnsupportedTokenList(): TokenAddressMap {
-  // get hard coded unsupported tokens
-  const localUnsupportedListMap = listToTokenMap(UNSUPPORTED_TOKEN_LIST)
-
   // get any loaded unsupported tokens
-  const loadedUnsupportedListMap = useCombinedTokenMapFromUrls(UNSUPPORTED_LIST_URLS)
-
-  // format into one token address map
-  return combineMaps(localUnsupportedListMap, loadedUnsupportedListMap)
+  return useCombinedTokenMapFromUrls(UNSUPPORTED_LIST_URLS)
 }
 
 export function useIsListActive(url: string): boolean {

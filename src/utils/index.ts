@@ -5,10 +5,10 @@ import { JsonRpcSigner, Web3Provider } from '@into-the-fathom/providers'
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { abi as IUniswapV2Router02ABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/periphery/interfaces/IUniswapV2Router02.sol/IUniswapV2Router02.json'
 
-import { ROUTER_ADDRESSES } from '../constants'
-import { ChainId, Currency, CurrencyAmount, ETHER, JSBI, Percent, Token } from 'into-the-fathom-swap-sdk'
-import { TokenAddressMap } from '../state/lists/hooks'
-import { toXdcAddress } from './toXdcAddress'
+import { ROUTER_ADDRESSES } from 'constants/index'
+import { ChainId, Currency, CurrencyAmount, XDC, JSBI, Percent, Token } from 'into-the-fathom-swap-sdk'
+import { TokenAddressMap } from 'state/lists/hooks'
+import { toXdcAddress } from 'utils/toXdcAddress'
 
 // returns the checksummed address if the address is valid, otherwise returns false
 export function isAddress(value: any): string | false {
@@ -19,71 +19,44 @@ export function isAddress(value: any): string | false {
   }
 }
 
-const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
-  1: '',
-  3: 'ropsten.',
-  4: 'rinkeby.',
-  5: 'goerli.',
-  42: 'kovan.',
+const BLOCKSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   50: 'xdc.',
   51: 'apothem.'
 }
 
 export const XDC_CHAIN_IDS = [50, 51]
 
-export function getEtherscanLink(
+export function getBlockScanLink(
   chainId: ChainId,
   data: string,
   type: 'transaction' | 'token' | 'address' | 'block' | 'transactions' | 'tokens' | 'blocks'
 ): string {
-  let prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}etherscan.io`
+  const prefix = `https://${BLOCKSCAN_PREFIXES[chainId]}blocksscan.io`
 
-  if (XDC_CHAIN_IDS.includes(chainId)) {
-    prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}blocksscan.io`
-  }
-
-  if (XDC_CHAIN_IDS.includes(chainId)) {
-    switch (type) {
-      case 'transaction': {
-        return `${prefix}/txs/${data}`
-      }
-      case 'token': {
-        return `${prefix}/tokens/${toXdcAddress(data)}`
-      }
-      case 'block': {
-        return `${prefix}/blocks/${data}`
-      }
-      case 'address':
-      default: {
-        return `${prefix}/address/${toXdcAddress(data)}`
-      }
+  switch (type) {
+    case 'transaction': {
+      return `${prefix}/txs/${data}`
     }
-  } else {
-    switch (type) {
-      case 'transaction': {
-        return `${prefix}/tx/${data}`
-      }
-      case 'token': {
-        return `${prefix}/token/${data}`
-      }
-      case 'block': {
-        return `${prefix}/block/${data}`
-      }
-      case 'address':
-      default: {
-        return `${prefix}/address/${data}`
-      }
+    case 'token': {
+      return `${prefix}/tokens/${toXdcAddress(data)}`
+    }
+    case 'block': {
+      return `${prefix}/blocks/${data}`
+    }
+    case 'address':
+    default: {
+      return `${prefix}/address/${toXdcAddress(data)}`
     }
   }
 }
 
 // shorten the checksummed version of the input address to have 0x + 4 characters at start and end
-export function shortenAddress(address: string, chars = 4, chainId: ChainId): string {
+export function shortenAddress(address: string, chars = 4): string {
   let parsed = isAddress(address)
   if (!parsed) {
     throw Error(`Invalid 'address' parameter '${address}'.`)
   }
-  parsed = XDC_CHAIN_IDS.includes(chainId!) ? toXdcAddress(parsed) : parsed
+  parsed = toXdcAddress(parsed)
   return `${parsed.substring(0, chars + 2)}...${parsed.substring(42 - chars)}`
 }
 
@@ -136,6 +109,6 @@ export function escapeRegExp(string: string): string {
 }
 
 export function isTokenOnList(defaultTokens: TokenAddressMap, currency?: Currency): boolean {
-  if (currency === ETHER) return true
+  if (currency === XDC) return true
   return Boolean(currency instanceof Token && defaultTokens[currency.chainId]?.[currency.address])
 }

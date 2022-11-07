@@ -3,20 +3,20 @@ import React, { useContext, useMemo, useState } from 'react'
 import { Repeat } from 'react-feather'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import { Field } from '../../state/swap/actions'
-import { TYPE } from '../../theme'
+import { Field } from 'state/swap/actions'
+import { TYPE } from 'theme'
 import {
   computeSlippageAdjustedAmounts,
   computeTradePriceBreakdown,
   formatExecutionPrice,
   warningSeverity
-} from '../../utils/prices'
-import { ButtonError } from '../Button'
-import { AutoColumn } from '../Column'
-import QuestionHelper from '../QuestionHelper'
-import { AutoRow, RowBetween, RowFixed } from '../Row'
-import FormattedPriceImpact from './FormattedPriceImpact'
-import { StyledBalanceMaxMini, SwapCallbackError } from './styleds'
+} from 'utils/prices'
+import { ButtonError } from 'components/Button'
+import { AutoColumn } from 'components/Column'
+import QuestionHelper from 'components/QuestionHelper'
+import { AutoRow, RowBetween, RowFixed } from 'components/Row'
+import FormattedPriceImpact from 'components/swap/FormattedPriceImpact'
+import { StyledBalanceMaxMini, SwapCallbackError } from 'components/swap/styleds'
 
 export default function SwapModalFooter({
   trade,

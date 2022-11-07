@@ -1,26 +1,23 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { Pair, JSBI } from 'into-the-fathom-swap-sdk'
+import { Pair } from 'into-the-fathom-swap-sdk'
 import { Link } from 'react-router-dom'
-import { SwapPoolTabs } from '../../components/NavigationTabs'
+import { SwapPoolTabs } from 'components/NavigationTabs'
 
-import FullPositionCard from '../../components/PositionCard'
-import { useTokenBalancesWithLoadingIndicator } from '../../state/wallet/hooks'
-import { StyledInternalLink, ExternalLink, TYPE, HideSmall } from '../../theme'
+import FullPositionCard from 'components/PositionCard'
+import { useTokenBalancesWithLoadingIndicator } from 'state/wallet/hooks'
+import { StyledInternalLink, ExternalLink, TYPE, HideSmall } from 'theme'
 import { Text } from 'rebass'
-import Card from '../../components/Card'
-import { RowBetween, RowFixed } from '../../components/Row'
-import { ButtonPrimary, ButtonSecondary } from '../../components/Button'
-import { AutoColumn } from '../../components/Column'
+import Card from 'components/Card'
+import { RowBetween, RowFixed } from 'components/Row'
+import { ButtonPrimary, ButtonSecondary } from 'components/Button'
+import { AutoColumn } from 'components/Column'
 
-import { useActiveWeb3React } from '../../hooks'
-import { usePairs } from '../../data/Reserves'
-import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks'
-import { Dots } from '../../components/swap/styleds'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
-import { useStakingInfo } from '../../state/stake/hooks'
-import { BIG_INT_ZERO } from '../../constants'
-import { XDC_CHAIN_IDS } from '../../utils'
+import { useActiveWeb3React } from 'hooks'
+import { usePairs } from 'data/Reserves'
+import { toV2LiquidityToken, useTrackedTokenPairs } from 'state/user/hooks'
+import { Dots } from 'components/swap/styleds'
+import { CardSection, DataCard, CardNoise, CardBGImage } from 'components/earn/styled'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -75,7 +72,7 @@ const EmptyProposals = styled.div`
 `
 
 export default function Pool() {
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
 
   // fetch the user's balances of all tracked V2 LP tokens
   const trackedTokenPairs = useTrackedTokenPairs()
@@ -107,11 +104,6 @@ export default function Pool() {
     fetchingV2PairBalances || v2Pairs?.length < liquidityTokensWithBalances.length || v2Pairs?.some(V2Pair => !V2Pair)
 
   const allV2PairsWithLiquidity = v2Pairs.map(([, pair]) => pair).filter((v2Pair): v2Pair is Pair => Boolean(v2Pair))
-
-  // show liquidity even if its deposited in rewards contract
-  const stakingInfo = useStakingInfo()
-  const stakingInfosWithBalance = stakingInfo?.filter(pool => JSBI.greaterThan(pool.stakedAmount.raw, BIG_INT_ZERO))
-  const stakingPairs = usePairs(stakingInfosWithBalance?.map(stakingInfo => stakingInfo.tokens))
 
   // remove any pairs that also are included in pairs with stake in mining pool
   const v2PairsWithoutStakedAmount = allV2PairsWithLiquidity
@@ -155,11 +147,7 @@ export default function Pool() {
                 </TYPE.mediumHeader>
               </HideSmall>
               <ButtonRow>
-                <ResponsiveButtonSecondary
-                  as={Link}
-                  padding="6px 8px"
-                  to={XDC_CHAIN_IDS.includes(chainId!) ? '/create/XDC' : '/create/ETH'}
-                >
+                <ResponsiveButtonSecondary as={Link} padding="6px 8px" to={'/create/XDC'}>
                   Create a pair
                 </ResponsiveButtonSecondary>
                 <ResponsiveButtonPrimary
@@ -167,7 +155,7 @@ export default function Pool() {
                   as={Link}
                   padding="6px 8px"
                   borderRadius="12px"
-                  to={XDC_CHAIN_IDS.includes(chainId!) ? '/add/XDC' : '/add/ETH'}
+                  to={'/add/XDC'}
                 >
                   <Text fontWeight={500} fontSize={16}>
                     Add Liquidity
@@ -186,7 +174,7 @@ export default function Pool() {
                   <Dots>Loading</Dots>
                 </TYPE.body>
               </EmptyProposals>
-            ) : allV2PairsWithLiquidity?.length > 0 || stakingPairs?.length > 0 ? (
+            ) : allV2PairsWithLiquidity?.length > 0 ? (
               <>
                 <ButtonSecondary>
                   <RowBetween>
@@ -199,16 +187,6 @@ export default function Pool() {
                 {v2PairsWithoutStakedAmount.map(v2Pair => (
                   <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
                 ))}
-                {stakingPairs.map(
-                  (stakingPair, i) =>
-                    stakingPair[1] && ( // skip pairs that arent loaded
-                      <FullPositionCard
-                        key={stakingInfosWithBalance[i].stakingRewardAddress}
-                        pair={stakingPair[1]}
-                        stakedBalance={stakingInfosWithBalance[i].stakedAmount}
-                      />
-                    )
-                )}
               </>
             ) : (
               <EmptyProposals>

@@ -1,6 +1,6 @@
 import { Token } from 'into-the-fathom-swap-sdk'
 import React from 'react'
-import Modal from '../Modal'
+import Modal from 'components/Modal'
 import { ImportToken } from 'components/SearchModal/ImportToken'
 
 export default function TokenWarningModal({

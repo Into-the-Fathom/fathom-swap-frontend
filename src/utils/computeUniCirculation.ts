@@ -1,8 +1,7 @@
 import { JSBI, Token, TokenAmount } from 'into-the-fathom-swap-sdk'
 import { BigNumber } from 'fathom-ethers'
-import { STAKING_GENESIS } from '../state/stake/hooks'
 
-const STAKING_END = STAKING_GENESIS + 60 * 60 * 24 * 60
+const STAKING_END = 0 + 60 * 60 * 24 * 60
 
 const TREASURY_VESTING_GENESIS = 1600387200
 
@@ -61,7 +60,7 @@ export function computeUniCirculation(
   let wholeAmount = JSBI.BigInt(USERS_AMOUNT)
 
   // staking rewards
-  wholeAmount = withVesting(wholeAmount, blockTimestamp, STAKING_REWARDS_AMOUNT, STAKING_GENESIS, STAKING_END)
+  wholeAmount = withVesting(wholeAmount, blockTimestamp, STAKING_REWARDS_AMOUNT, 0, STAKING_END)
 
   // treasury vesting
   wholeAmount = withVesting(

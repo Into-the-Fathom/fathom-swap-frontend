@@ -9,11 +9,11 @@ import {
   BETTER_TRADE_LESS_HOPS_THRESHOLD,
   ADDITIONAL_BASES
 } from '../constants'
-import { PairState, usePairs } from '../data/Reserves'
-import { wrappedCurrency } from '../utils/wrappedCurrency'
+import { PairState, usePairs } from 'data/Reserves'
+import { wrappedCurrency } from 'utils/wrappedCurrency'
 
-import { useActiveWeb3React } from './index'
-import { useUnsupportedTokens } from './Tokens'
+import { useActiveWeb3React } from 'hooks'
+import { useUnsupportedTokens } from 'hooks/Tokens'
 import { useUserSingleHopOnly } from 'state/user/hooks'
 
 function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): Pair[] {

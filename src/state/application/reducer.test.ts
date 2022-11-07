@@ -1,6 +1,6 @@
 import { ChainId } from 'into-the-fathom-swap-sdk'
 import { createStore, Store } from 'redux'
-import { addPopup, ApplicationModal, removePopup, setOpenModal, updateBlockNumber } from './actions'
+import { addPopup, ApplicationModal, removePopup, setOpenModal, updateBlockNumber } from 'state/application/actions'
 import reducer, { ApplicationState } from './reducer'
 
 describe('application reducer', () => {
@@ -10,7 +10,7 @@ describe('application reducer', () => {
     store = createStore(reducer, {
       popupList: [],
       blockNumber: {
-        [ChainId.MAINNET]: 3
+        [ChainId.XDC]: 3
       },
       openModal: null
     })
@@ -54,18 +54,18 @@ describe('application reducer', () => {
 
   describe('updateBlockNumber', () => {
     it('updates block number', () => {
-      store.dispatch(updateBlockNumber({ chainId: ChainId.MAINNET, blockNumber: 4 }))
-      expect(store.getState().blockNumber[ChainId.MAINNET]).toEqual(4)
+      store.dispatch(updateBlockNumber({ chainId: ChainId.XDC, blockNumber: 4 }))
+      expect(store.getState().blockNumber[ChainId.XDC]).toEqual(4)
     })
     it('no op if late', () => {
-      store.dispatch(updateBlockNumber({ chainId: ChainId.MAINNET, blockNumber: 2 }))
-      expect(store.getState().blockNumber[ChainId.MAINNET]).toEqual(3)
+      store.dispatch(updateBlockNumber({ chainId: ChainId.XDC, blockNumber: 2 }))
+      expect(store.getState().blockNumber[ChainId.XDC]).toEqual(3)
     })
     it('works with non-set chains', () => {
-      store.dispatch(updateBlockNumber({ chainId: ChainId.ROPSTEN, blockNumber: 2 }))
+      store.dispatch(updateBlockNumber({ chainId: ChainId.AXDC, blockNumber: 2 }))
       expect(store.getState().blockNumber).toEqual({
-        [ChainId.MAINNET]: 3,
-        [ChainId.ROPSTEN]: 2
+        [ChainId.XDC]: 3,
+        [ChainId.AXDC]: 2
       })
     })
   })

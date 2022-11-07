@@ -1,6 +1,6 @@
 import React, { useRef, RefObject, useCallback, useState, useMemo } from 'react'
 import Column from 'components/Column'
-import { PaddedColumn, Separator, SearchInput } from './styleds'
+import { PaddedColumn, Separator, SearchInput } from 'components/SearchModal/styleds'
 import Row, { RowBetween, RowFixed } from 'components/Row'
 import { TYPE, ExternalLinkIcon, TrashIcon, ButtonText, ExternalLink } from 'theme'
 import { useToken } from 'hooks/Tokens'
@@ -8,13 +8,13 @@ import styled from 'styled-components'
 import { useUserAddedTokens, useRemoveUserAddedToken } from 'state/user/hooks'
 import { Token } from 'into-the-fathom-swap-sdk'
 import CurrencyLogo from 'components/CurrencyLogo'
-import { getEtherscanLink, isAddress } from 'utils'
+import { getBlockScanLink, isAddress } from 'utils'
 import { useActiveWeb3React } from 'hooks'
 import Card from 'components/Card'
-import ImportRow from './ImportRow'
-import useTheme from '../../hooks/useTheme'
+import ImportRow from 'components/SearchModal/ImportRow'
+import useTheme from 'hooks/useTheme'
 
-import { CurrencyModalView } from './CurrencySearchModal'
+import { CurrencyModalView } from 'components/SearchModal/CurrencySearchModal'
 
 const Wrapper = styled.div`
   width: 100%;
@@ -30,7 +30,7 @@ const Footer = styled.div`
   border-radius: 20px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
-  border-top: 1px solid ${({ theme }) => theme.bg3};
+  border-top: 1px solid ${({ theme }) => theme.bg2};
   padding: 20px;
   text-align: center;
 `
@@ -78,7 +78,7 @@ export default function ManageTokens({
         <RowBetween key={token.address} width="100%">
           <RowFixed>
             <CurrencyLogo currency={token} size={'20px'} />
-            <ExternalLink href={getEtherscanLink(chainId, token.address, 'address')}>
+            <ExternalLink href={getBlockScanLink(chainId, token.address, 'address')}>
               <TYPE.main ml={'10px'} fontWeight={600}>
                 {token.symbol}
               </TYPE.main>
@@ -86,7 +86,7 @@ export default function ManageTokens({
           </RowFixed>
           <RowFixed>
             <TrashIcon onClick={() => removeToken(chainId, token.address)} />
-            <ExternalLinkIcon href={getEtherscanLink(chainId, token.address, 'address')} />
+            <ExternalLinkIcon href={getBlockScanLink(chainId, token.address, 'address')} />
           </RowFixed>
         </RowBetween>
       ))
@@ -136,7 +136,7 @@ export default function ManageTokens({
         </PaddedColumn>
       </Column>
       <Footer>
-        <TYPE.darkGray>Tip: Custom tokens are stored locally in your browser</TYPE.darkGray>
+        <TYPE.white>Tip: Custom tokens are stored locally in your browser</TYPE.white>
       </Footer>
     </Wrapper>
   )

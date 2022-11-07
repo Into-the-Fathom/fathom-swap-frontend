@@ -1,26 +1,25 @@
-import { Currency, ETHER, JSBI, TokenAmount, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, JSBI, TokenAmount, XDC } from 'into-the-fathom-swap-sdk'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
 import { Text } from 'rebass'
-import { ButtonDropdownLight } from '../../components/Button'
-import { LightCard } from '../../components/Card'
-import { AutoColumn, ColumnCenter } from '../../components/Column'
-import CurrencyLogo from '../../components/CurrencyLogo'
-import { FindPoolTabs } from '../../components/NavigationTabs'
-import { MinimalPositionCard } from '../../components/PositionCard'
-import Row from '../../components/Row'
-import CurrencySearchModal from '../../components/SearchModal/CurrencySearchModal'
-import { PairState, usePair } from '../../data/Reserves'
-import { useActiveWeb3React } from '../../hooks'
-import { usePairAdder } from '../../state/user/hooks'
-import { useTokenBalance } from '../../state/wallet/hooks'
-import { StyledInternalLink } from '../../theme'
-import { currencyId } from '../../utils/currencyId'
-import AppBody from '../AppBody'
-import { Dots } from '../Pool/styleds'
-import { BlueCard } from '../../components/Card'
-import { TYPE } from '../../theme'
-import { XDC_CHAIN_IDS } from '../../utils'
+import { ButtonDropdownLight } from 'components/Button'
+import { LightCard } from 'components/Card'
+import { AutoColumn, ColumnCenter } from 'components/Column'
+import CurrencyLogo from 'components/CurrencyLogo'
+import { FindPoolTabs } from 'components/NavigationTabs'
+import { MinimalPositionCard } from 'components/PositionCard'
+import Row from 'components/Row'
+import CurrencySearchModal from 'components/SearchModal/CurrencySearchModal'
+import { PairState, usePair } from 'data/Reserves'
+import { useActiveWeb3React } from 'hooks'
+import { usePairAdder } from 'state/user/hooks'
+import { useTokenBalance } from 'state/wallet/hooks'
+import { StyledInternalLink } from 'theme'
+import { currencyId } from 'utils/currencyId'
+import AppBody from 'pages/AppBody'
+import { Dots } from 'pages/Pool/styleds'
+import { BlueCard } from 'components/Card'
+import { TYPE } from 'theme'
 
 enum Fields {
   TOKEN0 = 0,
@@ -28,12 +27,12 @@ enum Fields {
 }
 
 export default function PoolFinder() {
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
 
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
 
-  const [currency0, setCurrency0] = useState<Currency | null>(XDC_CHAIN_IDS.includes(chainId!) ? XDC : ETHER)
+  const [currency0, setCurrency0] = useState<Currency | null>(XDC)
   const [currency1, setCurrency1] = useState<Currency | null>(null)
 
   const [pairState, pair] = usePair(currency0 ?? undefined, currency1 ?? undefined)

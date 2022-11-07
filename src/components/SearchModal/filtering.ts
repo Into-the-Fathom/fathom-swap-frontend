@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { isAddress } from '../../utils'
+import { isAddress } from 'utils'
 import { Token } from 'into-the-fathom-swap-sdk'
 
 export function filterTokens(tokens: Token[], search: string): Token[] {

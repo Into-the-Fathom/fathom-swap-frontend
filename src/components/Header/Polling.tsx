@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { TYPE, ExternalLink } from '../../theme'
+import { TYPE, ExternalLink } from 'theme'
 
-import { useBlockNumber } from '../../state/application/hooks'
-import { getEtherscanLink } from '../../utils'
-import { useActiveWeb3React } from '../../hooks'
+import { useBlockNumber } from 'state/application/hooks'
+import { getBlockScanLink } from 'utils'
+import { useActiveWeb3React } from 'hooks'
 
 const StyledPolling = styled.div`
   position: fixed;
@@ -91,7 +91,7 @@ export default function Polling() {
   )
 
   return (
-    <ExternalLink href={chainId && blockNumber ? getEtherscanLink(chainId, blockNumber.toString(), 'block') : ''}>
+    <ExternalLink href={chainId && blockNumber ? getBlockScanLink(chainId, blockNumber.toString(), 'block') : ''}>
       <StyledPolling onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
         <StyledPollingNumber breathe={isMounting} hovering={isHover}>
           {blockNumber}

@@ -7,21 +7,20 @@ import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
 
-import Logo from '../../assets/svg/Fathom-app-logo.svg'
-import { useActiveWeb3React } from '../../hooks'
-import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks'
-import { CardNoise } from '../earn/styled'
+import Logo from 'assets/svg/Fathom-app-logo.svg'
+import { useActiveWeb3React } from 'hooks'
+import { useXDCBalances, useAggregateUniBalance } from 'state/wallet/hooks'
+import { CardNoise } from 'components/earn/styled'
 import { CountUp } from 'use-count-up'
-import { TYPE, ExternalLink } from '../../theme'
+import { TYPE, ExternalLink } from 'theme'
 
-import { YellowCard } from '../Card'
+import { YellowCard } from 'components/Card'
 
-import Row from '../Row'
-import Web3Status from '../Web3Status'
-import Modal from '../Modal'
-import FathomBalanceContent from './FathomBalanceContent'
-import usePrevious from '../../hooks/usePrevious'
-import { XDC_CHAIN_IDS } from '../../utils'
+import Row from 'components/Row'
+import Web3Status from 'components/Web3Status'
+import Modal from 'components/Modal'
+import FathomBalanceContent from 'components/Header/FathomBalanceContent'
+import usePrevious from 'hooks/usePrevious'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -282,10 +281,6 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.RINKEBY]: 'Rinkeby',
-  [ChainId.ROPSTEN]: 'Ropsten',
-  [ChainId.GOERLI]: 'GOERLI',
-  [ChainId.KOVAN]: 'Kovan',
   [ChainId.XDC]: 'XDC',
   [ChainId.AXDC]: 'Apothem'
 }
@@ -294,7 +289,7 @@ export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
 
-  const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
+  const userXDCBalance = useXDCBalances(account ? [account] : [])?.[account ?? '']
 
   const aggregateBalance: TokenAmount | undefined = useAggregateUniBalance()
 
@@ -333,12 +328,6 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          {/* <StyledNavLink id={`stake-nav-link`} to={'/fthm'}>
-            FTHM
-          </StyledNavLink> */}
-          {/*<StyledNavLink id={`stake-nav-link`} to={'/vote'}>*/}
-          {/*  Vote*/}
-          {/*</StyledNavLink>*/}
           <StyledExternalLink id={`stake-nav-link`} href={'/'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
@@ -378,9 +367,9 @@ export default function Header() {
             </FTHMWrapper>
           )}
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
-            {account && userEthBalance ? (
+            {account && userXDCBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} {XDC_CHAIN_IDS.includes(chainId as ChainId) ? 'XDC' : 'ETH'}
+                {userXDCBalance?.toSignificant(4)} {'XDC'}
               </BalanceText>
             ) : null}
             <Web3Status />
