@@ -34,6 +34,7 @@ const ToggleOption = styled.div<{ active?: boolean }>`
   background-color: ${({ theme, active }) => (active ? theme.bg3 : theme.bg1)};
   color: ${({ theme, active }) => (active ? theme.text3 : theme.text2)};
   user-select: none;
+  border: 1px solid ${({ theme, active }) => (active ? theme.bg3 : theme.bg1)};
 
   :hover {
     background-color: ${({ theme, active }) => (active ? 'transparent' : theme.bg1)};
