@@ -1,4 +1,4 @@
-import { ChainId } from 'fathomswap-sdk'
+import { ChainId } from 'into-the-fathom-swap-sdk'
 import { createStore, Store } from 'redux'
 import {
   addTransaction,

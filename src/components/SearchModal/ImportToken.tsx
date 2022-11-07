@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Token, Currency } from 'fathomswap-sdk'
+import { Token, Currency } from 'into-the-fathom-swap-sdk'
 import styled from 'styled-components'
 import { TYPE, CloseIcon } from 'theme'
 import Card from 'components/Card'
@@ -12,7 +12,7 @@ import useTheme from 'hooks/useTheme'
 import { ButtonPrimary } from 'components/Button'
 import { SectionBreak } from 'components/swap/styleds'
 import { useAddUserToken } from 'state/user/hooks'
-import { getEtherscanLink } from 'utils'
+import { getBlockScanLink } from 'utils'
 import { useActiveWeb3React } from 'hooks'
 import { ExternalLink } from 'theme/components'
 import { useCombinedInactiveList } from 'state/lists/hooks'
@@ -89,7 +89,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
                   <TYPE.gray fontWeight={300}>{token.name}</TYPE.gray>
                 </AutoRow>
                 {chainId && (
-                  <ExternalLink href={getEtherscanLink(chainId, token.address, 'address')}>
+                  <ExternalLink href={getBlockScanLink(chainId, token.address, 'address')}>
                     <AddressText>{token.address}</AddressText>
                   </ExternalLink>
                 )}

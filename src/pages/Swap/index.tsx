@@ -1,4 +1,4 @@
-import { CurrencyAmount, JSBI, Token, Trade } from 'fathomswap-sdk'
+import { CurrencyAmount, JSBI, Token, Trade } from 'into-the-fathom-swap-sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
@@ -22,7 +22,6 @@ import ProgressSteps from 'components/ProgressSteps'
 import SwapHeader from 'components/swap/SwapHeader'
 
 import { INITIAL_ALLOWED_SLIPPAGE } from 'constants/index'
-import { getTradeVersion } from 'data/V1'
 import { useActiveWeb3React } from 'hooks'
 import { useCurrency, useAllTokens } from 'hooks/Tokens'
 import { ApprovalState, useApproveCallbackFromTrade } from 'hooks/useApproveCallback'
@@ -32,19 +31,14 @@ import useToggledVersion, { DEFAULT_VERSION, Version } from 'hooks/useToggledVer
 import useWrapCallback, { WrapType } from 'hooks/useWrapCallback'
 import { useToggleSettingsMenu, useWalletModalToggle } from 'state/application/hooks'
 import { Field } from 'state/swap/actions'
-import {
-  useDefaultsFromURLSearch,
-  useDerivedSwapInfo,
-  useSwapActionHandlers,
-  useSwapState
-} from '../../state/swap/hooks'
-import { useExpertModeManager, useUserSlippageTolerance, useUserSingleHopOnly } from '../../state/user/hooks'
-import { LinkStyledButton, TYPE } from '../../theme'
-import { maxAmountSpend } from '../../utils/maxAmountSpend'
-import { computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
-import AppBody from '../AppBody'
-import { ClickableText } from '../Pool/styleds'
-import Loader from '../../components/Loader'
+import { useDefaultsFromURLSearch, useDerivedSwapInfo, useSwapActionHandlers, useSwapState } from 'state/swap/hooks'
+import { useExpertModeManager, useUserSlippageTolerance, useUserSingleHopOnly } from 'state/user/hooks'
+import { LinkStyledButton, TYPE } from 'theme'
+import { maxAmountSpend } from 'utils/maxAmountSpend'
+import { computeTradePriceBreakdown, warningSeverity } from 'utils/prices'
+import AppBody from 'pages/AppBody'
+import { ClickableText } from 'pages/Pool/styleds'
+import Loader from 'components/Loader'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
 import { RouteComponentProps } from 'react-router-dom'
@@ -210,11 +204,7 @@ export default function Swap({ history }: RouteComponentProps) {
               : (recipientAddress ?? recipient) === account
               ? 'Swap w/o Send + recipient'
               : 'Swap w/ Send',
-          label: [
-            trade?.inputAmount?.currency?.symbol,
-            trade?.outputAmount?.currency?.symbol,
-            getTradeVersion(trade)
-          ].join('/')
+          label: [trade?.inputAmount?.currency?.symbol, trade?.outputAmount?.currency?.symbol, Version.v2].join('/')
         })
 
         ReactGA.event({

@@ -1,4 +1,4 @@
-import { ChainId, Currency } from 'fathomswap-sdk'
+import { ChainId, Currency } from 'into-the-fathom-swap-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import Modal from 'components/Modal'
@@ -11,7 +11,7 @@ import { ButtonPrimary, ButtonLight } from 'components/Button'
 import { AutoColumn, ColumnCenter } from 'components/Column'
 import Circle from 'assets/images/blue-loader.svg'
 import MetaMaskLogo from 'assets/images/metamask.png'
-import { getEtherscanLink } from 'utils'
+import { getBlockScanLink } from 'utils'
 import { useActiveWeb3React } from 'hooks'
 import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask'
 
@@ -99,7 +99,7 @@ function TransactionSubmittedContent({
             Transaction Submitted
           </Text>
           {chainId && hash && (
-            <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>
+            <ExternalLink href={getBlockScanLink(chainId, hash, 'transaction')}>
               <Text fontWeight={500} fontSize={14} color={theme.primary1}>
                 View on Blocksscan
               </Text>

@@ -5,7 +5,7 @@ import { useActiveWeb3React } from 'hooks'
 import { ExternalLink, TYPE } from 'theme'
 import { AutoColumn } from 'components/Column'
 import { RowBetween } from 'components/Row'
-import { getEtherscanLink } from 'utils'
+import { getBlockScanLink } from 'utils'
 
 const InputPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -102,7 +102,7 @@ export default function AddressInputPanel({
                 Recipient
               </TYPE.black>
               {address && chainId && (
-                <ExternalLink href={getEtherscanLink(chainId, name ?? address, 'address')} style={{ fontSize: '14px' }}>
+                <ExternalLink href={getBlockScanLink(chainId, name ?? address, 'address')} style={{ fontSize: '14px' }}>
                   (View on Blocksscan)
                 </ExternalLink>
               )}

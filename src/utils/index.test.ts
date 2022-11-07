@@ -1,6 +1,6 @@
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { AddressZero } from '@into-the-fathom/constants'
-import { ChainId, JSBI, Percent, Token, TokenAmount } from 'fathomswap-sdk'
+import { ChainId, JSBI, Percent, Token, TokenAmount } from 'into-the-fathom-swap-sdk'
 
 import {
   basisPointsToPercent,

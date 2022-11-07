@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from 'fathomswap-sdk'
+import { ChainId, TokenAmount } from 'into-the-fathom-swap-sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -9,7 +9,7 @@ import styled from 'styled-components'
 
 import Logo from 'assets/svg/Fathom-app-logo.svg'
 import { useActiveWeb3React } from 'hooks'
-import { useETHBalances, useAggregateUniBalance } from 'state/wallet/hooks'
+import { useXDCBalances, useAggregateUniBalance } from 'state/wallet/hooks'
 import { CardNoise } from 'components/earn/styled'
 import { CountUp } from 'use-count-up'
 import { TYPE, ExternalLink } from 'theme'
@@ -289,7 +289,7 @@ export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
 
-  const userXDCBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
+  const userXDCBalance = useXDCBalances(account ? [account] : [])?.[account ?? '']
 
   const aggregateBalance: TokenAmount | undefined = useAggregateUniBalance()
 

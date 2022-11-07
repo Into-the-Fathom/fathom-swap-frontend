@@ -1,6 +1,6 @@
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, TokenAmount, WETH, XDC } from 'fathomswap-sdk'
+import { Currency, currencyEquals, TokenAmount, WETH, XDC } from 'into-the-fathom-swap-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import ReactGA from 'react-ga'
@@ -53,7 +53,7 @@ export default function AddLiquidity({
   const currencyA = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
 
-  const oneCurrencyIsWETH = Boolean(
+  const oneCurrencyIsXDC = Boolean(
     chainId &&
       ((currencyA && currencyEquals(currencyA, WETH[chainId])) ||
         (currencyB && currencyEquals(currencyB, WETH[chainId])))
@@ -472,7 +472,7 @@ export default function AddLiquidity({
       {!addIsUnsupported ? (
         pair && !noLiquidity && pairState !== PairState.INVALID ? (
           <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-            <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
+            <MinimalPositionCard showUnwrapped={oneCurrencyIsXDC} pair={pair} />
           </AutoColumn>
         ) : null
       ) : (

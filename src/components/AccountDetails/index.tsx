@@ -11,7 +11,7 @@ import Transaction from 'components/AccountDetails/Transaction'
 
 import { SUPPORTED_WALLETS } from 'constants/index'
 import { ReactComponent as Close } from 'assets/images/x.svg'
-import { getEtherscanLink } from 'utils'
+import { getBlockScanLink } from 'utils'
 import { injected, walletconnect, walletlink } from 'connectors'
 import CoinbaseWalletIcon from 'assets/images/coinbaseWalletIcon.svg'
 import WalletConnectIcon from 'assets/images/walletConnectIcon.svg'
@@ -328,7 +328,7 @@ export default function AccountDetails({
                           <AddressLink
                             hasENS={!!ENSName}
                             isENS={true}
-                            href={chainId && getEtherscanLink(chainId, ENSName, 'address')}
+                            href={chainId && getBlockScanLink(chainId, ENSName, 'address')}
                           >
                             <LinkIcon size={16} />
                             <span style={{ marginLeft: '4px' }}>View on Blocksscan</span>
@@ -350,7 +350,7 @@ export default function AccountDetails({
                           <AddressLink
                             hasENS={!!ENSName}
                             isENS={false}
-                            href={getEtherscanLink(chainId, account, 'address')}
+                            href={getBlockScanLink(chainId, account, 'address')}
                           >
                             <LinkIcon size={16} />
                             <span style={{ marginLeft: '4px' }}>View on Blocksscan</span>

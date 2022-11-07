@@ -1,16 +1,14 @@
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { Contract } from '@into-the-fathom/contracts'
-import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from 'fathomswap-sdk'
+import { JSBI, Percent, Router, SwapParameters, Trade, TradeType } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
-import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from '../constants'
-import { getTradeVersion } from '../data/V1'
-import { useTransactionAdder } from '../state/transactions/hooks'
-import { calculateGasMargin, getRouterContract, isAddress, shortenAddress } from '../utils'
-import isZero from '../utils/isZero'
-import { useActiveWeb3React } from './index'
-import useTransactionDeadline from './useTransactionDeadline'
-import useENS from './useENS'
-import { Version } from './useToggledVersion'
+import { BIPS_BASE, INITIAL_ALLOWED_SLIPPAGE } from 'constants/index'
+import { useTransactionAdder } from 'state/transactions/hooks'
+import { calculateGasMargin, getRouterContract, isAddress, shortenAddress } from 'utils'
+import isZero from 'utils/isZero'
+import { useActiveWeb3React } from 'hooks'
+import useTransactionDeadline from 'hooks/useTransactionDeadline'
+import useENS from 'hooks/useENS'
 
 export enum SwapCallbackState {
   INVALID,
@@ -53,8 +51,7 @@ function useSwapCallArguments(
   const deadline = useTransactionDeadline()
 
   return useMemo(() => {
-    const tradeVersion = getTradeVersion(trade)
-    if (!trade || !recipient || !library || !account || !tradeVersion || !chainId || !deadline) return []
+    if (!trade || !recipient || !library || !account || !chainId || !deadline) return []
 
     const contract: Contract | null = getRouterContract(chainId, library, account)
     if (!contract) {
@@ -63,29 +60,27 @@ function useSwapCallArguments(
 
     const swapMethods = []
 
-    switch (tradeVersion) {
-      case Version.v2:
-        swapMethods.push(
-          Router.swapCallParameters(trade, {
-            feeOnTransfer: false,
-            allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
-            recipient,
-            deadline: deadline.toNumber()
-          })
-        )
+    swapMethods.push(
+      Router.swapCallParameters(trade, {
+        feeOnTransfer: false,
+        allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
+        recipient,
+        deadline: deadline.toNumber()
+      })
+    )
 
-        if (trade.tradeType === TradeType.EXACT_INPUT) {
-          swapMethods.push(
-            Router.swapCallParameters(trade, {
-              feeOnTransfer: true,
-              allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
-              recipient,
-              deadline: deadline.toNumber()
-            })
-          )
-        }
-        break
+    if (trade.tradeType === TradeType.EXACT_INPUT) {
+      swapMethods.push(
+        Router.swapCallParameters(trade, {
+          feeOnTransfer: true,
+          allowedSlippage: new Percent(JSBI.BigInt(allowedSlippage), BIPS_BASE),
+          recipient,
+          deadline: deadline.toNumber()
+        })
+      )
     }
+
+
     return swapMethods.map(parameters => ({ parameters, contract }))
   }, [account, allowedSlippage, chainId, deadline, library, recipient, trade])
 }
@@ -117,8 +112,6 @@ export function useSwapCallback(
         return { state: SwapCallbackState.LOADING, callback: null, error: null }
       }
     }
-
-    const tradeVersion = getTradeVersion(trade)
 
     return {
       state: SwapCallbackState.VALID,
@@ -207,8 +200,7 @@ export function useSwapCallback(
                       : recipientAddressOrName
                   }`
 
-            const withVersion =
-              tradeVersion === Version.v2 ? withRecipient : `${withRecipient} on ${(tradeVersion as any).toUpperCase()}`
+            const withVersion = withRecipient
 
             addTransaction(response, {
               summary: withVersion

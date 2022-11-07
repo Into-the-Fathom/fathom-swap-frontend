@@ -1,5 +1,5 @@
 import { FTHM } from 'constants/index'
-import { Currency, CurrencyAmount, XDC, JSBI, Token, TokenAmount } from 'fathomswap-sdk'
+import { Currency, CurrencyAmount, XDC, JSBI, Token, TokenAmount } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
 import ERC20_INTERFACE from 'constants/abis/erc20'
 import { useAllTokens } from 'hooks/Tokens'
@@ -9,9 +9,9 @@ import { isAddress } from 'utils'
 import { useSingleContractMultipleData, useMultipleContractSingleData } from 'state/multicall/hooks'
 
 /**
- * Returns a map of the given addresses to their eventually consistent ETH balances.
+ * Returns a map of the given addresses to their eventually consistent XDC balances.
  */
-export function useETHBalances(
+export function useXDCBalances(
   uncheckedAddresses?: (string | undefined)[]
 ): { [address: string]: CurrencyAmount | undefined } {
   const multicallContract = useMulticallContract()
@@ -104,18 +104,18 @@ export function useCurrencyBalances(
   ])
 
   const tokenBalances = useTokenBalances(account, tokens)
-  const containsETH: boolean = useMemo(() => currencies?.some(currency => currency === XDC) ?? false, [currencies])
-  const ethBalance = useETHBalances(containsETH ? [account] : [])
+  const containsXDC: boolean = useMemo(() => currencies?.some(currency => currency === XDC) ?? false, [currencies])
+  const xdcBalance = useXDCBalances(containsXDC ? [account] : [])
 
   return useMemo(
     () =>
       currencies?.map(currency => {
         if (!account || !currency) return undefined
         if (currency instanceof Token) return tokenBalances[currency.address]
-        if (currency === XDC) return ethBalance[account]
+        if (currency === XDC) return xdcBalance[account]
         return undefined
       }) ?? [],
-    [account, currencies, ethBalance, tokenBalances]
+    [account, currencies, xdcBalance, tokenBalances]
   )
 }
 
