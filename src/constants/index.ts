@@ -47,7 +47,7 @@ export const WXDC_AXDC = new Token(
 /**
  * XDC Mainnet Tokens
  */
-const FTHM_ADDRESS_XDC = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
+const FTHM_ADDRESS_XDC = '0x9624167f18d3989304F793f40266ae0B005e663F'
 
 export const FTHM_XDC = new Token(ChainId.XDC, FTHM_ADDRESS_XDC, 18, 'FTHM', 'Fathom')
 
