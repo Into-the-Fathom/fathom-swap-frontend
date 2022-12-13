@@ -1,9 +1,7 @@
 import { Web3Provider } from '@into-the-fathom/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
-import { WalletLinkConnector } from '@web3-react/walletlink-connector'
 import { NetworkConnector } from 'connectors/NetworkConnector'
-import FATHOM_LOGO_SRC from 'assets/svg/Fathom-app-logo.svg'
 
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
 const WALLETCONNECT_BRIDGE_URL = process.env.REACT_APP_WALLETCONNECT_BRIDGE_URL
@@ -41,9 +39,3 @@ export const walletconnect = new WalletConnectConnector({
   qrcode: true
 })
 
-// mainnet only
-export const walletlink = new WalletLinkConnector({
-  url: NETWORK_URL,
-  appName: 'Fathomswap',
-  appLogoUrl: FATHOM_LOGO_SRC
-})
