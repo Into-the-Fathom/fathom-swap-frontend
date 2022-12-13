@@ -1,4 +1,4 @@
-import { Currency, JSBI, TokenAmount, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, JSBI, TokenAmount, XDC } from 'fathomswap-sdk'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
 import { Text } from 'rebass'

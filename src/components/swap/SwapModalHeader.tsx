@@ -1,4 +1,4 @@
-import { Trade, TradeType } from 'into-the-fathom-swap-sdk'
+import { Trade, TradeType } from 'fathomswap-sdk'
 import React, { useContext, useMemo } from 'react'
 import { ArrowDown, AlertTriangle } from 'react-feather'
 import { Text } from 'rebass'

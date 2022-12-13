@@ -6474,15 +6474,15 @@ fathom-ethers@^1.1.0:
     "@into-the-fathom/web" "^1.1.0"
     "@into-the-fathom/wordlists" "^1.1.0"
 
-fathom-swap-standard-token-list@^1.6.0:
-  version "1.6.0"
-  resolved "https://registry.yarnpkg.com/fathom-swap-standard-token-list/-/fathom-swap-standard-token-list-1.6.0.tgz#58b0512d1484040f2d348973313b6cc76168acb3"
-  integrity sha512-dekrIZOjAMMeSzX/dXTeDS3ppiYVi6Y1kZ52hIm45D/oo6POt5UVAAOdxw71xHzXZrTTW8j62ntCL1NKSaZqRw==
+fathom-swap-default-token-list@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/fathom-swap-default-token-list/-/fathom-swap-default-token-list-1.0.1.tgz#3274fcea3f25e14ba9805f157bbea03911c776a0"
+  integrity sha512-R4/6VBcxmC2e0HfyynLrldRNdXPsNEmJGAxact8Q07/q1MF0Y3lNxMf8ThgzTnNRPhwubZbmx3SpjI2+S1fAAw==
 
-fathomswap-sdk@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.0.tgz#950514a213dad141831a83df7a17685317fc0654"
-  integrity sha512-wtnmY4fVvl9oX8dDInJXeHran+Qo0Ghum3j6Dnz9mpIeW/GNE+Qb6FXV5dx50ZYzzPL9qLFeWXthvzW2aJLXgQ==
+fathomswap-sdk@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.1.tgz#4883806f9ec9f70dfd1b17e4ee49a56542ad5c67"
+  integrity sha512-6Drmk337xD/FAOwyeC5ZRI1gIQVKV2EUiABfI7e8INRzayIwU8nhJX/f7Z/BcEiG8Biz7N+KB6G8a80dndlKSg==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
@@ -7602,19 +7602,6 @@ internal-slot@^1.0.2:
     es-abstract "^1.17.0-next.1"
     has "^1.0.3"
     side-channel "^1.0.2"
-
-into-the-fathom-swap-sdk@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/into-the-fathom-swap-sdk/-/into-the-fathom-swap-sdk-1.4.0.tgz#961fe0a80163d7cf74133a7c219b5f0ca5cc08d0"
-  integrity sha512-FEewdCWYgTHKRLu3ZHknpt1zdaUZ5Vn/dHzKYis8Up5dzbYZ1Il70dRouWuc79Vh9yuUKO06s5sb0la8ScezrQ==
-  dependencies:
-    big.js "^5.2.2"
-    decimal.js-light "^2.5.0"
-    into-the-fathom-swap-smart-contracts "^1.0.0"
-    jsbi "^3.1.1"
-    tiny-invariant "^1.1.0"
-    tiny-warning "^1.0.3"
-    toformat "^2.0.0"
 
 into-the-fathom-swap-smart-contracts@^1.0.0:
   version "1.0.0"

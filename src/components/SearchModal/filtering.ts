@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { isAddress } from 'utils'
-import { Token } from 'into-the-fathom-swap-sdk'
+import { Token } from 'fathomswap-sdk'
 
 export function filterTokens(tokens: Token[], search: string): Token[] {
   if (search.length === 0) return tokens

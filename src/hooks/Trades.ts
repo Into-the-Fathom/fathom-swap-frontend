@@ -1,5 +1,5 @@
 import { isTradeBetter } from 'utils/trades'
-import { Currency, CurrencyAmount, Pair, Token, Trade } from 'into-the-fathom-swap-sdk'
+import { Currency, CurrencyAmount, Pair, Token, Trade } from 'fathomswap-sdk'
 import flatMap from 'lodash.flatmap'
 import { useMemo } from 'react'
 

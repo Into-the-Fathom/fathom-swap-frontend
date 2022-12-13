@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { Pair } from 'into-the-fathom-swap-sdk'
+import { Pair } from 'fathomswap-sdk'
 import { Link } from 'react-router-dom'
 import { SwapPoolTabs } from 'components/NavigationTabs'
 
