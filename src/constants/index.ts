@@ -33,12 +33,12 @@ export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
 /***
  * Apothem tokens
  */
-export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0xCcdC0653935A251B6839F30359917977f994b5d9', 18, 'US+', 'US+')
-export const FXD_AXDC = new Token(ChainId.AXDC, '0x32333d7d5aE3Ea3bee41618838842EdA5581576c', 18, 'FXD', 'FXD')
-export const FTHM_AXDC = new Token(ChainId.AXDC, '0x4c52500DdC18EE0C6CB6155961347076E43ABb99', 18, 'FTHM', 'Fathom')
+export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0x82b4334f5cd8385f55969bae0a863a0c6ea9f63f', 18, 'US+', 'US+')
+export const FXD_AXDC = new Token(ChainId.AXDC, '0x322742814990bf0b075fc2b33186ca63122ffb08', 18, 'FXD', 'FXD')
+export const FTHM_AXDC = new Token(ChainId.AXDC, '0x9624167f18d3989304f793f40266ae0b005e663f', 18, 'FTHM', 'Fathom')
 export const WXDC_AXDC = new Token(
   ChainId.AXDC,
-  '0xc039850F937C623024DA66D6dF370022E6F16e30',
+  '0xe99500ab4a413164da49af83b9824749059b46ce',
   18,
   'WXDC',
   'Wrapped XDC'
