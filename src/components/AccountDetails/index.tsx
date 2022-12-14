@@ -12,8 +12,7 @@ import Transaction from 'components/AccountDetails/Transaction'
 import { SUPPORTED_WALLETS } from 'constants/index'
 import { ReactComponent as Close } from 'assets/images/x.svg'
 import { getBlockScanLink } from 'utils'
-import { injected, walletconnect, walletlink } from 'connectors'
-import CoinbaseWalletIcon from 'assets/images/coinbaseWalletIcon.svg'
+import { injected, walletconnect } from 'connectors'
 import WalletConnectIcon from 'assets/images/walletConnectIcon.svg'
 import Identicon from 'components/Identicon'
 import { ButtonSecondary } from 'components/Button'
@@ -248,12 +247,6 @@ export default function AccountDetails({
           <img src={WalletConnectIcon} alt={'wallet connect logo'} />
         </IconWrapper>
       )
-    } else if (connector === walletlink) {
-      return (
-        <IconWrapper size={16}>
-          <img src={CoinbaseWalletIcon} alt={'coinbase wallet logo'} />
-        </IconWrapper>
-      )
     }
     return null
   }
@@ -275,7 +268,7 @@ export default function AccountDetails({
               <AccountGroupingRow>
                 {formatConnectorName()}
                 <div>
-                  {connector !== injected && connector !== walletlink && (
+                  {connector !== injected && (
                     <WalletAction
                       style={{ fontSize: '.825rem', fontWeight: 400, marginRight: '8px' }}
                       onClick={() => {
