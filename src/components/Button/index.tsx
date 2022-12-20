@@ -61,10 +61,12 @@ export const ButtonPrimary = styled(Base)`
 `
 
 export const ButtonLight = styled(Base)`
-  background-color: ${({ theme }) => theme.bg3};
+  background: linear-gradient(104.04deg, #b3fff9 0%, #00dbcb 100%);
+  border-radius: 8px;
   color: ${({ theme }) => theme.text3};
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 600;
+  gap: 7px;
   &:active,
   &:hover {
     box-shadow: 0 0 0 1pt ${({ theme, disabled }) => !disabled && darken(0.05, theme.bg4)};
