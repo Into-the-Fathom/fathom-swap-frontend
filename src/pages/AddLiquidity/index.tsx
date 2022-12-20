@@ -6,7 +6,7 @@ import { Plus } from 'react-feather'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import { ButtonError, ButtonLight, ButtonPrimary } from 'components/Button'
 import { BlueCard, LightCard } from 'components/Card'
 import { AutoColumn, ColumnCenter } from 'components/Column'
@@ -40,6 +40,23 @@ import { currencyId } from 'utils/currencyId'
 import { PoolPriceBar } from 'pages/AddLiquidity/PoolPriceBar'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
+
+const PlusWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+`
+
+const IconWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6379a1;
+  border-radius: 15px;
+`
 
 export default function AddLiquidity({
   match: {
@@ -376,9 +393,13 @@ export default function AddLiquidity({
               id="add-liquidity-input-tokena"
               showCommonBases
             />
-            <ColumnCenter>
-              <Plus size="16" color={theme.text2} />
-            </ColumnCenter>
+            <PlusWrapper>
+              <ColumnCenter>
+                <IconWrapper>
+                  <Plus size="20" color={theme.bg2} />
+                </IconWrapper>
+              </ColumnCenter>
+            </PlusWrapper>
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_B]}
               onUserInput={onFieldBInput}

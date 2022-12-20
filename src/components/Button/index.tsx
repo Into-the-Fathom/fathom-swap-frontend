@@ -14,8 +14,9 @@ const Base = styled(RebassButton)<{
 }>`
   padding: ${({ padding }) => (padding ? padding : '18px')};
   width: ${({ width }) => (width ? width : '100%')};
-  font-weight: 500;
+  font-weight: 600;
   text-align: center;
+  height: 48px;
   border-radius: 20px;
   border-radius: ${({ borderRadius }) => borderRadius && borderRadius};
   outline: none;
@@ -39,7 +40,8 @@ const Base = styled(RebassButton)<{
 `
 
 export const ButtonPrimary = styled(Base)`
-  background-color: ${({ theme }) => theme.primaryText1};
+  background: linear-gradient(104.04deg, #b3fff9 0%, #00dbcb 100%);
+  border-radius: 8px;
   color: ${({ theme }) => theme.text3};
   &:active,
   &:hover {
@@ -51,12 +53,14 @@ export const ButtonPrimary = styled(Base)`
   &:disabled {
     background-color: ${({ theme, altDisabledStyle, disabled }) =>
       altDisabledStyle ? (disabled ? theme.bg4 : theme.primary1) : theme.bg4};
-    color: ${({ theme, altDisabledStyle, disabled }) =>
-      altDisabledStyle ? (disabled ? 'white' : theme.text3) : 'white'};
+    color: ${({ theme }) => theme.text3};
     box-shadow: none;
     border: 1px solid transparent;
     outline: none;
     opacity: ${({ altDisabledStyle }) => (altDisabledStyle ? '0.5' : '1')};
+    &:hover {
+      color: ${({ theme }) => theme.white};
+    }
   }
 `
 

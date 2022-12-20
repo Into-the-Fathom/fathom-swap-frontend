@@ -99,8 +99,16 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
     margin-bottom: -25px;
   }
 
+  &#add-liquidity-input-tokena {
+    margin-bottom: -30px;
+  }
+
   &#swap-currency-output {
     margin-top: -25px;
+  }
+
+  &#add-liquidity-input-tokenb {
+    margin-top: -30px;
   }
 `
 
