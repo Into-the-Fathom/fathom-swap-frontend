@@ -8,6 +8,7 @@ export const BodyWrapper = styled.div`
   background: ${({ theme }) => theme.bg1};
   border: 1px solid #253656;
   border-radius: 16px;
+  padding-bottom: 1rem;
 `
 
 /**
