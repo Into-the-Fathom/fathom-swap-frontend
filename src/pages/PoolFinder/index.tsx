@@ -1,5 +1,5 @@
-import { Currency, JSBI, TokenAmount, XDC } from 'into-the-fathom-swap-sdk'
-import React, { useCallback, useEffect, useState } from 'react'
+import { Currency, JSBI, TokenAmount, XDC } from 'fathomswap-sdk'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
 import { Text } from 'rebass'
 import { ButtonDropdownLight } from 'components/Button'
@@ -20,14 +20,33 @@ import AppBody from 'pages/AppBody'
 import { Dots } from 'pages/Pool/styleds'
 import { BlueCard } from 'components/Card'
 import { TYPE } from 'theme'
+import styled, { ThemeContext } from 'styled-components'
 
 enum Fields {
   TOKEN0 = 0,
   TOKEN1 = 1
 }
 
+const PlusWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+`
+
+const IconWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6379a1;
+  border-radius: 15px;
+`
+
 export default function PoolFinder() {
   const { account } = useActiveWeb3React()
+  const theme = useContext(ThemeContext)
 
   const [showSearch, setShowSearch] = useState<boolean>(false)
   const [activeField, setActiveField] = useState<number>(Fields.TOKEN1)
@@ -109,9 +128,13 @@ export default function PoolFinder() {
           )}
         </ButtonDropdownLight>
 
-        <ColumnCenter>
-          <Plus size="16" color="#888D9B" />
-        </ColumnCenter>
+        <PlusWrapper>
+          <ColumnCenter>
+            <IconWrapper>
+              <Plus size="20" color={theme.bg2} />
+            </IconWrapper>
+          </ColumnCenter>
+        </PlusWrapper>
 
         <ButtonDropdownLight
           onClick={() => {

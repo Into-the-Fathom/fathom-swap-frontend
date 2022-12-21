@@ -1,4 +1,4 @@
-import { Trade } from 'into-the-fathom-swap-sdk'
+import { Trade } from 'fathomswap-sdk'
 import React, { Fragment, memo, useContext } from 'react'
 import { ChevronRight } from 'react-feather'
 import { Flex } from 'rebass'

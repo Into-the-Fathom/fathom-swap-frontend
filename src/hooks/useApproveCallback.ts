@@ -1,6 +1,6 @@
 import { MaxUint256 } from '@into-the-fathom/constants'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Trade, TokenAmount, CurrencyAmount, XDC } from 'into-the-fathom-swap-sdk'
+import { Trade, TokenAmount, CurrencyAmount, XDC } from 'fathomswap-sdk'
 import { useCallback, useMemo } from 'react'
 import { ROUTER_ADDRESSES } from 'constants/index'
 import { useTokenAllowance } from 'data/Allowances'

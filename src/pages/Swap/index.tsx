@@ -1,9 +1,9 @@
-import { CurrencyAmount, JSBI, Token, Trade } from 'into-the-fathom-swap-sdk'
+import { CurrencyAmount, JSBI, Token, Trade } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import AddressInputPanel from 'components/AddressInputPanel'
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonConfirmed } from 'components/Button'
 import Card, { GreyCard } from 'components/Card'
@@ -15,7 +15,7 @@ import { AutoRow, RowBetween } from 'components/Row'
 import AdvancedSwapDetailsDropdown from 'components/swap/AdvancedSwapDetailsDropdown'
 import { DefaultVersionLink } from 'components/swap/BetterTradeLink'
 import confirmPriceImpactWithoutFee from 'components/swap/confirmPriceImpactWithoutFee'
-import { ArrowWrapper, BottomGrouping, SwapCallbackError, Wrapper } from 'components/swap/styleds'
+import { ArrowDownWrapped, ArrowWrapper, BottomGrouping, SwapCallbackError, Wrapper } from 'components/swap/styleds'
 import TradePrice from 'components/swap/TradePrice'
 import TokenWarningModal from 'components/TokenWarningModal'
 import ProgressSteps from 'components/ProgressSteps'
@@ -42,6 +42,24 @@ import Loader from 'components/Loader'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
 import { RouteComponentProps } from 'react-router-dom'
+
+import walletSrc from 'assets/svg/wallet.svg'
+import walletHover from 'assets/svg/wallet-hover.svg'
+
+export const WalletIcon = styled.div`
+  background: url("${walletSrc}") no-repeat center;
+  width: 20px;
+  height: 20px;
+`
+
+export const ConnectWalletButton = styled(ButtonLight)`
+  &:hover,
+  &:active {
+    div {
+      background: url("${walletHover}") no-repeat center;
+    }
+  }
+`
 
 export default function Swap({ history }: RouteComponentProps) {
   const loadedUrlParams = useDefaultsFromURLSearch()
@@ -317,22 +335,19 @@ export default function Swap({ history }: RouteComponentProps) {
               id="swap-currency-input"
             />
             <AutoColumn justify="space-between">
-              <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
+              <AutoRow justify={'center'} style={{ padding: '0 1rem' }}>
                 <ArrowWrapper clickable>
-                  <ArrowDown
-                    size="16"
-                    onClick={() => {
-                      setApprovalSubmitted(false) // reset 2 step UI for approvals
-                      onSwitchTokens()
-                    }}
-                    color={currencies[Field.INPUT] && currencies[Field.OUTPUT] ? theme.primary1 : theme.text2}
-                  />
+                  <ArrowDownWrapped>
+                    <ArrowDown
+                      size="20"
+                      onClick={() => {
+                        setApprovalSubmitted(false) // reset 2 step UI for approvals
+                        onSwitchTokens()
+                      }}
+                      color={theme.black}
+                    />
+                  </ArrowDownWrapped>
                 </ArrowWrapper>
-                {recipient === null && !showWrap && isExpertMode ? (
-                  <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')}>
-                    + Add a send (optional)
-                  </LinkStyledButton>
-                ) : null}
               </AutoRow>
             </AutoColumn>
             <CurrencyInputPanel
@@ -345,16 +360,32 @@ export default function Swap({ history }: RouteComponentProps) {
               otherCurrency={currencies[Field.INPUT]}
               id="swap-currency-output"
             />
-
+            {recipient === null && !showWrap && isExpertMode ? (
+              <LinkStyledButton
+                id="add-recipient-button"
+                onClick={() => onChangeRecipient('')}
+                style={{ textAlign: 'right' }}
+              >
+                + Add a send (optional)
+              </LinkStyledButton>
+            ) : null}
+            {recipient !== null && !showWrap ? (
+              <LinkStyledButton
+                id="remove-recipient-button"
+                onClick={() => onChangeRecipient(null)}
+                style={{ textAlign: 'right', position: 'relative', zIndex: 10 }}
+              >
+                - Remove send
+              </LinkStyledButton>
+            ) : null}
             {recipient !== null && !showWrap ? (
               <>
-                <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
+                <AutoRow justify="center" style={{ marginTop: '-35px' }}>
                   <ArrowWrapper clickable={false}>
-                    <ArrowDown size="16" color={theme.text2} />
+                    <ArrowDownWrapped>
+                      <ArrowDown size="20" color={theme.black} />
+                    </ArrowDownWrapped>
                   </ArrowWrapper>
-                  <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
-                    - Remove send
-                  </LinkStyledButton>
                 </AutoRow>
                 <AddressInputPanel id="recipient" value={recipient} onChange={onChangeRecipient} />
               </>
@@ -395,7 +426,10 @@ export default function Swap({ history }: RouteComponentProps) {
                 <TYPE.main mb="4px">Unsupported Asset</TYPE.main>
               </ButtonPrimary>
             ) : !account ? (
-              <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+              <ConnectWalletButton onClick={toggleWalletModal}>
+                <WalletIcon></WalletIcon>
+                Connect Wallet
+              </ConnectWalletButton>
             ) : showWrap ? (
               <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap}>
                 {wrapInputError ??

@@ -1,4 +1,4 @@
-import { Currency, Pair } from 'into-the-fathom-swap-sdk'
+import { Currency, Pair } from 'fathomswap-sdk'
 import React, { useState, useCallback } from 'react'
 import styled from 'styled-components'
 import { darken } from 'polished'
@@ -19,6 +19,15 @@ const InputRow = styled.div<{ selected: boolean }>`
   ${({ theme }) => theme.flexRowNoWrap}
   align-items: center;
   padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
+  justify-content: space-between;
+`
+
+const BalanceRow = styled.div<{ selected: boolean }>`
+  ${({ theme }) => theme.flexRowNoWrap}
+  justify-content: right;
+  align-items: center;
+  padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
+  gap: 7px;
 `
 
 const CurrencySelect = styled.button<{ selected: boolean }>`
@@ -26,7 +35,7 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
   height: 2.2rem;
   font-size: 20px;
   font-weight: 500;
-  background-color: ${({ selected, theme }) => (selected ? theme.bg1 : theme.primary1)};
+  background-color: ${({ theme }) => theme.primary1};
   color: ${({ selected, theme }) => (selected ? theme.text1 : theme.white)};
   border-radius: 12px;
   box-shadow: ${({ selected }) => (selected ? 'none' : '0px 6px 10px rgba(0, 0, 0, 0.075)')};
@@ -36,7 +45,6 @@ const CurrencySelect = styled.button<{ selected: boolean }>`
   border: none;
   padding: 0 0.5rem;
 
-  :focus,
   :hover {
     background-color: transparent;
   }
@@ -61,6 +69,14 @@ const Aligner = styled.span`
   justify-content: space-between;
 `
 
+const Balance = styled.div`
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: ${({ theme }) => theme.text2};
+`
+
 const StyledDropDown = styled(DropDown)<{ selected: boolean }>`
   margin: 0 0.25rem 0 0.5rem;
   height: 35%;
@@ -77,6 +93,23 @@ const InputPanel = styled.div<{ hideInput?: boolean }>`
   border-radius: ${({ hideInput }) => (hideInput ? '8px' : '20px')};
   background-color: ${({ theme }) => theme.bg2};
   z-index: 1;
+  border-radius: 12px;
+
+  &#swap-currency-input {
+    margin-bottom: -25px;
+  }
+
+  &#add-liquidity-input-tokena {
+    margin-bottom: -30px;
+  }
+
+  &#swap-currency-output {
+    margin-top: -25px;
+  }
+
+  &#add-liquidity-input-tokenb {
+    margin-top: -30px;
+  }
 `
 
 const Container = styled.div<{ hideInput: boolean }>`
@@ -100,7 +133,6 @@ const StyledBalanceMax = styled.button`
 
   font-weight: 500;
   cursor: pointer;
-  margin-right: 0.5rem;
   color: ${({ theme }) => theme.primaryText1};
   :hover {
     border: 1px solid ${({ theme }) => theme.primary1};
@@ -177,30 +209,12 @@ export default function CurrencyInputPanel({
                   fontWeight={500}
                   fontSize={14}
                   style={{ display: 'inline', cursor: 'pointer' }}
-                >
-                  {!hideBalance && !!currency && selectedCurrencyBalance
-                    ? (customBalanceText ?? 'Balance: ') + selectedCurrencyBalance?.toSignificant(6)
-                    : ' -'}
-                </TYPE.body>
+                ></TYPE.body>
               )}
             </RowBetween>
           </LabelRow>
         )}
         <InputRow style={hideInput ? { padding: '0', borderRadius: '8px' } : {}} selected={disableCurrencySelect}>
-          {!hideInput && (
-            <>
-              <NumericalInput
-                className="token-amount-input"
-                value={value}
-                onUserInput={val => {
-                  onUserInput(val)
-                }}
-              />
-              {account && currency && showMaxButton && label !== 'To' && (
-                <StyledBalanceMax onClick={onMax}>MAX</StyledBalanceMax>
-              )}
-            </>
-          )}
           <CurrencySelect
             selected={!!currency}
             className="open-currency-select-button"
@@ -232,7 +246,29 @@ export default function CurrencyInputPanel({
               {!disableCurrencySelect && <StyledDropDown selected={!!currency} />}
             </Aligner>
           </CurrencySelect>
+          {!hideInput && (
+            <>
+              <NumericalInput
+                className="token-amount-input"
+                value={value}
+                align={'right'}
+                onUserInput={val => {
+                  onUserInput(val)
+                }}
+              />
+            </>
+          )}
         </InputRow>
+        <BalanceRow selected={disableCurrencySelect}>
+          <Balance>
+            {!hideBalance && !!currency && selectedCurrencyBalance
+              ? (customBalanceText ?? 'Balance: ') + selectedCurrencyBalance?.toSignificant(6)
+              : ' -'}
+          </Balance>
+          {account && currency && showMaxButton && label !== 'To' && (
+            <StyledBalanceMax onClick={onMax}>MAX</StyledBalanceMax>
+          )}
+        </BalanceRow>
       </Container>
       {!disableCurrencySelect && onCurrencySelect && (
         <CurrencySearchModal

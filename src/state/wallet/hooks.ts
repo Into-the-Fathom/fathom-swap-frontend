@@ -1,5 +1,5 @@
 import { FTHM } from 'constants/index'
-import { Currency, CurrencyAmount, XDC, JSBI, Token, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { Currency, CurrencyAmount, XDC, JSBI, Token, TokenAmount } from 'fathomswap-sdk'
 import { useMemo } from 'react'
 import ERC20_INTERFACE from 'constants/abis/erc20'
 import { useAllTokens } from 'hooks/Tokens'

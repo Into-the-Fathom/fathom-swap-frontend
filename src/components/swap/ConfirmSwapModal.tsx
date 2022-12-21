@@ -1,4 +1,4 @@
-import { currencyEquals, Trade } from 'into-the-fathom-swap-sdk'
+import { currencyEquals, Trade } from 'fathomswap-sdk'
 import React, { useCallback, useMemo } from 'react'
 import TransactionConfirmationModal, {
   ConfirmationModalContent,

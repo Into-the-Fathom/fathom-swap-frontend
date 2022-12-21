@@ -4,7 +4,7 @@ import {
   ALLOWED_PRICE_IMPACT_LOW,
   ALLOWED_PRICE_IMPACT_MEDIUM
 } from 'constants/index'
-import { CurrencyAmount, Fraction, JSBI, Percent, TokenAmount, Trade } from 'into-the-fathom-swap-sdk'
+import { CurrencyAmount, Fraction, JSBI, Percent, TokenAmount, Trade } from 'fathomswap-sdk'
 import { Field } from 'state/swap/actions'
 import { basisPointsToPercent } from 'utils/index'
 

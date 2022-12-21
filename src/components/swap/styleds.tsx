@@ -12,7 +12,13 @@ export const Wrapper = styled.div`
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   padding: 2px;
-
+  z-index: 10;
+  display: flex;
+  background-color: ${({ theme }) => theme.bg1};
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
   ${({ clickable }) =>
     clickable
       ? css`
@@ -22,6 +28,16 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
           }
         `
       : null}
+`
+
+export const ArrowDownWrapped = styled.div`
+  width: 30px;
+  height: 30px;
+  background: #6379a1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `
 
 export const SectionBreak = styled.div`
@@ -63,10 +79,10 @@ export const StyledBalanceMaxMini = styled.button`
   float: right;
 
   :hover {
-    background-color: ${({ theme }) => theme.bg3};
+    background-color: ${({ theme }) => theme.bg1};
   }
   :focus {
-    background-color: ${({ theme }) => theme.bg3};
+    background-color: ${({ theme }) => theme.bg1};
     outline: none;
   }
 `

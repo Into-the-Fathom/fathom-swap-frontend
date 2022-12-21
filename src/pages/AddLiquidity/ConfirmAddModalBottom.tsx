@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, Fraction, Percent } from 'into-the-fathom-swap-sdk'
+import { Currency, CurrencyAmount, Fraction, Percent } from 'fathomswap-sdk'
 import React from 'react'
 import { Text } from 'rebass'
 import { ButtonPrimary } from 'components/Button'

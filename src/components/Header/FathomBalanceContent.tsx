@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { ChainId, TokenAmount } from 'fathomswap-sdk'
 import React, { useMemo } from 'react'
 import { X } from 'react-feather'
 import styled from 'styled-components'
@@ -93,7 +93,9 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
           <AutoColumn gap="md">
             <RowBetween>
               <TYPE.black color="black">FTHM price:</TYPE.black>
-              <TYPE.black color="black">${fthmPrice?.toFixed(2) ?? '-'}</TYPE.black>
+              <TYPE.black color="black">
+                {fthmPrice ?? '$'} {fthmPrice?.toFixed(2) ?? '-'}
+              </TYPE.black>
             </RowBetween>
             <RowBetween>
               <TYPE.black color="black">FTHM in circulation:</TYPE.black>
@@ -104,7 +106,7 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
               <TYPE.black color="black">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.black>
             </RowBetween>
             {fthm && fthm.chainId === ChainId.XDC ? (
-              <ExternalLink href={`https://uniswap.info/token/${fthm.address}`}>View FTHM Analytics</ExternalLink>
+              <ExternalLink href={`https://charts.fathom.fi/token/${fthm.address}`}>View FTHM Analytics</ExternalLink>
             ) : null}
           </AutoColumn>
         </CardSection>
