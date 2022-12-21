@@ -96,9 +96,9 @@ const HeaderRow = styled(Row)<{ gap?: string; justify?: string }>`
 
 const HeaderLinks = styled(Row)`
   justify-content: center;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({ theme }) => theme.mediaWidth.upToExtraLarge`
     padding: 1rem 0 1rem 1rem;
-    justify-content: center;
+    justify-content: flex-start;
 `};
 `
 

@@ -10,8 +10,8 @@ import { isAddress, shortenAddress } from 'utils'
 import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity } from 'utils/prices'
 import { AutoColumn } from 'components/Column'
 import CurrencyLogo from 'components/CurrencyLogo'
-import { RowBetween, RowFixed } from '../Row'
-import { TruncatedText, SwapShowAcceptChanges } from 'components/swap/styleds'
+import { AutoRow, RowBetween, RowFixed } from 'components/Row'
+import { TruncatedText, SwapShowAcceptChanges, ArrowDownWrapped } from 'components/swap/styleds'
 
 export default function SwapModalHeader({
   trade,
@@ -54,9 +54,11 @@ export default function SwapModalHeader({
           </Text>
         </RowFixed>
       </RowBetween>
-      <RowFixed>
-        <ArrowDown size="16" color={theme.text2} style={{ marginLeft: '4px', minWidth: '16px' }} />
-      </RowFixed>
+      <AutoRow justify={'center'}>
+        <ArrowDownWrapped>
+          <ArrowDown size="20" color={theme.black} />
+        </ArrowDownWrapped>
+      </AutoRow>
       <RowBetween align="flex-end">
         <RowFixed gap={'0px'}>
           <CurrencyLogo currency={trade.outputAmount.currency} size={'24px'} style={{ marginRight: '12px' }} />

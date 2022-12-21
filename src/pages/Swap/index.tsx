@@ -365,7 +365,7 @@ export default function Swap({ history }: RouteComponentProps) {
             {recipient !== null && !showWrap ? (
               <>
                 <AutoRow justify="center" style={{ marginTop: '-35px' }}>
-                  <ArrowWrapper clickable>
+                  <ArrowWrapper clickable={false}>
                     <ArrowDownWrapped>
                       <ArrowDown size="20" color={theme.black} />
                     </ArrowDownWrapped>

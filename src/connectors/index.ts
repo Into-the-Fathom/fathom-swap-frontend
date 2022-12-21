@@ -4,7 +4,6 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { NetworkConnector } from 'connectors/NetworkConnector'
 
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
-const WALLETCONNECT_BRIDGE_URL = process.env.REACT_APP_WALLETCONNECT_BRIDGE_URL
 
 const APOTHEM_RPC = 'https://apothem.xdcrpc.com'
 
@@ -35,6 +34,5 @@ export const walletconnect = new WalletConnectConnector({
     1: NETWORK_URL,
     51: APOTHEM_RPC
   },
-  bridge: WALLETCONNECT_BRIDGE_URL,
   qrcode: true
 })

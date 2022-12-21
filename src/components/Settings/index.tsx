@@ -111,7 +111,7 @@ const MenuFlyout = styled.span`
 const Break = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.bg4};
 `
 
 const ModalContentWrapper = styled.div`

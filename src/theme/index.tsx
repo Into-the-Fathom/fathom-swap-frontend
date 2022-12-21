@@ -13,8 +13,9 @@ export * from 'theme/components'
 const MEDIA_WIDTHS = {
   upToExtraSmall: 500,
   upToSmall: 720,
-  upToMedium: 960,
-  upToLarge: 1280
+  upToMedium: 986,
+  upToLarge: 1280,
+  upToExtraLarge: 1400
 }
 
 const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(MEDIA_WIDTHS).reduce(
