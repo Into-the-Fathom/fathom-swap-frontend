@@ -7,7 +7,7 @@ import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components'
-import { ButtonError, ButtonLight, ButtonPrimary } from 'components/Button'
+import { ButtonError, ButtonPrimary } from 'components/Button'
 import { BlueCard, LightCard } from 'components/Card'
 import { AutoColumn, ColumnCenter } from 'components/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
@@ -40,6 +40,7 @@ import { currencyId } from 'utils/currencyId'
 import { PoolPriceBar } from 'pages/AddLiquidity/PoolPriceBar'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
+import { ConnectWalletButton, WalletIcon } from 'pages/Swap'
 
 const PlusWrapper = styled.div`
   display: flex;
@@ -437,7 +438,10 @@ export default function AddLiquidity({
                 <TYPE.main mb="4px">Unsupported Asset</TYPE.main>
               </ButtonPrimary>
             ) : !account ? (
-              <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+              <ConnectWalletButton onClick={toggleWalletModal}>
+                <WalletIcon></WalletIcon>
+                Connect Wallet
+              </ConnectWalletButton>
             ) : (
               <AutoColumn gap={'md'}>
                 {(approvalA === ApprovalState.NOT_APPROVED ||

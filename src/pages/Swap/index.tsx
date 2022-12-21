@@ -3,7 +3,7 @@ import React, { useCallback, useContext, useEffect, useMemo, useState } from 're
 import { ArrowDown } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
-import { ThemeContext } from 'styled-components'
+import styled, { ThemeContext } from 'styled-components'
 import AddressInputPanel from 'components/AddressInputPanel'
 import { ButtonError, ButtonLight, ButtonPrimary, ButtonConfirmed } from 'components/Button'
 import Card, { GreyCard } from 'components/Card'
@@ -44,6 +44,22 @@ import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter
 import { RouteComponentProps } from 'react-router-dom'
 
 import walletSrc from 'assets/svg/wallet.svg'
+import walletHover from 'assets/svg/wallet-hover.svg'
+
+export const WalletIcon = styled.div`
+  background: url("${walletSrc}") no-repeat center;
+  width: 20px;
+  height: 20px;
+`
+
+export const ConnectWalletButton = styled(ButtonLight)`
+  &:hover,
+  &:active {
+    div {
+      background: url("${walletHover}") no-repeat center;
+    }
+  }
+`
 
 export default function Swap({ history }: RouteComponentProps) {
   const loadedUrlParams = useDefaultsFromURLSearch()
@@ -410,10 +426,10 @@ export default function Swap({ history }: RouteComponentProps) {
                 <TYPE.main mb="4px">Unsupported Asset</TYPE.main>
               </ButtonPrimary>
             ) : !account ? (
-              <ButtonLight onClick={toggleWalletModal}>
-                <img src={walletSrc} alt={''} />
+              <ConnectWalletButton onClick={toggleWalletModal}>
+                <WalletIcon></WalletIcon>
                 Connect Wallet
-              </ButtonLight>
+              </ConnectWalletButton>
             ) : showWrap ? (
               <ButtonPrimary disabled={Boolean(wrapInputError)} onClick={onWrap}>
                 {wrapInputError ??

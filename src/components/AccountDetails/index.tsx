@@ -51,7 +51,7 @@ const UpperSection = styled.div`
 
 const InfoCard = styled.div`
   padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.bg2};
   border-radius: 20px;
   position: relative;
   display: grid;
@@ -74,7 +74,7 @@ const AccountGroupingRow = styled.div`
 
 const AccountSection = styled.div`
   background-color: ${({ theme }) => theme.bg1};
-  padding: 0rem 1rem;
+  padding: 1rem;
   ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1.2rem 1rem 1.5rem 1rem;`};
 `
 
@@ -189,7 +189,7 @@ const WalletAction = styled(ButtonSecondary)`
   padding: 4px 6px;
   :hover {
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
   }
 `
 

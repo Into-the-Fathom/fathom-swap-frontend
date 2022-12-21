@@ -93,7 +93,9 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
           <AutoColumn gap="md">
             <RowBetween>
               <TYPE.black color="black">FTHM price:</TYPE.black>
-              <TYPE.black color="black">${fthmPrice?.toFixed(2) ?? '-'}</TYPE.black>
+              <TYPE.black color="black">
+                {fthmPrice ?? '$'} {fthmPrice?.toFixed(2) ?? '-'}
+              </TYPE.black>
             </RowBetween>
             <RowBetween>
               <TYPE.black color="black">FTHM in circulation:</TYPE.black>

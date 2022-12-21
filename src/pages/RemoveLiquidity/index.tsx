@@ -8,7 +8,7 @@ import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router'
 import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components'
-import { ButtonPrimary, ButtonLight, ButtonError, ButtonConfirmed } from 'components/Button'
+import { ButtonPrimary, ButtonError, ButtonConfirmed } from 'components/Button'
 import { BlueCard, LightCard } from 'components/Card'
 import { AutoColumn, ColumnCenter } from 'components/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
@@ -36,17 +36,14 @@ import { wrappedCurrency } from 'utils/wrappedCurrency'
 import AppBody from 'pages/AppBody'
 import { ClickableText, MaxButton, Wrapper } from 'pages/Pool/styleds'
 import { useApproveCallback, ApprovalState } from 'hooks/useApproveCallback'
-import {
-  ArrowDownWrapped,
-  ArrowWrapper,
-  Dots
-} from 'components/swap/styleds'
+import { ArrowDownWrapped, ArrowWrapper, Dots } from 'components/swap/styleds'
 import { useBurnActionHandlers } from 'state/burn/hooks'
 import { useDerivedBurnInfo, useBurnState } from 'state/burn/hooks'
 import { Field } from 'state/burn/actions'
 import { useWalletModalToggle } from 'state/application/hooks'
 import { useUserSlippageTolerance } from 'state/user/hooks'
 import { BigNumber } from '@into-the-fathom/bignumber'
+import { ConnectWalletButton, WalletIcon } from '../Swap'
 
 const PlusWrapper = styled.div`
   display: flex;
@@ -693,7 +690,10 @@ export default function RemoveLiquidity({
             )}
             <div style={{ position: 'relative' }}>
               {!account ? (
-                <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+                <ConnectWalletButton onClick={toggleWalletModal}>
+                  <WalletIcon></WalletIcon>
+                  Connect Wallet
+                </ConnectWalletButton>
               ) : (
                 <RowBetween>
                   <ButtonConfirmed
