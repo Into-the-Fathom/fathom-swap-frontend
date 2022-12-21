@@ -116,14 +116,14 @@ export const ButtonSecondary = styled(Base)`
 
   &:focus {
     box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
-    border: 1px solid ${({ theme }) => theme.primary3};
+    border: 1px solid ${({ theme }) => theme.primary5};
   }
   &:hover {
-    border: 1px solid ${({ theme }) => theme.primaryText1};
+    border: 1px solid ${({ theme }) => theme.primary5};
   }
   &:active {
     box-shadow: 0 0 0 1pt ${({ theme }) => theme.primary4};
-    border: 1px solid ${({ theme }) => theme.primary3};
+    border: 1px solid ${({ theme }) => theme.primary5};
   }
   &:disabled {
     opacity: 50%;
