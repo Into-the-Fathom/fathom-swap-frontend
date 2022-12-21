@@ -36,7 +36,7 @@ const Footer = styled.div`
   padding: 20px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-color: ${({ theme }) => theme.bg1};
+  background-color: ${({ theme }) => theme.modalContentBG};
   border-top: 1px solid ${({ theme }) => theme.bg2};
 `
 
@@ -224,7 +224,7 @@ export function CurrencySearch({
               <IconWrapper size="16px" marginRight="6px">
                 <Edit />
               </IconWrapper>
-              <TYPE.main>Manage</TYPE.main>
+              <TYPE.white>Manage</TYPE.white>
             </RowFixed>
           </ButtonText>
         </Row>

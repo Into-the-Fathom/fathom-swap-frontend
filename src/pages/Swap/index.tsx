@@ -319,7 +319,7 @@ export default function Swap({ history }: RouteComponentProps) {
               id="swap-currency-input"
             />
             <AutoColumn justify="space-between">
-              <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem' }}>
+              <AutoRow justify={'center'} style={{ padding: '0 1rem' }}>
                 <ArrowWrapper clickable>
                   <ArrowDownWrapped>
                     <ArrowDown
@@ -332,11 +332,6 @@ export default function Swap({ history }: RouteComponentProps) {
                     />
                   </ArrowDownWrapped>
                 </ArrowWrapper>
-                {recipient === null && !showWrap && isExpertMode ? (
-                  <LinkStyledButton id="add-recipient-button" onClick={() => onChangeRecipient('')}>
-                    + Add a send (optional)
-                  </LinkStyledButton>
-                ) : null}
               </AutoRow>
             </AutoColumn>
             <CurrencyInputPanel
@@ -349,16 +344,32 @@ export default function Swap({ history }: RouteComponentProps) {
               otherCurrency={currencies[Field.INPUT]}
               id="swap-currency-output"
             />
-
+            {recipient === null && !showWrap && isExpertMode ? (
+              <LinkStyledButton
+                id="add-recipient-button"
+                onClick={() => onChangeRecipient('')}
+                style={{ textAlign: 'right' }}
+              >
+                + Add a send (optional)
+              </LinkStyledButton>
+            ) : null}
+            {recipient !== null && !showWrap ? (
+              <LinkStyledButton
+                id="remove-recipient-button"
+                onClick={() => onChangeRecipient(null)}
+                style={{ textAlign: 'right', position: 'relative', zIndex: 10 }}
+              >
+                - Remove send
+              </LinkStyledButton>
+            ) : null}
             {recipient !== null && !showWrap ? (
               <>
-                <AutoRow justify="space-between" style={{ padding: '0 1rem' }}>
-                  <ArrowWrapper clickable={false}>
-                    <ArrowDown size="16" color={theme.text2} />
+                <AutoRow justify="center" style={{ marginTop: '-35px' }}>
+                  <ArrowWrapper clickable>
+                    <ArrowDownWrapped>
+                      <ArrowDown size="20" color={theme.black} />
+                    </ArrowDownWrapped>
                   </ArrowWrapper>
-                  <LinkStyledButton id="remove-recipient-button" onClick={() => onChangeRecipient(null)}>
-                    - Remove send
-                  </LinkStyledButton>
                 </AutoRow>
                 <AddressInputPanel id="recipient" value={recipient} onChange={onChangeRecipient} />
               </>
