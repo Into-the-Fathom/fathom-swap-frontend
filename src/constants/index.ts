@@ -12,7 +12,7 @@ type RouterAddressesList = {
 export const ROUTER_ADDRESSES: RouterAddressesList = {
   // @todo: Need to change it after deploy to XDC
   [ChainId.XDC]: '0xd10287b6036942B95AECfD8F94A6F07724CBE428',
-  [ChainId.AXDC]: '0xd10287b6036942B95AECfD8F94A6F07724CBE428'
+  [ChainId.AXDC]: '0x05b0e01DD9737a3c0993de6F57B93253a6C3Ba95'
 }
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
