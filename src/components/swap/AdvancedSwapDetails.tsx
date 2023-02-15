@@ -1,15 +1,15 @@
-import { Trade, TradeType } from 'into-the-fathom-swap-sdk'
+import { Trade, TradeType } from 'fathomswap-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import { Field } from '../../state/swap/actions'
-import { useUserSlippageTolerance } from '../../state/user/hooks'
-import { TYPE, ExternalLink } from '../../theme'
-import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown } from '../../utils/prices'
-import { AutoColumn } from '../Column'
-import QuestionHelper from '../QuestionHelper'
-import { RowBetween, RowFixed } from '../Row'
-import FormattedPriceImpact from './FormattedPriceImpact'
-import SwapRoute from './SwapRoute'
+import { Field } from 'state/swap/actions'
+import { useUserSlippageTolerance } from 'state/user/hooks'
+import { TYPE, ExternalLink } from 'theme'
+import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown } from 'utils/prices'
+import { AutoColumn } from 'components/Column'
+import QuestionHelper from 'components/QuestionHelper'
+import { RowBetween, RowFixed } from 'components/Row'
+import FormattedPriceImpact from 'components/swap/FormattedPriceImpact'
+import SwapRoute from 'components/swap/SwapRoute'
 
 const InfoLink = styled(ExternalLink)`
   width: 100%;
@@ -105,7 +105,7 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
           {!showRoute && (
             <AutoColumn style={{ padding: '12px 16px 0 16px' }}>
               <InfoLink
-                href={'https://info.uniswap.org/pair/' + trade.route.pairs[0].liquidityToken.address}
+                href={'https://charts.fathom.fi/#/pair/' + trade.route.pairs[0].liquidityToken.address}
                 target="_blank"
               >
                 View pair analytics ↗

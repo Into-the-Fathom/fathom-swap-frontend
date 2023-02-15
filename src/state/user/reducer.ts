@@ -1,6 +1,6 @@
-import { INITIAL_ALLOWED_SLIPPAGE, DEFAULT_DEADLINE_FROM_NOW } from '../../constants'
+import { INITIAL_ALLOWED_SLIPPAGE, DEFAULT_DEADLINE_FROM_NOW } from 'constants/index'
 import { createReducer } from '@reduxjs/toolkit'
-import { updateVersion } from '../global/actions'
+import { updateVersion } from 'state/global/actions'
 import {
   addSerializedPair,
   addSerializedToken,
@@ -58,8 +58,8 @@ function pairKey(token0Address: string, token1Address: string) {
 }
 
 export const initialState: UserState = {
-  userDarkMode: null,
-  matchesDarkMode: false,
+  userDarkMode: true,
+  matchesDarkMode: true,
   userExpertMode: false,
   userSingleHopOnly: false,
   userSlippageTolerance: INITIAL_ALLOWED_SLIPPAGE,

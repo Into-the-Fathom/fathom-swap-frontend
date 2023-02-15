@@ -1,5 +1,5 @@
-import { Percent } from 'into-the-fathom-swap-sdk'
-import { ALLOWED_PRICE_IMPACT_HIGH, PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN } from '../../constants'
+import { Percent } from 'fathomswap-sdk'
+import { ALLOWED_PRICE_IMPACT_HIGH, PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN } from 'constants/index'
 
 /**
  * Given the price impact, get user confirmation.

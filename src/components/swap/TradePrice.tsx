@@ -1,10 +1,10 @@
 import React from 'react'
-import { Price } from 'into-the-fathom-swap-sdk'
+import { Price } from 'fathomswap-sdk'
 import { useContext } from 'react'
 import { Repeat } from 'react-feather'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import { StyledBalanceMaxMini } from './styleds'
+import { StyledBalanceMaxMini } from 'components/swap/styleds'
 
 interface TradePriceProps {
   price?: Price

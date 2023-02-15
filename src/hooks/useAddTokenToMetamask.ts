@@ -1,6 +1,6 @@
-import { getTokenLogoURL } from './../components/CurrencyLogo/index'
+import { getTokenLogoURL } from 'components/CurrencyLogo/index'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
-import { Currency, Token } from 'into-the-fathom-swap-sdk'
+import { Currency, Token } from 'fathomswap-sdk'
 import { useCallback, useState } from 'react'
 import { useActiveWeb3React } from 'hooks'
 
@@ -26,7 +26,7 @@ export default function useAddTokenToMetamask(
               address: token.address,
               symbol: token.symbol,
               decimals: token.decimals,
-              image: getTokenLogoURL(token.address, chainId)
+              image: getTokenLogoURL(token.address)
             }
           }
         })
@@ -37,7 +37,7 @@ export default function useAddTokenToMetamask(
     } else {
       setSuccess(false)
     }
-  }, [library, token, chainId])
+  }, [library, token])
 
   return { addToken, success }
 }

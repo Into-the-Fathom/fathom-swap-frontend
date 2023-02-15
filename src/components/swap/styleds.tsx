@@ -3,7 +3,7 @@ import React from 'react'
 import { AlertTriangle } from 'react-feather'
 import styled, { css } from 'styled-components'
 import { Text } from 'rebass'
-import { AutoColumn } from '../Column'
+import { AutoColumn } from 'components/Column'
 
 export const Wrapper = styled.div`
   position: relative;
@@ -12,7 +12,13 @@ export const Wrapper = styled.div`
 
 export const ArrowWrapper = styled.div<{ clickable: boolean }>`
   padding: 2px;
-
+  z-index: 10;
+  display: flex;
+  background-color: ${({ theme }) => theme.bg1};
+  align-items: center;
+  width: 36px;
+  height: 36px;
+  justify-content: center;
   ${({ clickable }) =>
     clickable
       ? css`
@@ -24,10 +30,20 @@ export const ArrowWrapper = styled.div<{ clickable: boolean }>`
       : null}
 `
 
+export const ArrowDownWrapped = styled.div`
+  width: 30px;
+  height: 30px;
+  background: #6379a1;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`
+
 export const SectionBreak = styled.div`
   height: 1px;
   width: 100%;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: #2c3f59;
 `
 
 export const BottomGrouping = styled.div`
@@ -63,10 +79,10 @@ export const StyledBalanceMaxMini = styled.button`
   float: right;
 
   :hover {
-    background-color: ${({ theme }) => theme.bg3};
+    background-color: ${({ theme }) => theme.bg1};
   }
   :focus {
-    background-color: ${({ theme }) => theme.bg3};
+    background-color: ${({ theme }) => theme.bg1};
     outline: none;
   }
 `

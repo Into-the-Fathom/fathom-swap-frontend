@@ -1,9 +1,9 @@
-import { Trade } from 'into-the-fathom-swap-sdk'
+import { Trade } from 'fathomswap-sdk'
 import React, { Fragment, memo, useContext } from 'react'
 import { ChevronRight } from 'react-feather'
 import { Flex } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import { TYPE } from '../../theme'
+import { TYPE } from 'theme'
 import { unwrappedToken } from 'utils/wrappedCurrency'
 
 export default memo(function SwapRoute({ trade }: { trade: Trade }) {

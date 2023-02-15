@@ -1,15 +1,15 @@
-import { Currency, CurrencyAmount, ETHER, JSBI, Pair, Percent, Price, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { Currency, CurrencyAmount, XDC, JSBI, Pair, Percent, Price, TokenAmount } from 'fathomswap-sdk'
 import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { PairState, usePair } from '../../data/Reserves'
-import { useTotalSupply } from '../../data/TotalSupply'
+import { PairState, usePair } from 'data/Reserves'
+import { useTotalSupply } from 'data/TotalSupply'
 
-import { useActiveWeb3React } from '../../hooks'
-import { wrappedCurrency, wrappedCurrencyAmount } from '../../utils/wrappedCurrency'
-import { AppDispatch, AppState } from '../index'
-import { tryParseAmount } from '../swap/hooks'
-import { useCurrencyBalances } from '../wallet/hooks'
-import { Field, typeInput } from './actions'
+import { useActiveWeb3React } from 'hooks'
+import { wrappedCurrency, wrappedCurrencyAmount } from 'utils/wrappedCurrency'
+import { AppDispatch, AppState } from 'state/index'
+import { tryParseAmount } from 'state/swap/hooks'
+import { useCurrencyBalances } from 'state/wallet/hooks'
+import { Field, typeInput } from 'state/mint/actions'
 
 const ZERO = JSBI.BigInt(0)
 
@@ -93,7 +93,11 @@ export function useDerivedMintInfo(
   }
 
   // amounts
-  const independentAmount: CurrencyAmount | undefined = tryParseAmount(typedValue, currencies[independentField], chainId!)
+  const independentAmount: CurrencyAmount | undefined = tryParseAmount(
+    typedValue,
+    currencies[independentField],
+    chainId!
+  )
   const dependentAmount: CurrencyAmount | undefined = useMemo(() => {
     if (noLiquidity) {
       if (otherTypedValue && currencies[dependentField]) {
@@ -110,7 +114,7 @@ export function useDerivedMintInfo(
           dependentField === Field.CURRENCY_B
             ? pair.priceOf(tokenA).quote(wrappedIndependentAmount)
             : pair.priceOf(tokenB).quote(wrappedIndependentAmount)
-        return dependentCurrency === ETHER ? CurrencyAmount.ether(dependentTokenAmount.raw) : dependentTokenAmount
+        return dependentCurrency === XDC ? CurrencyAmount.xdc(dependentTokenAmount.raw) : dependentTokenAmount
       }
       return undefined
     } else {

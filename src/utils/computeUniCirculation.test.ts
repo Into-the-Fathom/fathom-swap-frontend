@@ -1,10 +1,10 @@
-import { ChainId, JSBI, Token, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { ChainId, JSBI, Token, TokenAmount } from 'fathomswap-sdk'
 import { BigNumber } from 'fathom-ethers'
-import { ZERO_ADDRESS } from '../constants'
-import { computeUniCirculation } from './computeUniCirculation'
+import { ZERO_ADDRESS } from 'constants/index'
+import { computeUniCirculation } from 'utils/computeUniCirculation'
 
 describe('computeUniCirculation', () => {
-  const token = new Token(ChainId.RINKEBY, ZERO_ADDRESS, 18)
+  const token = new Token(ChainId.AXDC, ZERO_ADDRESS, 18)
 
   function expandTo18Decimals(num: JSBI | string | number) {
     return JSBI.multiply(JSBI.BigInt(num), JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(18)))

@@ -1,45 +1,36 @@
-import { JSBI, Pair, Percent, TokenAmount } from 'into-the-fathom-swap-sdk'
-import { darken } from 'polished'
+import { JSBI, Pair, Percent, TokenAmount } from 'fathomswap-sdk'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
 import { Text } from 'rebass'
 import styled from 'styled-components'
-import { useTotalSupply } from '../../data/TotalSupply'
+import { useTotalSupply } from 'data/TotalSupply'
 
-import { useActiveWeb3React } from '../../hooks'
-import { useTokenBalance } from '../../state/wallet/hooks'
-import { ExternalLink, TYPE } from '../../theme'
-import { currencyId } from '../../utils/currencyId'
-import { unwrappedToken } from '../../utils/wrappedCurrency'
-import { ButtonPrimary, ButtonSecondary, ButtonEmpty } from '../Button'
-import { transparentize } from 'polished'
-import { CardNoise } from '../earn/styled'
+import { useActiveWeb3React } from 'hooks'
+import { useTokenBalance } from 'state/wallet/hooks'
+import { ExternalLink, TYPE } from 'theme'
+import { currencyId } from 'utils/currencyId'
+import { unwrappedToken } from 'utils/wrappedCurrency'
+import { ButtonPrimary, ButtonSecondary, ButtonEmpty } from 'components/Button'
+import { CardNoise } from 'components/earn/styled'
 
-import { useColor } from '../../hooks/useColor'
+import { useColor } from 'hooks/useColor'
 
-import Card, { GreyCard, LightCard } from '../Card'
-import { AutoColumn } from '../Column'
-import CurrencyLogo from '../CurrencyLogo'
-import DoubleCurrencyLogo from '../DoubleLogo'
+import { GreyCard, LightCard } from 'components/Card'
+import { AutoColumn } from 'components/Column'
+import CurrencyLogo from 'components/CurrencyLogo'
+import DoubleCurrencyLogo from 'components/DoubleLogo'
 import { RowBetween, RowFixed, AutoRow } from '../Row'
-import { Dots } from '../swap/styleds'
-import { BIG_INT_ZERO } from '../../constants'
+import { Dots } from 'components/swap/styleds'
+import { BIG_INT_ZERO } from 'constants/index'
 
 export const FixedHeightRow = styled(RowBetween)`
   height: 24px;
 `
 
-export const HoverCard = styled(Card)`
-  border: 1px solid transparent;
-  :hover {
-    border: 1px solid ${({ theme }) => darken(0.06, theme.bg2)};
-  }
-`
 const StyledPositionCard = styled(LightCard)<{ bgColor: any }>`
   border: none;
-  background: ${({ theme, bgColor }) =>
-    `radial-gradient(91.85% 100% at 1.84% 0%, ${transparentize(0.8, bgColor)} 0%, ${theme.bg3} 100%) `};
+  background-color: ${({ theme }) => theme.bg1};
   position: relative;
   overflow: hidden;
 `
@@ -52,10 +43,10 @@ interface PositionCardProps {
 }
 
 export function MinimalPositionCard({ pair, showUnwrapped = false, border }: PositionCardProps) {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
 
-  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0)
-  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1)
+  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0, chainId)
+  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1, chainId)
 
   const [showMore, setShowMore] = useState(false)
 
@@ -213,12 +204,12 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
               {showMore ? (
                 <>
                   Manage
-                  <ChevronUp size="20" style={{ marginLeft: '10px' }} />
+                  <ChevronUp stroke={'white'} size="20" style={{ marginLeft: '10px' }} />
                 </>
               ) : (
                 <>
                   Manage
-                  <ChevronDown size="20" style={{ marginLeft: '10px' }} />
+                  <ChevronDown stroke={'white'} size="20" style={{ marginLeft: '10px' }} />
                 </>
               )}
             </ButtonEmpty>
@@ -295,14 +286,14 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             <ButtonSecondary padding="8px" borderRadius="8px">
               <ExternalLink
                 style={{ width: '100%', textAlign: 'center' }}
-                href={`https://uniswap.info/account/${account}`}
+                href={`https://charts.fathom.fi/#/account/${account}`}
               >
                 View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
               </ExternalLink>
             </ButtonSecondary>
             {userDefaultPoolBalance && JSBI.greaterThan(userDefaultPoolBalance.raw, BIG_INT_ZERO) && (
               <RowBetween marginTop="10px">
-                <ButtonPrimary
+                <ButtonSecondary
                   padding="8px"
                   borderRadius="8px"
                   as={Link}
@@ -310,8 +301,8 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                   width="48%"
                 >
                   Add
-                </ButtonPrimary>
-                <ButtonPrimary
+                </ButtonSecondary>
+                <ButtonSecondary
                   padding="8px"
                   borderRadius="8px"
                   as={Link}
@@ -319,7 +310,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                   to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
                 >
                   Remove
-                </ButtonPrimary>
+                </ButtonSecondary>
               </RowBetween>
             )}
             {stakedBalance && JSBI.greaterThan(stakedBalance.raw, BIG_INT_ZERO) && (

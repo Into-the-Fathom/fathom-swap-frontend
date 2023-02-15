@@ -1,17 +1,15 @@
 import React from 'react'
 import { Text } from 'rebass'
-import { ChainId, Currency, currencyEquals, ETHER, XDC, Token } from 'into-the-fathom-swap-sdk'
+import { ChainId, Currency, currencyEquals, XDC, Token } from 'fathomswap-sdk'
 import styled from 'styled-components'
 
-import { SUGGESTED_BASES } from '../../constants'
-import { AutoColumn } from '../Column'
-import QuestionHelper from '../QuestionHelper'
-import { AutoRow } from '../Row'
-import CurrencyLogo from '../CurrencyLogo'
-import { XDC_CHAIN_IDS } from '../../utils'
+import { SUGGESTED_BASES } from 'constants/index'
+import { AutoColumn } from 'components/Column'
+import QuestionHelper from 'components/QuestionHelper'
+import { AutoRow } from 'components/Row'
+import CurrencyLogo from 'components/CurrencyLogo'
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
-  border: 1px solid ${({ theme, disable }) => (disable ? 'transparent' : theme.bg3)};
   border-radius: 10px;
   display: flex;
   padding: 6px;
@@ -22,7 +20,7 @@ const BaseWrapper = styled.div<{ disable?: boolean }>`
     background-color: ${({ theme, disable }) => !disable && theme.bg2};
   }
 
-  background-color: ${({ theme, disable }) => disable && theme.bg3};
+  background-color: ${({ theme, disable }) => disable && theme.bg2};
   opacity: ${({ disable }) => disable && '0.4'};
 `
 
@@ -36,39 +34,21 @@ export default function CommonBases({
   onSelect: (currency: Currency) => void
 }) {
   const renderBaseToken = () => {
-    if (XDC_CHAIN_IDS.includes(chainId!)) {
-      return (
-        <BaseWrapper
-          onClick={() => {
-            if (!selectedCurrency || !currencyEquals(selectedCurrency, XDC)) {
-              onSelect(XDC)
-            }
-          }}
-          disable={selectedCurrency === XDC}
-        >
-          <CurrencyLogo currency={XDC} style={{ marginRight: 8 }} />
-          <Text fontWeight={500} fontSize={16}>
-            XDC
-          </Text>
-        </BaseWrapper>
-      )
-    } else {
-      return (
-        <BaseWrapper
-          onClick={() => {
-            if (!selectedCurrency || !currencyEquals(selectedCurrency, ETHER)) {
-              onSelect(ETHER)
-            }
-          }}
-          disable={selectedCurrency === ETHER}
-        >
-          <CurrencyLogo currency={ETHER} style={{ marginRight: 8 }} />
-          <Text fontWeight={500} fontSize={16}>
-            ETH
-          </Text>
-        </BaseWrapper>
-      )
-    }
+    return (
+      <BaseWrapper
+        onClick={() => {
+          if (!selectedCurrency || !currencyEquals(selectedCurrency, XDC)) {
+            onSelect(XDC)
+          }
+        }}
+        disable={selectedCurrency === XDC}
+      >
+        <CurrencyLogo currency={XDC} style={{ marginRight: 8 }} />
+        <Text fontWeight={500} fontSize={16}>
+          XDC
+        </Text>
+      </BaseWrapper>
+    )
   }
 
   return (

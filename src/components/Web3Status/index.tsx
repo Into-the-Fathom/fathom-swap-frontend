@@ -5,25 +5,22 @@ import React, { useMemo } from 'react'
 import { Activity } from 'react-feather'
 import { useTranslation } from 'react-i18next'
 import styled, { css } from 'styled-components'
-import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
-import PortisIcon from '../../assets/images/portisIcon.png'
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
-import { fortmatic, injected, portis, walletconnect, walletlink } from '../../connectors'
-import { NetworkContextName } from '../../constants'
-import useENSName from '../../hooks/useENSName'
-import { useHasSocks } from '../../hooks/useSocksBalance'
-import { useWalletModalToggle } from '../../state/application/hooks'
-import { isTransactionRecent, useAllTransactions } from '../../state/transactions/hooks'
-import { TransactionDetails } from '../../state/transactions/reducer'
-import { shortenAddress } from '../../utils'
-import { ButtonSecondary } from '../Button'
+import WalletConnectIcon from 'assets/images/walletConnectIcon.svg'
+import { injected, walletconnect } from 'connectors'
+import { NetworkContextName } from 'constants/index'
+import useENSName from 'hooks/useENSName'
+import { useHasSocks } from 'hooks/useSocksBalance'
+import { useWalletModalToggle } from 'state/application/hooks'
+import { isTransactionRecent, useAllTransactions } from 'state/transactions/hooks'
+import { TransactionDetails } from 'state/transactions/reducer'
+import { shortenAddress } from 'utils'
+import { ButtonSecondary } from 'components/Button'
 
-import Identicon from '../Identicon'
-import Loader from '../Loader'
+import Identicon from 'components/Identicon'
+import Loader from 'components/Loader'
 
-import { RowBetween } from '../Row'
-import WalletModal from '../WalletModal'
+import { RowBetween } from 'components/Row'
+import WalletModal from 'components/WalletModal'
 
 const IconWrapper = styled.div<{ size?: number }>`
   ${({ theme }) => theme.flexColumnNoWrap};
@@ -139,24 +136,6 @@ function StatusIcon({ connector }: { connector: AbstractConnector }) {
         <img src={WalletConnectIcon} alt={''} />
       </IconWrapper>
     )
-  } else if (connector === walletlink) {
-    return (
-      <IconWrapper size={16}>
-        <img src={CoinbaseWalletIcon} alt={''} />
-      </IconWrapper>
-    )
-  } else if (connector === fortmatic) {
-    return (
-      <IconWrapper size={16}>
-        <img src={FortmaticIcon} alt={''} />
-      </IconWrapper>
-    )
-  } else if (connector === portis) {
-    return (
-      <IconWrapper size={16}>
-        <img src={PortisIcon} alt={''} />
-      </IconWrapper>
-    )
   }
   return null
 }
@@ -190,7 +169,7 @@ function Web3StatusInner() {
         ) : (
           <>
             {hasSocks ? SOCK : null}
-            <Text>{ENSName || shortenAddress(account)}</Text>
+            <Text>{ENSName || shortenAddress(account, 4)}</Text>
           </>
         )}
         {!hasPendingTransactions && connector && <StatusIcon connector={connector} />}

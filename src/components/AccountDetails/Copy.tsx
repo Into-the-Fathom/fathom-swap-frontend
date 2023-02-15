@@ -1,12 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
-import useCopyClipboard from '../../hooks/useCopyClipboard'
+import useCopyClipboard from 'hooks/useCopyClipboard'
 
-import { LinkStyledButton } from '../../theme'
+import { LinkStyledButton } from 'theme'
 import { CheckCircle, Copy } from 'react-feather'
+import { toXdcAddress } from 'utils/toXdcAddress'
 
 const CopyIcon = styled(LinkStyledButton)`
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text1};
   flex-shrink: 0;
   display: flex;
   text-decoration: none;
@@ -29,7 +30,7 @@ export default function CopyHelper(props: { toCopy: string; children?: React.Rea
   const [isCopied, setCopied] = useCopyClipboard()
 
   return (
-    <CopyIcon onClick={() => setCopied(props.toCopy)}>
+    <CopyIcon onClick={() => setCopied(toXdcAddress(props.toCopy))}>
       {isCopied ? (
         <TransactionStatusText>
           <CheckCircle size={'16'} />

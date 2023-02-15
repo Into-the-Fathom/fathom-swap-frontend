@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import { RowBetween } from '../Row'
-import { AutoColumn } from '../Column'
+import { RowBetween } from 'components/Row'
+import { AutoColumn } from 'components/Column'
 import { transparentize } from 'polished'
 
 const Wrapper = styled(AutoColumn)``
@@ -33,7 +33,6 @@ const CircleRow = styled.div`
 const Connector = styled.div<{ prevConfirmed?: boolean; disabled?: boolean }>`
   width: 100%;
   height: 2px;
-  background-color: ;
   background: linear-gradient(
     90deg,
     ${({ theme, prevConfirmed, disabled }) =>

@@ -1,18 +1,18 @@
-import { Currency, ETHER, Token } from 'into-the-fathom-swap-sdk'
+import { Currency, XDC, Token } from 'fathomswap-sdk'
 import React, { KeyboardEvent, RefObject, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import ReactGA from 'react-ga'
 import { useTranslation } from 'react-i18next'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
-import { useActiveWeb3React } from '../../hooks'
-import { useAllTokens, useToken, useIsUserAddedToken, useFoundOnInactiveList } from '../../hooks/Tokens'
-import { CloseIcon, TYPE, ButtonText, IconWrapper } from '../../theme'
-import { isAddress } from '../../utils'
-import Column from '../Column'
-import Row, { RowBetween, RowFixed } from '../Row'
-import CommonBases from './CommonBases'
-import CurrencyList from './CurrencyList'
-import { filterTokens, useSortedTokensByQuery } from './filtering'
+import { useActiveWeb3React } from 'hooks'
+import { useAllTokens, useToken, useIsUserAddedToken, useFoundOnInactiveList } from 'hooks/Tokens'
+import { CloseIcon, TYPE, ButtonText, IconWrapper } from 'theme'
+import { isAddress } from 'utils'
+import Column from 'components/Column'
+import Row, { RowBetween, RowFixed } from 'components/Row'
+import CommonBases from 'components/SearchModal/CommonBases'
+import CurrencyList from 'components/SearchModal/CurrencyList'
+import { filterTokens, useSortedTokensByQuery } from 'components/SearchModal/filtering'
 import { useTokenComparator } from './sorting'
 import { PaddedColumn, SearchInput, Separator } from './styleds'
 import AutoSizer from 'react-virtualized-auto-sizer'
@@ -20,7 +20,7 @@ import styled from 'styled-components'
 import useToggle from 'hooks/useToggle'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import useTheme from 'hooks/useTheme'
-import ImportRow from './ImportRow'
+import ImportRow from 'components/SearchModal/ImportRow'
 import { Edit } from 'react-feather'
 import useDebounce from 'hooks/useDebounce'
 
@@ -36,7 +36,7 @@ const Footer = styled.div`
   padding: 20px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  background-color: ${({ theme }) => theme.bg1};
+  background-color: ${({ theme }) => theme.modalContentBG};
   border-top: 1px solid ${({ theme }) => theme.bg2};
 `
 
@@ -92,9 +92,9 @@ export function CurrencySearch({
     }
   }, [isAddressSearch])
 
-  const showETH: boolean = useMemo(() => {
+  const showXDC: boolean = useMemo(() => {
     const s = debouncedQuery.toLowerCase().trim()
-    return s === '' || s === 'e' || s === 'et' || s === 'eth'
+    return s === '' || s === 'x' || s === 'xd' || s === 'xdc'
   }, [debouncedQuery])
 
   const tokenComparator = useTokenComparator(invertSearchOrder)
@@ -135,8 +135,8 @@ export function CurrencySearch({
     (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
         const s = debouncedQuery.toLowerCase().trim()
-        if (s === 'eth') {
-          handleCurrencySelect(ETHER)
+        if (s === 'xdc') {
+          handleCurrencySelect(XDC)
         } else if (filteredSortedTokens.length > 0) {
           if (
             filteredSortedTokens[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() ||
@@ -195,7 +195,7 @@ export function CurrencySearch({
             {({ height }) => (
               <CurrencyList
                 height={height}
-                showETH={showETH}
+                showXDC={showXDC}
                 currencies={
                   filteredInactiveTokens ? filteredSortedTokens.concat(filteredInactiveTokens) : filteredSortedTokens
                 }
@@ -212,7 +212,7 @@ export function CurrencySearch({
         </div>
       ) : (
         <Column style={{ padding: '20px', height: '100%' }}>
-          <TYPE.main color={theme.text3} textAlign="center" mb="20px">
+          <TYPE.main textAlign="center" mb="20px">
             No results found.
           </TYPE.main>
         </Column>
@@ -224,7 +224,7 @@ export function CurrencySearch({
               <IconWrapper size="16px" marginRight="6px">
                 <Edit />
               </IconWrapper>
-              <TYPE.main color={theme.blue1}>Manage</TYPE.main>
+              <TYPE.white>Manage</TYPE.white>
             </RowFixed>
           </ButtonText>
         </Row>

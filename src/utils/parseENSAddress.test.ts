@@ -1,4 +1,4 @@
-import { parseENSAddress } from './parseENSAddress'
+import { parseENSAddress } from 'utils/parseENSAddress'
 
 describe('parseENSAddress', () => {
   it('test cases', () => {

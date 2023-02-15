@@ -1,17 +1,17 @@
-import { Trade, TradeType } from 'into-the-fathom-swap-sdk'
+import { Trade, TradeType } from 'fathomswap-sdk'
 import React, { useContext, useMemo } from 'react'
 import { ArrowDown, AlertTriangle } from 'react-feather'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import { Field } from '../../state/swap/actions'
-import { TYPE } from '../../theme'
-import { ButtonPrimary } from '../Button'
-import { isAddress, shortenAddress } from '../../utils'
-import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity } from '../../utils/prices'
-import { AutoColumn } from '../Column'
-import CurrencyLogo from '../CurrencyLogo'
-import { RowBetween, RowFixed } from '../Row'
-import { TruncatedText, SwapShowAcceptChanges } from './styleds'
+import { Field } from 'state/swap/actions'
+import { TYPE } from 'theme'
+import { ButtonPrimary } from 'components/Button'
+import { isAddress, shortenAddress } from 'utils'
+import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity } from 'utils/prices'
+import { AutoColumn } from 'components/Column'
+import CurrencyLogo from 'components/CurrencyLogo'
+import { AutoRow, RowBetween, RowFixed } from 'components/Row'
+import { TruncatedText, SwapShowAcceptChanges, ArrowDownWrapped } from 'components/swap/styleds'
 
 export default function SwapModalHeader({
   trade,
@@ -54,9 +54,11 @@ export default function SwapModalHeader({
           </Text>
         </RowFixed>
       </RowBetween>
-      <RowFixed>
-        <ArrowDown size="16" color={theme.text2} style={{ marginLeft: '4px', minWidth: '16px' }} />
-      </RowFixed>
+      <AutoRow justify={'center'}>
+        <ArrowDownWrapped>
+          <ArrowDown size="20" color={theme.black} />
+        </ArrowDownWrapped>
+      </AutoRow>
       <RowBetween align="flex-end">
         <RowFixed gap={'0px'}>
           <CurrencyLogo currency={trade.outputAmount.currency} size={'24px'} style={{ marginRight: '12px' }} />
@@ -119,7 +121,7 @@ export default function SwapModalHeader({
         <AutoColumn justify="flex-start" gap="sm" style={{ padding: '12px 0 0 0px' }}>
           <TYPE.main>
             Output will be sent to{' '}
-            <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient) : recipient}</b>
+            <b title={recipient}>{isAddress(recipient) ? shortenAddress(recipient, 4) : recipient}</b>
           </TYPE.main>
         </AutoColumn>
       ) : null}

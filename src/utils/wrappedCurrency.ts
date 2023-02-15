@@ -1,12 +1,7 @@
-import { ChainId, Currency, CurrencyAmount, ETHER, Token, TokenAmount, WETH, XDC } from 'into-the-fathom-swap-sdk'
-import { XDC_CHAIN_IDS } from './index'
+import { ChainId, Currency, CurrencyAmount, Token, TokenAmount, WETH, XDC } from 'fathomswap-sdk'
 
 export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId | undefined): Token | undefined {
-  return chainId && (currency === ETHER || currency === XDC)
-    ? WETH[chainId]
-    : currency instanceof Token
-    ? currency
-    : undefined
+  return chainId && currency === XDC ? WETH[chainId] : currency instanceof Token ? currency : undefined
 }
 
 export function wrappedCurrencyAmount(
@@ -19,10 +14,7 @@ export function wrappedCurrencyAmount(
 
 export function unwrappedToken(token: Token, chainId?: ChainId): Currency {
   if (token.equals(WETH[token.chainId])) {
-    if (chainId && XDC_CHAIN_IDS.includes(chainId)) {
-      return XDC
-    }
-    return ETHER
+    return XDC
   }
   return token
 }

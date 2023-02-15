@@ -1,45 +1,63 @@
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, ETHER, TokenAmount, WETH } from 'into-the-fathom-swap-sdk'
+import { Currency, currencyEquals, TokenAmount, WETH, XDC } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
-import { ThemeContext } from 'styled-components'
-import { ButtonError, ButtonLight, ButtonPrimary } from '../../components/Button'
-import { BlueCard, LightCard } from '../../components/Card'
-import { AutoColumn, ColumnCenter } from '../../components/Column'
-import TransactionConfirmationModal, { ConfirmationModalContent } from '../../components/TransactionConfirmationModal'
-import CurrencyInputPanel from '../../components/CurrencyInputPanel'
-import DoubleCurrencyLogo from '../../components/DoubleLogo'
-import { AddRemoveTabs } from '../../components/NavigationTabs'
-import { MinimalPositionCard } from '../../components/PositionCard'
-import Row, { RowBetween, RowFlat } from '../../components/Row'
+import styled, { ThemeContext } from 'styled-components'
+import { ButtonError, ButtonPrimary } from 'components/Button'
+import { BlueCard, LightCard } from 'components/Card'
+import { AutoColumn, ColumnCenter } from 'components/Column'
+import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
+import CurrencyInputPanel from 'components/CurrencyInputPanel'
+import DoubleCurrencyLogo from 'components/DoubleLogo'
+import { AddRemoveTabs } from 'components/NavigationTabs'
+import { MinimalPositionCard } from 'components/PositionCard'
+import Row, { RowBetween, RowFlat } from 'components/Row'
 
-import { ROUTER_ADDRESSES } from '../../constants'
-import { PairState } from '../../data/Reserves'
-import { useActiveWeb3React } from '../../hooks'
-import { useCurrency } from '../../hooks/Tokens'
-import { ApprovalState, useApproveCallback } from '../../hooks/useApproveCallback'
-import useTransactionDeadline from '../../hooks/useTransactionDeadline'
-import { useWalletModalToggle } from '../../state/application/hooks'
-import { Field } from '../../state/mint/actions'
-import { useDerivedMintInfo, useMintActionHandlers, useMintState } from '../../state/mint/hooks'
+import { ROUTER_ADDRESSES } from 'constants/index'
+import { PairState } from 'data/Reserves'
+import { useActiveWeb3React } from 'hooks'
+import { useCurrency } from 'hooks/Tokens'
+import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
+import useTransactionDeadline from 'hooks/useTransactionDeadline'
+import { useWalletModalToggle } from 'state/application/hooks'
+import { Field } from 'state/mint/actions'
+import { useDerivedMintInfo, useMintActionHandlers, useMintState } from 'state/mint/hooks'
 
-import { useTransactionAdder } from '../../state/transactions/hooks'
-import { useIsExpertMode, useUserSlippageTolerance } from '../../state/user/hooks'
-import { TYPE } from '../../theme'
-import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from '../../utils'
-import { maxAmountSpend } from '../../utils/maxAmountSpend'
-import { wrappedCurrency } from '../../utils/wrappedCurrency'
-import AppBody from '../AppBody'
-import { Dots, Wrapper } from '../Pool/styleds'
-import { ConfirmAddModalBottom } from './ConfirmAddModalBottom'
-import { currencyId } from '../../utils/currencyId'
-import { PoolPriceBar } from './PoolPriceBar'
+import { useTransactionAdder } from 'state/transactions/hooks'
+import { useIsExpertMode, useUserSlippageTolerance } from 'state/user/hooks'
+import { TYPE } from 'theme'
+import { calculateGasMargin, calculateSlippageAmount, getRouterContract } from 'utils'
+import { maxAmountSpend } from 'utils/maxAmountSpend'
+import { wrappedCurrency } from 'utils/wrappedCurrency'
+import AppBody from 'pages/AppBody'
+import { Dots, Wrapper } from 'pages/Pool/styleds'
+import { ConfirmAddModalBottom } from 'pages/AddLiquidity/ConfirmAddModalBottom'
+import { currencyId } from 'utils/currencyId'
+import { PoolPriceBar } from 'pages/AddLiquidity/PoolPriceBar'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
+import { ConnectWalletButton, WalletIcon } from 'pages/Swap'
+
+const PlusWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+`
+
+const IconWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6379a1;
+  border-radius: 15px;
+`
 
 export default function AddLiquidity({
   match: {
@@ -53,7 +71,7 @@ export default function AddLiquidity({
   const currencyA = useCurrency(currencyIdA)
   const currencyB = useCurrency(currencyIdB)
 
-  const oneCurrencyIsWETH = Boolean(
+  const oneCurrencyIsXDC = Boolean(
     chainId &&
       ((currencyA && currencyEquals(currencyA, WETH[chainId])) ||
         (currencyB && currencyEquals(currencyB, WETH[chainId])))
@@ -143,19 +161,22 @@ export default function AddLiquidity({
       method: (...args: any) => Promise<TransactionResponse>,
       args: Array<string | string[] | number>,
       value: BigNumber | null
-    if (currencyA === ETHER || currencyB === ETHER) {
-      const tokenBIsETH = currencyB === ETHER
+    const isNativeToken = currencyA === XDC || currencyB === XDC
+
+    if (isNativeToken) {
+      const tokenBIsXDC = currencyB === XDC
       estimate = router.estimateGas.addLiquidityETH
       method = router.addLiquidityETH
+
       args = [
-        wrappedCurrency(tokenBIsETH ? currencyA : currencyB, chainId)?.address ?? '', // token
-        (tokenBIsETH ? parsedAmountA : parsedAmountB).raw.toString(), // token desired
-        amountsMin[tokenBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(), // token min
-        amountsMin[tokenBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(), // eth min
+        wrappedCurrency(tokenBIsXDC ? currencyA : currencyB, chainId)?.address ?? '', // token
+        (tokenBIsXDC ? parsedAmountA : parsedAmountB).raw.toString(), // token desired
+        amountsMin[tokenBIsXDC ? Field.CURRENCY_A : Field.CURRENCY_B].toString(), // token min
+        amountsMin[tokenBIsXDC ? Field.CURRENCY_B : Field.CURRENCY_A].toString(), // eth min
         account,
         deadline.toHexString()
       ]
-      value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).raw.toString())
+      value = BigNumber.from((tokenBIsXDC ? parsedAmountB : parsedAmountA).raw.toString())
     } else {
       estimate = router.estimateGas.addLiquidity
       method = router.addLiquidity
@@ -336,13 +357,13 @@ export default function AddLiquidity({
                 <ColumnCenter>
                   <BlueCard>
                     <AutoColumn gap="10px">
-                      <TYPE.link fontWeight={600} color={'primaryText1'}>
+                      <TYPE.link fontWeight={600} color={'text1'}>
                         You are the first liquidity provider.
                       </TYPE.link>
-                      <TYPE.link fontWeight={400} color={'primaryText1'}>
+                      <TYPE.link fontWeight={400} color={'text1'}>
                         The ratio of tokens you add will set the price of this pool.
                       </TYPE.link>
-                      <TYPE.link fontWeight={400} color={'primaryText1'}>
+                      <TYPE.link fontWeight={400} color={'text1'}>
                         Once you are happy with the rate click supply to review.
                       </TYPE.link>
                     </AutoColumn>
@@ -352,7 +373,7 @@ export default function AddLiquidity({
                 <ColumnCenter>
                   <BlueCard>
                     <AutoColumn gap="10px">
-                      <TYPE.link fontWeight={400} color={'primaryText1'}>
+                      <TYPE.link fontWeight={400} color={'text1'}>
                         <b>Tip:</b> When you add liquidity, you will receive pool tokens representing your position.
                         These tokens automatically earn fees proportional to your share of the pool, and can be redeemed
                         at any time.
@@ -373,9 +394,13 @@ export default function AddLiquidity({
               id="add-liquidity-input-tokena"
               showCommonBases
             />
-            <ColumnCenter>
-              <Plus size="16" color={theme.text2} />
-            </ColumnCenter>
+            <PlusWrapper>
+              <ColumnCenter>
+                <IconWrapper>
+                  <Plus size="20" color={theme.bg2} />
+                </IconWrapper>
+              </ColumnCenter>
+            </PlusWrapper>
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_B]}
               onUserInput={onFieldBInput}
@@ -413,7 +438,10 @@ export default function AddLiquidity({
                 <TYPE.main mb="4px">Unsupported Asset</TYPE.main>
               </ButtonPrimary>
             ) : !account ? (
-              <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+              <ConnectWalletButton onClick={toggleWalletModal}>
+                <WalletIcon></WalletIcon>
+                Connect Wallet
+              </ConnectWalletButton>
             ) : (
               <AutoColumn gap={'md'}>
                 {(approvalA === ApprovalState.NOT_APPROVED ||
@@ -469,7 +497,7 @@ export default function AddLiquidity({
       {!addIsUnsupported ? (
         pair && !noLiquidity && pairState !== PairState.INVALID ? (
           <AutoColumn style={{ minWidth: '20rem', width: '100%', maxWidth: '400px', marginTop: '1rem' }}>
-            <MinimalPositionCard showUnwrapped={oneCurrencyIsWETH} pair={pair} />
+            <MinimalPositionCard showUnwrapped={oneCurrencyIsXDC} pair={pair} />
           </AutoColumn>
         ) : null
       ) : (

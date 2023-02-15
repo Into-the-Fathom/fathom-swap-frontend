@@ -6,19 +6,18 @@ import ReactDOM from 'react-dom'
 import ReactGA from 'react-ga'
 import { Provider } from 'react-redux'
 import { HashRouter } from 'react-router-dom'
-import Blocklist from './components/Blocklist'
-import { NetworkContextName } from './constants'
-import './i18n'
-import App from './pages/App'
-import store from './state'
-import * as serviceWorkerRegistration from './serviceWorkerRegistration'
-import ApplicationUpdater from './state/application/updater'
-import ListsUpdater from './state/lists/updater'
-import MulticallUpdater from './state/multicall/updater'
-import TransactionUpdater from './state/transactions/updater'
-import UserUpdater from './state/user/updater'
-import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from './theme'
-import getLibrary from './utils/getLibrary'
+import Blocklist from 'components/Blocklist'
+import { NetworkContextName } from 'constants/index'
+import 'i18n'
+import App from 'pages/App'
+import store from 'state'
+import * as serviceWorkerRegistration from 'serviceWorkerRegistration'
+import ApplicationUpdater from 'state/application/updater'
+import ListsUpdater from 'state/lists/updater'
+import MulticallUpdater from 'state/multicall/updater'
+import TransactionUpdater from 'state/transactions/updater'
+import ThemeProvider, { FixedGlobalStyle, ThemedGlobalStyle } from 'theme'
+import getLibrary from 'utils/getLibrary'
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName)
 
@@ -53,7 +52,6 @@ function Updaters() {
   return (
     <>
       <ListsUpdater />
-      <UserUpdater />
       <ApplicationUpdater />
       <TransactionUpdater />
       <MulticallUpdater />

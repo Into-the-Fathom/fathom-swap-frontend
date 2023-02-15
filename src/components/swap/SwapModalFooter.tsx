@@ -1,22 +1,22 @@
-import { Trade, TradeType } from 'into-the-fathom-swap-sdk'
+import { Trade, TradeType } from 'fathomswap-sdk'
 import React, { useContext, useMemo, useState } from 'react'
 import { Repeat } from 'react-feather'
 import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
-import { Field } from '../../state/swap/actions'
-import { TYPE } from '../../theme'
+import { Field } from 'state/swap/actions'
+import { TYPE } from 'theme'
 import {
   computeSlippageAdjustedAmounts,
   computeTradePriceBreakdown,
   formatExecutionPrice,
   warningSeverity
-} from '../../utils/prices'
-import { ButtonError } from '../Button'
-import { AutoColumn } from '../Column'
-import QuestionHelper from '../QuestionHelper'
-import { AutoRow, RowBetween, RowFixed } from '../Row'
-import FormattedPriceImpact from './FormattedPriceImpact'
-import { StyledBalanceMaxMini, SwapCallbackError } from './styleds'
+} from 'utils/prices'
+import { ButtonError } from 'components/Button'
+import { AutoColumn } from 'components/Column'
+import QuestionHelper from 'components/QuestionHelper'
+import { AutoRow, RowBetween, RowFixed } from 'components/Row'
+import FormattedPriceImpact from 'components/swap/FormattedPriceImpact'
+import { StyledBalanceMaxMini, SwapCallbackError } from 'components/swap/styleds'
 
 export default function SwapModalFooter({
   trade,
@@ -74,16 +74,16 @@ export default function SwapModalFooter({
             <QuestionHelper text="Your transaction will revert if there is a large, unfavorable price movement before it is confirmed." />
           </RowFixed>
           <RowFixed>
-            <TYPE.black fontSize={14}>
+            <TYPE.white fontSize={14}>
               {trade.tradeType === TradeType.EXACT_INPUT
                 ? slippageAdjustedAmounts[Field.OUTPUT]?.toSignificant(4) ?? '-'
                 : slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4) ?? '-'}
-            </TYPE.black>
-            <TYPE.black fontSize={14} marginLeft={'4px'}>
+            </TYPE.white>
+            <TYPE.white fontSize={14} marginLeft={'4px'}>
               {trade.tradeType === TradeType.EXACT_INPUT
                 ? trade.outputAmount.currency.symbol
                 : trade.inputAmount.currency.symbol}
-            </TYPE.black>
+            </TYPE.white>
           </RowFixed>
         </RowBetween>
         <RowBetween>
@@ -102,9 +102,9 @@ export default function SwapModalFooter({
             </TYPE.black>
             <QuestionHelper text="A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive." />
           </RowFixed>
-          <TYPE.black fontSize={14}>
+          <TYPE.white fontSize={14}>
             {realizedLPFee ? realizedLPFee?.toSignificant(6) + ' ' + trade.inputAmount.currency.symbol : '-'}
-          </TYPE.black>
+          </TYPE.white>
         </RowBetween>
       </AutoColumn>
 

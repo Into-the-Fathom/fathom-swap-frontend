@@ -1,21 +1,15 @@
 import { MaxUint256 } from '@into-the-fathom/constants'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import {
-  Trade,
-  TokenAmount,
-  CurrencyAmount,
-  ETHER,
-  XDC
-} from 'into-the-fathom-swap-sdk'
+import { Trade, TokenAmount, CurrencyAmount, XDC } from 'fathomswap-sdk'
 import { useCallback, useMemo } from 'react'
-import { ROUTER_ADDRESSES } from '../constants'
-import { useTokenAllowance } from '../data/Allowances'
-import { Field } from '../state/swap/actions'
-import { useTransactionAdder, useHasPendingApproval } from '../state/transactions/hooks'
-import { computeSlippageAdjustedAmounts } from '../utils/prices'
-import { calculateGasMargin } from '../utils'
-import { useTokenContract } from './useContract'
-import { useActiveWeb3React } from './index'
+import { ROUTER_ADDRESSES } from 'constants/index'
+import { useTokenAllowance } from 'data/Allowances'
+import { Field } from 'state/swap/actions'
+import { useTransactionAdder, useHasPendingApproval } from 'state/transactions/hooks'
+import { computeSlippageAdjustedAmounts } from 'utils/prices'
+import { calculateGasMargin } from 'utils'
+import { useTokenContract } from 'hooks/useContract'
+import { useActiveWeb3React } from 'hooks/index'
 
 export enum ApprovalState {
   UNKNOWN,
@@ -38,7 +32,7 @@ export function useApproveCallback(
   const approvalState: ApprovalState = useMemo(() => {
     if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
     // In case if we have native token (amount)
-    if (amountToApprove.currency === ETHER || amountToApprove.currency === XDC) return ApprovalState.APPROVED
+    if (amountToApprove.currency === XDC) return ApprovalState.APPROVED
     // we might not have enough data to know whether or not we need to approve
     if (!currentAllowance) return ApprovalState.UNKNOWN
 

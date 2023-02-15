@@ -1,25 +1,23 @@
-import { ChainId, Currency } from 'into-the-fathom-swap-sdk'
+import { ChainId, Currency } from 'fathomswap-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import Modal from '../Modal'
-import { ExternalLink } from '../../theme'
+import Modal from 'components/Modal'
+import { ExternalLink } from 'theme'
 import { Text } from 'rebass'
-import { CloseIcon, CustomLightSpinner } from '../../theme/components'
-import { RowBetween, RowFixed } from '../Row'
+import { CloseIcon, CustomLightSpinner } from 'theme/components'
+import { RowBetween, RowFixed } from 'components/Row'
 import { AlertTriangle, ArrowUpCircle, CheckCircle } from 'react-feather'
-import { ButtonPrimary, ButtonLight } from '../Button'
-import { AutoColumn, ColumnCenter } from '../Column'
-import Circle from '../../assets/images/blue-loader.svg'
-import MetaMaskLogo from '../../assets/images/metamask.png'
-import {
-  getEtherscanLink,
-  XDC_CHAIN_IDS
-} from '../../utils'
-import { useActiveWeb3React } from '../../hooks'
+import { ButtonPrimary, ButtonLight } from 'components/Button'
+import { AutoColumn, ColumnCenter } from 'components/Column'
+import Circle from 'assets/images/blue-loader.svg'
+import MetaMaskLogo from 'assets/images/metamask.png'
+import { getBlockScanLink } from 'utils'
+import { useActiveWeb3React } from 'hooks'
 import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask'
 
 const Wrapper = styled.div`
   width: 100%;
+  border: 1px solid #253656;
 `
 const Section = styled(AutoColumn)`
   padding: 24px;
@@ -95,16 +93,16 @@ function TransactionSubmittedContent({
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
         <ConfirmedIcon>
-          <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.primary1} />
+          <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.white} />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
           <Text fontWeight={500} fontSize={20}>
             Transaction Submitted
           </Text>
           {chainId && hash && (
-            <ExternalLink href={getEtherscanLink(chainId, hash, 'transaction')}>
-              <Text fontWeight={500} fontSize={14} color={theme.primary1}>
-                View on {XDC_CHAIN_IDS.includes(chainId) ? 'Blocksscan' : 'Etherscan'}
+            <ExternalLink href={getBlockScanLink(chainId, hash, 'transaction')}>
+              <Text fontWeight={600} fontSize={14} color={theme.text2}>
+                View on Blocksscan
               </Text>
             </ExternalLink>
           )}

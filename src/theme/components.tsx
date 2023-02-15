@@ -67,7 +67,7 @@ export const IconWrapper = styled.div<{ stroke?: string; size?: string; marginRi
   margin-right: ${({ marginRight }) => marginRight ?? 0};
   margin-left: ${({ marginLeft }) => marginLeft ?? 0};
   & > * {
-    stroke: ${({ theme, stroke }) => stroke ?? theme.blue1};
+    stroke: ${({ theme, stroke }) => stroke ?? theme.white};
   }
 `
 
@@ -78,7 +78,7 @@ export const LinkStyledButton = styled.button<{ disabled?: boolean }>`
   background: none;
 
   cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-  color: ${({ theme, disabled }) => (disabled ? theme.text2 : theme.primary1)};
+  color: ${({ theme, disabled }) => (disabled ? theme.text4 : theme.text1)};
   font-weight: 500;
 
   :hover {
@@ -99,7 +99,7 @@ export const LinkStyledButton = styled.button<{ disabled?: boolean }>`
 export const StyledInternalLink = styled(Link)`
   text-decoration: none;
   cursor: pointer;
-  color: ${({ theme }) => theme.primary1};
+  color: ${({ theme }) => theme.text1};
   font-weight: 500;
 
   :hover {
@@ -119,7 +119,7 @@ export const StyledInternalLink = styled(Link)`
 const StyledLink = styled.a`
   text-decoration: none;
   cursor: pointer;
-  color: ${({ theme }) => theme.primary1};
+  color: ${({ theme }) => theme.text1};
   font-weight: 500;
 
   :hover {
@@ -191,7 +191,7 @@ const rotateImg = keyframes`
   }
 `
 
-export const UniTokenAnimated = styled.img`
+export const FthmTokenAnimated = styled.img`
   animation: ${rotateImg} 5s cubic-bezier(0.83, 0, 0.17, 1) infinite;
   padding: 2rem 0 0 0;
   filter: drop-shadow(0px 2px 4px rgba(0, 0, 0, 0.15));

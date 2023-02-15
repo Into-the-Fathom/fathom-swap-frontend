@@ -1,26 +1,23 @@
 import React, { useCallback, useContext } from 'react'
 import { useDispatch } from 'react-redux'
 import styled, { ThemeContext } from 'styled-components'
-import { useActiveWeb3React } from '../../hooks'
-import { AppDispatch } from '../../state'
-import { clearAllTransactions } from '../../state/transactions/actions'
-import { shortenAddress, XDC_CHAIN_IDS } from '../../utils'
-import { AutoRow } from '../Row'
-import Copy from './Copy'
-import Transaction from './Transaction'
+import { useActiveWeb3React } from 'hooks'
+import { AppDispatch } from 'state'
+import { clearAllTransactions } from 'state/transactions/actions'
+import { shortenAddress } from 'utils'
+import { AutoRow } from 'components/Row'
+import Copy from 'components/AccountDetails/Copy'
+import Transaction from 'components/AccountDetails/Transaction'
 
-import { SUPPORTED_WALLETS } from '../../constants'
-import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { getEtherscanLink } from '../../utils'
-import { injected, walletconnect, walletlink, fortmatic, portis } from '../../connectors'
-import CoinbaseWalletIcon from '../../assets/images/coinbaseWalletIcon.svg'
-import WalletConnectIcon from '../../assets/images/walletConnectIcon.svg'
-import FortmaticIcon from '../../assets/images/fortmaticIcon.png'
-import PortisIcon from '../../assets/images/portisIcon.png'
-import Identicon from '../Identicon'
-import { ButtonSecondary } from '../Button'
+import { SUPPORTED_WALLETS } from 'constants/index'
+import { ReactComponent as Close } from 'assets/images/x.svg'
+import { getBlockScanLink } from 'utils'
+import { injected, walletconnect } from 'connectors'
+import WalletConnectIcon from 'assets/images/walletConnectIcon.svg'
+import Identicon from 'components/Identicon'
+import { ButtonSecondary } from 'components/Button'
 import { ExternalLink as LinkIcon } from 'react-feather'
-import { ExternalLink, LinkStyledButton, TYPE } from '../../theme'
+import { ExternalLink, LinkStyledButton, TYPE } from 'theme'
 
 const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
@@ -54,7 +51,7 @@ const UpperSection = styled.div`
 
 const InfoCard = styled.div`
   padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.bg2};
   border-radius: 20px;
   position: relative;
   display: grid;
@@ -77,8 +74,8 @@ const AccountGroupingRow = styled.div`
 
 const AccountSection = styled.div`
   background-color: ${({ theme }) => theme.bg1};
-  padding: 0rem 1rem;
-  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0rem 1rem 1.5rem 1rem;`};
+  padding: 1rem;
+  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1.2rem 1rem 1.5rem 1rem;`};
 `
 
 const YourAccount = styled.div`
@@ -133,7 +130,7 @@ const AccountControl = styled.div`
 
 const AddressLink = styled(ExternalLink)<{ hasENS: boolean; isENS: boolean }>`
   font-size: 0.825rem;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text1};
   margin-left: 1rem;
   font-size: 0.825rem;
   display: flex;
@@ -162,7 +159,7 @@ const WalletName = styled.div`
   width: initial;
   font-size: 0.825rem;
   font-weight: 500;
-  color: ${({ theme }) => theme.text3};
+  color: ${({ theme }) => theme.text1};
 `
 
 const IconWrapper = styled.div<{ size?: number }>`
@@ -192,12 +189,8 @@ const WalletAction = styled(ButtonSecondary)`
   padding: 4px 6px;
   :hover {
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
   }
-`
-
-const MainWalletAction = styled(WalletAction)`
-  color: ${({ theme }) => theme.primary1};
 `
 
 function renderTransactions(transactions: string[]) {
@@ -254,33 +247,6 @@ export default function AccountDetails({
           <img src={WalletConnectIcon} alt={'wallet connect logo'} />
         </IconWrapper>
       )
-    } else if (connector === walletlink) {
-      return (
-        <IconWrapper size={16}>
-          <img src={CoinbaseWalletIcon} alt={'coinbase wallet logo'} />
-        </IconWrapper>
-      )
-    } else if (connector === fortmatic) {
-      return (
-        <IconWrapper size={16}>
-          <img src={FortmaticIcon} alt={'fortmatic logo'} />
-        </IconWrapper>
-      )
-    } else if (connector === portis) {
-      return (
-        <>
-          <IconWrapper size={16}>
-            <img src={PortisIcon} alt={'portis logo'} />
-            <MainWalletAction
-              onClick={() => {
-                portis.portis.showPortis()
-              }}
-            >
-              Show Portis
-            </MainWalletAction>
-          </IconWrapper>
-        </>
-      )
     }
     return null
   }
@@ -302,7 +268,7 @@ export default function AccountDetails({
               <AccountGroupingRow>
                 {formatConnectorName()}
                 <div>
-                  {connector !== injected && connector !== walletlink && (
+                  {connector !== injected && (
                     <WalletAction
                       style={{ fontSize: '.825rem', fontWeight: 400, marginRight: '8px' }}
                       onClick={() => {
@@ -335,7 +301,7 @@ export default function AccountDetails({
                     <>
                       <div>
                         {getStatusIcon()}
-                        <p> {account && shortenAddress(account)}</p>
+                        <p> {account && shortenAddress(account, 4)}</p>
                       </div>
                     </>
                   )}
@@ -355,12 +321,10 @@ export default function AccountDetails({
                           <AddressLink
                             hasENS={!!ENSName}
                             isENS={true}
-                            href={chainId && getEtherscanLink(chainId, ENSName, 'address')}
+                            href={chainId && getBlockScanLink(chainId, ENSName, 'address')}
                           >
                             <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>
-                              View on {XDC_CHAIN_IDS.includes(chainId) ? 'Blocksscan' : 'Etherscan'}
-                            </span>
+                            <span style={{ marginLeft: '4px' }}>View on Blocksscan</span>
                           </AddressLink>
                         )}
                       </div>
@@ -379,12 +343,10 @@ export default function AccountDetails({
                           <AddressLink
                             hasENS={!!ENSName}
                             isENS={false}
-                            href={getEtherscanLink(chainId, account, 'address')}
+                            href={getBlockScanLink(chainId, account, 'address')}
                           >
                             <LinkIcon size={16} />
-                            <span style={{ marginLeft: '4px' }}>
-                              View on {XDC_CHAIN_IDS.includes(chainId) ? 'Blocksscan' : 'Etherscan'}
-                            </span>
+                            <span style={{ marginLeft: '4px' }}>View on Blocksscan</span>
                           </AddressLink>
                         )}
                       </div>

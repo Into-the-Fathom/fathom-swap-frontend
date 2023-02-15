@@ -1,33 +1,36 @@
 import React, { useContext, useRef, useState } from 'react'
-import { Settings, X } from 'react-feather'
+import { X } from 'react-feather'
 import ReactGA from 'react-ga'
 import { Text } from 'rebass'
 import styled, { ThemeContext } from 'styled-components'
-import { useOnClickOutside } from '../../hooks/useOnClickOutside'
-import { ApplicationModal } from '../../state/application/actions'
-import { useModalOpen, useToggleSettingsMenu } from '../../state/application/hooks'
+import { useOnClickOutside } from 'hooks/useOnClickOutside'
+import { ApplicationModal } from 'state/application/actions'
+import { useModalOpen, useToggleSettingsMenu } from 'state/application/hooks'
 import {
   useExpertModeManager,
   useUserTransactionTTL,
   useUserSlippageTolerance,
   useUserSingleHopOnly
-} from '../../state/user/hooks'
-import { TYPE } from '../../theme'
-import { ButtonError } from '../Button'
-import { AutoColumn } from '../Column'
-import Modal from '../Modal'
-import QuestionHelper from '../QuestionHelper'
-import { RowBetween, RowFixed } from '../Row'
-import Toggle from '../Toggle'
-import TransactionSettings from '../TransactionSettings'
+} from 'state/user/hooks'
+import { TYPE } from 'theme'
+import { ButtonError } from 'components/Button'
+import { AutoColumn } from 'components/Column'
+import Modal from 'components/Modal'
+import QuestionHelper from 'components/QuestionHelper'
+import { RowBetween, RowFixed } from 'components/Row'
+import Toggle from 'components/Toggle'
+import TransactionSettings from 'components/TransactionSettings'
 
-const StyledMenuIcon = styled(Settings)`
-  height: 20px;
-  width: 20px;
+import settingsSrc from 'assets/svg/settings.svg'
 
-  > * {
-    stroke: ${({ theme }) => theme.text2};
-  }
+const StyledMenuIcon = styled.div`
+  height: 32px;
+  width: 32px;
+  background: rgba(99, 121, 161, 0.2);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   :hover {
     opacity: 0.7;
@@ -108,7 +111,7 @@ const MenuFlyout = styled.span`
 const Break = styled.div`
   width: 100%;
   height: 1px;
-  background-color: ${({ theme }) => theme.bg3};
+  background-color: ${({ theme }) => theme.bg4};
 `
 
 const ModalContentWrapper = styled.div`
@@ -180,7 +183,9 @@ export default function SettingsTab() {
         </ModalContentWrapper>
       </Modal>
       <StyledMenuButton onClick={toggle} id="open-settings-dialog-button">
-        <StyledMenuIcon />
+        <StyledMenuIcon>
+          <img src={settingsSrc} alt={''} />
+        </StyledMenuIcon>
         {expertMode ? (
           <EmojiWrapper>
             <span role="img" aria-label="wizard-icon">

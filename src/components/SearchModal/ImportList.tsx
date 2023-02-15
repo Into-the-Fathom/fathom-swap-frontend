@@ -18,7 +18,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from 'state'
 import { useFetchListCallback } from 'hooks/useFetchListCallback'
 import { removeList, enableList } from 'state/lists/actions'
-import { CurrencyModalView } from './CurrencySearchModal'
+import { CurrencyModalView } from 'components/SearchModal/CurrencySearchModal'
 import { useAllLists } from 'state/lists/hooks'
 
 const Wrapper = styled.div`

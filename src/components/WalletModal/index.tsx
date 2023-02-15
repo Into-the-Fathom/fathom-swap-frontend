@@ -5,20 +5,18 @@ import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import ReactGA from 'react-ga'
 import styled from 'styled-components'
-import MetamaskIcon from '../../assets/images/metamask.png'
-import { ReactComponent as Close } from '../../assets/images/x.svg'
-import { fortmatic, injected, portis } from '../../connectors'
-import { OVERLAY_READY } from '../../connectors/Fortmatic'
-import { SUPPORTED_WALLETS } from '../../constants'
-import usePrevious from '../../hooks/usePrevious'
-import { ApplicationModal } from '../../state/application/actions'
-import { useModalOpen, useWalletModalToggle } from '../../state/application/hooks'
-import { ExternalLink } from '../../theme'
-import AccountDetails from '../AccountDetails'
+import MetamaskIcon from 'assets/images/metamask.png'
+import { ReactComponent as Close } from 'assets/images/x.svg'
+import { injected } from 'connectors'
+import { SUPPORTED_WALLETS } from 'constants/index'
+import usePrevious from 'hooks/usePrevious'
+import { ApplicationModal } from 'state/application/actions'
+import { useModalOpen, useWalletModalToggle } from 'state/application/hooks'
+import AccountDetails from 'components/AccountDetails'
 
-import Modal from '../Modal'
-import Option from './Option'
-import PendingView from './PendingView'
+import Modal from 'components/Modal'
+import Option from 'components/WalletModal/Option'
+import PendingView from 'components/WalletModal/PendingView'
 
 const CloseIcon = styled.div`
   position: absolute;
@@ -47,7 +45,7 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
+  color: ${props => (props.color === 'white' ? ({ theme }) => theme.white : 'inherit')};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -80,18 +78,6 @@ const UpperSection = styled.div`
     margin-top: 0;
     font-weight: 500;
   }
-`
-
-const Blurb = styled.div`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
-    margin: 1rem;
-    font-size: 12px;
-  `};
 `
 
 const OptionGrid = styled.div`
@@ -181,7 +167,7 @@ export default function WalletModal({
     setWalletView(WALLET_VIEWS.PENDING)
 
     // if the connector is walletconnect and the user has already tried to connect, manually reset the connector
-    if (connector instanceof WalletConnectConnector && connector.walletConnectProvider?.wc?.uri) {
+    if (connector instanceof WalletConnectConnector && connector.walletConnectProvider?.connected) {
       connector.walletConnectProvider = undefined
     }
 
@@ -195,13 +181,6 @@ export default function WalletModal({
       })
   }
 
-  // close wallet modal if fortmatic modal is active
-  useEffect(() => {
-    fortmatic.on(OVERLAY_READY, () => {
-      toggleWalletModal()
-    })
-  }, [toggleWalletModal])
-
   // get wallets user can switch too, depending on device/browser
   function getOptions() {
     const isMetamask = window.ethereum && window.ethereum.isMetaMask
@@ -209,11 +188,6 @@ export default function WalletModal({
       const option = SUPPORTED_WALLETS[key]
       // check for mobile options
       if (isMobile) {
-        //disable portis on mobile for now
-        if (option.connector === portis) {
-          return null
-        }
-
         if (!window.web3 && !window.ethereum && option.mobile) {
           return (
             <Option
@@ -298,7 +272,7 @@ export default function WalletModal({
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Ethereum network.</h5>
+              <h5>Please connect to the appropriate XDC network.</h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}
@@ -323,7 +297,7 @@ export default function WalletModal({
           <CloseColor />
         </CloseIcon>
         {walletView !== WALLET_VIEWS.ACCOUNT ? (
-          <HeaderRow color="blue">
+          <HeaderRow color="white">
             <HoverText
               onClick={() => {
                 setPendingError(false)
@@ -348,12 +322,6 @@ export default function WalletModal({
             />
           ) : (
             <OptionGrid>{getOptions()}</OptionGrid>
-          )}
-          {walletView !== WALLET_VIEWS.PENDING && (
-            <Blurb>
-              <span>New to Ethereum? &nbsp;</span>{' '}
-              <ExternalLink href="https://ethereum.org/wallets/">Learn more about wallets</ExternalLink>
-            </Blurb>
           )}
         </ContentWrapper>
       </UpperSection>

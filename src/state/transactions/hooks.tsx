@@ -2,10 +2,10 @@ import { TransactionResponse } from '@into-the-fathom/providers'
 import { useCallback, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { useActiveWeb3React } from '../../hooks'
-import { AppDispatch, AppState } from '../index'
-import { addTransaction } from './actions'
-import { TransactionDetails } from './reducer'
+import { useActiveWeb3React } from 'hooks'
+import { AppDispatch, AppState } from 'state'
+import { addTransaction } from 'state/transactions/actions'
+import { TransactionDetails } from 'state/transactions/reducer'
 
 // helper that can take a ethers library transaction response and add it to the list of transactions
 export function useTransactionAdder(): (

@@ -1,6 +1,6 @@
 import styled from 'styled-components'
-import { AutoColumn } from '../Column'
-import { RowBetween, RowFixed } from '../Row'
+import { AutoColumn } from 'components/Column'
+import { RowBetween, RowFixed } from 'components/Row'
 
 export const ModalInfo = styled.div`
   ${({ theme }) => theme.flexRowNoWrap}
@@ -82,23 +82,21 @@ export const SearchInput = styled.input`
   width: 100%;
   white-space: nowrap;
   background: none;
-  border: none;
   outline: none;
   border-radius: 20px;
   color: ${({ theme }) => theme.text1};
   border-style: solid;
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.bg2};
   -webkit-appearance: none;
 
   font-size: 18px;
 
   ::placeholder {
-    color: ${({ theme }) => theme.text3};
+    color: ${({ theme }) => theme.text1};
   }
   transition: border 100ms;
   :focus {
-    border: 1px solid ${({ theme }) => theme.primary1};
-    outline: none;
+    border: 1px solid ${({ theme }) => theme.bg2};
   }
 `
 export const Separator = styled.div`

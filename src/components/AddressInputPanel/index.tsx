@@ -1,14 +1,11 @@
 import React, { useContext, useCallback } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import useENS from '../../hooks/useENS'
-import { useActiveWeb3React } from '../../hooks'
-import { ExternalLink, TYPE } from '../../theme'
-import { AutoColumn } from '../Column'
-import { RowBetween } from '../Row'
-import {
-  getEtherscanLink,
-  XDC_CHAIN_IDS
-} from '../../utils'
+import useENS from 'hooks/useENS'
+import { useActiveWeb3React } from 'hooks'
+import { ExternalLink, TYPE } from 'theme'
+import { AutoColumn } from 'components/Column'
+import { RowBetween } from 'components/Row'
+import { getBlockScanLink } from 'utils'
 
 const InputPanel = styled.div`
   ${({ theme }) => theme.flexColumnNoWrap}
@@ -43,13 +40,13 @@ const Input = styled.input<{ error?: boolean }>`
   width: 0;
   background-color: ${({ theme }) => theme.bg1};
   transition: color 300ms ${({ error }) => (error ? 'step-end' : 'step-start')};
-  color: ${({ error, theme }) => (error ? theme.red1 : theme.primary1)};
+  color: ${({ error, theme }) => (error ? theme.red1 : theme.white)};
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 500;
   width: 100%;
   ::placeholder {
-    color: ${({ theme }) => theme.text4};
+    color: ${({ theme }) => theme.white};
   }
   padding: 0px;
   -webkit-appearance: textfield;
@@ -61,10 +58,6 @@ const Input = styled.input<{ error?: boolean }>`
   ::-webkit-outer-spin-button,
   ::-webkit-inner-spin-button {
     -webkit-appearance: none;
-  }
-
-  ::placeholder {
-    color: ${({ theme }) => theme.text4};
   }
 `
 
@@ -101,12 +94,12 @@ export default function AddressInputPanel({
         <InputContainer>
           <AutoColumn gap="md">
             <RowBetween>
-              <TYPE.black color={theme.text2} fontWeight={500} fontSize={14}>
+              <TYPE.black color={theme.text2} fontWeight={600} fontSize={13}>
                 Recipient
               </TYPE.black>
               {address && chainId && (
-                <ExternalLink href={getEtherscanLink(chainId, name ?? address, 'address')} style={{ fontSize: '14px' }}>
-                  (View on {XDC_CHAIN_IDS.includes(chainId) ? 'Blocksscan' : 'Etherscan'})
+                <ExternalLink href={getBlockScanLink(chainId, name ?? address, 'address')} style={{ fontSize: '14px' }}>
+                  (View on Blocksscan)
                 </ExternalLink>
               )}
             </RowBetween>

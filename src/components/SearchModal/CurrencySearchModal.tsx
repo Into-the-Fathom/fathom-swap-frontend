@@ -1,13 +1,13 @@
-import { Currency, Token } from 'into-the-fathom-swap-sdk'
+import { Currency, Token } from 'fathomswap-sdk'
 import React, { useCallback, useEffect, useState } from 'react'
-import useLast from '../../hooks/useLast'
-import Modal from '../Modal'
-import { CurrencySearch } from './CurrencySearch'
-import { ImportToken } from './ImportToken'
+import useLast from 'hooks/useLast'
+import Modal from 'components/Modal'
+import { CurrencySearch } from 'components/SearchModal/CurrencySearch'
+import { ImportToken } from 'components/SearchModal/ImportToken'
 import usePrevious from 'hooks/usePrevious'
-import Manage from './Manage'
+import Manage from 'components/SearchModal/Manage'
 import { TokenList } from '@uniswap/token-lists'
-import { ImportList } from './ImportList'
+import { ImportList } from 'components/SearchModal/ImportList'
 
 interface CurrencySearchModalProps {
   isOpen: boolean

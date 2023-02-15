@@ -2,12 +2,12 @@ import React from 'react'
 import styled from 'styled-components'
 import { CheckCircle, Triangle } from 'react-feather'
 
-import { useActiveWeb3React } from '../../hooks'
-import { getEtherscanLink } from '../../utils'
-import { ExternalLink } from '../../theme'
-import { useAllTransactions } from '../../state/transactions/hooks'
-import { RowFixed } from '../Row'
-import Loader from '../Loader'
+import { useActiveWeb3React } from 'hooks'
+import { getBlockScanLink } from 'utils'
+import { ExternalLink } from 'theme'
+import { useAllTransactions } from 'state/transactions/hooks'
+import { RowFixed } from 'components/Row'
+import Loader from 'components/Loader'
 
 const TransactionWrapper = styled.div``
 
@@ -29,7 +29,7 @@ const TransactionState = styled(ExternalLink)<{ pending: boolean; success?: bool
   padding: 0.25rem 0rem;
   font-weight: 500;
   font-size: 0.825rem;
-  color: ${({ theme }) => theme.primary1};
+  color: ${({ theme }) => theme.text1};
 `
 
 const IconWrapper = styled.div<{ pending: boolean; success?: boolean }>`
@@ -49,12 +49,12 @@ export default function Transaction({ hash }: { hash: string }) {
 
   return (
     <TransactionWrapper>
-      <TransactionState href={getEtherscanLink(chainId, hash, 'transaction')} pending={pending} success={success}>
+      <TransactionState href={getBlockScanLink(chainId, hash, 'transaction')} pending={pending} success={success}>
         <RowFixed>
           <TransactionStatusText>{summary ?? hash} ↗</TransactionStatusText>
         </RowFixed>
         <IconWrapper pending={pending} success={success}>
-          {pending ? <Loader /> : success ? <CheckCircle size="16" /> : <Triangle size="16" />}
+          {pending ? <Loader stroke={'white'} /> : success ? <CheckCircle size="16" /> : <Triangle size="16" />}
         </IconWrapper>
       </TransactionState>
     </TransactionWrapper>

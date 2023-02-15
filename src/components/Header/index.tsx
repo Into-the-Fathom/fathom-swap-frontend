@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { ChainId, TokenAmount } from 'fathomswap-sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -7,30 +7,20 @@ import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
 
-import Logo from '../../assets/svg/Fathom-logo-black.svg'
-import LogoDark from '../../assets/svg/Fathom-logo-aqua.svg'
-import { useActiveWeb3React } from '../../hooks'
-import { useDarkModeManager } from '../../state/user/hooks'
-import { useETHBalances, useAggregateUniBalance } from '../../state/wallet/hooks'
-import { CardNoise } from '../earn/styled'
+import Logo from 'assets/svg/Fathom-app-logo.svg'
+import { useActiveWeb3React } from 'hooks'
+import { useXDCBalances, useAggregateUniBalance } from 'state/wallet/hooks'
+import { CardNoise } from 'components/earn/styled'
 import { CountUp } from 'use-count-up'
-import { TYPE, ExternalLink } from '../../theme'
+import { TYPE, ExternalLink } from 'theme'
 
-import { YellowCard } from '../Card'
-// import { Moon, Sun } from 'react-feather'
-// import Menu from '../Menu'
+import { YellowCard } from 'components/Card'
 
-import Row, { RowFixed } from '../Row'
-import Web3Status from '../Web3Status'
-// import ClaimModal from '../claim/ClaimModal'
-// import { useToggleSelfClaimModal, useShowClaimPopup } from '../../state/application/hooks'
-// import { useUserHasAvailableClaim } from '../../state/claim/hooks'
-// import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
-// import { Dots } from '../swap/styleds'
-import Modal from '../Modal'
-import UniBalanceContent from './UniBalanceContent'
-import usePrevious from '../../hooks/usePrevious'
-import { XDC_CHAIN_IDS } from '../../utils'
+import Row from 'components/Row'
+import Web3Status from 'components/Web3Status'
+import Modal from 'components/Modal'
+import FathomBalanceContent from 'components/Header/FathomBalanceContent'
+import usePrevious from 'hooks/usePrevious'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -42,7 +32,7 @@ const HeaderFrame = styled.div`
   width: 100%;
   top: 0;
   position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #2c3f59;
   padding: 1rem;
   z-index: 2;
   ${({ theme }) => theme.mediaWidth.upToMedium`
@@ -51,7 +41,7 @@ const HeaderFrame = styled.div`
     width: calc(100%);
     position: relative;
   `};
-  background: ${({ theme }) => theme.bg6};
+  background: transparent;
   ${({ theme }) => theme.mediaWidth.upToExtraSmall`
         padding: 0.5rem 1rem;
   `}
@@ -96,34 +86,39 @@ const HeaderElement = styled.div`
   `};
 `
 
-// const HeaderElementWrap = styled.div`
-//   display: flex;
-//   align-items: center;
-// `
-
-const HeaderRow = styled(RowFixed)`
+const HeaderRow = styled(Row)<{ gap?: string; justify?: string }>`
+  margin: ${({ gap }) => gap && `-${gap}`};
   ${({ theme }) => theme.mediaWidth.upToMedium`
-   width: 100%;
+    width: 100%;
+    background: '#fff';
   `};
 `
 
 const HeaderLinks = styled(Row)`
   justify-content: center;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({ theme }) => theme.mediaWidth.upToExtraLarge`
     padding: 1rem 0 1rem 1rem;
-    justify-content: flex-end;
-`};
+    justify-content: flex-start;
+ `};
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+      padding: 1rem 0 1rem 0rem;
+      a {
+        margin: 0 8px;
+        font-size: 0.8rem;
+      }
+ `};
 `
 
 const AccountElement = styled.div<{ active: boolean }>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: ${({ theme, active }) => (!active ? theme.bg1 : theme.bg3)};
+  background-color: ${({ theme }) => theme.bg1};
   border-radius: 12px;
   white-space: nowrap;
   width: 100%;
   cursor: pointer;
+  color: ${({ theme }) => theme.text1};
 
   :focus {
     border: 1px solid blue;
@@ -135,8 +130,8 @@ const FTHMAmount = styled(AccountElement)`
   padding: 4px 8px;
   height: 36px;
   font-weight: 500;
-  background-color: ${({ theme }) => theme.bg7};
-  color: ${({ theme }) => theme.text6};
+  background-color: ${({ theme }) => theme.bg1};
+  color: ${({ theme }) => theme.text1};
 `
 
 const FTHMWrapper = styled.span`
@@ -185,6 +180,9 @@ const Title = styled.a`
   justify-self: flex-start;
   margin-right: 12px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
+    margin-right: 8px;
+  `};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
   `};
   :hover {
@@ -194,6 +192,13 @@ const Title = styled.a`
 
 const FathomIcon = styled.div`
   transition: transform 0.3s ease;
+  img {
+    width: 140px;
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+      width: 100px;
+    `};
+  }
+
   :hover {
     transform: rotate(-5deg);
   }
@@ -215,11 +220,15 @@ const StyledNavLink = styled(NavLink).attrs({
   width: fit-content;
   margin: 0 12px;
   font-weight: 500;
+  text-transform: capitalize;
 
   &.${activeClassName} {
     border-radius: 12px;
     font-weight: 600;
     color: ${({ theme }) => theme.text1};
+    background-color: ${({ theme }) => theme.primary5};
+    padding: 8px 12px;
+    border-radius: 8px;
   }
 
   :hover,
@@ -253,10 +262,6 @@ const StyledExternalLink = styled(ExternalLink).attrs({
   :focus {
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
-
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-      display: none;
-`}
 `
 
 export const StyledMenuButton = styled.button`
@@ -289,10 +294,6 @@ export const StyledMenuButton = styled.button`
 `
 
 const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
-  [ChainId.RINKEBY]: 'Rinkeby',
-  [ChainId.ROPSTEN]: 'Ropsten',
-  [ChainId.GOERLI]: 'GOERLI',
-  [ChainId.KOVAN]: 'Kovan',
   [ChainId.XDC]: 'XDC',
   [ChainId.AXDC]: 'Apothem'
 }
@@ -301,15 +302,7 @@ export default function Header() {
   const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
 
-  const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
-  // const [isDark] = useDarkModeManager()
-  const [darkMode /*, toggleDarkMode*/] = useDarkModeManager()
-
-  // const toggleClaimModal = useToggleSelfClaimModal()
-
-  // const availableClaim: boolean = useUserHasAvailableClaim(account)
-
-  // const { claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
+  const userXDCBalance = useXDCBalances(account ? [account] : [])?.[account ?? '']
 
   const aggregateBalance: TokenAmount | undefined = useAggregateUniBalance()
 
@@ -323,12 +316,12 @@ export default function Header() {
     <HeaderFrame>
       {/*<ClaimModal />*/}
       <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
-        <UniBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
+        <FathomBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
       </Modal>
       <HeaderRow>
-        <Title href=".">
+        <Title href="/">
           <FathomIcon>
-            <img width={'100px'} src={darkMode ? LogoDark : Logo} alt="logo" />
+            <img src={Logo} alt="logo" />
           </FathomIcon>
         </Title>
         <HeaderLinks>
@@ -348,14 +341,11 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          {/* <StyledNavLink id={`stake-nav-link`} to={'/fthm'}>
-            FTHM
-          </StyledNavLink> */}
-          {/*<StyledNavLink id={`stake-nav-link`} to={'/vote'}>*/}
-          {/*  Vote*/}
-          {/*</StyledNavLink>*/}
-          <StyledExternalLink id={`stake-nav-link`} href={'https://uniswap.info'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://charts.fathom.fi'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://dapp.fathom.fi'}>
+            FXD <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>
       </HeaderRow>
@@ -366,22 +356,12 @@ export default function Header() {
               <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
             )}
           </HideSmall>
-          {/*{availableClaim && !showClaimPopup && (*/}
-          {/*  <FTHMWrapper onClick={toggleClaimModal}>*/}
-          {/*    <FTHMAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>*/}
-          {/*      <TYPE.white padding="0 2px">*/}
-          {/*        {claimTxn && !claimTxn?.receipt ? <Dots>Claiming FTHM</Dots> : 'Claim FTHM'}*/}
-          {/*      </TYPE.white>*/}
-          {/*    </FTHMAmount>*/}
-          {/*    <CardNoise />*/}
-          {/*  </FTHMWrapper>*/}
-          {/*)}*/}
-          {/*!availableClaim &&*/ aggregateBalance && (
+          {aggregateBalance && (
             <FTHMWrapper onClick={() => setShowUniBalanceModal(true)}>
               <FTHMAmount active={!!account /*&& !availableClaim*/} style={{ pointerEvents: 'auto' }}>
                 {account && (
                   <HideSmall>
-                    <TYPE.black
+                    <TYPE.white
                       style={{
                         paddingRight: '.4rem'
                       }}
@@ -394,7 +374,7 @@ export default function Header() {
                         thousandsSeparator={','}
                         duration={1}
                       />
-                    </TYPE.black>
+                    </TYPE.white>
                   </HideSmall>
                 )}
                 FTHM
@@ -403,9 +383,9 @@ export default function Header() {
             </FTHMWrapper>
           )}
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
-            {account && userEthBalance ? (
+            {account && userXDCBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userEthBalance?.toSignificant(4)} {XDC_CHAIN_IDS.includes(chainId as ChainId) ? 'XDC' : 'ETH'}
+                {userXDCBalance?.toSignificant(4)} {'XDC'}
               </BalanceText>
             ) : null}
             <Web3Status />

@@ -3,9 +3,9 @@ import { BigNumber } from '@into-the-fathom/bignumber'
 import { Contract } from '@into-the-fathom/contracts'
 import { useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useActiveWeb3React } from '../../hooks'
-import { useBlockNumber } from '../application/hooks'
-import { AppDispatch, AppState } from '../index'
+import { useActiveWeb3React } from 'hooks'
+import { useBlockNumber } from 'state/application/hooks'
+import { AppDispatch, AppState } from 'state'
 import {
   addMulticallListeners,
   Call,

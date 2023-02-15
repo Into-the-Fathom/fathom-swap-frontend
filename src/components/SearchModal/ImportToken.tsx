@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Token, Currency } from 'into-the-fathom-swap-sdk'
+import { Token, Currency } from 'fathomswap-sdk'
 import styled from 'styled-components'
 import { TYPE, CloseIcon } from 'theme'
 import Card from 'components/Card'
@@ -12,12 +12,12 @@ import useTheme from 'hooks/useTheme'
 import { ButtonPrimary } from 'components/Button'
 import { SectionBreak } from 'components/swap/styleds'
 import { useAddUserToken } from 'state/user/hooks'
-import { getEtherscanLink } from 'utils'
+import { getBlockScanLink } from 'utils'
 import { useActiveWeb3React } from 'hooks'
-import { ExternalLink } from '../../theme/components'
+import { ExternalLink } from 'theme/components'
 import { useCombinedInactiveList } from 'state/lists/hooks'
 import ListLogo from 'components/ListLogo'
-import { PaddedColumn, Checkbox } from './styleds'
+import { PaddedColumn, Checkbox } from 'components/SearchModal/styleds'
 
 const Wrapper = styled.div`
   position: relative;
@@ -47,6 +47,8 @@ interface ImportProps {
 }
 
 export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }: ImportProps) {
+  console.log(tokens)
+
   const theme = useTheme()
 
   const { chainId } = useActiveWeb3React()
@@ -84,10 +86,10 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
                   <TYPE.body ml="8px" mr="8px" fontWeight={500}>
                     {token.symbol}
                   </TYPE.body>
-                  <TYPE.darkGray fontWeight={300}>{token.name}</TYPE.darkGray>
+                  <TYPE.gray fontWeight={300}>{token.name}</TYPE.gray>
                 </AutoRow>
                 {chainId && (
-                  <ExternalLink href={getEtherscanLink(chainId, token.address, 'address')}>
+                  <ExternalLink href={getBlockScanLink(chainId, token.address, 'address')}>
                     <AddressText>{token.address}</AddressText>
                   </ExternalLink>
                 )}
