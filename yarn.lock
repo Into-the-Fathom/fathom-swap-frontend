@@ -6460,14 +6460,14 @@ fathom-swap-default-token-list@1.0.6:
   resolved "https://registry.yarnpkg.com/fathom-swap-default-token-list/-/fathom-swap-default-token-list-1.0.6.tgz#97c99157cb1caa0c53bb2eed69051669404ca5a8"
   integrity sha512-OFcEGfE2nL/kBg/fFY4lwUt0W/+PfZyGLlMedV7MG9KURcOkp2wqsRFKzteFrXNCx7QIdh5mYe0iaOlg2BCUMg==
 
-fathomswap-sdk@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.2.tgz#69510432c86d610577d70a544592dfe419741d4e"
-  integrity sha512-JuYaiLjsRsBjgRweOIwb9ueBZo6Z1TlcbPQ9x4U/Ljen4Ar/OuLjJAY3d8NqIiBWamwbR1qrCGqQh51zC515FA==
+fathomswap-sdk@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.3.tgz#fee69f787de27ec1b4a5e7f2885aad7773751f03"
+  integrity sha512-F/xZitBlFsyVIoC4SvtCpR8TuCE9gfQFWcrUzq3K6i2KoXAR4YxclPeRslCEIhJw2XoqpdAiQvGLU77uYGP0mg==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
-    into-the-fathom-swap-smart-contracts "^1.0.0"
+    into-the-fathom-swap-smart-contracts "^1.1.0"
     jsbi "^3.1.1"
     tiny-invariant "^1.1.0"
     tiny-warning "^1.0.3"
@@ -7584,10 +7584,10 @@ internal-slot@^1.0.2:
     has "^1.0.3"
     side-channel "^1.0.2"
 
-into-the-fathom-swap-smart-contracts@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/into-the-fathom-swap-smart-contracts/-/into-the-fathom-swap-smart-contracts-1.0.0.tgz#4f4b02d2c09e2a146c952f86b05d241088e74083"
-  integrity sha512-cNHsM5rzmAbpxfSafKjH5HDGCiCSfJhTIkpNO8H2E3PttTC90C4z6vyuPA4NFzySFjeFHGkCXc/TZsskiQPULQ==
+into-the-fathom-swap-smart-contracts@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/into-the-fathom-swap-smart-contracts/-/into-the-fathom-swap-smart-contracts-1.1.0.tgz#adfab9399fd77ce7fb616a3fbbb23ff4c76e4db4"
+  integrity sha512-LLwAA48vUBzV+jzWITVUmPr+ECcj1qoqdE1xja4eX7mnggzI/OujMELHXxd84DDHAilIKSPSjl56bUpkxiNS8w==
 
 invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
