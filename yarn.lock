@@ -6460,10 +6460,10 @@ fathom-swap-default-token-list@1.0.6:
   resolved "https://registry.yarnpkg.com/fathom-swap-default-token-list/-/fathom-swap-default-token-list-1.0.6.tgz#97c99157cb1caa0c53bb2eed69051669404ca5a8"
   integrity sha512-OFcEGfE2nL/kBg/fFY4lwUt0W/+PfZyGLlMedV7MG9KURcOkp2wqsRFKzteFrXNCx7QIdh5mYe0iaOlg2BCUMg==
 
-fathomswap-sdk@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.3.tgz#fee69f787de27ec1b4a5e7f2885aad7773751f03"
-  integrity sha512-F/xZitBlFsyVIoC4SvtCpR8TuCE9gfQFWcrUzq3K6i2KoXAR4YxclPeRslCEIhJw2XoqpdAiQvGLU77uYGP0mg==
+fathomswap-sdk@^3.0.4:
+  version "3.0.4"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.4.tgz#8babb67ee2ea9aa3a242f4d55f6ee8d4279baf13"
+  integrity sha512-h0c4KUbkzEGxVj++jTsHjVKmo3Y4atHTvznddElSPAmX1rM9PdbAwpDjSx8GMw7vmiE6UeE7el125cEYMtjwXA==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
