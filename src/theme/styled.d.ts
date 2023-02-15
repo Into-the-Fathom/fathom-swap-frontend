@@ -24,6 +24,7 @@ export interface Colors {
   bg7: Color
 
   modalBG: Color
+  modalContentBG: Color
   advancedBG: Color
 
   //blues
@@ -69,6 +70,7 @@ declare module 'styled-components' {
       upToSmall: ThemedCssFunction<DefaultTheme>
       upToMedium: ThemedCssFunction<DefaultTheme>
       upToLarge: ThemedCssFunction<DefaultTheme>
+      upToExtraLarge: ThemedCssFunction<DefaultTheme>
     }
 
     // css snippets

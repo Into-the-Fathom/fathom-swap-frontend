@@ -1,13 +1,13 @@
 import { BigNumber } from '@into-the-fathom/bignumber'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, TokenAmount, WETH, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, currencyEquals, TokenAmount, WETH, XDC } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useState } from 'react'
 import { Plus } from 'react-feather'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router-dom'
 import { Text } from 'rebass'
-import { ThemeContext } from 'styled-components'
-import { ButtonError, ButtonLight, ButtonPrimary } from 'components/Button'
+import styled, { ThemeContext } from 'styled-components'
+import { ButtonError, ButtonPrimary } from 'components/Button'
 import { BlueCard, LightCard } from 'components/Card'
 import { AutoColumn, ColumnCenter } from 'components/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
@@ -40,6 +40,24 @@ import { currencyId } from 'utils/currencyId'
 import { PoolPriceBar } from 'pages/AddLiquidity/PoolPriceBar'
 import { useIsTransactionUnsupported } from 'hooks/Trades'
 import UnsupportedCurrencyFooter from 'components/swap/UnsupportedCurrencyFooter'
+import { ConnectWalletButton, WalletIcon } from 'pages/Swap'
+
+const PlusWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+`
+
+const IconWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6379a1;
+  border-radius: 15px;
+`
 
 export default function AddLiquidity({
   match: {
@@ -376,9 +394,13 @@ export default function AddLiquidity({
               id="add-liquidity-input-tokena"
               showCommonBases
             />
-            <ColumnCenter>
-              <Plus size="16" color={theme.text2} />
-            </ColumnCenter>
+            <PlusWrapper>
+              <ColumnCenter>
+                <IconWrapper>
+                  <Plus size="20" color={theme.bg2} />
+                </IconWrapper>
+              </ColumnCenter>
+            </PlusWrapper>
             <CurrencyInputPanel
               value={formattedAmounts[Field.CURRENCY_B]}
               onUserInput={onFieldBInput}
@@ -416,7 +438,10 @@ export default function AddLiquidity({
                 <TYPE.main mb="4px">Unsupported Asset</TYPE.main>
               </ButtonPrimary>
             ) : !account ? (
-              <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+              <ConnectWalletButton onClick={toggleWalletModal}>
+                <WalletIcon></WalletIcon>
+                Connect Wallet
+              </ConnectWalletButton>
             ) : (
               <AutoColumn gap={'md'}>
                 {(approvalA === ApprovalState.NOT_APPROVED ||

@@ -13,8 +13,9 @@ export * from 'theme/components'
 const MEDIA_WIDTHS = {
   upToExtraSmall: 500,
   upToSmall: 720,
-  upToMedium: 960,
-  upToLarge: 1280
+  upToMedium: 986,
+  upToLarge: 1280,
+  upToExtraLarge: 1400
 }
 
 const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(MEDIA_WIDTHS).reduce(
@@ -40,17 +41,17 @@ export function colors(): Colors {
 
     // text
     text1: white,
-    text2: white,
-    text3: '#002F2D',
+    text2: '#4F658C',
+    text3: '#00332F',
     text4: '#565A69',
     text5: '#2C2F36',
     text6: '#0E0F15',
 
     // backgrounds / greys
-    bg1: '#192A42',
+    bg1: '#131F35',
 
     // main background
-    bg2: '#0E1D34',
+    bg2: '#061023',
     bg3: '#43FFF6',
     bg4: '#565A69',
     bg5: '#6C7284',
@@ -59,12 +60,13 @@ export function colors(): Colors {
     bg6: '#0E0F15',
     bg7: '#00FFF9',
 
+    modalContentBG: '#1D2D49',
     //specialty colors
     modalBG: 'rgba(0,0,0,.425)',
     advancedBG: 'rgba(0,0,0,0.1)',
 
     //primary colors
-    primary1: '#192A42',
+    primary1: '#253656',
     primary2: '#3680E7',
     primary3: '#4D8FEA',
     primary4: '#376bad70',

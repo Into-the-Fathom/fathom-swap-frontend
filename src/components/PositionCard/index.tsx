@@ -1,4 +1,4 @@
-import { JSBI, Pair, Percent, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { JSBI, Pair, Percent, TokenAmount } from 'fathomswap-sdk'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
 import { Link } from 'react-router-dom'
@@ -286,7 +286,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             <ButtonSecondary padding="8px" borderRadius="8px">
               <ExternalLink
                 style={{ width: '100%', textAlign: 'center' }}
-                href={`https://uniswap.info/account/${account}`}
+                href={`https://charts.fathom.fi/#/account/${account}`}
               >
                 View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
               </ExternalLink>

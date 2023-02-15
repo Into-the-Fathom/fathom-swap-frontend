@@ -45,7 +45,7 @@ const HeaderRow = styled.div`
   ${({ theme }) => theme.flexRowNoWrap};
   padding: 1rem 1rem;
   font-weight: 500;
-  color: ${props => (props.color === 'blue' ? ({ theme }) => theme.primary1 : 'inherit')};
+  color: ${props => (props.color === 'white' ? ({ theme }) => theme.white : 'inherit')};
   ${({ theme }) => theme.mediaWidth.upToMedium`
     padding: 1rem;
   `};
@@ -272,7 +272,7 @@ export default function WalletModal({
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
             {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate Ethereum network.</h5>
+              <h5>Please connect to the appropriate XDC network.</h5>
             ) : (
               'Error connecting. Try refreshing the page.'
             )}
@@ -297,7 +297,7 @@ export default function WalletModal({
           <CloseColor />
         </CloseIcon>
         {walletView !== WALLET_VIEWS.ACCOUNT ? (
-          <HeaderRow color="blue">
+          <HeaderRow color="white">
             <HoverText
               onClick={() => {
                 setPendingError(false)

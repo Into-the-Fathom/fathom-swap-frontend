@@ -1,7 +1,7 @@
-import { ChainId, JSBI, Percent, Token, WETH } from 'into-the-fathom-swap-sdk'
+import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
-import { injected, walletconnect, walletlink } from 'connectors'
+import { injected, walletconnect } from 'connectors'
 
 // a list of tokens by chain
 type RouterAddressesList = {
@@ -11,8 +11,8 @@ type RouterAddressesList = {
 // APOTHEM -- 0xc68f7E9CBc881F362065235D2a373B5B96644351
 export const ROUTER_ADDRESSES: RouterAddressesList = {
   // @todo: Need to change it after deploy to XDC
-  [ChainId.XDC]: '0xc68f7E9CBc881F362065235D2a373B5B96644351',
-  [ChainId.AXDC]: '0xc68f7E9CBc881F362065235D2a373B5B96644351'
+  [ChainId.XDC]: '0xd10287b6036942B95AECfD8F94A6F07724CBE428',
+  [ChainId.AXDC]: '0x05b0e01DD9737a3c0993de6F57B93253a6C3Ba95'
 }
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
@@ -33,12 +33,12 @@ export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
 /***
  * Apothem tokens
  */
-export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0xCcdC0653935A251B6839F30359917977f994b5d9', 18, 'US+', 'US+')
-export const FXD_AXDC = new Token(ChainId.AXDC, '0x32333d7d5aE3Ea3bee41618838842EdA5581576c', 18, 'FXD', 'FXD')
-export const FTHM_AXDC = new Token(ChainId.AXDC, '0x4c52500DdC18EE0C6CB6155961347076E43ABb99', 18, 'FTHM', 'Fathom')
+export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0x82b4334F5CD8385f55969BAE0A863a0C6eA9F63f', 18, 'US+', 'US+')
+export const FXD_AXDC = new Token(ChainId.AXDC, '0x8909877Dc651f170Bd65d693AFA7e2B0091588BE', 18, 'FXD', 'FXD')
+export const FTHM_AXDC = new Token(ChainId.AXDC, '0xe81e44165c179F958399127277E1FB3D00256E6f', 18, 'FTHM', 'Fathom')
 export const WXDC_AXDC = new Token(
   ChainId.AXDC,
-  '0xc039850F937C623024DA66D6dF370022E6F16e30',
+  '0xE99500AB4A413164DA49Af83B9824749059b46ce',
   18,
   'WXDC',
   'Wrapped XDC'
@@ -47,7 +47,7 @@ export const WXDC_AXDC = new Token(
 /**
  * XDC Mainnet Tokens
  */
-const FTHM_ADDRESS_XDC = '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984'
+const FTHM_ADDRESS_XDC = '0xe81e44165c179F958399127277E1FB3D00256E6f'
 
 export const FTHM_XDC = new Token(ChainId.XDC, FTHM_ADDRESS_XDC, 18, 'FTHM', 'Fathom')
 
@@ -140,23 +140,6 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     color: '#4196FC',
     mobile: true
   },
-  WALLET_LINK: {
-    connector: walletlink,
-    name: 'Coinbase Wallet',
-    iconName: 'coinbaseWalletIcon.svg',
-    description: 'Use Coinbase Wallet app on mobile device',
-    href: null,
-    color: '#315CF5'
-  },
-  COINBASE_LINK: {
-    name: 'Open in Coinbase Wallet',
-    iconName: 'coinbaseWalletIcon.svg',
-    description: 'Open in Coinbase Wallet app.',
-    href: 'https://go.cb-w.com/mtUDhEZPy1',
-    color: '#315CF5',
-    mobile: true,
-    mobileOnly: true
-  }
 }
 
 export const NetworkContextName = 'NETWORK'

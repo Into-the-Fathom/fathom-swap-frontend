@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
-import { Pair } from 'into-the-fathom-swap-sdk'
+import { Pair } from 'fathomswap-sdk'
 import { Link } from 'react-router-dom'
 import { SwapPoolTabs } from 'components/NavigationTabs'
 
@@ -125,13 +125,6 @@ export default function Pool() {
                   {`Liquidity providers earn a 0.3% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.`}
                 </TYPE.black>
               </RowBetween>
-              {/*<ExternalLink*/}
-              {/*  style={{ color: 'white', textDecoration: 'underline' }}*/}
-              {/*  target="_blank"*/}
-              {/*  href="https://uniswap.org/docs/v2/core-concepts/pools/"*/}
-              {/*>*/}
-              {/*  <TYPE.black fontSize={14}>Read more about providing liquidity</TYPE.black>*/}
-              {/*</ExternalLink>*/}
             </AutoColumn>
           </CardSection>
           <CardBGImage />
@@ -178,7 +171,7 @@ export default function Pool() {
               <>
                 <ButtonSecondary>
                   <RowBetween>
-                    <ExternalLink href={'https://uniswap.info/account/' + account}>
+                    <ExternalLink href={'https://charts.fathom.fi/#/account/' + account}>
                       Account analytics and accrued fees
                     </ExternalLink>
                     <span> ↗</span>

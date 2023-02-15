@@ -12,8 +12,7 @@ import Transaction from 'components/AccountDetails/Transaction'
 import { SUPPORTED_WALLETS } from 'constants/index'
 import { ReactComponent as Close } from 'assets/images/x.svg'
 import { getBlockScanLink } from 'utils'
-import { injected, walletconnect, walletlink } from 'connectors'
-import CoinbaseWalletIcon from 'assets/images/coinbaseWalletIcon.svg'
+import { injected, walletconnect } from 'connectors'
 import WalletConnectIcon from 'assets/images/walletConnectIcon.svg'
 import Identicon from 'components/Identicon'
 import { ButtonSecondary } from 'components/Button'
@@ -52,7 +51,7 @@ const UpperSection = styled.div`
 
 const InfoCard = styled.div`
   padding: 1rem;
-  border: 1px solid ${({ theme }) => theme.bg3};
+  border: 1px solid ${({ theme }) => theme.bg2};
   border-radius: 20px;
   position: relative;
   display: grid;
@@ -75,8 +74,8 @@ const AccountGroupingRow = styled.div`
 
 const AccountSection = styled.div`
   background-color: ${({ theme }) => theme.bg1};
-  padding: 0rem 1rem;
-  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 0rem 1rem 1.5rem 1rem;`};
+  padding: 1rem;
+  ${({ theme }) => theme.mediaWidth.upToMedium`padding: 1.2rem 1rem 1.5rem 1rem;`};
 `
 
 const YourAccount = styled.div`
@@ -190,7 +189,7 @@ const WalletAction = styled(ButtonSecondary)`
   padding: 4px 6px;
   :hover {
     cursor: pointer;
-    text-decoration: underline;
+    text-decoration: none;
   }
 `
 
@@ -248,12 +247,6 @@ export default function AccountDetails({
           <img src={WalletConnectIcon} alt={'wallet connect logo'} />
         </IconWrapper>
       )
-    } else if (connector === walletlink) {
-      return (
-        <IconWrapper size={16}>
-          <img src={CoinbaseWalletIcon} alt={'coinbase wallet logo'} />
-        </IconWrapper>
-      )
     }
     return null
   }
@@ -275,7 +268,7 @@ export default function AccountDetails({
               <AccountGroupingRow>
                 {formatConnectorName()}
                 <div>
-                  {connector !== injected && connector !== walletlink && (
+                  {connector !== injected && (
                     <WalletAction
                       style={{ fontSize: '.825rem', fontWeight: 400, marginRight: '8px' }}
                       onClick={() => {

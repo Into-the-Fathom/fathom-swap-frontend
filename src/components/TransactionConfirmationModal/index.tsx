@@ -1,4 +1,4 @@
-import { ChainId, Currency } from 'into-the-fathom-swap-sdk'
+import { ChainId, Currency } from 'fathomswap-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import Modal from 'components/Modal'
@@ -17,6 +17,7 @@ import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask'
 
 const Wrapper = styled.div`
   width: 100%;
+  border: 1px solid #253656;
 `
 const Section = styled(AutoColumn)`
   padding: 24px;
@@ -92,7 +93,7 @@ function TransactionSubmittedContent({
           <CloseIcon onClick={onDismiss} />
         </RowBetween>
         <ConfirmedIcon>
-          <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.primary1} />
+          <ArrowUpCircle strokeWidth={0.5} size={90} color={theme.white} />
         </ConfirmedIcon>
         <AutoColumn gap="12px" justify={'center'}>
           <Text fontWeight={500} fontSize={20}>
@@ -100,7 +101,7 @@ function TransactionSubmittedContent({
           </Text>
           {chainId && hash && (
             <ExternalLink href={getBlockScanLink(chainId, hash, 'transaction')}>
-              <Text fontWeight={500} fontSize={14} color={theme.primary1}>
+              <Text fontWeight={600} fontSize={14} color={theme.text2}>
                 View on Blocksscan
               </Text>
             </ExternalLink>

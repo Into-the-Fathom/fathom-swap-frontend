@@ -1,4 +1,4 @@
-import { ChainId, TokenAmount } from 'into-the-fathom-swap-sdk'
+import { ChainId, TokenAmount } from 'fathomswap-sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
@@ -96,10 +96,17 @@ const HeaderRow = styled(Row)<{ gap?: string; justify?: string }>`
 
 const HeaderLinks = styled(Row)`
   justify-content: center;
-  ${({ theme }) => theme.mediaWidth.upToMedium`
+  ${({ theme }) => theme.mediaWidth.upToExtraLarge`
     padding: 1rem 0 1rem 1rem;
-    justify-content: center;
-`};
+    justify-content: flex-start;
+ `};
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+      padding: 1rem 0 1rem 0rem;
+      a {
+        margin: 0 8px;
+        font-size: 0.8rem;
+      }
+ `};
 `
 
 const AccountElement = styled.div<{ active: boolean }>`
@@ -173,6 +180,9 @@ const Title = styled.a`
   justify-self: flex-start;
   margin-right: 12px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
+    margin-right: 8px;
+  `};
+  ${({ theme }) => theme.mediaWidth.upToSmall`
     justify-self: center;
   `};
   :hover {
@@ -182,6 +192,13 @@ const Title = styled.a`
 
 const FathomIcon = styled.div`
   transition: transform 0.3s ease;
+  img {
+    width: 140px;
+    ${({ theme }) => theme.mediaWidth.upToSmall`
+      width: 100px;
+    `};
+  }
+
   :hover {
     transform: rotate(-5deg);
   }
@@ -245,10 +262,6 @@ const StyledExternalLink = styled(ExternalLink).attrs({
   :focus {
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
-
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-      display: none;
-`}
 `
 
 export const StyledMenuButton = styled.button`
@@ -308,7 +321,7 @@ export default function Header() {
       <HeaderRow>
         <Title href="/">
           <FathomIcon>
-            <img width={'140px'} src={Logo} alt="logo" />
+            <img src={Logo} alt="logo" />
           </FathomIcon>
         </Title>
         <HeaderLinks>
@@ -328,8 +341,11 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'/'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://charts.fathom.fi'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://dapp.fathom.fi'}>
+            FXD <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>
       </HeaderRow>

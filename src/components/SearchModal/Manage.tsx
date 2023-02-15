@@ -5,7 +5,7 @@ import { ArrowLeft } from 'react-feather'
 import { Text } from 'rebass'
 import { CloseIcon } from 'theme'
 import styled from 'styled-components'
-import { Token } from 'into-the-fathom-swap-sdk'
+import { Token } from 'fathomswap-sdk'
 import { ManageLists } from 'components/SearchModal/ManageLists'
 import ManageTokens from 'components/SearchModal/ManageTokens'
 import { TokenList } from '@uniswap/token-lists'
@@ -34,6 +34,7 @@ const ToggleOption = styled.div<{ active?: boolean }>`
   background-color: ${({ theme, active }) => (active ? theme.bg3 : theme.bg1)};
   color: ${({ theme, active }) => (active ? theme.text3 : theme.text2)};
   user-select: none;
+  border: 1px solid ${({ theme, active }) => (active ? theme.bg3 : theme.bg1)};
 
   :hover {
     background-color: ${({ theme, active }) => (active ? 'transparent' : theme.bg1)};

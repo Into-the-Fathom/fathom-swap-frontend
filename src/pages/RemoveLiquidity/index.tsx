@@ -1,14 +1,14 @@
 import { splitSignature } from '@into-the-fathom/bytes'
 import { Contract } from '@into-the-fathom/contracts'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, Percent, WETH, XDC } from 'into-the-fathom-swap-sdk'
+import { Currency, currencyEquals, Percent, WETH, XDC } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import ReactGA from 'react-ga'
 import { RouteComponentProps } from 'react-router'
 import { Text } from 'rebass'
-import { ThemeContext } from 'styled-components'
-import { ButtonPrimary, ButtonLight, ButtonError, ButtonConfirmed } from 'components/Button'
+import styled, { ThemeContext } from 'styled-components'
+import { ButtonPrimary, ButtonError, ButtonConfirmed } from 'components/Button'
 import { BlueCard, LightCard } from 'components/Card'
 import { AutoColumn, ColumnCenter } from 'components/Column'
 import TransactionConfirmationModal, { ConfirmationModalContent } from 'components/TransactionConfirmationModal'
@@ -36,13 +36,31 @@ import { wrappedCurrency } from 'utils/wrappedCurrency'
 import AppBody from 'pages/AppBody'
 import { ClickableText, MaxButton, Wrapper } from 'pages/Pool/styleds'
 import { useApproveCallback, ApprovalState } from 'hooks/useApproveCallback'
-import { Dots } from 'components/swap/styleds'
+import { ArrowDownWrapped, ArrowWrapper, Dots } from 'components/swap/styleds'
 import { useBurnActionHandlers } from 'state/burn/hooks'
 import { useDerivedBurnInfo, useBurnState } from 'state/burn/hooks'
 import { Field } from 'state/burn/actions'
 import { useWalletModalToggle } from 'state/application/hooks'
 import { useUserSlippageTolerance } from 'state/user/hooks'
 import { BigNumber } from '@into-the-fathom/bignumber'
+import { ConnectWalletButton, WalletIcon } from '../Swap'
+
+const PlusWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+`
+
+const IconWrapper = styled.div`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #6379a1;
+  border-radius: 15px;
+`
 
 export default function RemoveLiquidity({
   history,
@@ -353,9 +371,13 @@ export default function RemoveLiquidity({
             </Text>
           </RowFixed>
         </RowBetween>
-        <RowFixed>
-          <Plus size="16" color={theme.text2} />
-        </RowFixed>
+        <PlusWrapper>
+          <ColumnCenter>
+            <IconWrapper>
+              <Plus size="20" color={theme.bg2} />
+            </IconWrapper>
+          </ColumnCenter>
+        </PlusWrapper>
         <RowBetween align="flex-end">
           <Text fontSize={24} fontWeight={500}>
             {parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)}
@@ -381,7 +403,7 @@ export default function RemoveLiquidity({
       <>
         <RowBetween>
           <Text color={theme.text2} fontWeight={500} fontSize={16}>
-            {'UNI ' + currencyA?.symbol + '/' + currencyB?.symbol} Burned
+            {'FTHM ' + currencyA?.symbol + '/' + currencyB?.symbol} Burned
           </Text>
           <RowFixed>
             <DoubleCurrencyLogo currency0={currencyA} currency1={currencyB} margin={true} />
@@ -542,7 +564,11 @@ export default function RemoveLiquidity({
             {!showDetailed && (
               <>
                 <ColumnCenter>
-                  <ArrowDown size="16" color={theme.text2} />
+                  <ArrowWrapper clickable={false}>
+                    <ArrowDownWrapped>
+                      <ArrowDown size="20" color={theme.black} />
+                    </ArrowDownWrapped>
+                  </ArrowWrapper>
                 </ColumnCenter>
                 <LightCard>
                   <AutoColumn gap="10px">
@@ -609,7 +635,11 @@ export default function RemoveLiquidity({
                   id="liquidity-amount"
                 />
                 <ColumnCenter>
-                  <ArrowDown size="16" color={theme.text2} />
+                  <ArrowWrapper clickable={false}>
+                    <ArrowDownWrapped>
+                      <ArrowDown size="20" color={theme.black} />
+                    </ArrowDownWrapped>
+                  </ArrowWrapper>
                 </ColumnCenter>
                 <CurrencyInputPanel
                   hideBalance={true}
@@ -622,9 +652,13 @@ export default function RemoveLiquidity({
                   onCurrencySelect={handleSelectCurrencyA}
                   id="remove-liquidity-tokena"
                 />
-                <ColumnCenter>
-                  <Plus size="16" color={theme.text2} />
-                </ColumnCenter>
+                <PlusWrapper>
+                  <ColumnCenter>
+                    <IconWrapper>
+                      <Plus size="20" color={theme.bg2} />
+                    </IconWrapper>
+                  </ColumnCenter>
+                </PlusWrapper>
                 <CurrencyInputPanel
                   hideBalance={true}
                   value={formattedAmounts[Field.CURRENCY_B]}
@@ -656,7 +690,10 @@ export default function RemoveLiquidity({
             )}
             <div style={{ position: 'relative' }}>
               {!account ? (
-                <ButtonLight onClick={toggleWalletModal}>Connect Wallet</ButtonLight>
+                <ConnectWalletButton onClick={toggleWalletModal}>
+                  <WalletIcon></WalletIcon>
+                  Connect Wallet
+                </ConnectWalletButton>
               ) : (
                 <RowBetween>
                   <ButtonConfirmed

@@ -1,5 +1,5 @@
 import { createAction } from '@reduxjs/toolkit'
-import { ChainId } from 'into-the-fathom-swap-sdk'
+import { ChainId } from 'fathomswap-sdk'
 
 export interface SerializableTransactionReceipt {
   to: string
