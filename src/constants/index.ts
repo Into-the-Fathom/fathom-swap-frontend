@@ -12,7 +12,7 @@ type RouterAddressesList = {
 export const ROUTER_ADDRESSES: RouterAddressesList = {
   // @todo: Need to change it after deploy to XDC
   [ChainId.XDC]: '0xd10287b6036942B95AECfD8F94A6F07724CBE428',
-  [ChainId.AXDC]: '0x05b0e01DD9737a3c0993de6F57B93253a6C3Ba95'
+  [ChainId.AXDC]: '0xd10287b6036942B95AECfD8F94A6F07724CBE428'
 }
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
@@ -34,8 +34,8 @@ export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
  * Apothem tokens
  */
 export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0x82b4334F5CD8385f55969BAE0A863a0C6eA9F63f', 18, 'US+', 'US+')
-export const FXD_AXDC = new Token(ChainId.AXDC, '0x08B5860daD9947677F2a9d7DE563cBec9980E44c', 18, 'FXD', 'FXD')
-export const FTHM_AXDC = new Token(ChainId.AXDC, '0xC3047F0dF34216860448D848f3419CDCF73c6165', 18, 'FTHM', 'Fathom')
+export const FXD_AXDC = new Token(ChainId.AXDC, '0x8909877Dc651f170Bd65d693AFA7e2B0091588BE', 18, 'FXD', 'FXD')
+export const FTHM_AXDC = new Token(ChainId.AXDC, '0xe81e44165c179F958399127277E1FB3D00256E6f', 18, 'FTHM', 'Fathom')
 export const WXDC_AXDC = new Token(
   ChainId.AXDC,
   '0xE99500AB4A413164DA49Af83B9824749059b46ce',
@@ -47,7 +47,7 @@ export const WXDC_AXDC = new Token(
 /**
  * XDC Mainnet Tokens
  */
-const FTHM_ADDRESS_XDC = '0xcE156caCb8A3C84ef08b1528296fdE20782fd82C'
+const FTHM_ADDRESS_XDC = '0xe81e44165c179F958399127277E1FB3D00256E6f'
 
 export const FTHM_XDC = new Token(ChainId.XDC, FTHM_ADDRESS_XDC, 18, 'FTHM', 'Fathom')
 
