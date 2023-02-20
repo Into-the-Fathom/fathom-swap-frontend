@@ -385,7 +385,7 @@ export default function Header() {
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userXDCBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>
-                {userXDCBalance?.toSignificant(4)} {'XDC'}
+                {userXDCBalance?.toSignificant(8)} {'XDC'}
               </BalanceText>
             ) : null}
             <Web3Status />
