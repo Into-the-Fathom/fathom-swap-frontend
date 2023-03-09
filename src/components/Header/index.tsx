@@ -341,7 +341,7 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://charts.fathom.fi'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://dev-dex-charts-goksi.ondigitalocean.app/#/home'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://dapp.fathom.fi'}>
