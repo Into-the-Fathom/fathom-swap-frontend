@@ -86,8 +86,8 @@
     "workbox-routing": "^6.1.0",
     "workbox-strategies": "^6.1.0",
 
-    "fathom-swap-default-token-list": "1.1.1",
-    "fathomswap-sdk": "3.0.5"
+    "fathom-swap-default-token-list": "1.1.2",
+    "fathomswap-sdk": "3.0.7"
   },
   "scripts": {
     "start": "react-scripts start",
