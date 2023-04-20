@@ -6455,15 +6455,15 @@ fathom-ethers@^1.1.0:
     "@into-the-fathom/web" "^1.1.0"
     "@into-the-fathom/wordlists" "^1.1.0"
 
-fathom-swap-default-token-list@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/fathom-swap-default-token-list/-/fathom-swap-default-token-list-1.1.2.tgz#b4e3a7cacd218887b5580a928b9338816b1667c7"
-  integrity sha512-/vfCKlwpFEgiRfrqrIW4bpGWx00H3e6RS43EFMPeAay+0mLyEp9ZQfFxnDeuTar8TRaS1L+y3jQ2zPFRBblX1A==
+fathom-swap-default-token-list@1.1.4:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/fathom-swap-default-token-list/-/fathom-swap-default-token-list-1.1.4.tgz#fac82c44cec66af1532791c52ed299534aac336b"
+  integrity sha512-Qm59dY7ZJZ5b0Zz2YBIUT1oroT7/FPfZD/sz1ssLBBLObufMjF8wM3AenCPGl9aUb8eVq/8X39maziB6m1Ozlw==
 
-fathomswap-sdk@3.0.7:
-  version "3.0.7"
-  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.7.tgz#1a678975a6f5ace444465b490202dad000d8a820"
-  integrity sha512-Jpy7r1X1HteES3XdhGil8xRt3y3Wk5BbZt7TogWrR5vX8uMmWiAU+H8bHdrY+0H8Wpmf8+Z5006KBu/tfnDjMQ==
+fathomswap-sdk@3.0.9:
+  version "3.0.9"
+  resolved "https://registry.yarnpkg.com/fathomswap-sdk/-/fathomswap-sdk-3.0.9.tgz#fef7ff8af349b8dc970878769732691d27d632f1"
+  integrity sha512-d4rSbRj0GGwsKgxKHoPKF8oTlchi7CpKTgGh1A5CmtJYjkgHJrIis7eL2mlOml8T1hMkxqP6tCDaJhs9Y41LoA==
   dependencies:
     big.js "^5.2.2"
     decimal.js-light "^2.5.0"
