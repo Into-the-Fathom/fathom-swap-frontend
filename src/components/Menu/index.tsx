@@ -118,7 +118,7 @@ export default function Menu() {
             <MessageCircle size={14} />
             Discord
           </MenuItem>
-          <MenuItem id="link" href="https://charts.fathom.fi/">
+          <MenuItem id="link" href="https://qa-dex-charts-twvop.ondigitalocean.app/">
             <PieChart size={14} />
             Analytics
           </MenuItem>
