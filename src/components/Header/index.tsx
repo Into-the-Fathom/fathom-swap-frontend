@@ -341,10 +341,10 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://dev-dex-charts-goksi.ondigitalocean.app/#/home'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://qa-dex-charts-twvop.ondigitalocean.app/#/home'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://dev-app-frontend-wpa8a.ondigitalocean.app/'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://qa-app-frontend-lk7de.ondigitalocean.app/'}>
             FXD <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>
