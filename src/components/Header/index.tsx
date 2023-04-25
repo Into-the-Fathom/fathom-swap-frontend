@@ -341,10 +341,10 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://charts.fathom.fi'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://charts.fathom-labs.app'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://dapp.fathom.fi'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://dapp.fathom-labs.app'}>
             FXD <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>
