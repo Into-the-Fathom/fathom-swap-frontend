@@ -8,10 +8,9 @@ type RouterAddressesList = {
   readonly [chainId in ChainId]: string
 }
 
-// APOTHEM -- 0xc68f7E9CBc881F362065235D2a373B5B96644351
 export const ROUTER_ADDRESSES: RouterAddressesList = {
   // @todo: Need to change it after deploy to XDC
-  [ChainId.XDC]: '0xd10287b6036942B95AECfD8F94A6F07724CBE428',
+  [ChainId.XDC]: '0x7e5b4c238A904329596c4094877D48868d739963',
   [ChainId.AXDC]: '0x33fD1ca2BEF6Ff46a2e45EA03309f222822a8354'
 }
 
@@ -26,9 +25,9 @@ type ChainTokenList = {
 export const AVERAGE_BLOCK_TIME_IN_SECS = 13
 export const PROPOSAL_LENGTH_IN_BLOCKS = 40_320
 
-export const GOVERNANCE_ADDRESS = '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F'
+export const GOVERNANCE_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
+export const TIMELOCK_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 /***
  * Apothem tokens
@@ -44,10 +43,19 @@ export const WXDC_AXDC = new Token(
   'Wrapped XDC'
 )
 
+export const US_PLUS_XDC = new Token(ChainId.XDC, '0xD4B5f10D61916Bd6E0860144a91Ac658dE8a1437', 18, 'USDTx', 'USDTx')
+export const WXDC_XDC = new Token(
+  ChainId.XDC,
+  '0x951857744785e80e2de051c32ee7b25f9c458c42',
+  18,
+  'WXDC',
+  'Wrapped XDC'
+)
+
 /**
  * XDC Mainnet Tokens
  */
-const FTHM_ADDRESS_XDC = '0x764687eA66dCaf68Fb5246C29739221cfef3Bb46'
+const FTHM_ADDRESS_XDC = '0x5fb8Ae050A8C313EE442f8F3A37B7340ad4D12cd'
 
 export const FTHM_XDC = new Token(ChainId.XDC, FTHM_ADDRESS_XDC, 18, 'FTHM', 'Fathom')
 
@@ -98,6 +106,10 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
     [WXDC_AXDC, FTHM_AXDC],
     [FXD_AXDC, WXDC_AXDC],
     [WXDC_AXDC, US_PLUS_AXDC]
+  ],
+  [ChainId.XDC]: [
+    [US_PLUS_XDC, FTHM_XDC],
+    [WXDC_XDC, US_PLUS_XDC]
   ]
 }
 
@@ -175,9 +187,5 @@ export const ONE_HUNDRED_PERCENT = new Percent('1')
 
 // SDN OFAC addresses
 export const BLOCKED_ADDRESSES: string[] = [
-  '0x7F367cC41522cE07553e823bf3be79A889DEbe1B',
-  '0xd882cFc20F52f2599D84b8e8D58C7FB62cfE344b',
-  '0x901bb9583b24D97e995513C6778dc6888AB6870e',
-  '0xA7e5d5A720f06526557c513402f2e6B5fA20b008',
-  '0x8576aCC5C05D6Ce88f4e49bf65BdF0C62F91353C'
+  '0x0000000000000000000000000000000000000000',
 ]
