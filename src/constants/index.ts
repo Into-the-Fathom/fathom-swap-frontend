@@ -8,7 +8,6 @@ type RouterAddressesList = {
   readonly [chainId in ChainId]: string
 }
 
-// APOTHEM -- 0xc68f7E9CBc881F362065235D2a373B5B96644351
 export const ROUTER_ADDRESSES: RouterAddressesList = {
   // @todo: Need to change it after deploy to XDC
   [ChainId.XDC]: '0x7e5b4c238A904329596c4094877D48868d739963',
@@ -45,7 +44,6 @@ export const WXDC_AXDC = new Token(
 )
 
 export const US_PLUS_XDC = new Token(ChainId.XDC, '0xD4B5f10D61916Bd6E0860144a91Ac658dE8a1437', 18, 'USDTx', 'USDTx')
-// export const FTHM_XDC = new Token(ChainId.AXDC, '0x5fb8Ae050A8C313EE442f8F3A37B7340ad4D12cd', 18, 'FTHM', 'Fathom')
 export const WXDC_XDC = new Token(
   ChainId.XDC,
   '0x951857744785e80e2de051c32ee7b25f9c458c42',
