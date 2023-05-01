@@ -171,7 +171,7 @@ export default function Pool() {
               <>
                 <ButtonSecondary>
                   <RowBetween>
-                    <ExternalLink href={'https://charts.fathom.fi/#/account/' + account}>
+                    <ExternalLink href={'https://charts.fathom-labs.app/#/account/' + account}>
                       Account analytics and accrued fees
                     </ExternalLink>
                     <span> ↗</span>

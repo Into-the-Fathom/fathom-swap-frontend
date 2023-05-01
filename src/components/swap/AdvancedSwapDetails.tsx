@@ -105,7 +105,7 @@ export function AdvancedSwapDetails({ trade }: AdvancedSwapDetailsProps) {
           {!showRoute && (
             <AutoColumn style={{ padding: '12px 16px 0 16px' }}>
               <InfoLink
-                href={'https://charts.fathom.fi/#/pair/' + trade.route.pairs[0].liquidityToken.address}
+                href={'https://charts.fathom-labs.app/#/pair/' + trade.route.pairs[0].liquidityToken.address}
                 target="_blank"
               >
                 View pair analytics ↗

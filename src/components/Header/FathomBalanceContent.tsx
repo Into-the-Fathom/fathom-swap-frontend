@@ -106,7 +106,7 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
               <TYPE.black color="black">{totalSupply?.toFixed(0, { groupSeparator: ',' })}</TYPE.black>
             </RowBetween>
             {fthm && fthm.chainId === ChainId.XDC ? (
-              <ExternalLink href={`https://charts.fathom.fi/token/${fthm.address}`}>View FTHM Analytics</ExternalLink>
+              <ExternalLink href={`https://charts.fathom-labs.app/token/${fthm.address}`}>View FTHM Analytics</ExternalLink>
             ) : null}
           </AutoColumn>
         </CardSection>
