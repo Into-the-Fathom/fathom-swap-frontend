@@ -195,7 +195,7 @@ const FathomIcon = styled.div`
   img {
     width: 140px;
     ${({ theme }) => theme.mediaWidth.upToSmall`
-      width: 100px;
+      width: 80px;
     `};
   }
 
@@ -235,6 +235,12 @@ const StyledNavLink = styled(NavLink).attrs({
   :focus {
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
+
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    margin: 0 1px !important;
+    padding: 4px !important;
+    font-size: 0.65rem !important;
+  `};
 `
 
 const StyledExternalLink = styled(ExternalLink).attrs({
@@ -262,6 +268,12 @@ const StyledExternalLink = styled(ExternalLink).attrs({
   :focus {
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
+
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    margin: 0 1px !important;
+    padding: 4px !important;
+    font-size: 0.65rem !important;
+  `};
 `
 
 export const StyledMenuButton = styled.button`
@@ -346,6 +358,18 @@ export default function Header() {
           </StyledExternalLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://dev-app-frontend-wpa8a.ondigitalocean.app/'}>
             FXD <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
+          <StyledExternalLink
+            id={`stake-nav-link`}
+            href={'https://gist.github.com/BaldyAsh/47a33c5e8005c05315cc8dfc9baa4c0e'}
+          >
+            Privacy Policy <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
+          <StyledExternalLink
+            id={`stake-nav-link`}
+            href={'https://gist.github.com/BaldyAsh/9e1efbfd87fa87fd67091b5d45c481b3'}
+          >
+            Terms of Service <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>
       </HeaderRow>
