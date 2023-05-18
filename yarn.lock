@@ -6455,10 +6455,10 @@ fathom-ethers@^1.1.0:
     "@into-the-fathom/web" "^1.1.0"
     "@into-the-fathom/wordlists" "^1.1.0"
 
-fathom-swap-default-token-list@1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/fathom-swap-default-token-list/-/fathom-swap-default-token-list-1.1.2.tgz#b4e3a7cacd218887b5580a928b9338816b1667c7"
-  integrity sha512-/vfCKlwpFEgiRfrqrIW4bpGWx00H3e6RS43EFMPeAay+0mLyEp9ZQfFxnDeuTar8TRaS1L+y3jQ2zPFRBblX1A==
+fathom-swap-default-token-list@1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/fathom-swap-default-token-list/-/fathom-swap-default-token-list-1.2.2.tgz#11775240ae4e5d9e0bcf4e7b98b0273e0cdd89ec"
+  integrity sha512-rvcR159haGqckAWO5OQkGFdfxjTRrzstmVOli3U4z9jmfWBRNUmKloC4017Y8ULr1EMIKErDXh3G4C5p/o5yTw==
 
 fathomswap-sdk@3.0.7:
   version "3.0.7"
