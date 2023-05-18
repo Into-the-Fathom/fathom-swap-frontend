@@ -33,9 +33,9 @@ export const TIMELOCK_ADDRESS = '0x0000000000000000000000000000000000000000'
 /***
  * Apothem tokens
  */
-export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0x82b4334F5CD8385f55969BAE0A863a0C6eA9F63f', 18, 'US+', 'US+')
+export const USDT_AXDC = new Token(ChainId.AXDC, '0x9dD4761Bd68169478a06156c0C1416fB9506BE78', 6, 'xUSDT', 'xUSDT')
 export const FXD_AXDC = new Token(ChainId.AXDC, '0xf31146956Cb3be9EFD6Cfd665Cb4Cb5Aeeb5cA3e', 18, 'FXD', 'FXD')
-export const FTHM_AXDC = new Token(ChainId.AXDC, '0x0Cc79883b6FF52B857bDA7D5Df9214eE0bb28839', 18, 'FTHM', 'Fathom')
+export const FTHM_AXDC = new Token(ChainId.AXDC, '0xa96792e0745B7E676a96148124A0caaF265733C8', 18, 'FTHM', 'Fathom')
 export const WXDC_AXDC = new Token(
   ChainId.AXDC,
   '0xE99500AB4A413164DA49Af83B9824749059b46ce',
@@ -47,7 +47,7 @@ export const WXDC_AXDC = new Token(
 /**
  * XDC Mainnet Tokens
  */
-const FTHM_ADDRESS_XDC = '0x0Cc79883b6FF52B857bDA7D5Df9214eE0bb28839'
+const FTHM_ADDRESS_XDC = '0xa96792e0745B7E676a96148124A0caaF265733C8'
 
 export const FTHM_XDC = new Token(ChainId.XDC, FTHM_ADDRESS_XDC, 18, 'FTHM', 'Fathom')
 
@@ -92,12 +92,12 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
   [ChainId.AXDC]: [
-    [US_PLUS_AXDC, FTHM_AXDC],
+    [USDT_AXDC, FTHM_AXDC],
     [FXD_AXDC, FTHM_AXDC],
-    [FXD_AXDC, US_PLUS_AXDC],
+    [FXD_AXDC, USDT_AXDC],
     [WXDC_AXDC, FTHM_AXDC],
     [FXD_AXDC, WXDC_AXDC],
-    [WXDC_AXDC, US_PLUS_AXDC]
+    [WXDC_AXDC, USDT_AXDC]
   ]
 }
 
