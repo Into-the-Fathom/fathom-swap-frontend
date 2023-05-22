@@ -34,7 +34,7 @@ export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
  * Apothem tokens
  */
 export const USDT_AXDC = new Token(ChainId.AXDC, '0x9dD4761Bd68169478a06156c0C1416fB9506BE78', 6, 'xUSDT', 'xUSDT')
-export const FXD_AXDC = new Token(ChainId.AXDC, '0xCBB5e38427F102Fdb08d76Bb592e85d454A31d05', 18, 'FXD', 'FXD')
+export const FXD_AXDC = new Token(ChainId.AXDC, '0xEd816e06cdb7B449bFa9fdB7A55d95A85A224Ecc', 18, 'FXD', 'FXD')
 export const FTHM_AXDC = new Token(ChainId.AXDC, '0x916D9BFa4480418bE7b653f4808106709a38b4fc', 18, 'FTHM', 'Fathom')
 export const WXDC_AXDC = new Token(
   ChainId.AXDC,
