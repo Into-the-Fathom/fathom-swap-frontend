@@ -102,7 +102,7 @@ export default function Menu() {
 
       {open && (
         <MenuFlyout>
-          <MenuItem id="link" href="https://fathom-labs.app/">
+          <MenuItem id="link" href="https://fathom.fi/">
             <Info size={14} />
             About
           </MenuItem>
@@ -118,7 +118,7 @@ export default function Menu() {
             <MessageCircle size={14} />
             Discord
           </MenuItem>
-          <MenuItem id="link" href="https://charts.fathom-labs.app/">
+          <MenuItem id="link" href="https://charts.fathom.fi/">
             <PieChart size={14} />
             Analytics
           </MenuItem>
