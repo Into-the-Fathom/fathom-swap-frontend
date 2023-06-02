@@ -74,12 +74,16 @@ export default function Polling() {
 
   useEffect(
     () => {
-      const timer1 = setTimeout(() => setIsMounting(true), 1000)
+      if (!blockNumber) {
+        return
+      }
+
+      setIsMounting(true)
+      const mountingTimer = setTimeout(() => setIsMounting(false), 1000)
 
       // this will clear Timeout when component unmount like in willComponentUnmount
       return () => {
-        setIsMounting(false)
-        clearTimeout(timer1)
+        clearTimeout(mountingTimer)
       }
     },
     [blockNumber] //useEffect will run only one time
