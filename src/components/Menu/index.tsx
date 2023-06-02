@@ -106,7 +106,7 @@ export default function Menu() {
             <Info size={14} />
             About
           </MenuItem>
-          <MenuItem id="link" href="https://www.fathom.fi/docs">
+          <MenuItem id="link" href="https://gist.github.com/BaldyAsh/3676a18b003758057f634c9af2cfe49a">
             <BookOpen size={14} />
             Docs
           </MenuItem>
