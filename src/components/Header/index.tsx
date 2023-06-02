@@ -95,7 +95,8 @@ const HeaderRow = styled(Row)<{ gap?: string; justify?: string }>`
 `
 
 const HeaderLinks = styled(Row)`
-  justify-content: center;
+  justify-content: start;
+  padding-left: 150px;
   ${({ theme }) => theme.mediaWidth.upToExtraLarge`
     padding: 1rem 0 1rem 1rem;
     justify-content: flex-start;
@@ -106,6 +107,9 @@ const HeaderLinks = styled(Row)`
         margin: 0 8px;
         font-size: 0.8rem;
       }
+ `};
+  ${({ theme }) => theme.mediaWidth.upToExtraLarge`
+      padding: 0;
  `};
 `
 
@@ -195,7 +199,7 @@ const FathomIcon = styled.div`
   img {
     width: 140px;
     ${({ theme }) => theme.mediaWidth.upToSmall`
-      width: 100px;
+      width: 80px;
     `};
   }
 
@@ -235,6 +239,12 @@ const StyledNavLink = styled(NavLink).attrs({
   :focus {
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
+
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    margin: 0 1px !important;
+    padding: 4px !important;
+    font-size: 0.65rem !important;
+  `};
 `
 
 const StyledExternalLink = styled(ExternalLink).attrs({
@@ -262,6 +272,12 @@ const StyledExternalLink = styled(ExternalLink).attrs({
   :focus {
     color: ${({ theme }) => darken(0.1, theme.text1)};
   }
+
+  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
+    margin: 0 1px !important;
+    padding: 4px !important;
+    font-size: 0.65rem !important;
+  `};
 `
 
 export const StyledMenuButton = styled.button`
@@ -341,11 +357,23 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          <StyledExternalLink id={`stake-nav-link`} href={'https://charts.fathom.fi'}>
+          <StyledExternalLink id={`stake-nav-link`} href={'https://charts.fathom.fi/#/home'}>
             Charts <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
           <StyledExternalLink id={`stake-nav-link`} href={'https://dapp.fathom.fi'}>
             FXD <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
+          <StyledExternalLink
+            id={`stake-nav-link`}
+            href={'https://gist.github.com/BaldyAsh/47a33c5e8005c05315cc8dfc9baa4c0e'}
+          >
+            Privacy Policy <span style={{ fontSize: '11px' }}>↗</span>
+          </StyledExternalLink>
+          <StyledExternalLink
+            id={`stake-nav-link`}
+            href={'https://gist.github.com/BaldyAsh/9e1efbfd87fa87fd67091b5d45c481b3'}
+          >
+            Terms of Service <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>
       </HeaderRow>
