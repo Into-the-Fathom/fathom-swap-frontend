@@ -4,7 +4,10 @@ import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 import { Web3ReactContextInterface } from '@web3-react/core/dist/types'
 import { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
-import { injected } from 'connectors'
+import {
+  injected,
+  injectedXdcPayV1
+} from 'connectors'
 import { NetworkContextName } from 'constants/index'
 
 export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> & { chainId?: ChainId } {
@@ -33,6 +36,21 @@ export function useEagerConnect() {
         }
       }
     })
+    injectedXdcPayV1.isAuthorized().then(isAuthorized => {
+      if (isAuthorized) {
+        activate(injectedXdcPayV1, undefined, true).catch(() => {
+          setTried(true)
+        })
+      } else {
+        if (isMobile && window.ethereum) {
+          activate(injectedXdcPayV1, undefined, true).catch(() => {
+            setTried(true)
+          })
+        } else {
+          setTried(true)
+        }
+      }
+    })
   }, [activate]) // intentionally only running on mount (make sure it's only mounted once :))
 
   // if the connection worked, wait until we get confirmation of that to flip the flag
@@ -53,7 +71,7 @@ export function useInactiveListener(suppress = false) {
   const { active, error, activate } = useWeb3ReactCore() // specifically using useWeb3React because of what this hook does
 
   useEffect(() => {
-    const { ethereum } = window
+    const { ethereum, xdc } = window
 
     if (ethereum && ethereum.on && !active && !error && !suppress) {
       const handleChainChanged = () => {
@@ -79,6 +97,34 @@ export function useInactiveListener(suppress = false) {
         if (ethereum.removeListener) {
           ethereum.removeListener('chainChanged', handleChainChanged)
           ethereum.removeListener('accountsChanged', handleAccountsChanged)
+        }
+      }
+    }
+
+    if (xdc && xdc.on && !active && !error && !suppress) {
+      const handleChainChanged = () => {
+        // eat errors
+        activate(injectedXdcPayV1, undefined, true).catch(error => {
+          console.error('Failed to activate after chain changed', error)
+        })
+      }
+
+      const handleAccountsChanged = (accounts: string[]) => {
+        if (accounts.length > 0) {
+          // eat errors
+          activate(injectedXdcPayV1, undefined, true).catch(error => {
+            console.error('Failed to activate after accounts changed', error)
+          })
+        }
+      }
+
+      xdc.on('chainChanged', handleChainChanged)
+      xdc.on('accountsChanged', handleAccountsChanged)
+
+      return () => {
+        if (xdc.removeListener) {
+          xdc.removeListener('chainChanged', handleChainChanged)
+          xdc.removeListener('accountsChanged', handleAccountsChanged)
         }
       }
     }
