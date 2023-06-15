@@ -181,15 +181,9 @@ export class XdcInjectedConnector extends AbstractConnector {
       return false
     }
 
-    try {
-      return await (window.xdc.send as Send)('eth_accounts').then(sendReturn => {
-        if (parseSendReturn(sendReturn).length > 0) {
-          return true
-        } else {
-          return false
-        }
-      })
-    } catch {
+    if (window?.xdc?.selectedAddress) {
+      return true
+    } else {
       return false
     }
   }

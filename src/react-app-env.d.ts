@@ -14,6 +14,7 @@ type InjectProviderType = {
   autoRefreshOnNetworkChange?: boolean
   send: unknown
   enable: () => Promise<string[]>
+  selectedAddress: string;
 }
 
 interface Window {

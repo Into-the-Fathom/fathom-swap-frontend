@@ -21,36 +21,40 @@ export function useEagerConnect() {
   const [tried, setTried] = useState(false)
 
   useEffect(() => {
-    injected.isAuthorized().then(isAuthorized => {
-      if (isAuthorized) {
-        activate(injected, undefined, true).catch(() => {
-          setTried(true)
-        })
-      } else {
-        if (isMobile && window.ethereum) {
-          activate(injected, undefined, true).catch(() => {
-            setTried(true)
-          })
-        } else {
-          setTried(true)
-        }
-      }
-    })
-    injectedXdcPayV1.isAuthorized().then(isAuthorized => {
-      if (isAuthorized) {
-        activate(injectedXdcPayV1, undefined, true).catch(() => {
-          setTried(true)
-        })
-      } else {
-        if (isMobile && window.ethereum) {
+    const connectorType = localStorage.getItem('connectorType');
+    if (connectorType === 'xdcPayV1') {
+      injectedXdcPayV1.isAuthorized().then(isAuthorized => {
+        if (isAuthorized) {
           activate(injectedXdcPayV1, undefined, true).catch(() => {
             setTried(true)
           })
         } else {
-          setTried(true)
+          if (isMobile && window.xdc) {
+            activate(injectedXdcPayV1, undefined, true).catch(() => {
+              setTried(true)
+            })
+          } else {
+            setTried(true)
+          }
         }
-      }
-    })
+      })
+    } else {
+      injected.isAuthorized().then(isAuthorized => {
+        if (isAuthorized) {
+          activate(injected, undefined, true).catch(() => {
+            setTried(true)
+          })
+        } else {
+          if (isMobile && window.ethereum) {
+            activate(injected, undefined, true).catch(() => {
+              setTried(true)
+            })
+          } else {
+            setTried(true)
+          }
+        }
+      })
+    }
   }, [activate]) // intentionally only running on mount (make sure it's only mounted once :))
 
   // if the connection worked, wait until we get confirmation of that to flip the flag
