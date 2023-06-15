@@ -195,10 +195,12 @@ export function useDerivedSwapInfo(): {
   // compare input balance to max input based on version
   const [balanceIn, amountIn] = [
     currencyBalances[Field.INPUT],
+    // @ts-ignore
     toggledVersion === slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.INPUT] : null
   ]
 
   if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
+    // @ts-ignore
     inputError = 'Insufficient ' + amountIn.currency.symbol + ' balance'
   }
 

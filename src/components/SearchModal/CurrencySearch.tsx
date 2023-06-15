@@ -192,7 +192,7 @@ export function CurrencySearch({
       ) : filteredSortedTokens?.length > 0 || filteredInactiveTokens?.length > 0 ? (
         <div style={{ flex: '1' }}>
           <AutoSizer disableWidth>
-            {({ height }) => (
+            {({ height }: any) => (
               <CurrencyList
                 height={height}
                 showXDC={showXDC}

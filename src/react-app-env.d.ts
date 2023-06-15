@@ -6,13 +6,20 @@ declare module 'jazzicon' {
 
 declare module 'fortmatic'
 
+type InjectProviderType = {
+  isMetaMask?: true
+  request?: (...args: any[]) => void
+  on?: (...args: any[]) => void
+  removeListener?: (...args: any[]) => void
+  autoRefreshOnNetworkChange?: boolean
+  send: unknown
+  enable: () => Promise<string[]>
+  selectedAddress: string;
+}
+
 interface Window {
-  ethereum?: {
-    isMetaMask?: true
-    on?: (...args: any[]) => void
-    removeListener?: (...args: any[]) => void
-    autoRefreshOnNetworkChange?: boolean
-  }
+  ethereum?: InjectProviderType
+  xdc?: InjectProviderType
   web3?: {}
 }
 
