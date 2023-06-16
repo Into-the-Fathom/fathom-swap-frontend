@@ -20,8 +20,8 @@ type RouterAddressesList = {
 
 export const ROUTER_ADDRESSES: RouterAddressesList = {
   // @todo: Need to change it after deploy to XDC
-  [ChainId.XDC]: '0x7e5b4c238A904329596c4094877D48868d739963',
-  [ChainId.AXDC]: '0x33fD1ca2BEF6Ff46a2e45EA03309f222822a8354'
+  [ChainId.XDC]: '0x0000000000000000000000000000000000000000',
+  [ChainId.AXDC]: '0x546F62f88cECefF9a0035156d8D456AfeEEcDe8a'
 }
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
@@ -42,10 +42,9 @@ export const TIMELOCK_ADDRESS = '0x0000000000000000000000000000000000000000'
 /***
  * Apothem tokens
  */
-export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0x82b4334F5CD8385f55969BAE0A863a0C6eA9F63f', 6, 'xUSDT', 'xUSDT')
-
-export const FXD_AXDC = new Token(ChainId.AXDC, '0xa585BF9418C6Aca0a46d308Cea3b2EC85046C88F', 18, 'FXD', 'Fathom USD')
-export const FTHM_AXDC = new Token(ChainId.AXDC, '0x764687eA66dCaf68Fb5246C29739221cfef3Bb46', 18, 'FTHM', 'Fathom')
+export const USDT_AXDC = new Token(ChainId.AXDC, '0x9dD4761Bd68169478a06156c0C1416fB9506BE78', 6, 'xUSDT', 'xUSDT')
+export const FXD_AXDC = new Token(ChainId.AXDC, '0xEd816e06cdb7B449bFa9fdB7A55d95A85A224Ecc', 18, 'FXD', 'FXD')
+export const FTHM_AXDC = new Token(ChainId.AXDC, '0x916D9BFa4480418bE7b653f4808106709a38b4fc', 18, 'FTHM', 'Fathom')
 export const WXDC_AXDC = new Token(
   ChainId.AXDC,
   '0xE99500AB4A413164DA49Af83B9824749059b46ce',
@@ -112,20 +111,12 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
   [ChainId.AXDC]: [
-    [US_PLUS_AXDC, FTHM_AXDC],
+    [USDT_AXDC, FTHM_AXDC],
     [FXD_AXDC, FTHM_AXDC],
-    [FXD_AXDC, US_PLUS_AXDC],
+    [FXD_AXDC, USDT_AXDC],
     [WXDC_AXDC, FTHM_AXDC],
     [FXD_AXDC, WXDC_AXDC],
-    [WXDC_AXDC, US_PLUS_AXDC]
-  ],
-  [ChainId.XDC]: [
-    [US_PLUS_XDC, FTHM_XDC],
-    [FXD_XDC, FTHM_XDC],
-    [FXD_XDC, US_PLUS_XDC],
-    [WXDC_XDC, FTHM_XDC],
-    [FXD_XDC, WXDC_XDC],
-    [WXDC_XDC, US_PLUS_XDC]
+    [WXDC_AXDC, USDT_AXDC]
   ]
 }
 
