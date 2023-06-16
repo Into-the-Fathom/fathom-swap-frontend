@@ -6,7 +6,6 @@ import { NetworkConnector } from 'connectors/NetworkConnector'
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
 
 const APOTHEM_RPC = 'https://apothem.xdcrpc.com'
-const XDC_RPC = 'https://rpc.xinfin.network/'
 
 export const NETWORK_CHAIN_ID: number = parseInt(process.env.REACT_APP_CHAIN_ID ?? '50')
 
@@ -32,8 +31,7 @@ export const injected = new InjectedConnector({
 // mainnet only
 export const walletconnect = new WalletConnectConnector({
   rpc: {
-    1: NETWORK_URL,
-    50: XDC_RPC,
+    50: NETWORK_URL,
     51: APOTHEM_RPC
   },
   qrcode: true
