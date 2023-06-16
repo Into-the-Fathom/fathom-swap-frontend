@@ -1,14 +1,23 @@
-import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-sdk'
+import {
+  ChainId,
+  JSBI,
+  Percent,
+  Token,
+  WETH
+} from 'fathomswap-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
-import { injected, walletconnect } from 'connectors'
+import {
+  injected,
+  injectedXdcPayV1,
+  walletconnect
+} from 'connectors'
 
 // a list of tokens by chain
 type RouterAddressesList = {
   readonly [chainId in ChainId]: string
 }
 
-// APOTHEM -- 0xc68f7E9CBc881F362065235D2a373B5B96644351
 export const ROUTER_ADDRESSES: RouterAddressesList = {
   // @todo: Need to change it after deploy to XDC
   [ChainId.XDC]: '0x0000000000000000000000000000000000000000',
@@ -26,9 +35,9 @@ type ChainTokenList = {
 export const AVERAGE_BLOCK_TIME_IN_SECS = 13
 export const PROPOSAL_LENGTH_IN_BLOCKS = 40_320
 
-export const GOVERNANCE_ADDRESS = '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F'
+export const GOVERNANCE_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
+export const TIMELOCK_ADDRESS = '0x0000000000000000000000000000000000000000'
 
 /***
  * Apothem tokens
@@ -44,12 +53,22 @@ export const WXDC_AXDC = new Token(
   'Wrapped XDC'
 )
 
+export const US_PLUS_XDC = new Token(ChainId.XDC, '0xD4B5f10D61916Bd6E0860144a91Ac658dE8a1437', 6, 'xUSDT', 'xUSDT')
+export const FXD_XDC = new Token(ChainId.XDC, '0x49d3f7543335cf38Fa10889CCFF10207e22110B5', 18, 'FXD', 'Fathom USD')
+export const WXDC_XDC = new Token(
+  ChainId.XDC,
+  '0x951857744785e80e2de051c32ee7b25f9c458c42',
+  18,
+  'WXDC',
+  'Wrapped XDC'
+)
+
 /**
  * XDC Mainnet Tokens
  */
-const FTHM_ADDRESS_XDC = '0x916D9BFa4480418bE7b653f4808106709a38b4fc'
+const FTHM_ADDRESS_XDC = '0x3279dBEfABF3C6ac29d7ff24A6c46645f3F4403c'
 
-export const FTHM_XDC = new Token(ChainId.XDC, FTHM_ADDRESS_XDC, 18, 'FTHM', 'Fathom')
+export const FTHM_XDC = new Token(ChainId.XDC, FTHM_ADDRESS_XDC, 18, 'FTHM', 'FTHM')
 
 export const FTHM: { [chainId in ChainId]: Token } = {
   [ChainId.XDC]: FTHM_XDC,
@@ -106,7 +125,7 @@ export interface WalletInfo {
   name: string
   iconName: string
   description: string
-  href: string | null
+  href: string|null
   color: string
   primary?: true
   mobile?: true
@@ -122,6 +141,14 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     href: null,
     color: '#010101',
     primary: true
+  },
+  XDC_PAY: {
+    connector: injectedXdcPayV1,
+    name: 'XdcPay v1',
+    iconName: 'xdc-logo.png',
+    description: 'Easy-to-use browser extension.',
+    href: null,
+    color: '#E8831D'
   },
   METAMASK: {
     connector: injected,
@@ -139,7 +166,7 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     href: null,
     color: '#4196FC',
     mobile: true
-  },
+  }
 }
 
 export const NetworkContextName = 'NETWORK'
@@ -175,9 +202,5 @@ export const ONE_HUNDRED_PERCENT = new Percent('1')
 
 // SDN OFAC addresses
 export const BLOCKED_ADDRESSES: string[] = [
-  '0x7F367cC41522cE07553e823bf3be79A889DEbe1B',
-  '0xd882cFc20F52f2599D84b8e8D58C7FB62cfE344b',
-  '0x901bb9583b24D97e995513C6778dc6888AB6870e',
-  '0xA7e5d5A720f06526557c513402f2e6B5fA20b008',
-  '0x8576aCC5C05D6Ce88f4e49bf65BdF0C62F91353C'
+  '0x0000000000000000000000000000000000000000',
 ]
