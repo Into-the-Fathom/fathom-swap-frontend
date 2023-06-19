@@ -37,7 +37,7 @@ export const injectedXdcPayV1 = new XdcInjectedConnector({
 // mainnet only
 export const walletconnect = new WalletConnectConnector({
   rpc: {
-    1: NETWORK_URL,
+    50: NETWORK_URL,
     51: APOTHEM_RPC
   },
   qrcode: true
