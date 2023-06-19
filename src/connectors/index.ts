@@ -2,7 +2,7 @@ import { Web3Provider } from '@into-the-fathom/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
 import { NetworkConnector } from 'connectors/NetworkConnector'
-import { XdcInjectedConnector } from './xdc-connector';
+import { XdcInjectedConnector } from 'connectors/xdc-connector';
 
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
 

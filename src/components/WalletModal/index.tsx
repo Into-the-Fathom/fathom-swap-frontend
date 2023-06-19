@@ -17,7 +17,7 @@ import AccountDetails from 'components/AccountDetails'
 import Modal from 'components/Modal'
 import Option from 'components/WalletModal/Option'
 import PendingView from 'components/WalletModal/PendingView'
-import { XdcInjectedConnector } from '../../connectors/xdc-connector';
+import { XdcInjectedConnector } from 'connectors/xdc-connector';
 import { InjectedConnector } from '@web3-react/injected-connector';
 
 const CloseIcon = styled.div`
