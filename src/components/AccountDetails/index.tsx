@@ -12,8 +12,9 @@ import Transaction from 'components/AccountDetails/Transaction'
 import { SUPPORTED_WALLETS } from 'constants/index'
 import { ReactComponent as Close } from 'assets/images/x.svg'
 import { getBlockScanLink } from 'utils'
-import { injected, walletconnect } from 'connectors'
+import { injected, walletconnect, injectedXdcPayV1 } from 'connectors'
 import WalletConnectIcon from 'assets/images/walletConnectIcon.svg'
+import XdcPayConnectIcon from 'assets/images/xdc-logo.png'
 import Identicon from 'components/Identicon'
 import { ButtonSecondary } from 'components/Button'
 import { ExternalLink as LinkIcon } from 'react-feather'
@@ -247,6 +248,12 @@ export default function AccountDetails({
           <img src={WalletConnectIcon} alt={'wallet connect logo'} />
         </IconWrapper>
       )
+    } else if (connector === injectedXdcPayV1) {
+      return (
+        <IconWrapper size={16}>
+          <img src={XdcPayConnectIcon} alt={'Xdc logo'} />
+        </IconWrapper>
+      )
     }
     return null
   }
@@ -268,7 +275,7 @@ export default function AccountDetails({
               <AccountGroupingRow>
                 {formatConnectorName()}
                 <div>
-                  {connector !== injected && (
+                  {connector !== injected && connector !== injectedXdcPayV1 && (
                     <WalletAction
                       style={{ fontSize: '.825rem', fontWeight: 400, marginRight: '8px' }}
                       onClick={() => {

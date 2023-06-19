@@ -1,7 +1,17 @@
-import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-sdk'
+import {
+  ChainId,
+  JSBI,
+  Percent,
+  Token,
+  WETH
+} from 'fathomswap-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
-import { injected, walletconnect } from 'connectors'
+import {
+  injected,
+  injectedXdcPayV1,
+  walletconnect
+} from 'connectors'
 
 // a list of tokens by chain
 type RouterAddressesList = {
@@ -124,7 +134,7 @@ export interface WalletInfo {
   name: string
   iconName: string
   description: string
-  href: string | null
+  href: string|null
   color: string
   primary?: true
   mobile?: true
@@ -140,6 +150,14 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     href: null,
     color: '#010101',
     primary: true
+  },
+  XDC_PAY: {
+    connector: injectedXdcPayV1,
+    name: 'XdcPay v1',
+    iconName: 'xdc-logo.png',
+    description: 'Easy-to-use browser extension.',
+    href: null,
+    color: '#E8831D'
   },
   METAMASK: {
     connector: injected,
@@ -157,7 +175,7 @@ export const SUPPORTED_WALLETS: { [key: string]: WalletInfo } = {
     href: null,
     color: '#4196FC',
     mobile: true
-  },
+  }
 }
 
 export const NetworkContextName = 'NETWORK'
