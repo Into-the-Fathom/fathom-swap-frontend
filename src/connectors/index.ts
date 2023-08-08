@@ -1,6 +1,6 @@
 import { Web3Provider } from '@into-the-fathom/providers'
 import { InjectedConnector } from '@web3-react/injected-connector'
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
+import { WalletConnectConnector } from 'connectors/wallet-connect-connector'
 import { NetworkConnector } from 'connectors/NetworkConnector'
 import { XdcInjectedConnector } from 'connectors/xdc-connector';
 
