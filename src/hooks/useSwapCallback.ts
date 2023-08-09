@@ -80,7 +80,6 @@ function useSwapCallArguments(
       )
     }
 
-
     return swapMethods.map(parameters => ({ parameters, contract }))
   }, [account, allowedSlippage, chainId, deadline, library, recipient, trade])
 }

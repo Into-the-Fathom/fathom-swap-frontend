@@ -1,17 +1,7 @@
-import {
-  ChainId,
-  JSBI,
-  Percent,
-  Token,
-  WETH
-} from 'fathomswap-sdk'
+import { ChainId, JSBI, Percent, Token, WETH } from 'fathomswap-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
-import {
-  injected,
-  injectedXdcPayV1,
-  walletconnect
-} from 'connectors'
+import { injected, injectedXdcPayV1, walletconnect } from 'connectors'
 
 // a list of tokens by chain
 type RouterAddressesList = {
@@ -56,13 +46,7 @@ export const WXDC_AXDC = new Token(
 
 export const US_PLUS_XDC = new Token(ChainId.XDC, '0xD4B5f10D61916Bd6E0860144a91Ac658dE8a1437', 6, 'xUSDT', 'xUSDT')
 export const FXD_XDC = new Token(ChainId.XDC, '0x49d3f7543335cf38Fa10889CCFF10207e22110B5', 18, 'FXD', 'Fathom USD')
-export const WXDC_XDC = new Token(
-  ChainId.XDC,
-  '0x951857744785e80e2de051c32ee7b25f9c458c42',
-  18,
-  'WXDC',
-  'Wrapped XDC'
-)
+export const WXDC_XDC = new Token(ChainId.XDC, '0x951857744785e80e2de051c32ee7b25f9c458c42', 18, 'WXDC', 'Wrapped XDC')
 
 /**
  * XDC Mainnet Tokens
@@ -134,7 +118,7 @@ export interface WalletInfo {
   name: string
   iconName: string
   description: string
-  href: string|null
+  href: string | null
   color: string
   primary?: true
   mobile?: true
@@ -210,7 +194,4 @@ export const ZERO_PERCENT = new Percent('0')
 export const ONE_HUNDRED_PERCENT = new Percent('1')
 
 // SDN OFAC addresses
-export const BLOCKED_ADDRESSES: string[] = [
-  '0x0000000000000000000000000000000000000000',
-]
-
+export const BLOCKED_ADDRESSES: string[] = ['0x0000000000000000000000000000000000000000']

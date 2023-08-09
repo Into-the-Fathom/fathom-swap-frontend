@@ -1,18 +1,10 @@
-import {
-  AbstractConnectorArguments,
-  ConnectorUpdate
-} from '@web3-react/types'
+import { AbstractConnectorArguments, ConnectorUpdate } from '@web3-react/types'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import warning from 'tiny-warning'
 
-import {
-  SendReturnResult,
-  SendReturn,
-  Send,
-  SendOld
-} from './types'
+import { SendReturnResult, SendReturn, Send, SendOld } from './types'
 
-function parseSendReturn(sendReturn: SendReturnResult|SendReturn): any {
+function parseSendReturn(sendReturn: SendReturnResult | SendReturn): any {
   return sendReturn.hasOwnProperty('result') ? sendReturn.result : sendReturn
 }
 
@@ -41,7 +33,7 @@ export class XdcInjectedConnector extends AbstractConnector {
     this.handleClose = this.handleClose.bind(this)
   }
 
-  private handleChainChanged(chainId: string|number): void {
+  private handleChainChanged(chainId: string | number): void {
     this.emitUpdate({ chainId, provider: window.xdc })
   }
 
@@ -53,7 +45,7 @@ export class XdcInjectedConnector extends AbstractConnector {
     }
   }
 
-  private handleClose(code: number, reason: string): void {
+  private handleClose(): void {
     this.emitDeactivate()
   }
 
@@ -68,7 +60,7 @@ export class XdcInjectedConnector extends AbstractConnector {
       window.xdc.on('close', this.handleClose)
     }
 
-    if ((window.xdc)) {
+    if (window.xdc) {
       ;(window.xdc as any).autoRefreshOnNetworkChange = false
     }
 
@@ -98,7 +90,7 @@ export class XdcInjectedConnector extends AbstractConnector {
     return window.xdc
   }
 
-  public async getChainId(): Promise<number|string> {
+  public async getChainId(): Promise<number | string> {
     if (!window.xdc) {
       throw new NoXdcPayProviderError()
     }
@@ -141,7 +133,7 @@ export class XdcInjectedConnector extends AbstractConnector {
     return chainId
   }
 
-  public async getAccount(): Promise<null|string> {
+  public async getAccount(): Promise<null | string> {
     if (!window.xdc) {
       throw new NoXdcPayProviderError()
     }

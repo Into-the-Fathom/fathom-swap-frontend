@@ -43,10 +43,10 @@ interface PositionCardProps {
 }
 
 export function MinimalPositionCard({ pair, showUnwrapped = false, border }: PositionCardProps) {
-  const { account, chainId } = useActiveWeb3React()
+  const { account} = useActiveWeb3React()
 
-  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0, chainId)
-  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1, chainId)
+  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0)
+  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1)
 
   const [showMore, setShowMore] = useState(false)
 
@@ -151,10 +151,10 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
 }
 
 export default function FullPositionCard({ pair, border, stakedBalance }: PositionCardProps) {
-  const { account, chainId } = useActiveWeb3React()
+  const { account} = useActiveWeb3React()
 
-  const currency0 = unwrappedToken(pair.token0, chainId)
-  const currency1 = unwrappedToken(pair.token1, chainId)
+  const currency0 = unwrappedToken(pair.token0)
+  const currency1 = unwrappedToken(pair.token1)
 
   const [showMore, setShowMore] = useState(false)
 

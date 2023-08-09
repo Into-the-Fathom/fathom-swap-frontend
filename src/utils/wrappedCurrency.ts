@@ -12,7 +12,7 @@ export function wrappedCurrencyAmount(
   return token && currencyAmount ? new TokenAmount(token, currencyAmount.raw) : undefined
 }
 
-export function unwrappedToken(token: Token, chainId?: ChainId): Currency {
+export function unwrappedToken(token: Token): Currency {
   if (token.equals(WETH[token.chainId])) {
     return XDC
   }

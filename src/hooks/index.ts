@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import {
   injected,
-  injectedXdcPayV1
+  injectedXdcPayV1,
+  walletconnect,
 } from 'connectors'
 import { NetworkContextName } from 'constants/index'
 
@@ -21,8 +22,12 @@ export function useEagerConnect() {
   const [tried, setTried] = useState(false)
 
   useEffect(() => {
-    const connectorType = localStorage.getItem('connectorType');
-    if (connectorType === 'xdcPayV1') {
+    const connectorType = localStorage.getItem('connectorType')
+    if (connectorType === 'walletConnect') {
+      activate(walletconnect, undefined, true).catch(() => {
+        setTried(true)
+      })
+    } else if (connectorType === 'xdcPayV1') {
       injectedXdcPayV1.isAuthorized().then(isAuthorized => {
         if (isAuthorized) {
           activate(injectedXdcPayV1, undefined, true).catch(() => {

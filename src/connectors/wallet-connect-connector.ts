@@ -1,5 +1,5 @@
 import WalletConnectProvider from '@walletconnect/ethereum-provider'
-import { EthereumProviderOptions } from "@walletconnect/ethereum-provider/dist/types/EthereumProvider";
+import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
 
@@ -13,13 +13,12 @@ export class UserRejectedRequestError extends Error {
   }
 }
 
-
 export class WalletConnectConnector extends AbstractConnector {
   public walletConnectProvider?: WalletConnectProvider
   private readonly config: EthereumProviderOptions
 
   constructor(config: EthereumProviderOptions) {
-    super()
+    super({ supportedChainIds: config.optionalChains })
     this.config = config
 
     this.handleChainChanged = this.handleChainChanged.bind(this)
@@ -46,16 +45,15 @@ export class WalletConnectConnector extends AbstractConnector {
   }
 
   public async activate(): Promise<ConnectorUpdate> {
-    this.walletConnectProvider = await WalletConnectProvider.init(this.config) as WalletConnectProvider
+    this.walletConnectProvider = (await WalletConnectProvider.init(this.config)) as WalletConnectProvider
 
     // ensure that the uri is going to be available, and emit an event if there's a new uri
     if (!this.walletConnectProvider.connected) {
-      await this.walletConnectProvider.enable();
+      await this.walletConnectProvider.enable()
       this.emit(URI_AVAILABLE, this.walletConnectProvider.signer.uri)
     }
 
-    let account: string
-    account = await new Promise<string>((resolve, reject) => {
+    const account = await new Promise<string>((resolve, reject) => {
       const userReject = () => {
         // Erase the provider manually
         this.walletConnectProvider = undefined
@@ -63,15 +61,14 @@ export class WalletConnectConnector extends AbstractConnector {
       }
 
       // Workaround to bubble up the error when user reject the connection
-      this.walletConnectProvider!.on('disconnect', () => {
+      this.walletConnectProvider?.on('disconnect', () => {
         // Check provider has not been enabled to prevent this event callback from being called in the future
         if (!account) {
           userReject()
         }
       })
 
-
-      this.walletConnectProvider!.enable()
+      this.walletConnectProvider?.enable()
         .then((accounts: string[]) => resolve(accounts[0]))
         .catch((error: Error): void => {
           console.log(error)

@@ -96,12 +96,11 @@ export function useDerivedMintInfo(
   const independentAmount: CurrencyAmount | undefined = tryParseAmount(
     typedValue,
     currencies[independentField],
-    chainId!
   )
   const dependentAmount: CurrencyAmount | undefined = useMemo(() => {
     if (noLiquidity) {
       if (otherTypedValue && currencies[dependentField]) {
-        return tryParseAmount(otherTypedValue, currencies[dependentField], chainId!)
+        return tryParseAmount(otherTypedValue, currencies[dependentField])
       }
       return undefined
     } else if (independentAmount) {

@@ -1,6 +1,6 @@
 import useENS from 'hooks/useENS'
 import { parseUnits } from '@into-the-fathom/units'
-import { ChainId, Currency, CurrencyAmount, JSBI, Token, TokenAmount, Trade, XDC } from 'fathomswap-sdk'
+import { Currency, CurrencyAmount, JSBI, Token, TokenAmount, Trade, XDC } from 'fathomswap-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -76,7 +76,7 @@ export function useSwapActionHandlers(): {
 }
 
 // try to parse a user entered amount for a given token
-export function tryParseAmount(value?: string, currency?: Currency, chainId?: ChainId): CurrencyAmount | undefined {
+export function tryParseAmount(value?: string, currency?: Currency): CurrencyAmount | undefined {
   if (!value || !currency) {
     return undefined
   }
@@ -122,7 +122,7 @@ export function useDerivedSwapInfo(): {
   v2Trade: Trade | undefined
   inputError?: string
 } {
-  const { account, chainId } = useActiveWeb3React()
+  const { account} = useActiveWeb3React()
 
   const toggledVersion = useToggledVersion()
 
@@ -145,7 +145,7 @@ export function useDerivedSwapInfo(): {
   ])
 
   const isExactIn: boolean = independentField === Field.INPUT
-  const parsedAmount = tryParseAmount(typedValue, (isExactIn ? inputCurrency : outputCurrency) ?? undefined, chainId)
+  const parsedAmount = tryParseAmount(typedValue, (isExactIn ? inputCurrency : outputCurrency) ?? undefined)
 
   const bestTradeExactIn = useTradeExactIn(isExactIn ? parsedAmount : undefined, outputCurrency ?? undefined)
   const bestTradeExactOut = useTradeExactOut(inputCurrency ?? undefined, !isExactIn ? parsedAmount : undefined)

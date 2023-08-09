@@ -1,6 +1,6 @@
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { UnsupportedChainIdError, useWeb3React } from '@web3-react/core'
-import { WalletConnectConnector } from '@web3-react/walletconnect-connector'
+import { WalletConnectConnector } from 'connectors/wallet-connect-connector'
 import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
 import ReactGA from 'react-ga'
@@ -17,13 +17,14 @@ import AccountDetails from 'components/AccountDetails'
 import Modal from 'components/Modal'
 import Option from 'components/WalletModal/Option'
 import PendingView from 'components/WalletModal/PendingView'
-import { XdcInjectedConnector } from 'connectors/xdc-connector';
-import { InjectedConnector } from '@web3-react/injected-connector';
+import { XdcInjectedConnector } from 'connectors/xdc-connector'
+import { InjectedConnector } from '@web3-react/injected-connector'
 
 const CloseIcon = styled.div`
   position: absolute;
   right: 1rem;
   top: 14px;
+
   &:hover {
     cursor: pointer;
     opacity: 0.6;
@@ -174,23 +175,25 @@ export default function WalletModal({
     }
 
     connector &&
-      activate(connector, undefined, true).catch(error => {
-        if (error instanceof UnsupportedChainIdError) {
-          activate(connector) // a little janky...can't use setError because the connector isn't set
-        } else {
-          setPendingError(true)
-        }
-      }).then(() => {
-        let connectorType = '';
-        if (connector instanceof WalletConnectConnector) {
-          connectorType = 'walletConnect';
-        } else if (connector instanceof XdcInjectedConnector) {
-          connectorType = 'xdcPayV1';
-        } else if (connector instanceof  InjectedConnector) {
-          connectorType = 'metamask';
-        }
-        localStorage.setItem('connectorType', connectorType);
-      })
+      activate(connector, undefined, true)
+        .catch(error => {
+          if (error instanceof UnsupportedChainIdError) {
+            activate(connector) // a little janky...can't use setError because the connector isn't set
+          } else {
+            setPendingError(true)
+          }
+        })
+        .then(() => {
+          let connectorType = ''
+          if (connector instanceof WalletConnectConnector) {
+            connectorType = 'walletConnect'
+          } else if (connector instanceof XdcInjectedConnector) {
+            connectorType = 'xdcPayV1'
+          } else if (connector instanceof InjectedConnector) {
+            connectorType = 'metamask'
+          }
+          localStorage.setItem('connectorType', connectorType)
+        })
   }
 
   // get wallets user can switch too, depending on device/browser
