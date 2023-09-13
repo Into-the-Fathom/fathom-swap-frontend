@@ -85,8 +85,7 @@
     "workbox-precaching": "^6.1.0",
     "workbox-routing": "^6.1.0",
     "workbox-strategies": "^6.1.0",
-
-    "fathom-swap-default-token-list": "1.2.3",
+    "fathom-swap-default-token-list-qa": "1.0.0",
     "fathomswap-sdk": "3.0.9"
   },
   "scripts": {

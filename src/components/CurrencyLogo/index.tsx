@@ -6,7 +6,7 @@ import XdcLogo from 'assets/images/xdc-logo.png'
 import useHttpLocations from 'hooks/useHttpLocations'
 import { WrappedTokenInfo } from 'state/lists/hooks'
 import Logo from 'components/Logo'
-import DEFAULT_TOKEN_LIST from 'fathom-swap-default-token-list'
+import DEFAULT_TOKEN_LIST from 'fathom-swap-default-token-list-qa'
 
 export const getTokenLogoURL = (address: string) => {
   let logo
