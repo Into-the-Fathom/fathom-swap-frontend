@@ -610,7 +610,7 @@ export default function RemoveLiquidity({
                               currencyA && currencyEquals(currencyA, WETH[chainId]) ? 'XDC' : currencyIdA
                             }/${currencyB && currencyEquals(currencyB, WETH[chainId]) ? 'XDC' : currencyIdB}`}
                           >
-                            Receive ETH
+                            Receive XDC
                           </StyledInternalLink>
                         ) : null}
                       </RowBetween>
