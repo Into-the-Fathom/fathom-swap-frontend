@@ -6,7 +6,7 @@ An open source interface for Fathom DEX - a protocol for decentralized exchange 
 - Interface: [swap.fathom.fi](https://swap.fathom.fi/)
 - Docs: [gist.github.com/BaldyAsh/3676a18b003758057f634c9af2cfe49a](https://gist.github.com/BaldyAsh/3676a18b003758057f634c9af2cfe49a)
 - Twitter: [@Fathom_fi](https://twitter.com/Fathom_fi)
-- Email: [contact@uniswap.org](mailto:contact@uniswap.org)
+- Email: [anton@fathom.fi](mailto:anton@fathom.fi)
 - Whitepaper: [Link](https://gist.github.com/BaldyAsh/3676a18b003758057f634c9af2cfe49a)
 
 ## Accessing the Fathom DEX Interface
