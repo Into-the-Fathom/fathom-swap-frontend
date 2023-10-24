@@ -64,12 +64,7 @@ export default function PoolFinder() {
 
   const validPairNoLiquidity: boolean =
     pairState === PairState.NOT_EXISTS ||
-    Boolean(
-      pairState === PairState.EXISTS &&
-        pair &&
-        JSBI.equal(pair.reserve0.raw, JSBI.BigInt(0)) &&
-        JSBI.equal(pair.reserve1.raw, JSBI.BigInt(0))
-    )
+    Boolean(pairState === PairState.EXISTS && pair && JSBI.equal(pair.reserve0.raw, JSBI.BigInt(0)) && JSBI.equal(pair.reserve1.raw, JSBI.BigInt(0)))
 
   const position: TokenAmount | undefined = useTokenBalance(account ?? undefined, pair?.liquidityToken)
   const hasPosition = Boolean(position && JSBI.greaterThan(position.raw, JSBI.BigInt(0)))
@@ -91,9 +86,7 @@ export default function PoolFinder() {
 
   const prerequisiteMessage = (
     <LightCard padding="45px 10px">
-      <Text textAlign="center">
-        {!account ? 'Connect to a wallet to find pools' : 'Select a token to find your liquidity.'}
-      </Text>
+      <Text textAlign="center">{!account ? 'Connect to a wallet to find pools' : 'Select a token to find your liquidity.'}</Text>
     </LightCard>
   )
 
@@ -157,9 +150,7 @@ export default function PoolFinder() {
         </ButtonDropdownLight>
 
         {hasPosition && (
-          <ColumnCenter
-            style={{ justifyItems: 'center', backgroundColor: '', padding: '12px 0px', borderRadius: '12px' }}
-          >
+          <ColumnCenter style={{ justifyItems: 'center', backgroundColor: '', padding: '12px 0px', borderRadius: '12px' }}>
             <Text textAlign="center" fontWeight={500}>
               Pool Found!
             </Text>
@@ -187,9 +178,7 @@ export default function PoolFinder() {
             <LightCard padding="45px 10px">
               <AutoColumn gap="sm" justify="center">
                 <Text textAlign="center">No pool found.</Text>
-                <StyledInternalLink to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>
-                  Create pool.
-                </StyledInternalLink>
+                <StyledInternalLink to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}>Create pool.</StyledInternalLink>
               </AutoColumn>
             </LightCard>
           ) : pairState === PairState.INVALID ? (

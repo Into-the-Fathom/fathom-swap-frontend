@@ -38,15 +38,7 @@ export function LoadingView({ children, onDismiss }: { children: any; onDismiss:
   )
 }
 
-export function SubmittedView({
-  children,
-  onDismiss,
-  hash
-}: {
-  children: any
-  onDismiss: () => void
-  hash: string | undefined
-}) {
+export function SubmittedView({ children, onDismiss, hash }: { children: any; onDismiss: () => void; hash: string | undefined }) {
   const theme = useContext(ThemeContext)
   const { chainId } = useActiveWeb3React()
 

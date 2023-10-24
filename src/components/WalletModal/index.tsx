@@ -260,9 +260,7 @@ export default function WalletModal({
           <Option
             id={`connect-${key}`}
             onClick={() => {
-              option.connector === connector
-                ? setWalletView(WALLET_VIEWS.ACCOUNT)
-                : !option.href && tryActivation(option.connector)
+              option.connector === connector ? setWalletView(WALLET_VIEWS.ACCOUNT) : !option.href && tryActivation(option.connector)
             }}
             key={key}
             active={option.connector === connector}
@@ -286,11 +284,7 @@ export default function WalletModal({
           </CloseIcon>
           <HeaderRow>{error instanceof UnsupportedChainIdError ? 'Wrong Network' : 'Error connecting'}</HeaderRow>
           <ContentWrapper>
-            {error instanceof UnsupportedChainIdError ? (
-              <h5>Please connect to the appropriate XDC network.</h5>
-            ) : (
-              'Error connecting. Try refreshing the page.'
-            )}
+            {error instanceof UnsupportedChainIdError ? <h5>Please connect to the appropriate XDC network.</h5> : 'Error connecting. Try refreshing the page.'}
           </ContentWrapper>
         </UpperSection>
       )
@@ -329,12 +323,7 @@ export default function WalletModal({
         )}
         <ContentWrapper>
           {walletView === WALLET_VIEWS.PENDING ? (
-            <PendingView
-              connector={pendingWallet}
-              error={pendingError}
-              setPendingError={setPendingError}
-              tryActivation={tryActivation}
-            />
+            <PendingView connector={pendingWallet} error={pendingError} setPendingError={setPendingError} tryActivation={tryActivation} />
           ) : (
             <OptionGrid>{getOptions()}</OptionGrid>
           )}

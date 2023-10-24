@@ -114,8 +114,7 @@ function TransactionSubmittedContent({
                 </RowFixed>
               ) : (
                 <RowFixed>
-                  Added {currencyToAdd.symbol}{' '}
-                  <CheckCircle size={'16px'} stroke={theme.green1} style={{ marginLeft: '6px' }} />
+                  Added {currencyToAdd.symbol} <CheckCircle size={'16px'} stroke={theme.green1} style={{ marginLeft: '6px' }} />
                 </RowFixed>
               )}
             </ButtonLight>
@@ -193,15 +192,7 @@ interface ConfirmationModalProps {
   currencyToAdd?: Currency | undefined
 }
 
-export default function TransactionConfirmationModal({
-  isOpen,
-  onDismiss,
-  attemptingTxn,
-  hash,
-  pendingText,
-  content,
-  currencyToAdd
-}: ConfirmationModalProps) {
+export default function TransactionConfirmationModal({ isOpen, onDismiss, attemptingTxn, hash, pendingText, content, currencyToAdd }: ConfirmationModalProps) {
   const { chainId } = useActiveWeb3React()
 
   if (!chainId) return null
@@ -212,12 +203,7 @@ export default function TransactionConfirmationModal({
       {attemptingTxn ? (
         <ConfirmationPendingContent onDismiss={onDismiss} pendingText={pendingText} />
       ) : hash ? (
-        <TransactionSubmittedContent
-          chainId={chainId}
-          hash={hash}
-          onDismiss={onDismiss}
-          currencyToAdd={currencyToAdd}
-        />
+        <TransactionSubmittedContent chainId={chainId} hash={hash} onDismiss={onDismiss} currencyToAdd={currencyToAdd} />
       ) : (
         content()
       )}

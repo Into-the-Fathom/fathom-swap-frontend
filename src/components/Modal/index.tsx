@@ -26,9 +26,7 @@ const StyledDialogOverlay = styled(AnimatedDialogOverlay)`
 const AnimatedDialogContent = animated(DialogContent)
 // destructure to not pass custom props to Dialog DOM element
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...rest }) => (
-  <AnimatedDialogContent {...rest} />
-)).attrs({
+const StyledDialogContent = styled(({ minHeight, maxHeight, mobile, isOpen, ...rest }) => <AnimatedDialogContent {...rest} />).attrs({
   'aria-label': 'dialog'
 })`
   overflow-y: ${({ mobile }) => (mobile ? 'scroll' : 'hidden')};
@@ -83,14 +81,7 @@ interface ModalProps {
   children?: React.ReactNode
 }
 
-export default function Modal({
-  isOpen,
-  onDismiss,
-  minHeight = false,
-  maxHeight = 90,
-  initialFocusRef,
-  children
-}: ModalProps) {
+export default function Modal({ isOpen, onDismiss, minHeight = false, maxHeight = 90, initialFocusRef, children }: ModalProps) {
   const fadeTransition = useTransition(isOpen, null, {
     config: { duration: 200 },
     from: { opacity: 0 },
@@ -115,13 +106,7 @@ export default function Modal({
       {fadeTransition.map(
         ({ item, key, props }) =>
           item && (
-            <StyledDialogOverlay
-              key={key}
-              style={props}
-              onDismiss={onDismiss}
-              initialFocusRef={initialFocusRef}
-              unstable_lockFocusAcrossFrames={false}
-            >
+            <StyledDialogOverlay key={key} style={props} onDismiss={onDismiss} initialFocusRef={initialFocusRef} unstable_lockFocusAcrossFrames={false}>
               <StyledDialogContent
                 {...(isMobile
                   ? {

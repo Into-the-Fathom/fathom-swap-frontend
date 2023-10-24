@@ -81,21 +81,13 @@ export default function CurrencySearchModal({
         <ImportToken
           tokens={[importToken]}
           onDismiss={onDismiss}
-          onBack={() =>
-            setModalView(prevView && prevView !== CurrencyModalView.importToken ? prevView : CurrencyModalView.search)
-          }
+          onBack={() => setModalView(prevView && prevView !== CurrencyModalView.importToken ? prevView : CurrencyModalView.search)}
           handleCurrencySelect={handleCurrencySelect}
         />
       ) : modalView === CurrencyModalView.importList && importList && listURL ? (
         <ImportList list={importList} listURL={listURL} onDismiss={onDismiss} setModalView={setModalView} />
       ) : modalView === CurrencyModalView.manage ? (
-        <Manage
-          onDismiss={onDismiss}
-          setModalView={setModalView}
-          setImportToken={setImportToken}
-          setImportList={setImportList}
-          setListUrl={setListUrl}
-        />
+        <Manage onDismiss={onDismiss} setModalView={setModalView} setImportToken={setImportToken} setImportList={setImportList} setListUrl={setListUrl} />
       ) : (
         ''
       )}

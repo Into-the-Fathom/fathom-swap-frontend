@@ -36,13 +36,7 @@ export const US_PLUS_AXDC = new Token(ChainId.AXDC, '0x82b4334F5CD8385f55969BAE0
 
 export const FXD_AXDC = new Token(ChainId.AXDC, '0xa585BF9418C6Aca0a46d308Cea3b2EC85046C88F', 18, 'FXD', 'Fathom USD')
 export const FTHM_AXDC = new Token(ChainId.AXDC, '0x764687eA66dCaf68Fb5246C29739221cfef3Bb46', 18, 'FTHM', 'Fathom')
-export const WXDC_AXDC = new Token(
-  ChainId.AXDC,
-  '0xE99500AB4A413164DA49Af83B9824749059b46ce',
-  18,
-  'WXDC',
-  'Wrapped XDC'
-)
+export const WXDC_AXDC = new Token(ChainId.AXDC, '0xE99500AB4A413164DA49Af83B9824749059b46ce', 18, 'WXDC', 'Wrapped XDC')
 
 export const US_PLUS_XDC = new Token(ChainId.XDC, '0xD4B5f10D61916Bd6E0860144a91Ac658dE8a1437', 6, 'xUSDT', 'xUSDT')
 export const FXD_XDC = new Token(ChainId.XDC, '0x49d3f7543335cf38Fa10889CCFF10207e22110B5', 18, 'FXD', 'Fathom USD')

@@ -161,8 +161,7 @@ export function useSwapCallback(
 
         // a successful estimation is a bignumber gas estimate and the next call is also a bignumber gas estimate
         const successfulEstimation = estimatedCalls.find(
-          (el, ix, list): el is SuccessfulCall =>
-            'gasEstimate' in el && (ix === list.length - 1 || 'gasEstimate' in list[ix + 1])
+          (el, ix, list): el is SuccessfulCall => 'gasEstimate' in el && (ix === list.length - 1 || 'gasEstimate' in list[ix + 1])
         )
 
         if (!successfulEstimation) {
@@ -194,9 +193,7 @@ export function useSwapCallback(
               recipient === account
                 ? base
                 : `${base} to ${
-                    recipientAddressOrName && isAddress(recipientAddressOrName)
-                      ? shortenAddress(recipientAddressOrName, 4)
-                      : recipientAddressOrName
+                    recipientAddressOrName && isAddress(recipientAddressOrName) ? shortenAddress(recipientAddressOrName, 4) : recipientAddressOrName
                   }`
 
             const withVersion = withRecipient

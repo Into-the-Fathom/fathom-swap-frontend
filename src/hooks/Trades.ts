@@ -3,12 +3,7 @@ import { Currency, CurrencyAmount, Pair, Token, Trade } from 'fathomswap-sdk'
 import flatMap from 'lodash.flatmap'
 import { useMemo } from 'react'
 
-import {
-  BASES_TO_CHECK_TRADES_AGAINST,
-  CUSTOM_BASES,
-  BETTER_TRADE_LESS_HOPS_THRESHOLD,
-  ADDITIONAL_BASES
-} from '../constants'
+import { BASES_TO_CHECK_TRADES_AGAINST, CUSTOM_BASES, BETTER_TRADE_LESS_HOPS_THRESHOLD, ADDITIONAL_BASES } from '../constants'
 import { PairState, usePairs } from 'data/Reserves'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
 
@@ -19,9 +14,7 @@ import { useUserSingleHopOnly } from 'state/user/hooks'
 function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): Pair[] {
   const { chainId } = useActiveWeb3React()
 
-  const [tokenA, tokenB] = chainId
-    ? [wrappedCurrency(currencyA, chainId), wrappedCurrency(currencyB, chainId)]
-    : [undefined, undefined]
+  const [tokenA, tokenB] = chainId ? [wrappedCurrency(currencyA, chainId), wrappedCurrency(currencyB, chainId)] : [undefined, undefined]
 
   const bases: Token[] = useMemo(() => {
     if (!chainId) return []
@@ -33,10 +26,7 @@ function useAllCommonPairs(currencyA?: Currency, currencyB?: Currency): Pair[] {
     return [...common, ...additionalA, ...additionalB]
   }, [chainId, tokenA, tokenB])
 
-  const basePairs: [Token, Token][] = useMemo(
-    () => flatMap(bases, (base): [Token, Token][] => bases.map(otherBase => [base, otherBase])),
-    [bases]
-  )
+  const basePairs: [Token, Token][] = useMemo(() => flatMap(bases, (base): [Token, Token][] => bases.map(otherBase => [base, otherBase])), [bases])
 
   const allPairCombinations: [Token, Token][] = useMemo(
     () =>
@@ -103,17 +93,12 @@ export function useTradeExactIn(currencyAmountIn?: CurrencyAmount, currencyOut?:
   return useMemo(() => {
     if (currencyAmountIn && currencyOut && allowedPairs.length > 0) {
       if (singleHopOnly) {
-        return (
-          Trade.bestTradeExactIn(allowedPairs, currencyAmountIn, currencyOut, { maxHops: 1, maxNumResults: 1 })[0] ??
-          null
-        )
+        return Trade.bestTradeExactIn(allowedPairs, currencyAmountIn, currencyOut, { maxHops: 1, maxNumResults: 1 })[0] ?? null
       }
       // search through trades with varying hops, find best trade out of them
       let bestTradeSoFar: Trade | null = null
       for (let i = 1; i <= MAX_HOPS; i++) {
-        const currentTrade: Trade | null =
-          Trade.bestTradeExactIn(allowedPairs, currencyAmountIn, currencyOut, { maxHops: i, maxNumResults: 1 })[0] ??
-          null
+        const currentTrade: Trade | null = Trade.bestTradeExactIn(allowedPairs, currencyAmountIn, currencyOut, { maxHops: i, maxNumResults: 1 })[0] ?? null
         // if current trade is best yet, save it
         if (isTradeBetter(bestTradeSoFar, currentTrade, BETTER_TRADE_LESS_HOPS_THRESHOLD)) {
           bestTradeSoFar = currentTrade
@@ -137,17 +122,12 @@ export function useTradeExactOut(currencyIn?: Currency, currencyAmountOut?: Curr
   return useMemo(() => {
     if (currencyIn && currencyAmountOut && allowedPairs.length > 0) {
       if (singleHopOnly) {
-        return (
-          Trade.bestTradeExactOut(allowedPairs, currencyIn, currencyAmountOut, { maxHops: 1, maxNumResults: 1 })[0] ??
-          null
-        )
+        return Trade.bestTradeExactOut(allowedPairs, currencyIn, currencyAmountOut, { maxHops: 1, maxNumResults: 1 })[0] ?? null
       }
       // search through trades with varying hops, find best trade out of them
       let bestTradeSoFar: Trade | null = null
       for (let i = 1; i <= MAX_HOPS; i++) {
-        const currentTrade =
-          Trade.bestTradeExactOut(allowedPairs, currencyIn, currencyAmountOut, { maxHops: i, maxNumResults: 1 })[0] ??
-          null
+        const currentTrade = Trade.bestTradeExactOut(allowedPairs, currencyIn, currencyAmountOut, { maxHops: i, maxNumResults: 1 })[0] ?? null
         if (isTradeBetter(bestTradeSoFar, currentTrade, BETTER_TRADE_LESS_HOPS_THRESHOLD)) {
           bestTradeSoFar = currentTrade
         }

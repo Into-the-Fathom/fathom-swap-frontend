@@ -35,15 +35,7 @@ const StyledLogo = styled(Logo)<{ size: string }>`
   background-color: ${({ theme }) => theme.white};
 `
 
-export default function CurrencyLogo({
-  currency,
-  size = '24px',
-  style
-}: {
-  currency?: Currency
-  size?: string
-  style?: React.CSSProperties
-}) {
+export default function CurrencyLogo({ currency, size = '24px', style }: { currency?: Currency; size?: string; style?: React.CSSProperties }) {
   const uriLocations = useHttpLocations(currency instanceof WrappedTokenInfo ? currency.logoURI : undefined)
 
   const srcs: string[] = useMemo(() => {

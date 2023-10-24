@@ -51,10 +51,7 @@ export default function FathomBalanceContent({ setShowUniBalanceModal }: { setSh
   const fthmPrice = usePrice(fthm)
   const blockTimestamp = useCurrentBlockTimestamp()
   const circulation: TokenAmount | undefined = useMemo(
-    () =>
-      blockTimestamp && fthm && chainId === ChainId.XDC
-        ? computeUniCirculation(fthm, blockTimestamp, undefined)
-        : totalSupply,
+    () => (blockTimestamp && fthm && chainId === ChainId.XDC ? computeUniCirculation(fthm, blockTimestamp, undefined) : totalSupply),
     [blockTimestamp, chainId, totalSupply, fthm]
   )
 

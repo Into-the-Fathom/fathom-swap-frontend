@@ -128,9 +128,7 @@ describe('multicall updater', () => {
       expect(outdatedListeningKeys({}, { abc: 2, def: 3 }, 1, 1)).toEqual(['abc', 'def'])
     })
     it('returns only outdated keys', () => {
-      expect(
-        outdatedListeningKeys({ [1]: { abc: { data: '0x', blockNumber: 2 } } }, { abc: 1, def: 1 }, 1, 2)
-      ).toEqual(['def'])
+      expect(outdatedListeningKeys({ [1]: { abc: { data: '0x', blockNumber: 2 } } }, { abc: 1, def: 1 }, 1, 2)).toEqual(['def'])
     })
     it('returns only keys not being fetched', () => {
       expect(
@@ -145,23 +143,13 @@ describe('multicall updater', () => {
       ).toEqual([])
     })
     it('returns keys being fetched for old blocks', () => {
-      expect(
-        outdatedListeningKeys(
-          { [1]: { abc: { data: '0x', blockNumber: 2 }, def: { fetchingBlockNumber: 1 } } },
-          { abc: 1, def: 1 },
-          1,
-          2
-        )
-      ).toEqual(['def'])
+      expect(outdatedListeningKeys({ [1]: { abc: { data: '0x', blockNumber: 2 }, def: { fetchingBlockNumber: 1 } } }, { abc: 1, def: 1 }, 1, 2)).toEqual([
+        'def'
+      ])
     })
     it('respects blocks per fetch', () => {
       expect(
-        outdatedListeningKeys(
-          { [1]: { abc: { data: '0x', blockNumber: 2 }, def: { data: '0x', fetchingBlockNumber: 1 } } },
-          { abc: 2, def: 2 },
-          1,
-          3
-        )
+        outdatedListeningKeys({ [1]: { abc: { data: '0x', blockNumber: 2 }, def: { data: '0x', fetchingBlockNumber: 1 } } }, { abc: 2, def: 2 }, 1, 3)
       ).toEqual(['def'])
     })
   })

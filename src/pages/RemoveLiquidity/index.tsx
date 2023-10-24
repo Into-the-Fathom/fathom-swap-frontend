@@ -1,7 +1,7 @@
 import { splitSignature } from '@into-the-fathom/bytes'
 import { Contract } from '@into-the-fathom/contracts'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Currency, currencyEquals, Percent, WETH, XDC } from 'fathomswap-sdk'
+import { ChainId, Currency, currencyEquals, Percent, WETH, XDC } from 'fathomswap-sdk'
 import React, { useCallback, useContext, useMemo, useState } from 'react'
 import { ArrowDown, Plus } from 'react-feather'
 import ReactGA from 'react-ga'
@@ -70,11 +70,7 @@ export default function RemoveLiquidity({
 }: RouteComponentProps<{ currencyIdA: string; currencyIdB: string }>) {
   const [currencyA, currencyB] = [useCurrency(currencyIdA) ?? undefined, useCurrency(currencyIdB) ?? undefined]
   const { account, chainId, library } = useActiveWeb3React()
-  const [tokenA, tokenB] = useMemo(() => [wrappedCurrency(currencyA, chainId), wrappedCurrency(currencyB, chainId)], [
-    currencyA,
-    currencyB,
-    chainId
-  ])
+  const [tokenA, tokenB] = useMemo(() => [wrappedCurrency(currencyA, chainId), wrappedCurrency(currencyB, chainId)], [currencyA, currencyB, chainId])
 
   const theme = useContext(ThemeContext)
 
@@ -103,12 +99,9 @@ export default function RemoveLiquidity({
       : parsedAmounts[Field.LIQUIDITY_PERCENT].lessThan(new Percent('1', '100'))
       ? '<1'
       : parsedAmounts[Field.LIQUIDITY_PERCENT].toFixed(0),
-    [Field.LIQUIDITY]:
-      independentField === Field.LIQUIDITY ? typedValue : parsedAmounts[Field.LIQUIDITY]?.toSignificant(6) ?? '',
-    [Field.CURRENCY_A]:
-      independentField === Field.CURRENCY_A ? typedValue : parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) ?? '',
-    [Field.CURRENCY_B]:
-      independentField === Field.CURRENCY_B ? typedValue : parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) ?? ''
+    [Field.LIQUIDITY]: independentField === Field.LIQUIDITY ? typedValue : parsedAmounts[Field.LIQUIDITY]?.toSignificant(6) ?? '',
+    [Field.CURRENCY_A]: independentField === Field.CURRENCY_A ? typedValue : parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) ?? '',
+    [Field.CURRENCY_B]: independentField === Field.CURRENCY_B ? typedValue : parsedAmounts[Field.CURRENCY_B]?.toSignificant(6) ?? ''
   }
 
   const atMaxAmount = parsedAmounts[Field.LIQUIDITY_PERCENT]?.equalTo(new Percent('1'))
@@ -118,7 +111,7 @@ export default function RemoveLiquidity({
 
   // allowance handling
   const [signatureData, setSignatureData] = useState<{ v: number; r: string; s: string; deadline: number } | null>(null)
-  const [approval, approveCallback] = useApproveCallback(parsedAmounts[Field.LIQUIDITY], ROUTER_ADDRESSES[chainId!])
+  const [approval, approveCallback] = useApproveCallback(parsedAmounts[Field.LIQUIDITY], ROUTER_ADDRESSES[chainId as ChainId])
 
   const isArgentWallet = useIsArgentWallet()
 
@@ -155,7 +148,7 @@ export default function RemoveLiquidity({
     ]
     const message = {
       owner: account,
-      spender: ROUTER_ADDRESSES[chainId!],
+      spender: ROUTER_ADDRESSES[chainId as ChainId],
       value: liquidityAmount.raw.toString(),
       nonce: nonce.toHexString(),
       deadline: deadline.toNumber()
@@ -198,15 +191,9 @@ export default function RemoveLiquidity({
     [_onUserInput]
   )
 
-  const onLiquidityInput = useCallback((typedValue: string): void => onUserInput(Field.LIQUIDITY, typedValue), [
-    onUserInput
-  ])
-  const onCurrencyAInput = useCallback((typedValue: string): void => onUserInput(Field.CURRENCY_A, typedValue), [
-    onUserInput
-  ])
-  const onCurrencyBInput = useCallback((typedValue: string): void => onUserInput(Field.CURRENCY_B, typedValue), [
-    onUserInput
-  ])
+  const onLiquidityInput = useCallback((typedValue: string): void => onUserInput(Field.LIQUIDITY, typedValue), [onUserInput])
+  const onCurrencyAInput = useCallback((typedValue: string): void => onUserInput(Field.CURRENCY_A, typedValue), [onUserInput])
+  const onCurrencyBInput = useCallback((typedValue: string): void => onUserInput(Field.CURRENCY_B, typedValue), [onUserInput])
 
   // tx sending
   const addTransaction = useTransactionAdder()
@@ -311,9 +298,7 @@ export default function RemoveLiquidity({
       )
     )
 
-    const indexOfSuccessfulEstimation = safeGasEstimates.findIndex(safeGasEstimate =>
-      BigNumber.isBigNumber(safeGasEstimate)
-    )
+    const indexOfSuccessfulEstimation = safeGasEstimates.findIndex(safeGasEstimate => BigNumber.isBigNumber(safeGasEstimate))
 
     // all estimations failed...
     if (indexOfSuccessfulEstimation === -1) {
@@ -391,8 +376,7 @@ export default function RemoveLiquidity({
         </RowBetween>
 
         <TYPE.italic fontSize={12} color={theme.text2} textAlign="left" padding={'12px 0 0 0'}>
-          {`Output is estimated. If the price changes by more than ${allowedSlippage /
-            100}% your transaction will revert.`}
+          {`Output is estimated. If the price changes by more than ${allowedSlippage / 100}% your transaction will revert.`}
         </TYPE.italic>
       </AutoColumn>
     )
@@ -439,9 +423,9 @@ export default function RemoveLiquidity({
     )
   }
 
-  const pendingText = `Removing ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${
-    currencyA?.symbol
-  } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(6)} ${currencyB?.symbol}`
+  const pendingText = `Removing ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(6)} ${currencyA?.symbol} and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(
+    6
+  )} ${currencyB?.symbol}`
 
   const liquidityPercentChangeCallback = useCallback(
     (value: number) => {
@@ -452,9 +436,7 @@ export default function RemoveLiquidity({
 
   const oneCurrencyIsXDC = currencyA === XDC || currencyB === XDC
   const oneCurrencyIsWETH = Boolean(
-    chainId &&
-      ((currencyA && currencyEquals(WETH[chainId], currencyA)) ||
-        (currencyB && currencyEquals(WETH[chainId], currencyB)))
+    chainId && ((currencyA && currencyEquals(WETH[chainId], currencyA)) || (currencyB && currencyEquals(WETH[chainId], currencyB)))
   )
 
   const handleSelectCurrencyA = useCallback(
@@ -504,12 +486,7 @@ export default function RemoveLiquidity({
             attemptingTxn={attemptingTxn}
             hash={txHash ? txHash : ''}
             content={() => (
-              <ConfirmationModalContent
-                title={'You will receive'}
-                onDismiss={handleDismissConfirmation}
-                topContent={modalHeader}
-                bottomContent={modalBottom}
-              />
+              <ConfirmationModalContent title={'You will receive'} onDismiss={handleDismissConfirmation} topContent={modalHeader} bottomContent={modalBottom} />
             )}
             pendingText={pendingText}
           />
@@ -517,8 +494,8 @@ export default function RemoveLiquidity({
             <BlueCard>
               <AutoColumn gap="10px">
                 <TYPE.link fontWeight={400} color={'text1'}>
-                  <b>Tip:</b> Removing pool tokens converts your position back into underlying tokens at the current
-                  rate, proportional to your share of the pool. Accrued fees are included in the amounts you receive.
+                  <b>Tip:</b> Removing pool tokens converts your position back into underlying tokens at the current rate, proportional to your share of the
+                  pool. Accrued fees are included in the amounts you receive.
                 </TYPE.link>
               </AutoColumn>
             </BlueCard>
@@ -598,17 +575,15 @@ export default function RemoveLiquidity({
                       <RowBetween style={{ justifyContent: 'flex-end' }}>
                         {oneCurrencyIsXDC ? (
                           <StyledInternalLink
-                            to={`/remove/${currencyA === XDC ? WETH[chainId].address : currencyIdA}/${
-                              currencyB === XDC ? WETH[chainId].address : currencyIdB
-                            }`}
+                            to={`/remove/${currencyA === XDC ? WETH[chainId].address : currencyIdA}/${currencyB === XDC ? WETH[chainId].address : currencyIdB}`}
                           >
                             Receive WXDC
                           </StyledInternalLink>
                         ) : oneCurrencyIsWETH ? (
                           <StyledInternalLink
-                            to={`/remove/${
-                              currencyA && currencyEquals(currencyA, WETH[chainId]) ? 'XDC' : currencyIdA
-                            }/${currencyB && currencyEquals(currencyB, WETH[chainId]) ? 'XDC' : currencyIdB}`}
+                            to={`/remove/${currencyA && currencyEquals(currencyA, WETH[chainId]) ? 'XDC' : currencyIdA}/${
+                              currencyB && currencyEquals(currencyB, WETH[chainId]) ? 'XDC' : currencyIdB
+                            }`}
                           >
                             Receive ETH
                           </StyledInternalLink>

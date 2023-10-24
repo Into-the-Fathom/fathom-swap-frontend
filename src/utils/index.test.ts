@@ -2,14 +2,7 @@ import { BigNumber } from '@into-the-fathom/bignumber'
 import { AddressZero } from '@into-the-fathom/constants'
 import { ChainId, JSBI, Percent, Token, TokenAmount } from 'fathomswap-sdk'
 
-import {
-  basisPointsToPercent,
-  calculateGasMargin,
-  calculateSlippageAmount,
-  getEtherscanLink,
-  isAddress,
-  shortenAddress
-} from '.'
+import { basisPointsToPercent, calculateGasMargin, calculateSlippageAmount, getEtherscanLink, isAddress, shortenAddress } from '.'
 
 describe('utils', () => {
   describe('#getEtherscanLink', () => {

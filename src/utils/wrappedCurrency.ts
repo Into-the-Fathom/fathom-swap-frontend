@@ -4,10 +4,7 @@ export function wrappedCurrency(currency: Currency | undefined, chainId: ChainId
   return chainId && currency === XDC ? WETH[chainId] : currency instanceof Token ? currency : undefined
 }
 
-export function wrappedCurrencyAmount(
-  currencyAmount: CurrencyAmount | undefined,
-  chainId: ChainId | undefined
-): TokenAmount | undefined {
+export function wrappedCurrencyAmount(currencyAmount: CurrencyAmount | undefined, chainId: ChainId | undefined): TokenAmount | undefined {
   const token = currencyAmount && chainId ? wrappedCurrency(currencyAmount.currency, chainId) : undefined
   return token && currencyAmount ? new TokenAmount(token, currencyAmount.raw) : undefined
 }

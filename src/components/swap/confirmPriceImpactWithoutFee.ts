@@ -17,9 +17,7 @@ export default function confirmPriceImpactWithoutFee(priceImpactWithoutFee: Perc
     )
   } else if (!priceImpactWithoutFee.lessThan(ALLOWED_PRICE_IMPACT_HIGH)) {
     return window.confirm(
-      `This swap has a price impact of at least ${ALLOWED_PRICE_IMPACT_HIGH.toFixed(
-        0
-      )}%. Please confirm that you would like to continue with this swap.`
+      `This swap has a price impact of at least ${ALLOWED_PRICE_IMPACT_HIGH.toFixed(0)}%. Please confirm that you would like to continue with this swap.`
     )
   }
   return true

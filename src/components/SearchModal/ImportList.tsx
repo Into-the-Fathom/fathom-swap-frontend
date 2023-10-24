@@ -120,34 +120,22 @@ export function ImportList({ listURL, list, setModalView, onDismiss }: ImportPro
 
             <AutoColumn style={{ textAlign: 'center', gap: '16px', marginBottom: '12px' }}>
               <TYPE.body fontWeight={500} color={theme.red1}>
-                By adding this list you are implicitly trusting that the data is correct. Anyone can create a list,
-                including creating fake versions of existing lists and lists that claim to represent projects that do
-                not have one.
+                By adding this list you are implicitly trusting that the data is correct. Anyone can create a list, including creating fake versions of existing
+                lists and lists that claim to represent projects that do not have one.
               </TYPE.body>
               <TYPE.body fontWeight={600} color={theme.red1}>
                 If you purchase a token from this list, you may not be able to sell it back.
               </TYPE.body>
             </AutoColumn>
             <AutoRow justify="center" style={{ cursor: 'pointer' }} onClick={() => setConfirmed(!confirmed)}>
-              <Checkbox
-                name="confirmed"
-                type="checkbox"
-                checked={confirmed}
-                onChange={() => setConfirmed(!confirmed)}
-              />
+              <Checkbox name="confirmed" type="checkbox" checked={confirmed} onChange={() => setConfirmed(!confirmed)} />
               <TYPE.body ml="10px" fontSize="16px" color={theme.red1} fontWeight={500}>
                 I understand
               </TYPE.body>
             </AutoRow>
           </Card>
 
-          <ButtonPrimary
-            disabled={!confirmed}
-            altDisabledStyle={true}
-            borderRadius="20px"
-            padding="10px 1rem"
-            onClick={handleAddList}
-          >
+          <ButtonPrimary disabled={!confirmed} altDisabledStyle={true} borderRadius="20px" padding="10px 1rem" onClick={handleAddList}>
             Import
           </ButtonPrimary>
           {addError ? (

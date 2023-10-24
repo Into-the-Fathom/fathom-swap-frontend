@@ -2,6 +2,7 @@ import WalletConnectProvider from '@walletconnect/ethereum-provider'
 import { EthereumProviderOptions } from '@walletconnect/ethereum-provider/dist/types/EthereumProvider'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import { ConnectorUpdate } from '@web3-react/types'
+import { ChainId } from 'fathomswap-sdk'
 
 export const URI_AVAILABLE = 'URI_AVAILABLE'
 
@@ -68,7 +69,8 @@ export class WalletConnectConnector extends AbstractConnector {
         }
       })
 
-      this.walletConnectProvider?.enable()
+      this.walletConnectProvider
+        ?.enable()
         .then((accounts: string[]) => resolve(accounts[0]))
         .catch((error: Error): void => {
           console.log(error)
@@ -95,11 +97,11 @@ export class WalletConnectConnector extends AbstractConnector {
   }
 
   public async getChainId(): Promise<number | string> {
-    return Promise.resolve(this.walletConnectProvider!.chainId)
+    return Promise.resolve(this.walletConnectProvider?.chainId as ChainId)
   }
 
   public async getAccount(): Promise<null | string> {
-    return Promise.resolve(this.walletConnectProvider!.accounts).then((accounts: string[]): string => accounts[0])
+    return Promise.resolve(this.walletConnectProvider?.accounts as string[]).then((accounts: string[]): string => accounts[0])
   }
 
   public deactivate() {

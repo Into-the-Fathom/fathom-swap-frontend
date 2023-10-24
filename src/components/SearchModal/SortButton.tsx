@@ -17,13 +17,7 @@ export const FilterWrapper = styled(RowFixed)`
   }
 `
 
-export default function SortButton({
-  toggleSortOrder,
-  ascending
-}: {
-  toggleSortOrder: () => void
-  ascending: boolean
-}) {
+export default function SortButton({ toggleSortOrder, ascending }: { toggleSortOrder: () => void; ascending: boolean }) {
   return (
     <FilterWrapper onClick={toggleSortOrder}>
       <Text fontSize={14} fontWeight={500}>

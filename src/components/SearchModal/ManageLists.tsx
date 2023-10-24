@@ -47,8 +47,7 @@ const PopoverContainer = styled.div<{ show: boolean }>`
   transition: visibility 150ms linear, opacity 150ms linear;
   background: ${({ theme }) => theme.bg2};
   border: 1px solid ${({ theme }) => theme.bg3};
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.01);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 24px 32px rgba(0, 0, 0, 0.01);
   color: ${({ theme }) => theme.text2};
   border-radius: 0.5rem;
   padding: 1rem;
@@ -187,9 +186,7 @@ const ListRow = memo(function ListRow({ listUrl }: { listUrl: string }) {
                 <UnpaddedLinkStyledButton onClick={handleRemoveList} disabled={Object.keys(listsByUrl).length === 1}>
                   Remove list
                 </UnpaddedLinkStyledButton>
-                {pending && (
-                  <UnpaddedLinkStyledButton onClick={handleAcceptListUpdate}>Update list</UnpaddedLinkStyledButton>
-                )}
+                {pending && <UnpaddedLinkStyledButton onClick={handleAcceptListUpdate}>Update list</UnpaddedLinkStyledButton>}
               </PopoverContainer>
             )}
           </StyledMenu>
@@ -267,11 +264,7 @@ export function ManageLists({
         }
 
         if (l1 && l2) {
-          return l1.name.toLowerCase() < l2.name.toLowerCase()
-            ? -1
-            : l1.name.toLowerCase() === l2.name.toLowerCase()
-            ? 0
-            : 1
+          return l1.name.toLowerCase() < l2.name.toLowerCase() ? -1 : l1.name.toLowerCase() === l2.name.toLowerCase() ? 0 : 1
         }
         if (l1) return -1
         if (l2) return 1
@@ -318,13 +311,7 @@ export function ManageLists({
     <Wrapper>
       <PaddedColumn gap="14px">
         <Row>
-          <SearchInput
-            type="text"
-            id="list-add-input"
-            placeholder="https:// or ipfs:// or ENS name"
-            value={listUrlInput}
-            onChange={handleInput}
-          />
+          <SearchInput type="text" id="list-add-input" placeholder="https:// or ipfs:// or ENS name" value={listUrlInput} onChange={handleInput} />
         </Row>
         {addError ? (
           <TYPE.error title={addError} style={{ textOverflow: 'ellipsis', overflow: 'hidden' }} error>
@@ -351,12 +338,7 @@ export function ManageLists({
                   <TYPE.body color={theme.text2}>Loaded</TYPE.body>
                 </RowFixed>
               ) : (
-                <ButtonPrimary
-                  style={{ fontSize: '14px' }}
-                  padding="6px 8px"
-                  width="fit-content"
-                  onClick={handleImport}
-                >
+                <ButtonPrimary style={{ fontSize: '14px' }} padding="6px 8px" width="fit-content" onClick={handleImport}>
                   Import
                 </ButtonPrimary>
               )}

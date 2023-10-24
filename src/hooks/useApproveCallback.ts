@@ -1,6 +1,6 @@
 import { MaxUint256 } from '@into-the-fathom/constants'
 import { TransactionResponse } from '@into-the-fathom/providers'
-import { Trade, TokenAmount, CurrencyAmount, XDC } from 'fathomswap-sdk'
+import { Trade, TokenAmount, CurrencyAmount, XDC, ChainId } from 'fathomswap-sdk'
 import { useCallback, useMemo } from 'react'
 import { ROUTER_ADDRESSES } from 'constants/index'
 import { useTokenAllowance } from 'data/Allowances'
@@ -19,10 +19,7 @@ export enum ApprovalState {
 }
 
 // returns a variable indicating the state of the approval and a function which approves if necessary or early returns
-export function useApproveCallback(
-  amountToApprove?: CurrencyAmount,
-  spender?: string
-): [ApprovalState, () => Promise<void>] {
+export function useApproveCallback(amountToApprove?: CurrencyAmount, spender?: string): [ApprovalState, () => Promise<void>] {
   const { account } = useActiveWeb3React()
   const token = amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined
   const currentAllowance = useTokenAllowance(token, account ?? undefined, spender)
@@ -37,11 +34,7 @@ export function useApproveCallback(
     if (!currentAllowance) return ApprovalState.UNKNOWN
 
     // amountToApprove will be defined if currentAllowance is
-    return currentAllowance.lessThan(amountToApprove)
-      ? pendingApproval
-        ? ApprovalState.PENDING
-        : ApprovalState.NOT_APPROVED
-      : ApprovalState.APPROVED
+    return currentAllowance.lessThan(amountToApprove) ? (pendingApproval ? ApprovalState.PENDING : ApprovalState.NOT_APPROVED) : ApprovalState.APPROVED
   }, [amountToApprove, currentAllowance, pendingApproval, spender])
 
   const tokenContract = useTokenContract(token?.address)
@@ -101,9 +94,6 @@ export function useApproveCallback(
 // wraps useApproveCallback in the context of a swap
 export function useApproveCallbackFromTrade(trade?: Trade, allowedSlippage = 0) {
   const { chainId } = useActiveWeb3React()
-  const amountToApprove = useMemo(
-    () => (trade ? computeSlippageAdjustedAmounts(trade, allowedSlippage)[Field.INPUT] : undefined),
-    [trade, allowedSlippage]
-  )
-  return useApproveCallback(amountToApprove, ROUTER_ADDRESSES[chainId!])
+  const amountToApprove = useMemo(() => (trade ? computeSlippageAdjustedAmounts(trade, allowedSlippage)[Field.INPUT] : undefined), [trade, allowedSlippage])
+  return useApproveCallback(amountToApprove, ROUTER_ADDRESSES[chainId as ChainId])
 }

@@ -26,8 +26,7 @@ const Wrapper = styled.div`
 `
 
 const WarningWrapper = styled(Card)<{ highWarning: boolean }>`
-  background-color: ${({ theme, highWarning }) =>
-    highWarning ? transparentize(0.8, theme.red1) : transparentize(0.8, theme.yellow2)};
+  background-color: ${({ theme, highWarning }) => (highWarning ? transparentize(0.8, theme.red1) : transparentize(0.8, theme.yellow2))};
   width: fit-content;
 `
 
@@ -62,8 +61,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
 
   // higher warning severity if either is not on a list
   const fromLists =
-    (chainId && inactiveTokenList?.[chainId]?.[tokens[0]?.address]?.list) ||
-    (chainId && inactiveTokenList?.[chainId]?.[tokens[1]?.address]?.list)
+    (chainId && inactiveTokenList?.[chainId]?.[tokens[0]?.address]?.list) || (chainId && inactiveTokenList?.[chainId]?.[tokens[1]?.address]?.list)
 
   return (
     <Wrapper>
@@ -115,9 +113,7 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
           )
         })}
 
-        <Card
-          style={{ backgroundColor: fromLists ? transparentize(0.8, theme.yellow2) : transparentize(0.8, theme.red1) }}
-        >
+        <Card style={{ backgroundColor: fromLists ? transparentize(0.8, theme.yellow2) : transparentize(0.8, theme.red1) }}>
           <AutoColumn justify="center" style={{ textAlign: 'center', gap: '16px', marginBottom: '12px' }}>
             <AlertTriangle stroke={fromLists ? theme.yellow2 : theme.red1} size={32} />
             <TYPE.body fontWeight={600} fontSize={20} color={fromLists ? theme.yellow2 : theme.red1}>
@@ -127,21 +123,14 @@ export function ImportToken({ tokens, onBack, onDismiss, handleCurrencySelect }:
 
           <AutoColumn style={{ textAlign: 'center', gap: '16px', marginBottom: '12px' }}>
             <TYPE.body fontWeight={400} color={fromLists ? theme.yellow2 : theme.red1}>
-              Anyone can create a token, including creating fake versions of existing tokens that claim to represent
-              projects.
+              Anyone can create a token, including creating fake versions of existing tokens that claim to represent projects.
             </TYPE.body>
             <TYPE.body fontWeight={600} color={fromLists ? theme.yellow2 : theme.red1}>
               If you purchase this token, you may not be able to sell it back.
             </TYPE.body>
           </AutoColumn>
           <AutoRow justify="center" style={{ cursor: 'pointer' }} onClick={() => setConfirmed(!confirmed)}>
-            <Checkbox
-              className=".understand-checkbox"
-              name="confirmed"
-              type="checkbox"
-              checked={confirmed}
-              onChange={() => setConfirmed(!confirmed)}
-            />
+            <Checkbox className=".understand-checkbox" name="confirmed" type="checkbox" checked={confirmed} onChange={() => setConfirmed(!confirmed)} />
             <TYPE.body ml="10px" fontSize="16px" color={fromLists ? theme.yellow2 : theme.red1} fontWeight={500}>
               I understand
             </TYPE.body>

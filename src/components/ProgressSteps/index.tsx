@@ -13,8 +13,7 @@ const Grouping = styled(RowBetween)`
 const Circle = styled.div<{ confirmed?: boolean; disabled?: boolean }>`
   min-width: 20px;
   min-height: 20px;
-  background-color: ${({ theme, confirmed, disabled }) =>
-    disabled ? theme.bg4 : confirmed ? theme.green1 : theme.primary1};
+  background-color: ${({ theme, confirmed, disabled }) => (disabled ? theme.bg4 : confirmed ? theme.green1 : theme.primary1)};
   border-radius: 50%;
   color: ${({ theme }) => theme.white};
   display: flex;
@@ -35,9 +34,7 @@ const Connector = styled.div<{ prevConfirmed?: boolean; disabled?: boolean }>`
   height: 2px;
   background: linear-gradient(
     90deg,
-    ${({ theme, prevConfirmed, disabled }) =>
-        disabled ? theme.bg4 : transparentize(0.5, prevConfirmed ? theme.green1 : theme.primary1)}
-      0%,
+    ${({ theme, prevConfirmed, disabled }) => (disabled ? theme.bg4 : transparentize(0.5, prevConfirmed ? theme.green1 : theme.primary1))} 0%,
     ${({ theme, prevConfirmed, disabled }) => (disabled ? theme.bg4 : prevConfirmed ? theme.primary1 : theme.bg4)} 80%
   );
   opacity: 0.6;

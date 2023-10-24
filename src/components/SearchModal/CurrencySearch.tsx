@@ -138,10 +138,7 @@ export function CurrencySearch({
         if (s === 'xdc') {
           handleCurrencySelect(XDC)
         } else if (filteredSortedTokens.length > 0) {
-          if (
-            filteredSortedTokens[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() ||
-            filteredSortedTokens.length === 1
-          ) {
+          if (filteredSortedTokens[0].symbol?.toLowerCase() === debouncedQuery.trim().toLowerCase() || filteredSortedTokens.length === 1) {
             handleCurrencySelect(filteredSortedTokens[0])
           }
         }
@@ -180,9 +177,7 @@ export function CurrencySearch({
             onKeyDown={handleEnter}
           />
         </Row>
-        {showCommonBases && (
-          <CommonBases chainId={chainId} onSelect={handleCurrencySelect} selectedCurrency={selectedCurrency} />
-        )}
+        {showCommonBases && <CommonBases chainId={chainId} onSelect={handleCurrencySelect} selectedCurrency={selectedCurrency} />}
       </PaddedColumn>
       <Separator />
       {searchToken && !searchTokenIsAdded ? (
@@ -196,9 +191,7 @@ export function CurrencySearch({
               <CurrencyList
                 height={height}
                 showXDC={showXDC}
-                currencies={
-                  filteredInactiveTokens ? filteredSortedTokens.concat(filteredInactiveTokens) : filteredSortedTokens
-                }
+                currencies={filteredInactiveTokens ? filteredSortedTokens.concat(filteredInactiveTokens) : filteredSortedTokens}
                 breakIndex={inactiveTokens && filteredSortedTokens ? filteredSortedTokens.length : undefined}
                 onCurrencySelect={handleCurrencySelect}
                 otherCurrency={otherSelectedCurrency}

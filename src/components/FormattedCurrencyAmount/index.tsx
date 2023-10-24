@@ -3,13 +3,7 @@ import { CurrencyAmount, Fraction, JSBI } from 'fathomswap-sdk'
 
 const CURRENCY_AMOUNT_MIN = new Fraction(JSBI.BigInt(1), JSBI.BigInt(1000000))
 
-export default function FormattedCurrencyAmount({
-  currencyAmount,
-  significantDigits = 4
-}: {
-  currencyAmount: CurrencyAmount
-  significantDigits?: number
-}) {
+export default function FormattedCurrencyAmount({ currencyAmount, significantDigits = 4 }: { currencyAmount: CurrencyAmount; significantDigits?: number }) {
   return (
     <>
       {currencyAmount.equalTo(JSBI.BigInt(0))

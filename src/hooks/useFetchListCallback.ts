@@ -7,6 +7,7 @@ import { fetchTokenList } from 'state/lists/actions'
 import getTokenList from 'utils/getTokenList'
 import resolveENSContentHash from 'utils/resolveENSContentHash'
 import { useActiveWeb3React } from 'hooks/index'
+import { Provider } from '@into-the-fathom/abstract-provider'
 
 export function useFetchListCallback(): (listUrl: string, sendDispatch?: boolean) => Promise<TokenList> {
   const { library } = useActiveWeb3React()
@@ -14,7 +15,7 @@ export function useFetchListCallback(): (listUrl: string, sendDispatch?: boolean
 
   const ensResolver = useCallback(
     (ensName: string) => {
-      return resolveENSContentHash(ensName, library!)
+      return resolveENSContentHash(ensName, library as Provider)
     },
     [library]
   )

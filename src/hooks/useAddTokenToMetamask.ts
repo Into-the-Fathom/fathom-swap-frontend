@@ -4,9 +4,7 @@ import { Currency, Token } from 'fathomswap-sdk'
 import { useCallback, useState } from 'react'
 import { useActiveWeb3React } from 'hooks'
 
-export default function useAddTokenToMetamask(
-  currencyToAdd: Currency | undefined
-): { addToken: () => void; success: boolean | undefined } {
+export default function useAddTokenToMetamask(currencyToAdd: Currency | undefined): { addToken: () => void; success: boolean | undefined } {
   const { library, chainId } = useActiveWeb3React()
 
   const token: Token | undefined = wrappedCurrency(currencyToAdd, chainId)

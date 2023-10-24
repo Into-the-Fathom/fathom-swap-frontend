@@ -67,9 +67,7 @@ export class XdcInjectedConnector extends AbstractConnector {
     // try to activate + get account via eth_requestAccounts
     let account
     try {
-      account = await (window.xdc.send as Send)('eth_requestAccounts').then(
-        sendReturn => parseSendReturn(sendReturn)[0]
-      )
+      account = await (window.xdc.send as Send)('eth_requestAccounts').then(sendReturn => parseSendReturn(sendReturn)[0])
     } catch (error) {
       if ((error as any).code === 4001) {
         throw new UserRejectedRequestError()
@@ -122,11 +120,7 @@ export class XdcInjectedConnector extends AbstractConnector {
       if ((window.xdc as any).isDapper) {
         chainId = parseSendReturn((window.xdc as any).cachedResults.net_version)
       } else {
-        chainId =
-          (window.xdc as any).chainId ||
-          (window.xdc as any).netVersion ||
-          (window.xdc as any).networkVersion ||
-          (window.xdc as any)._chainId
+        chainId = (window.xdc as any).chainId || (window.xdc as any).netVersion || (window.xdc as any).networkVersion || (window.xdc as any)._chainId
       }
     }
 

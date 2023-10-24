@@ -119,13 +119,7 @@ function CurrencyRow({
 
   // only show add or remove buttons if not on selected list
   return (
-    <MenuItem
-      style={style}
-      className={`token-item-${key}`}
-      onClick={() => (isSelected ? null : onSelect())}
-      disabled={isSelected}
-      selected={otherSelected}
-    >
+    <MenuItem style={style} className={`token-item-${key}`} onClick={() => (isSelected ? null : onSelect())} disabled={isSelected} selected={otherSelected}>
       <CurrencyLogo currency={currency} size={'24px'} />
       <Column>
         <Text title={currency.name} fontWeight={500}>
@@ -136,9 +130,7 @@ function CurrencyRow({
         </TYPE.white>
       </Column>
       <TokenTags currency={currency} />
-      <RowFixed style={{ justifySelf: 'flex-end' }}>
-        {balance ? <Balance balance={balance} /> : account ? <Loader stroke={'white'} /> : null}
-      </RowFixed>
+      <RowFixed style={{ justifySelf: 'flex-end' }}>{balance ? <Balance balance={balance} /> : account ? <Loader stroke={'white'} /> : null}</RowFixed>
     </MenuItem>
   )
 }
@@ -210,52 +202,18 @@ export default function CurrencyList({
       }
 
       if (showImport && token) {
-        return (
-          <ImportRow
-            style={style}
-            token={token}
-            showImportView={showImportView}
-            setImportToken={setImportToken}
-            dim={true}
-          />
-        )
+        return <ImportRow style={style} token={token} showImportView={showImportView} setImportToken={setImportToken} dim={true} />
       } else {
-        return (
-          <CurrencyRow
-            style={style}
-            currency={currency}
-            isSelected={isSelected}
-            onSelect={handleSelect}
-            otherSelected={otherSelected}
-          />
-        )
+        return <CurrencyRow style={style} currency={currency} isSelected={isSelected} onSelect={handleSelect} otherSelected={otherSelected} />
       }
     },
-    [
-      chainId,
-      inactiveTokens,
-      onCurrencySelect,
-      otherCurrency,
-      selectedCurrency,
-      setImportToken,
-      showImportView,
-      breakIndex,
-      theme.text1
-    ]
+    [chainId, inactiveTokens, onCurrencySelect, otherCurrency, selectedCurrency, setImportToken, showImportView, breakIndex, theme.text1]
   )
 
   const itemKey = useCallback((index: number, data: any) => currencyKey(data[index]), [])
 
   return (
-    <FixedSizeList
-      height={height}
-      ref={fixedListRef as any}
-      width="100%"
-      itemData={itemData}
-      itemCount={itemData.length}
-      itemSize={56}
-      itemKey={itemKey}
-    >
+    <FixedSizeList height={height} ref={fixedListRef as any} width="100%" itemData={itemData} itemCount={itemData.length} itemSize={56} itemKey={itemKey}>
       {Row}
     </FixedSizeList>
   )
