@@ -6,12 +6,7 @@ import styled, { ThemeContext } from 'styled-components'
 import { useOnClickOutside } from 'hooks/useOnClickOutside'
 import { ApplicationModal } from 'state/application/actions'
 import { useModalOpen, useToggleSettingsMenu } from 'state/application/hooks'
-import {
-  useExpertModeManager,
-  useUserTransactionTTL,
-  useUserSlippageTolerance,
-  useUserSingleHopOnly
-} from 'state/user/hooks'
+import { useExpertModeManager, useUserTransactionTTL, useUserSlippageTolerance, useUserSingleHopOnly } from 'state/user/hooks'
 import { TYPE } from 'theme'
 import { ButtonError } from 'components/Button'
 import { AutoColumn } from 'components/Column'
@@ -92,8 +87,7 @@ const StyledMenu = styled.div`
 const MenuFlyout = styled.span`
   min-width: 20.125rem;
   background-color: ${({ theme }) => theme.bg2};
-  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04),
-    0px 24px 32px rgba(0, 0, 0, 0.01);
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.01), 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 24px 32px rgba(0, 0, 0, 0.01);
   border-radius: 12px;
   display: flex;
   flex-direction: column;
@@ -158,8 +152,7 @@ export default function SettingsTab() {
             <Break />
             <AutoColumn gap="lg" style={{ padding: '0 2rem' }}>
               <Text fontWeight={500} fontSize={20}>
-                Expert mode turns off the confirm transaction prompt and allows high slippage trades that often result
-                in bad rates and lost funds.
+                Expert mode turns off the confirm transaction prompt and allows high slippage trades that often result in bad rates and lost funds.
               </Text>
               <Text fontWeight={600} fontSize={20}>
                 ONLY USE THIS MODE IF YOU KNOW WHAT YOU ARE DOING.
@@ -200,12 +193,7 @@ export default function SettingsTab() {
             <Text fontWeight={600} fontSize={14}>
               Transaction Settings
             </Text>
-            <TransactionSettings
-              rawSlippage={userSlippageTolerance}
-              setRawSlippage={setUserslippageTolerance}
-              deadline={ttl}
-              setDeadline={setTtl}
-            />
+            <TransactionSettings rawSlippage={userSlippageTolerance} setRawSlippage={setUserslippageTolerance} deadline={ttl} setDeadline={setTtl} />
             <Text fontWeight={600} fontSize={14}>
               Interface Settings
             </Text>

@@ -203,13 +203,7 @@ export default function CurrencyInputPanel({
                 {label}
               </TYPE.body>
               {account && (
-                <TYPE.body
-                  onClick={onMax}
-                  color={theme.text2}
-                  fontWeight={500}
-                  fontSize={14}
-                  style={{ display: 'inline', cursor: 'pointer' }}
-                ></TYPE.body>
+                <TYPE.body onClick={onMax} color={theme.text2} fontWeight={500} fontSize={14} style={{ display: 'inline', cursor: 'pointer' }}></TYPE.body>
               )}
             </RowBetween>
           </LabelRow>
@@ -237,9 +231,7 @@ export default function CurrencyInputPanel({
               ) : (
                 <StyledTokenName className="token-symbol-container" active={Boolean(currency && currency.symbol)}>
                   {(currency && currency.symbol && currency.symbol.length > 20
-                    ? currency.symbol.slice(0, 4) +
-                      '...' +
-                      currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
+                    ? currency.symbol.slice(0, 4) + '...' + currency.symbol.slice(currency.symbol.length - 5, currency.symbol.length)
                     : currency?.symbol) || t('selectToken')}
                 </StyledTokenName>
               )}
@@ -261,13 +253,9 @@ export default function CurrencyInputPanel({
         </InputRow>
         <BalanceRow selected={disableCurrencySelect}>
           <Balance>
-            {!hideBalance && !!currency && selectedCurrencyBalance
-              ? (customBalanceText ?? 'Balance: ') + selectedCurrencyBalance?.toSignificant(6)
-              : ' -'}
+            {!hideBalance && !!currency && selectedCurrencyBalance ? (customBalanceText ?? 'Balance: ') + selectedCurrencyBalance?.toSignificant(6) : ' -'}
           </Balance>
-          {account && currency && showMaxButton && label !== 'To' && (
-            <StyledBalanceMax onClick={onMax}>MAX</StyledBalanceMax>
-          )}
+          {account && currency && showMaxButton && label !== 'To' && <StyledBalanceMax onClick={onMax}>MAX</StyledBalanceMax>}
         </BalanceRow>
       </Container>
       {!disableCurrencySelect && onCurrencySelect && (

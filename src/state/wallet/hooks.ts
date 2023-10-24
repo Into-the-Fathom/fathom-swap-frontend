@@ -11,9 +11,7 @@ import { useSingleContractMultipleData, useMultipleContractSingleData } from 'st
 /**
  * Returns a map of the given addresses to their eventually consistent XDC balances.
  */
-export function useXDCBalances(
-  uncheckedAddresses?: (string | undefined)[]
-): { [address: string]: CurrencyAmount | undefined } {
+export function useXDCBalances(uncheckedAddresses?: (string | undefined)[]): { [address: string]: CurrencyAmount | undefined } {
   const multicallContract = useMulticallContract()
 
   const addresses: string[] = useMemo(
@@ -51,10 +49,7 @@ export function useTokenBalancesWithLoadingIndicator(
   address?: string,
   tokens?: (Token | undefined)[]
 ): [{ [tokenAddress: string]: TokenAmount | undefined }, boolean] {
-  const validatedTokens: Token[] = useMemo(
-    () => tokens?.filter((t?: Token): t is Token => isAddress(t?.address) !== false) ?? [],
-    [tokens]
-  )
+  const validatedTokens: Token[] = useMemo(() => tokens?.filter((t?: Token): t is Token => isAddress(t?.address) !== false) ?? [], [tokens])
 
   const validatedTokenAddresses = useMemo(() => validatedTokens.map(vt => vt.address), [validatedTokens])
 
@@ -81,10 +76,7 @@ export function useTokenBalancesWithLoadingIndicator(
   ]
 }
 
-export function useTokenBalances(
-  address?: string,
-  tokens?: (Token | undefined)[]
-): { [tokenAddress: string]: TokenAmount | undefined } {
+export function useTokenBalances(address?: string, tokens?: (Token | undefined)[]): { [tokenAddress: string]: TokenAmount | undefined } {
   return useTokenBalancesWithLoadingIndicator(address, tokens)[0]
 }
 
@@ -95,13 +87,8 @@ export function useTokenBalance(account?: string, token?: Token): TokenAmount | 
   return tokenBalances[token.address]
 }
 
-export function useCurrencyBalances(
-  account?: string,
-  currencies?: (Currency | undefined)[]
-): (CurrencyAmount | undefined)[] {
-  const tokens = useMemo(() => currencies?.filter((currency): currency is Token => currency instanceof Token) ?? [], [
-    currencies
-  ])
+export function useCurrencyBalances(account?: string, currencies?: (Currency | undefined)[]): (CurrencyAmount | undefined)[] {
+  const tokens = useMemo(() => currencies?.filter((currency): currency is Token => currency instanceof Token) ?? [], [currencies])
 
   const tokenBalances = useTokenBalances(account, tokens)
   const containsXDC: boolean = useMemo(() => currencies?.some(currency => currency === XDC) ?? false, [currencies])

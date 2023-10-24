@@ -41,10 +41,7 @@ function withVesting(before: JSBI, time: BigNumber, amount: number, start: numbe
       if ((typeof cliff === 'number' && time.gte(cliff)) || typeof cliff === 'undefined') {
         return JSBI.add(
           before,
-          JSBI.divide(
-            JSBI.multiply(JSBI.BigInt(amount), JSBI.BigInt(time.sub(start).toString())),
-            JSBI.subtract(JSBI.BigInt(end), JSBI.BigInt(start))
-          )
+          JSBI.divide(JSBI.multiply(JSBI.BigInt(amount), JSBI.BigInt(time.sub(start).toString())), JSBI.subtract(JSBI.BigInt(end), JSBI.BigInt(start)))
         )
       }
     }
@@ -52,56 +49,20 @@ function withVesting(before: JSBI, time: BigNumber, amount: number, start: numbe
   return before
 }
 
-export function computeUniCirculation(
-  uni: Token,
-  blockTimestamp: BigNumber,
-  unclaimedUni: TokenAmount | undefined
-): TokenAmount {
+export function computeUniCirculation(uni: Token, blockTimestamp: BigNumber, unclaimedUni: TokenAmount | undefined): TokenAmount {
   let wholeAmount = JSBI.BigInt(USERS_AMOUNT)
 
   // staking rewards
   wholeAmount = withVesting(wholeAmount, blockTimestamp, STAKING_REWARDS_AMOUNT, 0, STAKING_END)
 
   // treasury vesting
-  wholeAmount = withVesting(
-    wholeAmount,
-    blockTimestamp,
-    TREASURY_YEAR_1_AMOUNT,
-    TREASURY_BEGIN_YEAR_1,
-    TREASURY_END_YEAR_1,
-    TREASURY_CLIFF_YEAR_1
-  )
-  wholeAmount = withVesting(
-    wholeAmount,
-    blockTimestamp,
-    TREASURY_YEAR_2_AMOUNT,
-    TREASURY_BEGIN_YEAR_2,
-    TREASURY_END_YEAR_2
-  )
-  wholeAmount = withVesting(
-    wholeAmount,
-    blockTimestamp,
-    TREASURY_YEAR_3_AMOUNT,
-    TREASURY_BEGIN_YEAR_3,
-    TREASURY_END_YEAR_3
-  )
-  wholeAmount = withVesting(
-    wholeAmount,
-    blockTimestamp,
-    TREASURY_YEAR_4_AMOUNT,
-    TREASURY_BEGIN_YEAR_4,
-    TREASURY_END_YEAR_4
-  )
+  wholeAmount = withVesting(wholeAmount, blockTimestamp, TREASURY_YEAR_1_AMOUNT, TREASURY_BEGIN_YEAR_1, TREASURY_END_YEAR_1, TREASURY_CLIFF_YEAR_1)
+  wholeAmount = withVesting(wholeAmount, blockTimestamp, TREASURY_YEAR_2_AMOUNT, TREASURY_BEGIN_YEAR_2, TREASURY_END_YEAR_2)
+  wholeAmount = withVesting(wholeAmount, blockTimestamp, TREASURY_YEAR_3_AMOUNT, TREASURY_BEGIN_YEAR_3, TREASURY_END_YEAR_3)
+  wholeAmount = withVesting(wholeAmount, blockTimestamp, TREASURY_YEAR_4_AMOUNT, TREASURY_BEGIN_YEAR_4, TREASURY_END_YEAR_4)
 
   // team
-  wholeAmount = withVesting(
-    wholeAmount,
-    blockTimestamp,
-    TEAM_YEAR_1_AMOUNT,
-    TREASURY_BEGIN_YEAR_1,
-    TREASURY_END_YEAR_1,
-    TREASURY_CLIFF_YEAR_1
-  )
+  wholeAmount = withVesting(wholeAmount, blockTimestamp, TEAM_YEAR_1_AMOUNT, TREASURY_BEGIN_YEAR_1, TREASURY_END_YEAR_1, TREASURY_CLIFF_YEAR_1)
   wholeAmount = withVesting(wholeAmount, blockTimestamp, TEAM_YEAR_2_AMOUNT, TREASURY_BEGIN_YEAR_2, TREASURY_END_YEAR_2)
   wholeAmount = withVesting(wholeAmount, blockTimestamp, TEAM_YEAR_3_AMOUNT, TREASURY_BEGIN_YEAR_3, TREASURY_END_YEAR_3)
   wholeAmount = withVesting(wholeAmount, blockTimestamp, TEAM_YEAR_4_AMOUNT, TREASURY_BEGIN_YEAR_4, TREASURY_END_YEAR_4)

@@ -212,13 +212,7 @@ interface AccountDetailsProps {
   openOptions: () => void
 }
 
-export default function AccountDetails({
-  toggleWalletModal,
-  pendingTransactions,
-  confirmedTransactions,
-  ENSName,
-  openOptions
-}: AccountDetailsProps) {
+export default function AccountDetails({ toggleWalletModal, pendingTransactions, confirmedTransactions, ENSName, openOptions }: AccountDetailsProps) {
   const { chainId, account, connector } = useActiveWeb3React()
   const theme = useContext(ThemeContext)
   const dispatch = useDispatch<AppDispatch>()
@@ -227,10 +221,7 @@ export default function AccountDetails({
     const { ethereum } = window
     const isMetaMask = !!(ethereum && ethereum.isMetaMask)
     const name = Object.keys(SUPPORTED_WALLETS)
-      .filter(
-        k =>
-          SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === 'METAMASK'))
-      )
+      .filter(k => SUPPORTED_WALLETS[k].connector === connector && (connector !== injected || isMetaMask === (k === 'METAMASK')))
       .map(k => SUPPORTED_WALLETS[k].name)[0]
     return <WalletName>Connected with {name}</WalletName>
   }
@@ -325,11 +316,7 @@ export default function AccountDetails({
                           </Copy>
                         )}
                         {chainId && account && (
-                          <AddressLink
-                            hasENS={!!ENSName}
-                            isENS={true}
-                            href={chainId && getBlockScanLink(chainId, ENSName, 'address')}
-                          >
+                          <AddressLink hasENS={!!ENSName} isENS={true} href={chainId && getBlockScanLink(chainId, ENSName, 'address')}>
                             <LinkIcon size={16} />
                             <span style={{ marginLeft: '4px' }}>View on Blocksscan</span>
                           </AddressLink>
@@ -347,11 +334,7 @@ export default function AccountDetails({
                           </Copy>
                         )}
                         {chainId && account && (
-                          <AddressLink
-                            hasENS={!!ENSName}
-                            isENS={false}
-                            href={getBlockScanLink(chainId, account, 'address')}
-                          >
+                          <AddressLink hasENS={!!ENSName} isENS={false} href={getBlockScanLink(chainId, account, 'address')}>
                             <LinkIcon size={16} />
                             <span style={{ marginLeft: '4px' }}>View on Blocksscan</span>
                           </AddressLink>

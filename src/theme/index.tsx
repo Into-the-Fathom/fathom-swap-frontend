@@ -1,10 +1,5 @@
 import React, { useMemo } from 'react'
-import styled, {
-  createGlobalStyle,
-  css,
-  DefaultTheme,
-  ThemeProvider as StyledComponentsThemeProvider
-} from 'styled-components'
+import styled, { createGlobalStyle, css, DefaultTheme, ThemeProvider as StyledComponentsThemeProvider } from 'styled-components'
 import { Text, TextProps } from 'rebass'
 import { Colors } from 'theme/styled'
 
@@ -18,17 +13,14 @@ const MEDIA_WIDTHS = {
   upToExtraLarge: 1500
 }
 
-const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(MEDIA_WIDTHS).reduce(
-  (accumulator, size) => {
-    ;(accumulator as any)[size] = (a: any, b: any, c: any) => css`
-      @media (max-width: ${(MEDIA_WIDTHS as any)[size]}px) {
-        ${css(a, b, c)}
-      }
-    `
-    return accumulator
-  },
-  {}
-) as any
+const mediaWidthTemplates: { [width in keyof typeof MEDIA_WIDTHS]: typeof css } = Object.keys(MEDIA_WIDTHS).reduce((accumulator, size) => {
+  ;(accumulator as any)[size] = (a: any, b: any, c: any) => css`
+    @media (max-width: ${(MEDIA_WIDTHS as any)[size]}px) {
+      ${css(a, b, c)}
+    }
+  `
+  return accumulator
+}, {}) as any
 
 const white = '#FFFFFF'
 const black = '#000000'

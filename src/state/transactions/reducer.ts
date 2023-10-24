@@ -1,11 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit'
-import {
-  addTransaction,
-  checkedTransaction,
-  clearAllTransactions,
-  finalizeTransaction,
-  SerializableTransactionReceipt
-} from 'state/transactions/actions'
+import { addTransaction, checkedTransaction, clearAllTransactions, finalizeTransaction, SerializableTransactionReceipt } from 'state/transactions/actions'
 
 const now = () => new Date().getTime()
 

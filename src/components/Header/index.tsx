@@ -348,11 +348,7 @@ export default function Header() {
             id={`pool-nav-link`}
             to={'/pool'}
             isActive={(match, { pathname }) =>
-              Boolean(match) ||
-              pathname.startsWith('/add') ||
-              pathname.startsWith('/remove') ||
-              pathname.startsWith('/create') ||
-              pathname.startsWith('/find')
+              Boolean(match) || pathname.startsWith('/add') || pathname.startsWith('/remove') || pathname.startsWith('/create') || pathname.startsWith('/find')
             }
           >
             {t('pool')}
@@ -363,27 +359,17 @@ export default function Header() {
           <StyledExternalLink id={`stake-nav-link`} href={'https://dapp.fathom.fi'}>
             FXD <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
-          <StyledExternalLink
-            id={`stake-nav-link`}
-            href={'https://gist.github.com/BaldyAsh/47a33c5e8005c05315cc8dfc9baa4c0e'}
-          >
+          <StyledExternalLink id={`stake-nav-link`} href={'https://gist.github.com/BaldyAsh/47a33c5e8005c05315cc8dfc9baa4c0e'}>
             Privacy Policy <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
-          <StyledExternalLink
-            id={`stake-nav-link`}
-            href={'https://gist.github.com/BaldyAsh/9e1efbfd87fa87fd67091b5d45c481b3'}
-          >
+          <StyledExternalLink id={`stake-nav-link`} href={'https://gist.github.com/BaldyAsh/9e1efbfd87fa87fd67091b5d45c481b3'}>
             Terms of Service <span style={{ fontSize: '11px' }}>↗</span>
           </StyledExternalLink>
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>
         <HeaderElement>
-          <HideSmall>
-            {chainId && NETWORK_LABELS[chainId] && (
-              <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
-            )}
-          </HideSmall>
+          <HideSmall>{chainId && NETWORK_LABELS[chainId] && <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>}</HideSmall>
           {aggregateBalance && (
             <FTHMWrapper onClick={() => setShowUniBalanceModal(true)}>
               <FTHMAmount active={!!account /*&& !availableClaim*/} style={{ pointerEvents: 'auto' }}>

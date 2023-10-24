@@ -46,15 +46,7 @@ const Fader = styled.div`
 
 const AnimatedFader = animated(Fader)
 
-export default function PopupItem({
-  removeAfterMs,
-  content,
-  popKey
-}: {
-  removeAfterMs: number | null
-  content: PopupContent
-  popKey: string
-}) {
+export default function PopupItem({ removeAfterMs, content, popKey }: { removeAfterMs: number | null; content: PopupContent; popKey: string }) {
   const removePopup = useRemovePopup()
   const removeThisPopup = useCallback(() => removePopup(popKey), [popKey, removePopup])
   useEffect(() => {

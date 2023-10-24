@@ -18,11 +18,7 @@ export function useTransactionAdder(): (
   return useCallback(
     (
       response: TransactionResponse,
-      {
-        summary,
-        approval,
-        claim
-      }: { summary?: string; claim?: { recipient: string }; approval?: { tokenAddress: string; spender: string } } = {}
+      { summary, approval, claim }: { summary?: string; claim?: { recipient: string }; approval?: { tokenAddress: string; spender: string } } = {}
     ) => {
       if (!account) return
       if (!chainId) return
@@ -86,9 +82,7 @@ export function useHasPendingApproval(tokenAddress: string | undefined, spender:
 
 // watch for submissions to claim
 // return null if not done loading, return undefined if not found
-export function useUserHasSubmittedClaim(
-  account?: string
-): { claimSubmitted: boolean; claimTxn: TransactionDetails | undefined } {
+export function useUserHasSubmittedClaim(account?: string): { claimSubmitted: boolean; claimTxn: TransactionDetails | undefined } {
   const allTransactions = useAllTransactions()
 
   // get the txn if it has been submitted

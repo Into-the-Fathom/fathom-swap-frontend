@@ -8,13 +8,7 @@ import chunkArray from 'utils/chunkArray'
 import { CancelledError, retry, RetryableError } from 'utils/retry'
 import { useBlockNumber } from 'state/application/hooks'
 import { AppDispatch, AppState } from 'state'
-import {
-  Call,
-  errorFetchingMulticallResults,
-  fetchingMulticallResults,
-  parseCallKey,
-  updateMulticallResults
-} from './actions'
+import { Call, errorFetchingMulticallResults, fetchingMulticallResults, parseCallKey, updateMulticallResults } from './actions'
 
 // chunk calls so we do not exceed the gas limit
 const CALL_CHUNK_SIZE = 500
@@ -25,11 +19,7 @@ const CALL_CHUNK_SIZE = 500
  * @param chunk chunk of calls to make
  * @param minBlockNumber minimum block number of the result set
  */
-async function fetchChunk(
-  multicallContract: Contract,
-  chunk: Call[],
-  minBlockNumber: number
-): Promise<{ results: string[]; blockNumber: number }> {
+async function fetchChunk(multicallContract: Contract, chunk: Call[], minBlockNumber: number): Promise<{ results: string[]; blockNumber: number }> {
   let resultsBlockNumber, returnData
   try {
     ;[resultsBlockNumber, returnData] = await multicallContract.aggregate(chunk.map(obj => [obj.address, obj.callData]))
@@ -50,10 +40,7 @@ async function fetchChunk(
  * @param allListeners the all listeners state
  * @param chainId the current chain id
  */
-export function activeListeningKeys(
-  allListeners: AppState['multicall']['callListeners'],
-  chainId?: number
-): { [callKey: string]: number } {
+export function activeListeningKeys(allListeners: AppState['multicall']['callListeners'], chainId?: number): { [callKey: string]: number } {
   if (!allListeners || !chainId) return {}
   const listeners = allListeners[chainId]
   if (!listeners) return {}
@@ -127,9 +114,7 @@ export default function Updater(): null {
     return outdatedListeningKeys(state.callResults, listeningKeys, chainId, latestBlockNumber)
   }, [chainId, state.callResults, listeningKeys, latestBlockNumber])
 
-  const serializedOutdatedCallKeys = useMemo(() => JSON.stringify(unserializedOutdatedCallKeys.sort()), [
-    unserializedOutdatedCallKeys
-  ])
+  const serializedOutdatedCallKeys = useMemo(() => JSON.stringify(unserializedOutdatedCallKeys.sort()), [unserializedOutdatedCallKeys])
 
   useEffect(() => {
     if (!latestBlockNumber || !chainId || !multicallContract) return
@@ -171,12 +156,10 @@ export default function Updater(): null {
             dispatch(
               updateMulticallResults({
                 chainId,
-                results: outdatedCallKeys
-                  .slice(firstCallKeyIndex, lastCallKeyIndex)
-                  .reduce<{ [callKey: string]: string | null }>((memo, callKey, i) => {
-                    memo[callKey] = returnData[i] ?? null
-                    return memo
-                  }, {}),
+                results: outdatedCallKeys.slice(firstCallKeyIndex, lastCallKeyIndex).reduce<{ [callKey: string]: string | null }>((memo, callKey, i) => {
+                  memo[callKey] = returnData[i] ?? null
+                  return memo
+                }, {}),
                 blockNumber: fetchBlockNumber
               })
             )

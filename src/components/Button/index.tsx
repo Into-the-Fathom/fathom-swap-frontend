@@ -51,8 +51,7 @@ export const ButtonPrimary = styled(Base)`
     background: transparent;
   }
   &:disabled {
-    background-color: ${({ theme, altDisabledStyle, disabled }) =>
-      altDisabledStyle ? (disabled ? theme.bg4 : theme.primary1) : theme.bg4};
+    background-color: ${({ theme, altDisabledStyle, disabled }) => (altDisabledStyle ? (disabled ? theme.bg4 : theme.primary1) : theme.bg4)};
     color: ${({ theme }) => theme.text3};
     box-shadow: none;
     border: 1px solid transparent;
@@ -266,11 +265,7 @@ const ButtonErrorStyle = styled(Base)`
   }
 `
 
-export function ButtonConfirmed({
-  confirmed,
-  altDisabledStyle,
-  ...rest
-}: { confirmed?: boolean; altDisabledStyle?: boolean } & ButtonProps) {
+export function ButtonConfirmed({ confirmed, altDisabledStyle, ...rest }: { confirmed?: boolean; altDisabledStyle?: boolean } & ButtonProps) {
   if (confirmed) {
     return <ButtonConfirmedStyle {...rest} />
   } else {

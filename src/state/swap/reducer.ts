@@ -28,22 +28,19 @@ const initialState: SwapState = {
 
 export default createReducer<SwapState>(initialState, builder =>
   builder
-    .addCase(
-      replaceSwapState,
-      (state, { payload: { typedValue, recipient, field, inputCurrencyId, outputCurrencyId } }) => {
-        return {
-          [Field.INPUT]: {
-            currencyId: inputCurrencyId
-          },
-          [Field.OUTPUT]: {
-            currencyId: outputCurrencyId
-          },
-          independentField: field,
-          typedValue: typedValue,
-          recipient
-        }
+    .addCase(replaceSwapState, (state, { payload: { typedValue, recipient, field, inputCurrencyId, outputCurrencyId } }) => {
+      return {
+        [Field.INPUT]: {
+          currencyId: inputCurrencyId
+        },
+        [Field.OUTPUT]: {
+          currencyId: outputCurrencyId
+        },
+        independentField: field,
+        typedValue: typedValue,
+        recipient
       }
-    )
+    })
     .addCase(selectCurrency, (state, { payload: { currencyId, field } }) => {
       const otherField = field === Field.INPUT ? Field.OUTPUT : Field.INPUT
       if (currencyId === state[otherField].currencyId) {

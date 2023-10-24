@@ -7,11 +7,7 @@ import Polling from 'components/Header/Polling'
 import Popups from 'components/Popups'
 import Web3ReactManager from 'components/Web3ReactManager'
 import AddLiquidity from 'pages/AddLiquidity'
-import {
-  RedirectDuplicateTokenIds,
-  RedirectOldAddLiquidityPathStructure,
-  RedirectToAddLiquidity
-} from 'pages/AddLiquidity/redirects'
+import { RedirectDuplicateTokenIds, RedirectOldAddLiquidityPathStructure, RedirectToAddLiquidity } from 'pages/AddLiquidity/redirects'
 import Pool from 'pages/Pool'
 import PoolFinder from 'pages/PoolFinder'
 import RemoveLiquidity from 'pages/RemoveLiquidity'

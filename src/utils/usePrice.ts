@@ -14,10 +14,7 @@ export default function usePrice(currency?: Currency): Price | undefined {
   const wrapped = wrappedCurrency(currency, chainId)
   const tokenPairs: [Currency | undefined, Currency | undefined][] = useMemo(
     () => [
-      [
-        chainId && wrapped && currencyEquals(WETH[chainId], wrapped) ? undefined : currency,
-        chainId ? WETH[chainId] : undefined
-      ],
+      [chainId && wrapped && currencyEquals(WETH[chainId], wrapped) ? undefined : currency, chainId ? WETH[chainId] : undefined],
       [wrapped?.equals(FXD_AXDC) ? undefined : wrapped, chainId === ChainId.AXDC ? FXD_AXDC : undefined],
       [chainId ? WETH[chainId] : undefined, chainId === ChainId.AXDC ? FXD_AXDC : undefined]
     ],
@@ -48,16 +45,11 @@ export default function usePrice(currency?: Currency): Price | undefined {
     }
 
     const ethPairETHAmount = ethPair?.reserveOf(WETH[chainId])
-    const ethPairETHUSDCValue: JSBI =
-      ethPairETHAmount && usdcEthPair ? usdcEthPair.priceOf(WETH[chainId]).quote(ethPairETHAmount).raw : JSBI.BigInt(0)
+    const ethPairETHUSDCValue: JSBI = ethPairETHAmount && usdcEthPair ? usdcEthPair.priceOf(WETH[chainId]).quote(ethPairETHAmount).raw : JSBI.BigInt(0)
 
     // all other tokens
     // first try the usdc pair
-    if (
-      usdcPairState === PairState.EXISTS &&
-      usdcPair &&
-      usdcPair.reserveOf(FXD_AXDC).greaterThan(ethPairETHUSDCValue)
-    ) {
+    if (usdcPairState === PairState.EXISTS && usdcPair && usdcPair.reserveOf(FXD_AXDC).greaterThan(ethPairETHUSDCValue)) {
       const price = usdcPair.priceOf(wrapped)
       return new Price(currency, FXD_AXDC, price.denominator, price.numerator)
     }

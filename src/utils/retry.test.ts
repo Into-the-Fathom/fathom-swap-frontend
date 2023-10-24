@@ -12,9 +12,7 @@ describe('retry', () => {
   }
 
   it('fails for non-retryable error', async () => {
-    await expect(retry(makeFn(1, 'abc', false), { n: 3, maxWait: 0, minWait: 0 }).promise).rejects.toThrow(
-      'bad failure'
-    )
+    await expect(retry(makeFn(1, 'abc', false), { n: 3, maxWait: 0, minWait: 0 }).promise).rejects.toThrow('bad failure')
   })
 
   it('works after one fail', async () => {
@@ -53,13 +51,7 @@ describe('retry', () => {
   it('waits random amount of time between min and max', async () => {
     const promises = []
     for (let i = 0; i < 10; i++) {
-      promises.push(
-        checkTime(
-          () => expect(retry(makeFn(4, 'abc'), { n: 3, maxWait: 100, minWait: 50 }).promise).rejects.toThrow('failure'),
-          150,
-          400
-        )
-      )
+      promises.push(checkTime(() => expect(retry(makeFn(4, 'abc'), { n: 3, maxWait: 100, minWait: 50 }).promise).rejects.toThrow('failure'), 150, 400))
     }
     await Promise.all(promises)
   })

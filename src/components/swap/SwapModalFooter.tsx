@@ -5,12 +5,7 @@ import { Text } from 'rebass'
 import { ThemeContext } from 'styled-components'
 import { Field } from 'state/swap/actions'
 import { TYPE } from 'theme'
-import {
-  computeSlippageAdjustedAmounts,
-  computeTradePriceBreakdown,
-  formatExecutionPrice,
-  warningSeverity
-} from 'utils/prices'
+import { computeSlippageAdjustedAmounts, computeTradePriceBreakdown, formatExecutionPrice, warningSeverity } from 'utils/prices'
 import { ButtonError } from 'components/Button'
 import { AutoColumn } from 'components/Column'
 import QuestionHelper from 'components/QuestionHelper'
@@ -33,10 +28,7 @@ export default function SwapModalFooter({
 }) {
   const [showInverted, setShowInverted] = useState<boolean>(false)
   const theme = useContext(ThemeContext)
-  const slippageAdjustedAmounts = useMemo(() => computeSlippageAdjustedAmounts(trade, allowedSlippage), [
-    allowedSlippage,
-    trade
-  ])
+  const slippageAdjustedAmounts = useMemo(() => computeSlippageAdjustedAmounts(trade, allowedSlippage), [allowedSlippage, trade])
   const { priceImpactWithoutFee, realizedLPFee } = useMemo(() => computeTradePriceBreakdown(trade), [trade])
   const severity = warningSeverity(priceImpactWithoutFee)
 
@@ -80,9 +72,7 @@ export default function SwapModalFooter({
                 : slippageAdjustedAmounts[Field.INPUT]?.toSignificant(4) ?? '-'}
             </TYPE.white>
             <TYPE.white fontSize={14} marginLeft={'4px'}>
-              {trade.tradeType === TradeType.EXACT_INPUT
-                ? trade.outputAmount.currency.symbol
-                : trade.inputAmount.currency.symbol}
+              {trade.tradeType === TradeType.EXACT_INPUT ? trade.outputAmount.currency.symbol : trade.inputAmount.currency.symbol}
             </TYPE.white>
           </RowFixed>
         </RowBetween>
@@ -102,20 +92,12 @@ export default function SwapModalFooter({
             </TYPE.black>
             <QuestionHelper text="A portion of each trade (0.30%) goes to liquidity providers as a protocol incentive." />
           </RowFixed>
-          <TYPE.white fontSize={14}>
-            {realizedLPFee ? realizedLPFee?.toSignificant(6) + ' ' + trade.inputAmount.currency.symbol : '-'}
-          </TYPE.white>
+          <TYPE.white fontSize={14}>{realizedLPFee ? realizedLPFee?.toSignificant(6) + ' ' + trade.inputAmount.currency.symbol : '-'}</TYPE.white>
         </RowBetween>
       </AutoColumn>
 
       <AutoRow>
-        <ButtonError
-          onClick={onConfirm}
-          disabled={disabledConfirm}
-          error={severity > 2}
-          style={{ margin: '10px 0 0 0' }}
-          id="confirm-swap-or-send"
-        >
+        <ButtonError onClick={onConfirm} disabled={disabledConfirm} error={severity > 2} style={{ margin: '10px 0 0 0' }} id="confirm-swap-or-send">
           <Text fontSize={20} fontWeight={500}>
             {severity > 2 ? 'Swap Anyway' : 'Confirm Swap'}
           </Text>

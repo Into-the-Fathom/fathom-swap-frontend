@@ -43,10 +43,10 @@ interface PositionCardProps {
 }
 
 export function MinimalPositionCard({ pair, showUnwrapped = false, border }: PositionCardProps) {
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
 
-  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0, chainId)
-  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1, chainId)
+  const currency0 = showUnwrapped ? pair.token0 : unwrappedToken(pair.token0)
+  const currency1 = showUnwrapped ? pair.token1 : unwrappedToken(pair.token1)
 
   const [showMore, setShowMore] = useState(false)
 
@@ -141,8 +141,8 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
             <span role="img" aria-label="wizard-icon">
               ⭐️
             </span>{' '}
-            By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the pool.
-            Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.
+            By adding liquidity you&apos;ll earn 0.3% of all trades on this pair proportional to your share of the pool. Fees are added to the pool, accrue in
+            real time and can be claimed by withdrawing your liquidity.
           </TYPE.subHeader>
         </LightCard>
       )}
@@ -151,10 +151,10 @@ export function MinimalPositionCard({ pair, showUnwrapped = false, border }: Pos
 }
 
 export default function FullPositionCard({ pair, border, stakedBalance }: PositionCardProps) {
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
 
-  const currency0 = unwrappedToken(pair.token0, chainId)
-  const currency1 = unwrappedToken(pair.token1, chainId)
+  const currency0 = unwrappedToken(pair.token0)
+  const currency1 = unwrappedToken(pair.token1)
 
   const [showMore, setShowMore] = useState(false)
 
@@ -195,12 +195,7 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
             </Text>
           </AutoRow>
           <RowFixed gap="8px">
-            <ButtonEmpty
-              padding="6px 8px"
-              borderRadius="12px"
-              width="fit-content"
-              onClick={() => setShowMore(!showMore)}
-            >
+            <ButtonEmpty padding="6px 8px" borderRadius="12px" width="fit-content" onClick={() => setShowMore(!showMore)}>
               {showMore ? (
                 <>
                   Manage
@@ -277,50 +272,27 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
                 Your pool share:
               </Text>
               <Text fontSize={16} fontWeight={500}>
-                {poolTokenPercentage
-                  ? (poolTokenPercentage.toFixed(2) === '0.00' ? '<0.01' : poolTokenPercentage.toFixed(2)) + '%'
-                  : '-'}
+                {poolTokenPercentage ? (poolTokenPercentage.toFixed(2) === '0.00' ? '<0.01' : poolTokenPercentage.toFixed(2)) + '%' : '-'}
               </Text>
             </FixedHeightRow>
 
             <ButtonSecondary padding="8px" borderRadius="8px">
-              <ExternalLink
-                style={{ width: '100%', textAlign: 'center' }}
-                href={`https://charts.fathom.fi/#/account/${account}`}
-              >
+              <ExternalLink style={{ width: '100%', textAlign: 'center' }} href={`https://charts.fathom.fi/#/account/${account}`}>
                 View accrued fees and analytics<span style={{ fontSize: '11px' }}>↗</span>
               </ExternalLink>
             </ButtonSecondary>
             {userDefaultPoolBalance && JSBI.greaterThan(userDefaultPoolBalance.raw, BIG_INT_ZERO) && (
               <RowBetween marginTop="10px">
-                <ButtonSecondary
-                  padding="8px"
-                  borderRadius="8px"
-                  as={Link}
-                  to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`}
-                  width="48%"
-                >
+                <ButtonSecondary padding="8px" borderRadius="8px" as={Link} to={`/add/${currencyId(currency0)}/${currencyId(currency1)}`} width="48%">
                   Add
                 </ButtonSecondary>
-                <ButtonSecondary
-                  padding="8px"
-                  borderRadius="8px"
-                  as={Link}
-                  width="48%"
-                  to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}
-                >
+                <ButtonSecondary padding="8px" borderRadius="8px" as={Link} width="48%" to={`/remove/${currencyId(currency0)}/${currencyId(currency1)}`}>
                   Remove
                 </ButtonSecondary>
               </RowBetween>
             )}
             {stakedBalance && JSBI.greaterThan(stakedBalance.raw, BIG_INT_ZERO) && (
-              <ButtonPrimary
-                padding="8px"
-                borderRadius="8px"
-                as={Link}
-                to={`/uni/${currencyId(currency0)}/${currencyId(currency1)}`}
-                width="100%"
-              >
+              <ButtonPrimary padding="8px" borderRadius="8px" as={Link} to={`/uni/${currencyId(currency0)}/${currencyId(currency1)}`} width="100%">
                 Manage Liquidity in Rewards Pool
               </ButtonPrimary>
             )}

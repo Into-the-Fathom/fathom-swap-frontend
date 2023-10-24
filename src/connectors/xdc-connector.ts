@@ -1,18 +1,10 @@
-import {
-  AbstractConnectorArguments,
-  ConnectorUpdate
-} from '@web3-react/types'
+import { AbstractConnectorArguments, ConnectorUpdate } from '@web3-react/types'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import warning from 'tiny-warning'
 
-import {
-  SendReturnResult,
-  SendReturn,
-  Send,
-  SendOld
-} from './types'
+import { SendReturnResult, SendReturn, Send, SendOld } from './types'
 
-function parseSendReturn(sendReturn: SendReturnResult|SendReturn): any {
+function parseSendReturn(sendReturn: SendReturnResult | SendReturn): any {
   return sendReturn.hasOwnProperty('result') ? sendReturn.result : sendReturn
 }
 
@@ -41,7 +33,7 @@ export class XdcInjectedConnector extends AbstractConnector {
     this.handleClose = this.handleClose.bind(this)
   }
 
-  private handleChainChanged(chainId: string|number): void {
+  private handleChainChanged(chainId: string | number): void {
     this.emitUpdate({ chainId, provider: window.xdc })
   }
 
@@ -53,7 +45,7 @@ export class XdcInjectedConnector extends AbstractConnector {
     }
   }
 
-  private handleClose(code: number, reason: string): void {
+  private handleClose(): void {
     this.emitDeactivate()
   }
 
@@ -68,16 +60,14 @@ export class XdcInjectedConnector extends AbstractConnector {
       window.xdc.on('close', this.handleClose)
     }
 
-    if ((window.xdc)) {
+    if (window.xdc) {
       ;(window.xdc as any).autoRefreshOnNetworkChange = false
     }
 
     // try to activate + get account via eth_requestAccounts
     let account
     try {
-      account = await (window.xdc.send as Send)('eth_requestAccounts').then(
-        sendReturn => parseSendReturn(sendReturn)[0]
-      )
+      account = await (window.xdc.send as Send)('eth_requestAccounts').then(sendReturn => parseSendReturn(sendReturn)[0])
     } catch (error) {
       if ((error as any).code === 4001) {
         throw new UserRejectedRequestError()
@@ -98,7 +88,7 @@ export class XdcInjectedConnector extends AbstractConnector {
     return window.xdc
   }
 
-  public async getChainId(): Promise<number|string> {
+  public async getChainId(): Promise<number | string> {
     if (!window.xdc) {
       throw new NoXdcPayProviderError()
     }
@@ -130,18 +120,14 @@ export class XdcInjectedConnector extends AbstractConnector {
       if ((window.xdc as any).isDapper) {
         chainId = parseSendReturn((window.xdc as any).cachedResults.net_version)
       } else {
-        chainId =
-          (window.xdc as any).chainId ||
-          (window.xdc as any).netVersion ||
-          (window.xdc as any).networkVersion ||
-          (window.xdc as any)._chainId
+        chainId = (window.xdc as any).chainId || (window.xdc as any).netVersion || (window.xdc as any).networkVersion || (window.xdc as any)._chainId
       }
     }
 
     return chainId
   }
 
-  public async getAccount(): Promise<null|string> {
+  public async getAccount(): Promise<null | string> {
     if (!window.xdc) {
       throw new NoXdcPayProviderError()
     }

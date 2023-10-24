@@ -4,10 +4,7 @@ import { useWeb3React as useWeb3ReactCore } from '@web3-react/core'
 import { Web3ReactContextInterface } from '@web3-react/core/dist/types'
 import { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect'
-import {
-  injected,
-  injectedXdcPayV1
-} from 'connectors'
+import { injected, injectedXdcPayV1, walletconnect } from 'connectors'
 import { NetworkContextName } from 'constants/index'
 
 export function useActiveWeb3React(): Web3ReactContextInterface<Web3Provider> & { chainId?: ChainId } {
@@ -21,8 +18,12 @@ export function useEagerConnect() {
   const [tried, setTried] = useState(false)
 
   useEffect(() => {
-    const connectorType = localStorage.getItem('connectorType');
-    if (connectorType === 'xdcPayV1') {
+    const connectorType = localStorage.getItem('connectorType')
+    if (connectorType === 'walletConnect') {
+      activate(walletconnect, undefined, true).catch(() => {
+        setTried(true)
+      })
+    } else if (connectorType === 'xdcPayV1') {
       injectedXdcPayV1.isAuthorized().then(isAuthorized => {
         if (isAuthorized) {
           activate(injectedXdcPayV1, undefined, true).catch(() => {
