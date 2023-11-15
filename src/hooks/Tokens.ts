@@ -1,4 +1,4 @@
-import { TokenAddressMap, useDefaultTokenList, useUnsupportedTokenList } from 'state/lists/hooks'
+import { TokenAddressMap, useDefaultTokenList, useSupportedTokenList } from 'state/lists/hooks'
 import { parseBytes32String } from '@into-the-fathom/strings'
 import { Currency, currencyEquals, Token, XDC } from 'fathomswap-sdk'
 import { useMemo } from 'react'
@@ -75,9 +75,9 @@ export function useAllInactiveTokens(): { [address: string]: Token } {
   return filteredInactive
 }
 
-export function useUnsupportedTokens(): { [address: string]: Token } {
-  const unsupportedTokensMap = useUnsupportedTokenList()
-  return useTokensFromMap(unsupportedTokensMap, false)
+export function useSupportedTokens(): { [address: string]: Token } {
+  const supportedTokenList = useSupportedTokenList()
+  return useTokensFromMap(supportedTokenList, false)
 }
 
 export function useIsTokenActive(token: Token | undefined | null): boolean {

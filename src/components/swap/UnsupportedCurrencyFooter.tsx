@@ -11,7 +11,7 @@ import { useActiveWeb3React } from 'hooks'
 import { getBlockScanLink } from 'utils'
 import { Currency, Token } from 'fathomswap-sdk'
 import { wrappedCurrency } from 'utils/wrappedCurrency'
-import { useUnsupportedTokens } from 'hooks/Tokens'
+import { useSupportedTokens } from 'hooks/Tokens'
 
 const DetailsFooter = styled.div<{ show: boolean }>`
   padding-top: calc(16px + 2rem);
@@ -49,7 +49,7 @@ export default function UnsupportedCurrencyFooter({ show, currencies }: { show: 
         })
       : []
 
-  const unsupportedTokens: { [address: string]: Token } = useUnsupportedTokens()
+  const supportedTokens: { [address: string]: Token } = useSupportedTokens()
 
   return (
     <DetailsFooter show={show}>
@@ -63,8 +63,8 @@ export default function UnsupportedCurrencyFooter({ show, currencies }: { show: 
             {tokens.map(token => {
               return (
                 token &&
-                unsupportedTokens &&
-                Object.keys(unsupportedTokens).includes(token.address) && (
+                supportedTokens &&
+                !Object.keys(supportedTokens).includes(token.address) && (
                   <OutlineCard key={token.address?.concat('not-supported')}>
                     <AutoColumn gap="10px">
                       <AutoRow gap="5px" align="center">
