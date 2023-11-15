@@ -1,4 +1,4 @@
-import { UNSUPPORTED_LIST_URLS } from 'constants/lists'
+import { SUPPORTED_LIST_URLS } from 'constants/lists'
 import DEFAULT_TOKEN_LIST from 'fathom-swap-standard-token-list'
 import { ChainId, Token } from 'fathomswap-sdk'
 import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists'
@@ -120,13 +120,13 @@ function useCombinedTokenMapFromUrls(urls: string[] | undefined): TokenAddressMa
 
 // filter out unsupported lists
 export function useActiveListUrls(): string[] | undefined {
-  return useSelector<AppState, AppState['lists']['activeListUrls']>(state => state.lists.activeListUrls)?.filter(url => !UNSUPPORTED_LIST_URLS.includes(url))
+  return useSelector<AppState, AppState['lists']['activeListUrls']>(state => state.lists.activeListUrls)?.filter(url => SUPPORTED_LIST_URLS.includes(url))
 }
 
 export function useInactiveListUrls(): string[] {
   const lists = useAllLists()
   const allActiveListUrls = useActiveListUrls()
-  return Object.keys(lists).filter(url => !allActiveListUrls?.includes(url) && !UNSUPPORTED_LIST_URLS.includes(url))
+  return Object.keys(lists).filter(url => !allActiveListUrls?.includes(url) && SUPPORTED_LIST_URLS.includes(url))
 }
 
 // get all the tokens from active lists, combine with local default tokens
@@ -148,10 +148,9 @@ export function useDefaultTokenList(): TokenAddressMap {
   return listToTokenMap(DEFAULT_TOKEN_LIST)
 }
 
-// list of tokens not supported on interface, used to show warnings and prevent swaps and adds
-export function useUnsupportedTokenList(): TokenAddressMap {
-  // get any loaded unsupported tokens
-  return useCombinedTokenMapFromUrls(UNSUPPORTED_LIST_URLS)
+export function useSupportedTokenList(): TokenAddressMap {
+  // get loaded supported tokens
+  return useCombinedTokenMapFromUrls(SUPPORTED_LIST_URLS)
 }
 
 export function useIsListActive(url: string): boolean {
