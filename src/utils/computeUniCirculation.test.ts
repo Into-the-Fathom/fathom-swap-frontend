@@ -1,4 +1,4 @@
-import { ChainId, JSBI, Token, TokenAmount } from 'fathomswap-sdk'
+import { ChainId, JSBI, Token, TokenAmount } from 'into-the-fathom-swap-sdk'
 import { BigNumber } from 'fathom-ethers'
 import { ZERO_ADDRESS } from 'constants/index'
 import { computeUniCirculation } from 'utils/computeUniCirculation'

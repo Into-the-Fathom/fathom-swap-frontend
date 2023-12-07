@@ -4,7 +4,7 @@ import {
   Percent,
   Token,
   WETH
-} from 'fathomswap-sdk'
+} from 'into-the-fathom-swap-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import {

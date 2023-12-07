@@ -1,4 +1,4 @@
-import { ChainId, Currency, currencyEquals, JSBI, Price, WETH } from 'fathomswap-sdk'
+import { ChainId, Currency, currencyEquals, JSBI, Price, WETH } from 'into-the-fathom-swap-sdk'
 import { useMemo } from 'react'
 import { FXD_AXDC } from 'constants/index'
 import { PairState, usePairs } from 'data/Reserves'

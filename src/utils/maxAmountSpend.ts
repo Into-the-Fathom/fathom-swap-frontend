@@ -1,4 +1,4 @@
-import { CurrencyAmount, XDC, JSBI } from 'fathomswap-sdk'
+import { CurrencyAmount, XDC, JSBI } from 'into-the-fathom-swap-sdk'
 import { MIN_XDC } from 'constants/index'
 
 /**

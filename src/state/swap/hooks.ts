@@ -1,6 +1,6 @@
 import useENS from 'hooks/useENS'
 import { parseUnits } from '@into-the-fathom/units'
-import { ChainId, Currency, CurrencyAmount, JSBI, Token, TokenAmount, Trade, XDC } from 'fathomswap-sdk'
+import { ChainId, Currency, CurrencyAmount, JSBI, Token, TokenAmount, Trade, XDC } from 'into-the-fathom-swap-sdk'
 import { ParsedQs } from 'qs'
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

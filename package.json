@@ -43,7 +43,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "fathom-ethers": "^1.1.0",
-    "i18next": "^15.0.9",
+    "i18next": "^17.3.1",
     "i18next-browser-languagedetector": "^3.0.1",
     "i18next-xhr-backend": "^2.0.1",
     "inter-ui": "^3.13.1",
@@ -86,8 +86,8 @@
     "workbox-routing": "^6.1.0",
     "workbox-strategies": "^6.1.0",
 
-    "fathom-swap-default-token-list": "1.2.5",
-    "fathomswap-sdk": "3.0.7"
+    "fathom-swap-standard-token-list": "1.7.2",
+    "into-the-fathom-swap-sdk": "^1.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
