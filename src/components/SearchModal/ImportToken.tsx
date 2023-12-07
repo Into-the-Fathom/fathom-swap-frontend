@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Token, Currency } from 'fathomswap-sdk'
+import { Token, Currency } from 'into-the-fathom-swap-sdk'
 import styled from 'styled-components'
 import { TYPE, CloseIcon } from 'theme'
 import Card from 'components/Card'

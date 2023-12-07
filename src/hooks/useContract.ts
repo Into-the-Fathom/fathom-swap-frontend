@@ -1,5 +1,5 @@
 import { Contract } from '@into-the-fathom/contracts'
-import { WETH } from 'fathomswap-sdk'
+import { WETH } from 'into-the-fathom-swap-sdk'
 import { abi as IUniswapV2PairABI } from 'into-the-fathom-swap-smart-contracts/artifacts/contracts/core/interfaces/IUniswapV2Pair.sol/IUniswapV2Pair.json'
 
 import { useMemo } from 'react'

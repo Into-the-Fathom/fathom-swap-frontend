@@ -1,4 +1,4 @@
-import { Percent } from 'fathomswap-sdk'
+import { Percent } from 'into-the-fathom-swap-sdk'
 import { ALLOWED_PRICE_IMPACT_HIGH, PRICE_IMPACT_WITHOUT_FEE_CONFIRM_MIN } from 'constants/index'
 
 /**

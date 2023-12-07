@@ -1,4 +1,4 @@
-import { Percent } from 'fathomswap-sdk'
+import { Percent } from 'into-the-fathom-swap-sdk'
 import React from 'react'
 import { ONE_BIPS } from 'constants/index'
 import { warningSeverity } from 'utils/prices'

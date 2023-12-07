@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, JSBI, Pair, Percent, TokenAmount } from 'fathomswap-sdk'
+import { Currency, CurrencyAmount, JSBI, Pair, Percent, TokenAmount } from 'into-the-fathom-swap-sdk'
 import { useCallback } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { usePair } from 'data/Reserves'
